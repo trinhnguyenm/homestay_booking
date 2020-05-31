@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">HotelReservations</string>
+    <string name="ok">OK</string>
+    <string name="dialogMessageNotInstallGoogleChrome">Please download Google Chrome browser to view the page</string>
 </resources>
