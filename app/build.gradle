@@ -11,7 +11,7 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-
+        vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -34,6 +34,13 @@ android {
             exclude "**/element/*Test.class"
         }
         unitTests.returnDefaultValues = true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
     }
 
     androidExtensions {
@@ -68,6 +75,8 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'com.google.android.material:material:1.1.0'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.1.0'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.1.0'
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:2.11.0'
     testImplementation "org.robolectric:robolectric:3.6.1"
@@ -100,4 +109,5 @@ dependencies {
 
     // Circle ImageView
     implementation 'de.hdodenhof:circleimageview:3.0.0'
+    implementation 'com.loopeer.lib:shadow:0.0.4-beta3'
 }
