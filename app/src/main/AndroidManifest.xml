@@ -14,7 +14,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
             android:windowSoftInputMode="adjustResize">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.HomeActivity"
+            android:name=".ui.home.MainActivity"
             android:screenOrientation="portrait" />
     </application>
 

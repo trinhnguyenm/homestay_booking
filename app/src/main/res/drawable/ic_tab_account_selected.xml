@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="20dp"
+    android:height="21dp"
+    android:viewportWidth="20.0"
+    android:viewportHeight="21.0">
+    <path
+        android:fillColor="@color/ic_tab_account_selected__0"
+        android:fillType="evenOdd"
+        android:pathData="M13.3364,1.5701L15.7454,0.5377C15.8806,0.4798 16.0344,0.4843 16.166,0.55C16.4129,0.6735 16.5131,0.9739 16.3896,1.2209L15.6321,2.7357C18.2691,4.5363 20,7.566 20,11C20,16.5228 15.5228,21 10,21C4.4772,21 0,16.5228 0,11C0,5.4772 4.4772,1 10,1C11.1699,1 12.2929,1.2009 13.3364,1.5701ZM5.5,9C6.3284,9 7,8.3284 7,7.5C7,6.6716 6.3284,6 5.5,6C4.6716,6 4,6.6716 4,7.5C4,8.3284 4.6716,9 5.5,9ZM8,11C7.4477,11 7,11.4477 7,12C7,12.5523 7.4477,13 8,13L11,13C11.5523,13 12,12.5523 12,12C12,11.4477 11.5523,11 11,11L8,11ZM13.5,9C14.3284,9 15,8.3284 15,7.5C15,6.6716 14.3284,6 13.5,6C12.6716,6 12,6.6716 12,7.5C12,8.3284 12.6716,9 13.5,9Z"
+        android:strokeWidth="1.0"
+        android:strokeColor="#00000000" />
+</vector>
