@@ -2,8 +2,8 @@ package com.ctr.hotelreservations.ui.home
 
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import android.widget.ImageView
-import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
@@ -14,26 +14,28 @@ import com.ctr.hotelreservations.R
 import com.ctr.hotelreservations.base.BaseActivity
 import com.ctr.hotelreservations.base.BaseFragment
 import com.ctr.hotelreservations.ui.account.AccountContainerFragment
-import com.ctr.hotelreservations.ui.inbox.InboxContainerFragment
+import com.ctr.hotelreservations.ui.favotite.FavoriteContainerFragment
 import com.ctr.hotelreservations.ui.mybooking.MyBookingContainerFragment
-import com.ctr.hotelreservations.ui.save.SaveContainerFragment
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
 
     companion object {
-        const val PAGER_NUMBER = 5
+        const val PAGER_NUMBER = 4
         const val TAB_HOME_POSITION = 0
         const val TAB_SAVE_POSITION = 1
         const val TAB_MY_BOOKING_POSITION = 2
-        const val TAB_INBOX_POSITION = 3
-        const val TAB_ACCOUNT_POSITION = 4
+        const val TAB_ACCOUNT_POSITION = 3
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
         initViewPager()
         initTab()
     }
@@ -43,7 +45,6 @@ class MainActivity : BaseActivity() {
             R.drawable.bg_icon_tab_home,
             R.drawable.bg_icon_tab_save,
             R.drawable.bg_icon_tab_my_booking,
-            R.drawable.bg_icon_tab_inbox,
             R.drawable.bg_icon_tab_account
         )
         for (i in 0 until PAGER_NUMBER) {
@@ -102,9 +103,8 @@ class MainActivity : BaseActivity() {
         override fun getItem(p0: Int): Fragment {
             return when (p0) {
                 TAB_HOME_POSITION -> HomeContainerFragment.getNewInstance()
-                TAB_SAVE_POSITION -> SaveContainerFragment.getNewInstance()
+                TAB_SAVE_POSITION -> FavoriteContainerFragment.getNewInstance()
                 TAB_MY_BOOKING_POSITION -> MyBookingContainerFragment.getNewInstance()
-                TAB_INBOX_POSITION -> InboxContainerFragment.getNewInstance()
                 else -> AccountContainerFragment.getNewInstance()
             }
         }

@@ -1,4 +1,4 @@
-package com.ctr.hotelreservations.ui.inbox
+package com.ctr.hotelreservations.ui.favotite
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,10 +10,10 @@ import com.ctr.hotelreservations.base.BaseFragment
 /**
  * Created by at-trinhnguyen2 on 2020/06/02
  */
-class InboxFragment : BaseFragment() {
+class FavoriteFragment : BaseFragment() {
 
     companion object {
-        fun newInstance() = InboxFragment()
+        fun newInstance() = FavoriteFragment()
     }
 
     override fun onCreateView(
@@ -21,6 +21,6 @@ class InboxFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_inbox, container, false)
+        return inflater.inflate(R.layout.fragment_favorite, container, false)
     }
 }
