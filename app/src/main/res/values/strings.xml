@@ -9,9 +9,8 @@
     <string name="acc_label_expiry_date">Expiration date</string>
     <string-array name="main_tab_title">
         <item>Explore</item>
-        <item>My collection</item>
+        <item>Favorite</item>
         <item>My booking</item>
-        <item>Inbox</item>
         <item>Account</item>
     </string-array>
     <string name="acc_label_zip">ZIP Code</string>
@@ -525,7 +524,7 @@ Internet banking"</string>
     <string name="mtrl_slider_range_content_description">%1$s to %2$s</string>
     <string name="my_car_booking_empty">"You don't have any bookings."</string>
     <string name="my_card">My card</string>
-    <string name="my_collection">My collection</string>
+    <string name="my_collection">My favorite</string>
     <string name="name">Name</string>
     <string name="name_empty">Please fill your name</string>
     <string name="nationality_required">*Country/Region</string>

@@ -77,6 +77,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.1.0'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.1.0'
     implementation 'androidx.navigation:navigation-ui-ktx:2.1.0'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:2.11.0'
     testImplementation "org.robolectric:robolectric:3.6.1"
@@ -104,10 +105,10 @@ dependencies {
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.8.0'
 
-    // Auto fit TextView
+    // View
     implementation 'me.grantland:autofittextview:0.2.1'
-
-    // Circle ImageView
     implementation 'de.hdodenhof:circleimageview:3.0.0'
     implementation 'com.loopeer.lib:shadow:0.0.4-beta3'
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
+    implementation 'com.makeramen:roundedimageview:2.3.0'
 }

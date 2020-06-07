@@ -147,4 +147,5 @@
     <dimen name="ucrop_width_horizontal_wheel_progress_line">2dp</dimen>
     <dimen name="width_see_more">200dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="notification_bar_size">24dp</dimen>
 </resources>

@@ -74,7 +74,7 @@ abstract class BaseFragment : Fragment() {
 
     open fun onComeBack(dataChanged: Boolean) = Unit
 
-    open fun isNeedPaddingTop(): Boolean = true
+    open fun isNeedPaddingTop(): Boolean = false
 
     open fun statusIconTheme(): Int = STATUS_BAR_ICON_THEME_WHITE
 
