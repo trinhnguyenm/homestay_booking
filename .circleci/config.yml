@@ -109,31 +109,6 @@ jobs:
       - store_test_results:
           path: app/build/test-results
 
-  deploy:
-    parameters:
-      variant:
-        type: enum
-        enum: ['debug', 'staging', 'release']
-        default: debug
-      deploy_to_all:
-        type: boolean
-        default: false
-    executor:
-      name: default
-    steps:
-      - prepare_workspace
-      - install_nodejs
-      - install_rubygem
-      - run:
-          name: Export version code
-          command: echo 'export ORG_GRADLE_PROJECT_VERSION_CODE="$CIRCLE_BUILD_NUM"' >> $BASH_ENV
-      - run:
-          name: Build APK file and distribute to Firebase App Distribution
-          command: bundle exec fastlane beta variant:<< parameters.variant >> notify_to_all:<< parameters.deploy_to_all >>
-      - store_artifacts:
-          path: app/build/outputs
-          destination: outputs
-
 workflows:
   build_and_deploy:
     jobs:
