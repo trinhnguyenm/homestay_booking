@@ -7,6 +7,7 @@ import com.ctr.hotelreservations.base.BaseActivity
 import com.ctr.hotelreservations.extension.getStatusBarHeight
 import com.ctr.hotelreservations.extension.replaceFragment
 import com.ctr.hotelreservations.ui.home.MainActivity
+import com.ctr.hotelreservations.ui.onboarding.OnBoardingActivity
 import com.ctr.hotelreservations.util.SharedReferencesUtil
 import kotlinx.android.synthetic.main.activity_splash.*
 
@@ -58,6 +59,11 @@ class SplashActivity : BaseActivity() {
 
     internal fun startHomeActivity() {
         startActivity(Intent(this, MainActivity::class.java))
+        finishAffinity()
+    }
+
+    internal fun startOnBoardingActivity() {
+        startActivity(Intent(this, OnBoardingActivity::class.java))
         finishAffinity()
     }
 }
