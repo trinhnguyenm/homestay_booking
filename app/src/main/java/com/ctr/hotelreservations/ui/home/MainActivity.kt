@@ -1,5 +1,7 @@
 package com.ctr.hotelreservations.ui.home
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
@@ -27,6 +29,12 @@ class MainActivity : BaseActivity() {
         const val TAB_SAVE_POSITION = 1
         const val TAB_MY_BOOKING_POSITION = 2
         const val TAB_ACCOUNT_POSITION = 3
+
+        internal fun start(from: Activity) {
+            MainActivity().apply {
+                from.startActivity(Intent(from, MainActivity::class.java))
+            }
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

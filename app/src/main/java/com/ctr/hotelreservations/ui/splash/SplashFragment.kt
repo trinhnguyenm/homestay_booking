@@ -2,11 +2,13 @@ package com.ctr.hotelreservations.ui.splash
 
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.ctr.hotelreservations.R
 import com.ctr.hotelreservations.base.BaseFragment
+import com.ctr.hotelreservations.data.source.LocalRepository
 
 /**
  * Created by at-trinhnguyen2 on 2020/05/31
@@ -28,12 +30,17 @@ class SplashFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Handler().postDelayed({ navigation() }, 1000L)
-    }
+        viewModel = context?.let { SplashViewModel(LocalRepository(it)) }
 
-    override fun isNeedPaddingTop() = false
-
-    private fun navigation() {
-        (activity as? SplashActivity)?.startHomeActivity()
+        Handler().postDelayed({
+            viewModel?.let {
+                if (it.isFirstLunch()) {
+                    Log.d("--=", "onViewCreated:")
+                    (activity as? SplashActivity)?.startOnBoardingActivity()
+                } else {
+                    (activity as? SplashActivity)?.startHomeActivity()
+                }
+            }
+        }, 1000L)
     }
 }
