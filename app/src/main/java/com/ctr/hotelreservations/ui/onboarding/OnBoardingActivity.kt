@@ -1,7 +1,6 @@
 package com.ctr.hotelreservations.ui.onboarding
 
 import android.os.Bundle
-import android.util.Log
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
@@ -26,7 +25,6 @@ class OnBoardingActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("--=", "onCreate: ")
         window.setFlags(
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
@@ -96,7 +94,6 @@ class OnBoardingActivity : AppCompatActivity() {
         override fun getItem(i: Int): BaseFragment {
             return when (i) {
                 0, 1 -> {
-                    Log.d("--=", "getItem: $i")
                     OnBoardingPageFragment.getInstance(i)
                 }
                 else -> OnBoardingSliderFragment.getInstance()
