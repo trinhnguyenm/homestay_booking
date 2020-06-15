@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.ctr.hotelreservations.R
 import com.ctr.hotelreservations.base.BaseFragment
 import com.ctr.hotelreservations.data.model.RoomInfo
+import com.ctr.hotelreservations.ui.roomdetail.RoomDetailActivity
 import kotlinx.android.synthetic.main.fragment_home.*
 
 /**
@@ -36,11 +36,11 @@ class HomeFragment : BaseFragment() {
         val homeAdapter = HomeAdapter(
             listOf(
                 RoomInfo(1, "", "", "", true, "title 1", 1, 1f, 1),
-                RoomInfo(1, "", "", "", true, "title 2", 1, 1f, 1),
-                RoomInfo(1, "", "", "", true, "title 3", 1, 1f, 1),
-                RoomInfo(1, "", "", "", true, "title 4", 1, 1f, 1),
-                RoomInfo(1, "", "", "", true, "title 5", 1, 1f, 1),
-                RoomInfo(1, "", "", "", true, "title 6", 1, 1f, 1)
+                RoomInfo(2, "", "", "", true, "title 2", 1, 1f, 1),
+                RoomInfo(3, "", "", "", true, "title 3", 1, 1f, 1),
+                RoomInfo(4, "", "", "", true, "title 4", 1, 1f, 1),
+                RoomInfo(5, "", "", "", true, "title 5", 1, 1f, 1),
+                RoomInfo(6, "", "", "", true, "title 6", 1, 1f, 1)
             )
         )
         rcvHome.apply {
@@ -49,7 +49,7 @@ class HomeFragment : BaseFragment() {
         }
 
         homeAdapter.onItemClicked = {
-            Toast.makeText(context, "CLick ${it.title}", Toast.LENGTH_SHORT).show()
+            RoomDetailActivity.start(this, it.roomId)
         }
     }
 }

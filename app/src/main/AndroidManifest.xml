@@ -20,7 +20,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.onboarding.OnBoardingActivity" />
+        <activity
+            android:name=".ui.onboarding.OnBoardingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.roomdetail.RoomDetailActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.home.MainActivity"
             android:screenOrientation="portrait" />
