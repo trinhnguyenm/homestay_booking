@@ -117,4 +117,5 @@
     <color name="ucrop_color_widget_text">#ff000000</color>
     <color name="unavaiable_color">#80000000</color>
     <color name="white">#ffffffff</color>
+    <color name="colorBlack50">#80000000</color>
 </resources>

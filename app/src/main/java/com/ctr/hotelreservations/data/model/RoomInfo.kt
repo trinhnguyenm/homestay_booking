@@ -4,7 +4,7 @@ package com.ctr.hotelreservations.data.model
  * Created by at-trinhnguyen2 on 2020/06/06
  */
 data class RoomInfo(
-    val id: Int,
+    val roomId: Int,
     val category: String,
     val location: String,
     val description: String,

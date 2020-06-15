@@ -6,6 +6,7 @@ import android.view.*
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.ctr.hotelreservations.R
 import com.ctr.hotelreservations.bus.RxBus
 import com.ctr.hotelreservations.data.model.KeyBoardEvent
 import com.ctr.hotelreservations.extension.getStatusBarHeight
@@ -25,6 +26,7 @@ abstract class BaseActivity : AppCompatActivity() {
         private const val DELAY_FOR_HIDE_KEYBOARD = 100L
     }
 
+    private val location = IntArray(2)
     private var isKeyboardShowed = false
     private var isKeyboardListenerAttach = false
     private val compositeDisposables = CompositeDisposable()
@@ -47,6 +49,16 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        when (getAppearAnimType()) {
+            AppearAnim.SLIDE_UP -> {
+                overridePendingTransition(R.anim.anim_slide_up, R.anim.anim_no_animation)
+            }
+
+            AppearAnim.SLIDE_FROM_RIGHT -> {
+                overridePendingTransition(R.anim.anim_slide_right_in, R.anim.anim_no_animation)
+            }
+        }
+        fullScreenActivity()
         progressDialog = ProgressBarDialog(this)
     }
 
@@ -61,40 +73,14 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     override fun onPause() {
+        hideKeyboard()
         super.onPause()
         compositeDisposables.clear()
-    }
-
-    protected fun attachKeyboardListener(rootView: ViewGroup) {
-        if (isKeyboardListenerAttach) {
-            return
-        }
-        rootView.viewTreeObserver.addOnGlobalLayoutListener(keyBoardListener)
-        isKeyboardListenerAttach = true
-    }
-
-    protected fun removeKeyboardListener(rootView: ViewGroup) {
-        if (isKeyboardListenerAttach) {
-            rootView.viewTreeObserver.removeOnGlobalLayoutListener(keyBoardListener)
-        }
-    }
-
-    protected fun paddingTop(vararg view: View) {
-        view.forEach { it.setPadding(0, getStatusBarHeight(), 0, 0) }
-    }
-
-    protected open fun getProgressBarControlObservable(): BehaviorSubject<Boolean>? = null
-
-    protected fun addDisposables(vararg ds: Disposable) {
-        ds.forEach {
-            compositeDisposables.add(it)
-        }
     }
 
     override fun dispatchTouchEvent(event: MotionEvent): Boolean {
         val view = currentFocus
         val ret = super.dispatchTouchEvent(event)
-        val location = IntArray(2)
         when (event.action) {
             MotionEvent.ACTION_UP ->
                 if (view is EditText) {
@@ -117,13 +103,59 @@ abstract class BaseActivity : AppCompatActivity() {
         return ret
     }
 
+    override fun finish() {
+        super.finish()
+        when (getAppearAnimType()) {
+            AppearAnim.SLIDE_UP -> {
+                overridePendingTransition(R.anim.anim_no_animation, R.anim.anim_slide_down)
+            }
+
+            AppearAnim.SLIDE_FROM_RIGHT -> {
+                overridePendingTransition(R.anim.anim_no_animation, R.anim.anim_slide_right_out)
+            }
+        }
+    }
+
+    open fun getAppearAnimType() = AppearAnim.SLIDE_FROM_RIGHT
+
+//    internal fun onUnauthorizedError() {
+//        SharedReferencesUtil.remove(this, SharedReferencesUtil.KEY_AUTO_LOGIN_TOKEN)
+//        val intent = Intent(this, SplashActivity::class.java)
+//        startActivity(intent)
+//        finishAffinity()
+//    }
+
+    protected fun attachKeyboardListener(rootView: ViewGroup) {
+        if (isKeyboardListenerAttach) {
+            return
+        }
+        rootView.viewTreeObserver.addOnGlobalLayoutListener(keyBoardListener)
+        isKeyboardListenerAttach = true
+    }
+
+    internal fun removeKeyboardListener(rootView: ViewGroup) {
+        if (isKeyboardListenerAttach) {
+            rootView.viewTreeObserver.removeOnGlobalLayoutListener(keyBoardListener)
+        }
+    }
+
+    protected fun paddingTop(vararg view: View) {
+        view.forEach { it.setPadding(0, getStatusBarHeight(), 0, 0) }
+    }
+
+    protected open fun getProgressBarControlObservable(): BehaviorSubject<Boolean>? = null
+
+    protected fun addDisposables(vararg ds: Disposable) {
+        ds.forEach {
+            compositeDisposables.add(it)
+        }
+    }
+
     protected fun fullScreenActivity() {
-        window.decorView.systemUiVisibility =
-            View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-        val winParams = window.attributes
-        winParams.flags =
-            winParams.flags and WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS.inv()
-        window.attributes = winParams
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
     }
 
     protected fun setProgressBarState(state: Boolean) {
@@ -132,5 +164,9 @@ abstract class BaseActivity : AppCompatActivity() {
         } else {
             progressDialog?.dismiss()
         }
+    }
+
+    enum class AppearAnim(val type: Int) {
+        NO_ANIM(0), SLIDE_UP(1), SLIDE_FROM_RIGHT(2)
     }
 }
