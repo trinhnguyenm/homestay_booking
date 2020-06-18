@@ -93,7 +93,7 @@
                             android:layout_height="0dp"
                             android:layout_marginTop="@dimen/dimen_4dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/bg_board2"
+                            android:src="@drawable/bg_onboard2"
                             app:layout_constraintDimensionRatio="1.5"
                             app:layout_constraintEnd_toStartOf="@id/imgBanner3"
                             app:layout_constraintStart_toStartOf="parent"
