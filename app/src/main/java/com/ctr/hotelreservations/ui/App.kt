@@ -18,7 +18,6 @@ class App : Application(), Application.ActivityLifecycleCallbacks {
         @SuppressLint("StaticFieldLeak")
         internal lateinit var instance: App
             private set
-        private const val IN_BACKGROUND_TIME_LIMIT = 300000L
     }
 
     internal lateinit var localRepository: LocalRepository

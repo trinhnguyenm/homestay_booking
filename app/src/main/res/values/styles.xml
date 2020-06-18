@@ -37,6 +37,13 @@
         <item name="colorAccent">@color/colorAzureRadiance</item>
     </style>
 
+    <style name="AppButton">
+        <item name="android:textSize">15sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:fontFamily">@font/lato_heavy</item>
+    </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -65,5 +72,77 @@
         <item name="android:textSize">18.0sp</item>
         <item name="android:textColor">#ff333333</item>
         <item name="android:fontFamily">@font/lato_bold</item>
+    </style>
+
+    <style name="CustomEditTextCursor">
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="inputGroupLabel" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">24dp</item>
+        <item name="android:drawableRight">@drawable/ic_star</item>
+        <item name="android:textColor">@color/input_group_color_state</item>
+        <item name="android:textSize">12dp</item>
+    </style>
+
+    <style name="inputGroupEditText">
+        <item name="android:layout_height">26dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginTop">14dp</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:background">@color/colorWhite</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:textColor">@color/colorTundora</item>
+        <item name="android:textColorHint">@color/colorTundora30Percent</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:theme">@style/CustomEditTextCursor</item>
+    </style>
+
+    <style name="inputGroupTextView">
+        <item name="android:layout_height">26dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:background">@color/colorWhite</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">24dp</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textColorHint">@color/colorTundora30Percent</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:theme">@style/CustomEditTextCursor</item>
+    </style>
+
+    <style name="inputGroupBreakLine">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:background">@drawable/bg_input_group_break_line</item>
+    </style>
+
+    <style name="inputGroupDetail">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorDustyGray</item>
+        <item name="android:textSize">12dp</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="inputGroupError">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/input_group_color_state</item>
+        <item name="android:textSize">12dp</item>
+        <item name="android:visibility">gone</item>
     </style>
 </resources>

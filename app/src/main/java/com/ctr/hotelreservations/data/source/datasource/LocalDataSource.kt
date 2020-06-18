@@ -24,4 +24,10 @@ interface LocalDataSource {
      * get uuid.
      */
     fun getUUID(): String
+
+    fun saveAutoLoginToken(token: String?)
+
+    fun getAutoLoginToken(): String?
+
+    fun removeToken()
 }

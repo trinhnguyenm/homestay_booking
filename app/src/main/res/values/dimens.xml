@@ -148,4 +148,5 @@
     <dimen name="width_see_more">200dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="notification_bar_size">24dp</dimen>
+    <dimen name="headerBarHeight">44dp</dimen>
 </resources>

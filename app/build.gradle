@@ -50,9 +50,9 @@ android {
     applicationVariants.all { variant ->
         switch (variant.getName()) {
             case "debug":
-                variant.buildConfigField "String", "BASE_API_URL", '"https:"'
+                variant.buildConfigField "String", "BASE_API_URL", '"https://online-hotel-management.herokuapp.com/"'
                 variant.buildConfigField "String", "BASE_IMAGE_URL", '"https:"'
-                variant.buildConfigField "String", "APP_NAME", '"App Name"'
+                variant.buildConfigField "String", "APP_NAME", '"Hotel reservation"'
                 break
             }
     }

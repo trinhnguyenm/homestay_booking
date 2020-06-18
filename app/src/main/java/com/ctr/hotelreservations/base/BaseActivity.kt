@@ -1,5 +1,8 @@
 package com.ctr.hotelreservations.base
 
+import android.app.Activity
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.view.*
@@ -17,6 +20,7 @@ import com.ctr.hotelreservations.ui.wedget.ProgressBarDialog
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.subjects.BehaviorSubject
+
 
 /**
  * Created by at-trinhnguyen2 on 2020/05/30
@@ -152,10 +156,11 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     protected fun fullScreenActivity() {
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )
+        setTransparent(this)
+//        window.setFlags(
+//            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+//            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+//        )
     }
 
     protected fun setProgressBarState(state: Boolean) {
@@ -168,5 +173,37 @@ abstract class BaseActivity : AppCompatActivity() {
 
     enum class AppearAnim(val type: Int) {
         NO_ANIM(0), SLIDE_UP(1), SLIDE_FROM_RIGHT(2)
+    }
+
+    private fun setTransparent(activity: Activity) {
+        transparentStatusBar(activity)
+        setRootView(activity)
+    }
+
+
+    private fun setRootView(activity: Activity) {
+        val parent =
+            activity.findViewById<View>(android.R.id.content) as ViewGroup
+        var i = 0
+        val count = parent.childCount
+        while (i < count) {
+            val childView = parent.getChildAt(i)
+            if (childView is ViewGroup) {
+                childView.setFitsSystemWindows(true)
+                childView.clipToPadding = true
+            }
+            i++
+        }
+    }
+
+    private fun transparentStatusBar(activity: Activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            activity.window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            activity.window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+            activity.window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
+            activity.window.statusBarColor = Color.TRANSPARENT
+        } else {
+            activity.window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        }
     }
 }

@@ -16,8 +16,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentTransaction
 import com.ctr.hotelreservations.R
+import com.ctr.hotelreservations.data.source.response.ApiErrorMessage
 import com.google.android.material.snackbar.Snackbar
 import java.util.regex.Pattern
+import javax.net.ssl.HttpsURLConnection
 
 /**
  * Use this extension for Activity
@@ -73,6 +75,42 @@ internal fun Activity.hideKeyboard() {
         currentFocus?.windowToken,
         InputMethodManager.HIDE_NOT_ALWAYS
     )
+}
+
+internal fun FragmentActivity.showErrorDialog(
+    throwable: Throwable,
+    onPositiveButtonClicked: (() -> Unit)? = null
+): AlertDialog {
+    val alertBuilder = AlertDialog.Builder(this, R.style.AlertDialog)
+        .setMessage(getMessageError(throwable))
+        .setPositiveButton(R.string.ok) { _, _ ->
+            onPositiveButtonClicked?.invoke()
+        }
+    alertBuilder.setTitle(HtmlCompat.fromHtml("<b>Error", 0))
+    return alertBuilder.show().apply {
+        setCancelable(false)
+    }
+}
+
+internal fun Context.getMessageError(throwable: Throwable): String? {
+    if (throwable is ApiErrorMessage) {
+        throwable.let {
+            return it.debugMessage ?: when (throwable.httpStatusCode) {
+                HttpsURLConnection.HTTP_BAD_REQUEST -> getString(R.string.dialog_bad_request_message)
+                HttpsURLConnection.HTTP_UNAUTHORIZED -> getString(R.string.dialog_unauthorized_message)
+                HttpsURLConnection.HTTP_FORBIDDEN -> getString(R.string.dialog_forbidden_message)
+                HttpsURLConnection.HTTP_NOT_FOUND -> getString(R.string.dialog_not_found_message)
+                HttpsURLConnection.HTTP_CLIENT_TIMEOUT -> getString(R.string.dialog_client_time_out_message)
+                HttpsURLConnection.HTTP_UNAVAILABLE -> getString(R.string.dialog_unavailable_message)
+                ApiErrorMessage.NETWORK_ERROR_CODE -> getString(R.string.dialog_no_internet_message)
+                else -> getString(
+                    R.string.dialog_server_error_message,
+                    throwable.httpStatusCode.toString()
+                )
+            }
+        }
+    }
+    return throwable.message
 }
 
 internal fun FragmentActivity.showDialog(
