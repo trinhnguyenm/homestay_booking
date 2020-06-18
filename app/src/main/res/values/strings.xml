@@ -13,6 +13,14 @@
         <item>My booking</item>
         <item>Account</item>
     </string-array>
+    <string name="dialog_bad_request_message">400 Bad Request</string>
+    <string name="dialog_unauthorized_message">401 Unauthorized</string>
+    <string name="dialog_forbidden_message">403 Forbidden</string>
+    <string name="dialog_not_found_message">404 Not Found</string>
+    <string name="dialog_client_time_out_message">408 Request Timeout</string>
+    <string name="dialog_unavailable_message">503 Service Unavailable</string>
+    <string name="dialog_server_error_message">Server error：%s</string>
+    <string name="dialog_no_internet_message">No connection!</string>
     <string name="acc_label_zip">ZIP Code</string>
     <string name="acc_label_zip_short">ZIP</string>
     <string name="accept_policy_bank_transfer">By tapping the button, you have agreed to Luxstay’s Term &amp; Conditions and Privacy Policy</string>
@@ -846,4 +854,7 @@ Wellcome back Luxstay!!"</string>
     <string name="year">YEAR</string>
     <string name="you_re_having_param_travel_credit">"You're having %1$s Travel Credit"</string>
     <string name="your_travel_purpose">*Your travel purpose</string>
+    <string name="error001">This input is must not empty.</string>
+    <string name="error002Max50">Please enter it within 50 the characters.</string>
+    <string name="error002MAx255">Please enter it within 255 the characters.</string>
 </resources>

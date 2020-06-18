@@ -9,7 +9,6 @@ import com.ctr.hotelreservations.extension.replaceFragment
 import com.ctr.hotelreservations.ui.home.MainActivity
 import com.ctr.hotelreservations.ui.onboarding.OnBoardingActivity
 import com.ctr.hotelreservations.util.SharedReferencesUtil
-import kotlinx.android.synthetic.main.activity_splash.*
 
 /**
  * Created by at-trinhnguyen2 on 2020/05/31
@@ -18,32 +17,12 @@ class SplashActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-        if (getStatusBarHeight() == 0) {
-            val containerPosition = IntArray(2)
-            container.getLocationOnScreen(containerPosition)
-            if (containerPosition.last() > 0) {
-                SharedReferencesUtil.saveInt(
-                    this,
-                    SharedReferencesUtil.KEY_STATUS_BAR_HEIGHT,
-                    containerPosition.last()
-                )
-                processOnCreate()
-                return
-            }
-            container.viewTreeObserver.addOnGlobalLayoutListener {
-                if (containerPosition.last() == 0) {
-                    container.getLocationOnScreen(containerPosition)
-                    SharedReferencesUtil.saveInt(
-                        this,
-                        SharedReferencesUtil.KEY_STATUS_BAR_HEIGHT,
-                        containerPosition.last()
-                    )
-                    processOnCreate()
-                }
-            }
-        } else {
-            processOnCreate()
-        }
+        SharedReferencesUtil.saveInt(
+            this,
+            SharedReferencesUtil.KEY_STATUS_BAR_HEIGHT,
+            this@SplashActivity.getStatusBarHeight()
+        )
+        processOnCreate()
     }
 
     override fun getContainerId() = R.id.container

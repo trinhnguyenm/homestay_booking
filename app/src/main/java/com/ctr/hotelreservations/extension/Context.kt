@@ -90,7 +90,7 @@ internal fun Activity.openBrowser(url: String) {
     startActivity(browserIntent)
 }
 
-internal fun Context.getStatusBarHeight(): Int {
+internal fun Context.getStatusBarHeightt(): Int {
     return SharedReferencesUtil.getInt(this, SharedReferencesUtil.KEY_STATUS_BAR_HEIGHT, 0)
 }
 
@@ -133,4 +133,10 @@ private fun Context.isAppInstalled(packageName: String): Boolean {
     } catch (e: PackageManager.NameNotFoundException) {
         false
     }
+}
+
+internal fun Context.getStatusBarHeight(): Int {
+    val resourceId: Int =
+        resources.getIdentifier("status_bar_height", "dimen", "android")
+    return resources.getDimensionPixelSize(resourceId)
 }

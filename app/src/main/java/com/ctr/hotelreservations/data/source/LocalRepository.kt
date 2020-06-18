@@ -24,6 +24,21 @@ class LocalRepository(private val context: Context) : LocalDataSource {
         SharedReferencesUtil.setBoolean(context, SharedReferencesUtil.KEY_IS_FIRST_LAUNCH, false)
     }
 
+    override fun saveAutoLoginToken(token: String?) {
+        SharedReferencesUtil.setString(
+            context,
+            SharedReferencesUtil.KEY_AUTO_LOGIN_TOKEN,
+            token ?: ""
+        )
+    }
+
+    override fun getAutoLoginToken(): String? =
+        SharedReferencesUtil.getString(context, SharedReferencesUtil.KEY_AUTO_LOGIN_TOKEN)
+
+    override fun removeToken() {
+        SharedReferencesUtil.remove(context, SharedReferencesUtil.KEY_AUTO_LOGIN_TOKEN)
+    }
+
     override fun getDeviceToken(): String? =
         SharedReferencesUtil.getString(context, SharedReferencesUtil.KEY_DEVICE_TOKEN)
 
