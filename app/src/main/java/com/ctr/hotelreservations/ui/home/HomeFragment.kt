@@ -1,19 +1,24 @@
 package com.ctr.hotelreservations.ui.home
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.ctr.hotelreservations.R
 import com.ctr.hotelreservations.base.BaseFragment
-import com.ctr.hotelreservations.data.model.RoomInfo
-import com.ctr.hotelreservations.ui.roomdetail.RoomDetailActivity
+import com.ctr.hotelreservations.data.source.HotelRepository
+import com.ctr.hotelreservations.extension.observeOnUiThread
+import com.ctr.hotelreservations.extension.showErrorDialog
+import com.ctr.hotelreservations.ui.App
 import kotlinx.android.synthetic.main.fragment_home.*
 
 /**
  * Created by at-trinhnguyen2 on 2020/05/31
  */
 class HomeFragment : BaseFragment() {
+    private lateinit var viewModel: HomeVMContract
 
     companion object {
         fun getInstance() = HomeFragment()
@@ -29,27 +34,51 @@ class HomeFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = HomeViewModel(App.instance.localRepository, HotelRepository())
+        getHotels()
+        addDisposables()
         initRecyclerView()
+        initSwipeRefresh()
     }
 
     private fun initRecyclerView() {
-        val homeAdapter = HomeAdapter(
-            listOf(
-                RoomInfo(1, "", "", "", true, "title 1", 1, 1f, 1),
-                RoomInfo(2, "", "", "", true, "title 2", 1, 1f, 1),
-                RoomInfo(3, "", "", "", true, "title 3", 1, 1f, 1),
-                RoomInfo(4, "", "", "", true, "title 4", 1, 1f, 1),
-                RoomInfo(5, "", "", "", true, "title 5", 1, 1f, 1),
-                RoomInfo(6, "", "", "", true, "title 6", 1, 1f, 1)
-            )
-        )
+        val homeAdapter = HotelAdapter(viewModel.getHotelList())
         rcvHome.apply {
             setHasFixedSize(true)
             adapter = homeAdapter
         }
 
         homeAdapter.onItemClicked = {
-            RoomDetailActivity.start(this, it.roomId)
+            Toast.makeText(context, "Clicked ${it.id}", Toast.LENGTH_SHORT).show()
         }
     }
+
+    private fun initSwipeRefresh() {
+        swipeRefresh.setColorSchemeResources(R.color.colorAzureRadiance)
+        swipeRefresh.setOnRefreshListener {
+            Handler().postDelayed({
+                swipeRefresh?.isRefreshing = false
+            }, 300L)
+            getHotels()
+        }
+    }
+
+    private fun getHotels() {
+        addDisposables(
+            viewModel.getHotels()
+                .observeOnUiThread()
+                .subscribe({
+                    rcvHome.adapter?.notifyDataSetChanged()
+                }, {
+                    handlerGetApiError(it)
+                })
+        )
+    }
+
+
+    private fun handlerGetApiError(throwable: Throwable) {
+        activity?.showErrorDialog(throwable)
+    }
+
+    override fun getProgressBarControlObservable() = viewModel.getProgressObservable()
 }

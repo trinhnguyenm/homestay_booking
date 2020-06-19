@@ -2,7 +2,6 @@ package com.ctr.hotelreservations.ui.booking
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.ctr.hotelreservations.R
 import com.ctr.hotelreservations.base.BaseActivity
