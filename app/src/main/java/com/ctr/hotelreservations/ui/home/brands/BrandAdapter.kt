@@ -10,14 +10,14 @@ import com.ctr.hotelreservations.data.source.response.HotelResponse
 import com.ctr.hotelreservations.extension.onClickDelayAction
 import com.ctr.hotelreservations.extension.visible
 import kotlinx.android.synthetic.main.layout_item_hotels.view.*
-import kotlinx.android.synthetic.main.layout_item_room_of_host.view.tvName
+import kotlinx.android.synthetic.main.layout_item_room_of_brand.view.tvName
 
 /**
  * Created by at-trinhnguyen2 on 2020/06/06
  */
-class BrandAdapter(private val brands: List<HotelResponse.Body.Brand>) :
+class BrandAdapter(private val brands: List<HotelResponse.Hotel.Brand>) :
     RecyclerView.Adapter<BrandAdapter.ItemHolder>() {
-    internal var onItemClicked: ((item: HotelResponse.Body.Brand) -> Unit)? = null
+    internal var onItemClicked: ((item: HotelResponse.Hotel.Brand) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -38,7 +38,7 @@ class BrandAdapter(private val brands: List<HotelResponse.Body.Brand>) :
             }
         }
 
-        fun onBind(item: HotelResponse.Body.Brand) {
+        fun onBind(item: HotelResponse.Hotel.Brand) {
             itemView.apply {
                 tvAddress.visible()
                 tvName.text = item.name

@@ -1,6 +1,7 @@
 package com.ctr.hotelreservations.data.source.datasource
 
 import com.ctr.hotelreservations.data.source.response.HotelResponse
+import com.ctr.hotelreservations.data.source.response.RoomResponse
 import io.reactivex.Single
 
 /**
@@ -9,4 +10,5 @@ import io.reactivex.Single
 interface HotelDataSource {
     fun getHotels(): Single<HotelResponse>
 
+    fun getAllRoomByBrand(brandId: Int): Single<RoomResponse>
 }

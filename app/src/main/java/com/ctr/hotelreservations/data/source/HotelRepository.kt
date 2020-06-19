@@ -11,4 +11,6 @@ class HotelRepository : HotelDataSource {
     private val hotelRemoteDataSource = HotelRemoteDataSource()
 
     override fun getHotels() = hotelRemoteDataSource.getHotels()
+
+    override fun getAllRoomByBrand(brandId: Int) = hotelRemoteDataSource.getAllRoomByBrand(brandId)
 }

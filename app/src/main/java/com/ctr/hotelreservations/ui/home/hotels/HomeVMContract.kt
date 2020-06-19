@@ -7,7 +7,7 @@ import io.reactivex.subjects.BehaviorSubject
 interface HomeVMContract {
     fun getProgressObservable(): BehaviorSubject<Boolean>
 
-    fun getHotelList(): MutableList<HotelResponse.Body>
+    fun getHotelList(): MutableList<HotelResponse.Hotel>
 
     fun getHotels(): Single<HotelResponse>
 }

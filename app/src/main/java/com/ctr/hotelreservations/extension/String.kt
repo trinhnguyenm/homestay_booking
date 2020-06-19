@@ -1,5 +1,7 @@
 package com.ctr.hotelreservations.extension
 
+import java.text.NumberFormat
+import java.util.*
 import java.util.regex.Pattern
 
 /**
@@ -37,3 +39,6 @@ fun String.isPasswordValid(): Boolean {
             && Pattern.compile(AT_LEAST_UPPER_CASE).matcher(this).matches()
             && Pattern.compile(PASSWORD_REGEX).matcher(this).matches()
 }
+
+internal fun String.getPriceFormat(): String =
+    "$" + NumberFormat.getNumberInstance(Locale.US).format(this.toDouble())

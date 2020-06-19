@@ -10,4 +10,6 @@ import com.ctr.hotelreservations.data.source.remote.network.ApiService
 class HotelRemoteDataSource(private val apiService: ApiService = ApiClient.getInstance(null).service) :
     HotelDataSource {
     override fun getHotels() = apiService.getHotels()
+
+    override fun getAllRoomByBrand(brandId: Int) = apiService.getAllRoomByBrand(brandId)
 }

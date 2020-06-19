@@ -44,6 +44,7 @@
                 android:maxLines="1"
                 android:paddingStart="@dimen/dimen_5dp"
                 android:paddingTop="1.0dip"
+                android:visibility="gone"
                 android:paddingEnd="@dimen/dimen_5dp"
                 android:paddingBottom="2.0dip"
                 android:text="-15% TODAY"
@@ -57,6 +58,7 @@
                 style="@style/SpinKitView.Small.Wave"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:layout_alignTop="@+id/ivContent"
                 android:layout_alignBottom="@+id/ivContent"
                 android:layout_centerHorizontal="true"
@@ -81,7 +83,7 @@
                 android:layout_marginEnd="17.0dip"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_liked" />
+                app:srcCompat="@drawable/ic_unlike" />
 
             <TextView
                 android:id="@+id/tvTypeRoom"
@@ -148,7 +150,7 @@
                 android:layout_marginEnd="27.0dip"
                 android:ellipsize="end"
                 android:fontFamily="@font/lato_regular"
-                android:maxLines="1"
+                android:maxLines="2"
                 android:text="số 42, đường Phan bội châu, Đà Lạt, Lâm Đồng, Việt Nam"
                 android:textColor="#ff767676"
                 android:textSize="12.0sp"
@@ -211,6 +213,7 @@
                 android:text="1,400,000₫"
                 android:textColor="#ff333333"
                 android:textSize="13.0sp"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/tvPrice"
                 app:layout_constraintStart_toEndOf="@+id/tvPrice"
                 app:layout_constraintTop_toTopOf="@+id/tvPrice" />
@@ -223,6 +226,7 @@
                 android:numStars="5"
                 android:orientation="horizontal"
                 android:stepSize="10"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/tvPrice"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvPrice"

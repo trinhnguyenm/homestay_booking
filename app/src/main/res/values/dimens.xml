@@ -87,7 +87,6 @@
     <dimen name="end_padding_item_room_detail">12dp</dimen>
     <dimen name="floating_label_text_size">12sp</dimen>
     <dimen name="font_size_title_filter_activity">17sp</dimen>
-    <dimen name="font_size_title_filter_activity_2">14sp</dimen>
     <dimen name="google_1x">8dp</dimen>
     <dimen name="height_item_booking_step">36dp</dimen>
     <dimen name="inner_components_spacing">8dp</dimen>
