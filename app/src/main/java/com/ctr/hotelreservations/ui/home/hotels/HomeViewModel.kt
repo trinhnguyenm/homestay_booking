@@ -1,6 +1,5 @@
-package com.ctr.hotelreservations.ui.home
+package com.ctr.hotelreservations.ui.home.hotels
 
-import android.util.Log
 import com.ctr.hotelreservations.base.BaseViewModel
 import com.ctr.hotelreservations.data.source.HotelRepository
 import com.ctr.hotelreservations.data.source.datasource.LocalDataSource
@@ -21,7 +20,6 @@ class HomeViewModel(
         return hotelRepository.getHotels()
             .addProgressLoading()
             .doOnSuccess { response ->
-                Log.d("--=", "getHotels: ${response}")
                 getHotelList().apply {
                     clear()
                     addAll(response.body)

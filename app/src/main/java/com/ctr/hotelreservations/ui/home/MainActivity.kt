@@ -43,6 +43,8 @@ class MainActivity : BaseActivity() {
         initTab()
     }
 
+    override fun getContainerId() = R.id.container
+
     private fun initTab() {
         val icons = mutableListOf(
             R.drawable.bg_icon_tab_home,
@@ -115,5 +117,17 @@ class MainActivity : BaseActivity() {
         override fun getCount(): Int = PAGER_NUMBER
 
         override fun getPageTitle(position: Int) = titles[position]
+    }
+
+    override fun onBackPressed() {
+        val fragment = getFragmentInsideViewPager()
+        fragment?.let {
+            if (it.childFragmentManager.backStackEntryCount > 1) {
+                val childFragment = it.getCurrentFragment()
+                it.childFragmentManager.popBackStack()
+            } else {
+                super.onBackPressed()
+            }
+        } ?: super.onBackPressed()
     }
 }

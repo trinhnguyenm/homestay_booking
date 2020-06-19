@@ -1,11 +1,10 @@
-package com.ctr.hotelreservations.ui.home
+package com.ctr.hotelreservations.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.ctr.hotelreservations.R
-import com.ctr.hotelreservations.base.BaseFragment
 import com.ctr.hotelreservations.extension.replaceFragment
 
 /**
@@ -29,6 +28,8 @@ abstract class HomeContainerBaseFragment : BaseFragment() {
             addToBackStack = true
         )
     }
+
+    override fun getContainerId() = R.id.container
 
     abstract fun getRootFragment(): BaseFragment
 }

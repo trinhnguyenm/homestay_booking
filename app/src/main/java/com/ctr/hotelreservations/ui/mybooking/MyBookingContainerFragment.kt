@@ -1,8 +1,6 @@
 package com.ctr.hotelreservations.ui.mybooking
 
-import com.ctr.hotelreservations.ui.home.HomeContainerBaseFragment
-import com.ctr.hotelreservations.ui.home.HomeContainerFragment
-import com.ctr.hotelreservations.ui.home.HomeFragment
+import com.ctr.hotelreservations.base.HomeContainerBaseFragment
 
 /**
  * Created by at-trinhnguyen2 on 2020/06/02

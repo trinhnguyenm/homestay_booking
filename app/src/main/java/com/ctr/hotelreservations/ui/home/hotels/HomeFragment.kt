@@ -1,17 +1,17 @@
-package com.ctr.hotelreservations.ui.home
+package com.ctr.hotelreservations.ui.home.hotels
 
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.ctr.hotelreservations.R
 import com.ctr.hotelreservations.base.BaseFragment
 import com.ctr.hotelreservations.data.source.HotelRepository
 import com.ctr.hotelreservations.extension.observeOnUiThread
 import com.ctr.hotelreservations.extension.showErrorDialog
 import com.ctr.hotelreservations.ui.App
+import com.ctr.hotelreservations.ui.home.HomeContainerFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 
 /**
@@ -21,7 +21,8 @@ class HomeFragment : BaseFragment() {
     private lateinit var viewModel: HomeVMContract
 
     companion object {
-        fun getInstance() = HomeFragment()
+        fun getInstance() =
+            HomeFragment()
     }
 
     override fun onCreateView(
@@ -34,22 +35,25 @@ class HomeFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = HomeViewModel(App.instance.localRepository, HotelRepository())
+        viewModel = HomeViewModel(
+            App.instance.localRepository,
+            HotelRepository()
+        )
         getHotels()
-        addDisposables()
         initRecyclerView()
         initSwipeRefresh()
     }
 
     private fun initRecyclerView() {
-        val homeAdapter = HotelAdapter(viewModel.getHotelList())
+        val homeAdapter =
+            HotelAdapter(viewModel.getHotelList())
         rcvHome.apply {
             setHasFixedSize(true)
             adapter = homeAdapter
         }
 
         homeAdapter.onItemClicked = {
-            Toast.makeText(context, "Clicked ${it.id}", Toast.LENGTH_SHORT).show()
+            (parentFragment as? HomeContainerFragment)?.openBrandFragment(it)
         }
     }
 

@@ -1,7 +1,6 @@
 package com.ctr.hotelreservations.ui.roomdetail
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,10 +32,7 @@ class RoomDetailFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d(
-            "--=",
-            "onViewCreated: ${(activity as RoomDetailActivity).intent.getIntExtra(KEY_ROOM_ID, -1)}"
-        )
+
         roomId = (activity as RoomDetailActivity).intent.getIntExtra(KEY_ROOM_ID, -1)
         lnBooking.onClickDelayAction {
             BookingActivity.start(this, roomId)
