@@ -1,4 +1,4 @@
-package com.ctr.hotelreservations.ui.home
+package com.ctr.hotelreservations.ui.home.hotels
 
 import com.ctr.hotelreservations.data.source.response.HotelResponse
 import io.reactivex.Single

@@ -46,7 +46,6 @@ class LoginFragment : BaseFragment() {
         imgBack.onClickDelayAction {
             activity?.onBackPressed()
         }
-
         inputEmail.validateData = {
             it.trim().isNotEmpty() && it.isEmailValid()
         }

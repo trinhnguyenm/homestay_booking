@@ -1,6 +1,6 @@
 package com.ctr.hotelreservations.ui.account
 
-import com.ctr.hotelreservations.ui.home.HomeContainerBaseFragment
+import com.ctr.hotelreservations.base.HomeContainerBaseFragment
 
 /**
  * Created by at-trinhnguyen2 on 2020/06/02
