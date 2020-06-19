@@ -12,8 +12,8 @@ import kotlinx.android.synthetic.main.layout_item_room_of_host.view.*
 /**
  * Created by at-trinhnguyen2 on 2020/06/06
  */
-class HomeAdapter(private val roomInfos: List<RoomInfo>) :
-    RecyclerView.Adapter<HomeAdapter.ItemHolder>() {
+class RoomAdapter(private val roomInfos: List<RoomInfo>) :
+    RecyclerView.Adapter<RoomAdapter.ItemHolder>() {
     internal var onItemClicked: ((item: RoomInfo) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
