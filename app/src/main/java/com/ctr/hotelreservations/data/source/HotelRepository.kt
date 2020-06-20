@@ -13,4 +13,7 @@ class HotelRepository : HotelDataSource {
     override fun getHotels() = hotelRemoteDataSource.getHotels()
 
     override fun getAllRoomByBrand(brandId: Int) = hotelRemoteDataSource.getAllRoomByBrand(brandId)
+
+    override fun getAllRoomStatus(brandId: Int, startDate: String, endDate: String) =
+        hotelRemoteDataSource.getAllRoomStatus(brandId, startDate, endDate)
 }

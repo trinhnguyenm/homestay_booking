@@ -6,22 +6,33 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.borax12.materialdaterangepicker.date.DatePickerDialog
 import com.ctr.hotelreservations.R
 import com.ctr.hotelreservations.base.BaseFragment
 import com.ctr.hotelreservations.data.source.HotelRepository
 import com.ctr.hotelreservations.data.source.response.HotelResponse
-import com.ctr.hotelreservations.data.source.response.RoomResponse
-import com.ctr.hotelreservations.extension.observeOnUiThread
-import com.ctr.hotelreservations.extension.onClickDelayAction
-import com.ctr.hotelreservations.extension.showErrorDialog
+import com.ctr.hotelreservations.extension.*
+import com.ctr.hotelreservations.ui.home.MainActivity
+import com.ctr.hotelreservations.util.DateUtil
+import com.ctr.hotelreservations.util.DateUtil.FORMAT_DATE_TIME_CHECK_IN
+import com.ctr.hotelreservations.util.DateUtil.FORMAT_DATE_TIME_DAY_IN_WEEK
+import com.ctr.hotelreservations.util.DateUtil.FORMAT_DATE_TIME_FROM_API
+import com.ctr.hotelreservations.util.DateUtil.ONE_HOUR
 import kotlinx.android.synthetic.main.fragment_room_of_brand.*
+import kotlinx.android.synthetic.main.include_layout_select_date.*
+import java.util.*
+import kotlin.math.abs
 
 /**
  * Created by at-trinhnguyen2 on 2020/06/19
  */
-class RoomFragment : BaseFragment() {
+class RoomFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
     private lateinit var viewModel: RoomVMContract
-    private var brandId = -1
+    private lateinit var brand: HotelResponse.Hotel.Brand
+    private val startDate = Calendar.getInstance()
+    private val endDate = Calendar.getInstance()
+    private var startDateString = "2020-06-20T14:00:00.682Z"
+    private var endDateString = "2020-06-20T14:00:00.682Z"
 
     companion object {
         private const val KEY_BRAND = "key_brand"
@@ -50,8 +61,9 @@ class RoomFragment : BaseFragment() {
         viewModel = RoomViewModel(
             HotelRepository()
         )
-        brandId = arguments?.getParcelable<HotelResponse.Hotel.Brand>(KEY_BRAND)?.id ?: -1
-        getRooms(brandId)
+        brand = arguments?.getParcelable<HotelResponse.Hotel.Brand>(KEY_BRAND)
+            ?: HotelResponse.Hotel.Brand()
+        getAllRoomStatus(brand.id, startDateString, endDateString)
         initListener()
         initRecyclerView()
         initSwipeRefresh()
@@ -61,6 +73,27 @@ class RoomFragment : BaseFragment() {
         imgBack.onClickDelayAction {
             activity?.onBackPressed()
         }
+
+        viewSelected.onClickDelayAction {
+            val calendar = Calendar.getInstance()
+            val datePicker = DatePickerDialog.newInstance(
+                this,
+                calendar[Calendar.YEAR],
+                calendar[Calendar.MONTH],
+                calendar[Calendar.DAY_OF_MONTH]
+            )
+            datePicker.apply {
+                isAutoHighlight = true
+                setEndTitle("Check Out")
+                setStartTitle("Check In")
+            }
+            (activity as? MainActivity)?.showDatePickerDialog(datePicker)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as? MainActivity)?.setOnDateSetListener(this)
     }
 
     override fun isNeedPaddingTop() = true
@@ -68,14 +101,14 @@ class RoomFragment : BaseFragment() {
     private fun initRecyclerView() {
         recyclerView.let {
             it.setHasFixedSize(true)
-            it.adapter = RoomAdapter(viewModel.getRooms()).also { adapter ->
+            it.adapter = RoomAdapter(viewModel.getRoomTypes(), brand).also { adapter ->
                 adapter.onItemClicked = this::handlerItemClick
             }
         }
 
     }
 
-    private fun handlerItemClick(room: RoomResponse.Room) {
+    private fun handlerItemClick(room: RoomTypeResponse.RoomTypeStatus) {
         Log.d("--=", "handlerItemClick: ${room}")
     }
 
@@ -85,7 +118,11 @@ class RoomFragment : BaseFragment() {
             Handler().postDelayed({
                 swipeRefresh?.isRefreshing = false
             }, 300L)
-            getRooms(brandId)
+            getAllRoomStatus(
+                brand.id,
+                startDateString,
+                endDateString
+            )
         }
     }
 
@@ -101,10 +138,55 @@ class RoomFragment : BaseFragment() {
         )
     }
 
+    private fun getAllRoomStatus(brandId: Int, startDate: String, endDate: String) {
+        addDisposables(
+            viewModel.getAllRoomStatus(brandId, startDate, endDate)
+                .observeOnUiThread()
+                .subscribe({
+                    recyclerView.adapter?.notifyDataSetChanged()
+                }, {
+                    handlerGetApiError(it)
+                })
+        )
+    }
+
 
     private fun handlerGetApiError(throwable: Throwable) {
         activity?.showErrorDialog(throwable)
     }
 
     override fun getProgressBarControlObservable() = viewModel.getProgressObservable()
+
+    override fun onDateSet(
+        view: DatePickerDialog?,
+        year: Int,
+        monthOfYear: Int,
+        dayOfMonth: Int,
+        yearEnd: Int,
+        monthOfYearEnd: Int,
+        dayOfMonthEnd: Int
+    ) {
+        startDate.set(year, monthOfYear, dayOfMonth, 14, 0, 0)
+        endDate.set(yearEnd, monthOfYearEnd, dayOfMonthEnd, 12, 0, 0)
+        startDateString = DateUtil.format(startDate, FORMAT_DATE_TIME_FROM_API)
+        endDateString = DateUtil.format(endDate, FORMAT_DATE_TIME_FROM_API)
+        lnSelected.invisible()
+        lnStartDate.visible()
+        tvRangeDate.visible()
+        lnEndDate.visible()
+        tvStartDayOfTheWeek.text = DateUtil.format(startDate, FORMAT_DATE_TIME_DAY_IN_WEEK)
+        tvEndDayOfTheWeek.text = DateUtil.format(endDate, FORMAT_DATE_TIME_DAY_IN_WEEK)
+        tvStartDate.text = DateUtil.format(startDate, FORMAT_DATE_TIME_CHECK_IN)
+        tvEndDate.text = DateUtil.format(endDate, FORMAT_DATE_TIME_CHECK_IN)
+        val dayNumber =
+            (abs(startDate.timeInMillis - endDate.timeInMillis) + 2 * ONE_HOUR) / (24 * ONE_HOUR)
+        tvRangeDate.text = resources.getString(R.string.roomDayNumber, dayNumber)
+        if (startDateString.isNotEmpty() && endDateString.isNotEmpty()) {
+            getAllRoomStatus(
+                brand.id,
+                startDateString,
+                endDateString
+            )
+        }
+    }
 }

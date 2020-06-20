@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
+import com.borax12.materialdaterangepicker.date.DatePickerDialog
 import com.ctr.hotelreservations.R
 import com.ctr.hotelreservations.base.BaseActivity
 import com.ctr.hotelreservations.base.BaseFragment
@@ -129,5 +130,15 @@ class MainActivity : BaseActivity() {
                 super.onBackPressed()
             }
         } ?: super.onBackPressed()
+    }
+
+    internal fun showDatePickerDialog(dialog: DatePickerDialog) {
+        dialog.show(fragmentManager, "DatePickerDialog")
+    }
+
+    internal fun setOnDateSetListener(dialog: DatePickerDialog.OnDateSetListener) {
+        val datePickerDialog =
+            fragmentManager?.findFragmentByTag("DatePickerDialog") as? DatePickerDialog
+        datePickerDialog?.setOnDateSetListener(dialog)
     }
 }

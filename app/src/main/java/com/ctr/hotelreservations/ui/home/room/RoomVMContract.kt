@@ -9,5 +9,10 @@ interface RoomVMContract {
 
     fun getRooms(): MutableList<RoomResponse.Room>
 
+    fun getRoomTypes(): MutableList<RoomTypeResponse.RoomTypeStatus>
+
     fun getAllRoomByBrand(brandId: Int): Single<RoomResponse>
+
+    fun getAllRoomStatus(brandId: Int, startDate: String, endDate: String): Single<RoomTypeResponse>
+
 }

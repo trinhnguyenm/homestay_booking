@@ -12,7 +12,11 @@ class RoomViewModel(
 
     private val rooms = mutableListOf<RoomResponse.Room>()
 
+    private val roomTypes = mutableListOf<RoomTypeResponse.RoomTypeStatus>()
+
     override fun getRooms(): MutableList<RoomResponse.Room> = rooms
+
+    override fun getRoomTypes(): MutableList<RoomTypeResponse.RoomTypeStatus> = roomTypes
 
     override fun getAllRoomByBrand(brandId: Int): Single<RoomResponse> {
         return hotelRepository.getAllRoomByBrand(brandId)
@@ -21,6 +25,22 @@ class RoomViewModel(
                 getRooms().apply {
                     clear()
                     addAll(response.rooms)
+                }
+            }
+    }
+
+    override fun getAllRoomStatus(
+        brandId: Int,
+        startDate: String,
+        endDate: String
+    ): Single<RoomTypeResponse> {
+        return hotelRepository.getAllRoomStatus(brandId, startDate, endDate)
+            .addProgressLoading()
+            .doOnSuccess { response ->
+                val a = response
+                getRoomTypes().apply {
+                    clear()
+                    addAll(response.roomTypeStatusList)
                 }
             }
     }

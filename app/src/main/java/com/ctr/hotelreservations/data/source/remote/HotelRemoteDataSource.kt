@@ -12,4 +12,7 @@ class HotelRemoteDataSource(private val apiService: ApiService = ApiClient.getIn
     override fun getHotels() = apiService.getHotels()
 
     override fun getAllRoomByBrand(brandId: Int) = apiService.getAllRoomByBrand(brandId)
+
+    override fun getAllRoomStatus(brandId: Int, startDate: String, endDate: String) =
+        apiService.getAllRoomStatus(brandId, startDate, endDate)
 }

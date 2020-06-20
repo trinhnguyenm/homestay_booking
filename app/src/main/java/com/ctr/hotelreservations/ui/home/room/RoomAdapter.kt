@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ctr.hotelreservations.R
-import com.ctr.hotelreservations.data.source.response.RoomResponse
+import com.ctr.hotelreservations.data.source.response.HotelResponse
 import com.ctr.hotelreservations.extension.getPriceFormat
 import com.ctr.hotelreservations.extension.onClickDelayAction
 import kotlinx.android.synthetic.main.layout_item_room_of_brand.view.*
@@ -14,9 +14,12 @@ import kotlinx.android.synthetic.main.layout_item_room_of_brand.view.*
 /**
  * Created by at-trinhnguyen2 on 2020/06/06
  */
-class RoomAdapter(private val rooms: List<RoomResponse.Room>) :
+class RoomAdapter(
+    private val rooms: List<RoomTypeResponse.RoomTypeStatus>,
+    private val brand: HotelResponse.Hotel.Brand
+) :
     RecyclerView.Adapter<RoomAdapter.ItemHolder>() {
-    internal var onItemClicked: ((item: RoomResponse.Room) -> Unit)? = null
+    internal var onItemClicked: ((item: RoomTypeResponse.RoomTypeStatus) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -37,11 +40,11 @@ class RoomAdapter(private val rooms: List<RoomResponse.Room>) :
             }
         }
 
-        fun onBind(item: RoomResponse.Room) {
+        fun onBind(item: RoomTypeResponse.RoomTypeStatus) {
             itemView.apply {
-                tvTypeRoom.text = item.roomType.name
-                tvName.text = resources.getString(R.string.roomNameFormat, item.name)
-                tvAddress.text = item.brand.address
+//                tvTypeRoom.text = item.roomType.name
+                tvName.text = resources.getString(R.string.roomNameFormat, item.roomType.name)
+                tvAddress.text = brand.address
                 tvRoomInfo.text =
                     item.roomType.capacity.toString() + " guests · " + "size " + item.roomType.size + "㎡"
                 Glide.with(itemView.context)
