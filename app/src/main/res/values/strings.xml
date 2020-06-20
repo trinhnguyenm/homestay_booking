@@ -857,4 +857,6 @@ Wellcome back Luxstay!!"</string>
     <string name="error001">This input is must not empty.</string>
     <string name="error002Max50">Please enter it within 50 the characters.</string>
     <string name="error002MAx255">Please enter it within 255 the characters.</string>
+    <string name="roomNameFormat">Room %s</string>
+    <string name="roomDayNumber">%dD</string>
 </resources>

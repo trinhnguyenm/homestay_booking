@@ -10,11 +10,11 @@ import kotlinx.android.parcel.Parcelize
  */
 @Parcelize
 data class HotelResponse(
-    @SerializedName("body") val body: List<Body> = listOf(),
+    @SerializedName("body") val hotels: List<Hotel> = listOf(),
     @SerializedName("length") val length: Int = 0
 ) : Parcelable {
     @Parcelize
-    data class Body(
+    data class Hotel(
         @SerializedName("brands") val brands: List<Brand> = listOf(),
         @SerializedName("description") val description: String = "",
         @SerializedName("id") val id: Int = 0,

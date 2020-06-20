@@ -3,10 +3,10 @@ package com.ctr.hotelreservations.data.source.remote.network
 import com.ctr.hotelreservations.data.source.request.LoginBody
 import com.ctr.hotelreservations.data.source.response.HotelResponse
 import com.ctr.hotelreservations.data.source.response.LoginResponse
+import com.ctr.hotelreservations.data.source.response.RoomResponse
+import com.ctr.hotelreservations.ui.home.room.RoomTypeResponse
 import io.reactivex.Single
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface ApiService {
 
@@ -25,4 +25,13 @@ interface ApiService {
     @GET("/api/hotels")
     fun getHotels(): Single<HotelResponse>
 
+    @GET("/api/rooms/brand/{id}")
+    fun getAllRoomByBrand(@Path("id") brandId: Int): Single<RoomResponse>
+
+    @GET("/api/rooms/status/?")
+    fun getAllRoomStatus(
+        @Query("brandId") brandId: Int,
+        @Query("startDate") startDate: String,
+        @Query("endDate") endDate: String
+    ): Single<RoomTypeResponse>
 }

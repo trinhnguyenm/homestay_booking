@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.ctr.hotelreservations.R
 import com.ctr.hotelreservations.base.BaseFragment
 import com.ctr.hotelreservations.data.source.HotelRepository
+import com.ctr.hotelreservations.data.source.response.HotelResponse
 import com.ctr.hotelreservations.extension.observeOnUiThread
 import com.ctr.hotelreservations.extension.showErrorDialog
 import com.ctr.hotelreservations.ui.App
@@ -45,16 +46,19 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun initRecyclerView() {
-        val homeAdapter =
-            HotelAdapter(viewModel.getHotelList())
-        rcvHome.apply {
-            setHasFixedSize(true)
-            adapter = homeAdapter
+
+        recyclerView.let {
+            it.setHasFixedSize(true)
+            it.adapter = HotelAdapter(viewModel.getHotelList()).also { adapter ->
+                adapter.onItemClicked = this::handlerItemClick
+            }
         }
 
-        homeAdapter.onItemClicked = {
-            (parentFragment as? HomeContainerFragment)?.openBrandFragment(it)
-        }
+    }
+
+    private fun handlerItemClick(hotel: HotelResponse.Hotel) {
+        (parentFragment as? HomeContainerFragment)?.openBrandFragment(hotel)
+
     }
 
     private fun initSwipeRefresh() {
@@ -72,7 +76,7 @@ class HomeFragment : BaseFragment() {
             viewModel.getHotels()
                 .observeOnUiThread()
                 .subscribe({
-                    rcvHome.adapter?.notifyDataSetChanged()
+                    recyclerView.adapter?.notifyDataSetChanged()
                 }, {
                     handlerGetApiError(it)
                 })

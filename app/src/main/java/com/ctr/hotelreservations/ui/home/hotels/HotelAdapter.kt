@@ -9,14 +9,14 @@ import com.ctr.hotelreservations.R
 import com.ctr.hotelreservations.data.source.response.HotelResponse
 import com.ctr.hotelreservations.extension.onClickDelayAction
 import kotlinx.android.synthetic.main.layout_item_hotels.view.*
-import kotlinx.android.synthetic.main.layout_item_room_of_host.view.tvName
+import kotlinx.android.synthetic.main.layout_item_room_of_brand.view.tvName
 
 /**
  * Created by at-trinhnguyen2 on 2020/06/06
  */
-class HotelAdapter(private val hotels: List<HotelResponse.Body>) :
+class HotelAdapter(private val hotels: List<HotelResponse.Hotel>) :
     RecyclerView.Adapter<HotelAdapter.ItemHolder>() {
-    internal var onItemClicked: ((item: HotelResponse.Body) -> Unit)? = null
+    internal var onItemClicked: ((item: HotelResponse.Hotel) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -37,7 +37,7 @@ class HotelAdapter(private val hotels: List<HotelResponse.Body>) :
             }
         }
 
-        fun onBind(item: HotelResponse.Body) {
+        fun onBind(item: HotelResponse.Hotel) {
             itemView.apply {
                 tvName.text = item.name
                 tvDescription.text = item.description

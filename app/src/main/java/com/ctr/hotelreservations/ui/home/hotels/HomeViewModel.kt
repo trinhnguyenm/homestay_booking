@@ -12,9 +12,9 @@ class HomeViewModel(
     private val hotelRepository: HotelRepository
 ) : HomeVMContract, BaseViewModel() {
 
-    private val hotels = mutableListOf<HotelResponse.Body>()
+    private val hotels = mutableListOf<HotelResponse.Hotel>()
 
-    override fun getHotelList(): MutableList<HotelResponse.Body> = hotels
+    override fun getHotelList(): MutableList<HotelResponse.Hotel> = hotels
 
     override fun getHotels(): Single<HotelResponse> {
         return hotelRepository.getHotels()
@@ -22,7 +22,7 @@ class HomeViewModel(
             .doOnSuccess { response ->
                 getHotelList().apply {
                     clear()
-                    addAll(response.body)
+                    addAll(response.hotels)
                 }
             }
     }

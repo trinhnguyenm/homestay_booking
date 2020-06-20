@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.ctr.hotelreservations.R
 import com.ctr.hotelreservations.base.BaseFragment
 import com.ctr.hotelreservations.data.source.response.HotelResponse
 import com.ctr.hotelreservations.extension.onClickDelayAction
+import com.ctr.hotelreservations.ui.home.HomeContainerFragment
 import kotlinx.android.synthetic.main.fragment_brand.*
 
 /**
@@ -20,7 +20,7 @@ class BrandFragment : BaseFragment() {
     companion object {
         private const val KEY_HOTEL = "key_hotel"
 
-        fun getInstance(hotel: HotelResponse.Body) =
+        fun getInstance(hotel: HotelResponse.Hotel) =
             BrandFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable(
@@ -49,7 +49,7 @@ class BrandFragment : BaseFragment() {
     override fun isNeedPaddingTop() = true
 
     private fun initView() {
-        arguments?.getParcelable<HotelResponse.Body>(KEY_HOTEL)?.let {
+        arguments?.getParcelable<HotelResponse.Hotel>(KEY_HOTEL)?.let {
             tvName.text = it.name
             tvDescription.text = it.description
             context?.let { context ->
@@ -69,15 +69,15 @@ class BrandFragment : BaseFragment() {
     private fun initRecyclerView() {
         val brandAdapter =
             BrandAdapter(
-                arguments?.getParcelable<HotelResponse.Body>(KEY_HOTEL)?.brands
-                    ?: HotelResponse.Body(listOf()).brands
+                arguments?.getParcelable<HotelResponse.Hotel>(KEY_HOTEL)?.brands
+                    ?: HotelResponse.Hotel(listOf()).brands
             )
-        rcvBrand.apply {
+        recyclerView.apply {
             setHasFixedSize(true)
             adapter = brandAdapter
         }
         brandAdapter.onItemClicked = {
-            Toast.makeText(context, "Clicked ${it.id}", Toast.LENGTH_SHORT).show()
+            (parentFragment as? HomeContainerFragment)?.openRoomFragment(it)
         }
     }
 }
