@@ -12,4 +12,6 @@ class UserRepository : UserDataSource {
     private val userRemoteDataSource = UserRemoteDataSource()
 
     override fun login(body: LoginBody) = userRemoteDataSource.login(body)
+
+    override fun getUserFollowId(userId: Int) = userRemoteDataSource.getUserFollowId(userId)
 }

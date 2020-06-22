@@ -120,7 +120,7 @@
     <color name="colorBlack50">#80000000</color>
     <color name="colorTundora">#404040</color>
     <color name="colorTundora30Percent">#4D404040</color>
-    <color name="colorTundora50Percent">#80404040</color>
+    <color name="colorTundora50Percent">#ff666666</color>
     <color name="colorDustyGray">#989898</color>
     <color name="colorScarlet">#FF3100</color>
     <color name="colorWhite">#ffffff</color>

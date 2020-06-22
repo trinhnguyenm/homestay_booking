@@ -1,105 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:paddingTop="@dimen/dimen_24dp">
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/actionBarCustom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivBack"
-            android:layout_width="@dimen/dimen_48dp"
-            android:layout_height="@dimen/dimen_48dp"
-            android:scaleType="centerInside"
-            android:tint="@color/colorAccent"
-            app:layout_constraintBottom_toBottomOf="@+id/tvBookingId"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tvTitle"
-            app:srcCompat="@drawable/ic_back_white" />
-
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/dimen_48dp"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvTitle"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/headerBarHeight"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/headerBarHeight"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/lato_heavy"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="Customer information"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tvBookingId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="center_horizontal"
+                    android:text="@string/booking_id"
+                    android:textSize="11sp"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgBack"
+                android:layout_width="@dimen/headerBarHeight"
+                android:layout_height="@dimen/headerBarHeight"
+                android:scaleType="centerInside"
+                android:tint="@color/colorAccent"
+                app:srcCompat="@drawable/ic_back_white" />
+
+            <RelativeLayout
+                android:id="@+id/rlStep"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:fontFamily="@font/lato_heavy"
-                android:gravity="center"
-                android:maxLines="1"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:layout_below="@id/imgBack">
 
-            <TextView
-                android:id="@+id/tvBookingId"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:fontFamily="@font/lato_regular"
-                android:gravity="center"
-                android:maxLines="1"
-                android:textColor="#ff8f8f8f"
-                android:textSize="13sp" />
-        </LinearLayout>
-    </LinearLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcvStepBooking"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:paddingStart="150dp"
+                    android:paddingEnd="150dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/layout_item_booking_step" />
 
-    <RelativeLayout
-        android:id="@+id/rlStep"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/actionBarCustom">
+                <View
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/rcvStepBooking"
+                    android:layout_alignBottom="@+id/rcvStepBooking"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/bg_left" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rcvStepBooking"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:orientation="horizontal"
-            android:clipToPadding="false"
-            tools:listitem="@layout/layout_item_booking_step"
-            android:paddingStart="183dp"
-            android:paddingLeft="183dp"
-            android:paddingEnd="183dp"
-            android:paddingRight="183dp" />
+                <View
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/rcvStepBooking"
+                    android:layout_alignBottom="@+id/rcvStepBooking"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:background="@drawable/bg_right" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
-        <View
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/rcvStepBooking"
-            android:layout_alignBottom="@+id/rcvStepBooking"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:background="@drawable/bg_left" />
 
-        <View
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/rcvStepBooking"
-            android:layout_alignBottom="@+id/rcvStepBooking"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:background="@drawable/bg_right" />
-    </RelativeLayout>
-
-    <FrameLayout
-        android:id="@+id/frameContent"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rlStep" />
+    <include layout="@layout/layout_room_detail_booking" />
 
     <FrameLayout
         android:id="@+id/frameLoading"
@@ -107,8 +103,7 @@
         android:layout_height="0dp"
         android:background="@color/white"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rlStep">
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <com.github.ybq.android.spinkit.SpinKitView
             style="@style/SpinKitView.Large.ThreeBounce"
@@ -147,4 +142,4 @@
             android:visibility="visible"
             app:SpinKit_Color="@color/colorAccent" />
     </FrameLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

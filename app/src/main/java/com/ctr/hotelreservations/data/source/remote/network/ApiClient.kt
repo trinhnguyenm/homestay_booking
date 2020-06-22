@@ -30,6 +30,7 @@ class ApiClient private constructor(url: String? = null) {
         private const val USER_AGENT = "User-Agent"
         private const val DEVICE_TYPE = "Device-Type"
         private const val IS_ANDROID = "Content-Type"
+        private const val AUTHORIZATION = "Authorization"
     }
 
     val service: ApiService
@@ -56,6 +57,7 @@ class ApiClient private constructor(url: String? = null) {
                 .addHeader(DEVICE_TYPE, "SmartDevice")
                 .addHeader(IS_ANDROID, "true")
                 .addHeader(Header.X_XSRF_TOKEN, Header.getXSRFToken())
+                .addHeader(AUTHORIZATION, App.instance.localRepository.getAutoLoginToken() ?: "")
 
             val cookie = Header.getCookie()
             if (cookie.isNotEmpty()) {

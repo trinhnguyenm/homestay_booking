@@ -24,7 +24,7 @@ data class HotelResponse(
         @Parcelize
         data class Brand(
             @SerializedName("address") val address: String = "",
-            @SerializedName("desciption") val desciption: String = "",
+            @SerializedName("desciption") val desciption: String? = null,
             @SerializedName("floor") val floor: Int = 0,
             @SerializedName("id") val id: Int = 0,
             @SerializedName("imgLink") val imgLink: String = "",

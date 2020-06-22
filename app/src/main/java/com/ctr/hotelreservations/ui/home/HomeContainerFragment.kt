@@ -6,7 +6,7 @@ import com.ctr.hotelreservations.data.source.response.HotelResponse
 import com.ctr.hotelreservations.extension.addFragment
 import com.ctr.hotelreservations.ui.home.brands.BrandFragment
 import com.ctr.hotelreservations.ui.home.hotels.HomeFragment
-import com.ctr.hotelreservations.ui.home.room.RoomFragment
+import com.ctr.hotelreservations.ui.home.rooms.RoomFragment
 
 /**
  * Created by at-trinhnguyen2 on 2020/06/02

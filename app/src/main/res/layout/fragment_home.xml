@@ -85,6 +85,7 @@
         android:layout_marginTop="135dp"
         android:layout_marginEnd="@dimen/dimen_10dp"
         android:elevation="10dp"
+        android:visibility="gone"
         android:minHeight="63dp"
         android:paddingStart="@dimen/dimen_10dp"
         android:paddingEnd="@dimen/dimen_10dp"

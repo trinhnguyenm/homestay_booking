@@ -2,7 +2,6 @@ package com.ctr.hotelreservations.base
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.ctr.hotelreservations.extension.getStatusBarHeight
@@ -40,9 +39,10 @@ abstract class BaseFragment : Fragment() {
         if (isNeedPaddingTop()) {
             view.setPadding(
                 0,
-                context?.getStatusBarHeight().apply { Log.d("--=", "+${this}") } ?: 0,
+                context?.getStatusBarHeight() ?: 0,
                 0,
-                0)
+                0
+            )
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             when (statusIconTheme()) {

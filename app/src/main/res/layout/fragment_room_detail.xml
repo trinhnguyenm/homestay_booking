@@ -9,11 +9,10 @@
     <RelativeLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:layout_marginTop="@dimen/notification_bar_size">
+        android:layout_height="@dimen/headerBarHeight">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivBack"
+            android:id="@+id/imgBack"
             style="@style/Widget.AppCompat.ActionButton"
             android:layout_width="@dimen/dimen_48dp"
             android:layout_height="@dimen/dimen_48dp"
@@ -38,8 +37,8 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivFavorite"
             style="@style/Widget.AppCompat.ActionButton"
-            android:layout_width="@dimen/actionbar_size"
-            android:layout_height="@dimen/actionbar_size"
+            android:layout_width="@dimen/headerBarHeight"
+            android:layout_height="@dimen/headerBarHeight"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="@dimen/dimen_5dp"
             android:paddingTop="17dp"
@@ -137,7 +136,7 @@
                             android:text="+12"
                             android:textColor="@color/white"
                             android:textSize="25sp"
-                            android:visibility="visible"
+                            android:visibility="gone"
                             app:layout_constraintBottom_toBottomOf="@id/imgBanner4"
                             app:layout_constraintEnd_toEndOf="@id/imgBanner4"
                             app:layout_constraintStart_toStartOf="@id/imgBanner4"
@@ -154,6 +153,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_list_room_detail"
+            android:visibility="gone"
             android:minHeight="300dp"
             android:orientation="vertical"
             android:tag="binding_3"
@@ -178,7 +178,9 @@
                 android:visibility="gone"
                 app:SpinKit_Color="@color/colorAccent" />
 
-            <include layout="@layout/layout_item_header_room_detail" />
+            <include
+                layout="@layout/layout_item_header_room_detail"
+                android:visibility="gone" />
         </FrameLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
@@ -198,7 +200,7 @@
         android:clickable="true"
         android:focusable="true"
         android:gravity="center_vertical"
-        android:paddingStart="@dimen/start_padding_item_room_detail"
+        android:paddingStart="@dimen/dimen_20dp"
         android:paddingTop="@dimen/dimen_12dp"
         android:paddingEnd="@dimen/end_padding_item_room_detail"
         android:paddingBottom="@dimen/dimen_12dp"
@@ -249,7 +251,7 @@
                 android:text="300,000đ"
                 android:textColor="@color/gray_dark"
                 android:textSize="13sp"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvRoomPrice" />
         </androidx.constraintlayout.widget.ConstraintLayout>

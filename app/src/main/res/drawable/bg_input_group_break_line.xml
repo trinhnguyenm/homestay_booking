@@ -14,7 +14,7 @@
 
     <item android:state_activated="true" android:state_selected="false">
         <shape android:shape="rectangle">
-            <solid android:color="@color/colorTundora50Percent" />
+            <solid android:color="@color/color_divider" />
         </shape>
     </item>
     <item android:state_activated="false" android:state_selected="false">

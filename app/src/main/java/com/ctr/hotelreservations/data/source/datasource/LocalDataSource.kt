@@ -20,14 +20,13 @@ interface LocalDataSource {
      */
     fun getDeviceToken(): String?
 
-    /**
-     * get uuid.
-     */
-    fun getUUID(): String
-
     fun saveAutoLoginToken(token: String?)
 
     fun getAutoLoginToken(): String?
+
+    fun saveUserId(id: Int)
+
+    fun getUserId(): Int
 
     fun removeToken()
 }

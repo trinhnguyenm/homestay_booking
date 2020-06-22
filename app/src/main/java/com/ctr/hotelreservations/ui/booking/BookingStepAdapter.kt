@@ -39,10 +39,10 @@ class BookingStepAdapter(private val stepBookings: List<StepBookingUI>) :
 
         fun onBind(item: StepBookingUI) {
             itemView.apply {
-                tvStepNumber.text = item.stepBooking.value.toString()
+                tvStepNumber.text = (adapterPosition + 1).toString()
                 tvTitle.text = item.title
-                if(adapterPosition==stepBookings.size){
-                    viewDivider.visible()
+                if (adapterPosition + 1 == stepBookings.size) {
+                    viewDivider.invisible()
                 }
 
                 when {
@@ -69,7 +69,7 @@ class BookingStepAdapter(private val stepBookings: List<StepBookingUI>) :
         }
     }
 
-    fun setSelectedPosition(value: Int) {
+    internal fun setSelectedPosition(value: Int) {
         selectedPosition = value
     }
 }

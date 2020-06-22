@@ -10,10 +10,10 @@ object SharedReferencesUtil {
 
     private const val SHARED_PREFERENCES_NAME = BuildConfig.APPLICATION_ID
     internal const val KEY_IS_FIRST_LAUNCH = "key_is_first"
-    internal const val KEY_UUID = "key_uuid"
     internal const val KEY_DEVICE_TOKEN = "key_device_token"
     internal const val KEY_STATUS_BAR_HEIGHT = "key_status_bar_height"
     internal const val KEY_AUTO_LOGIN_TOKEN = "key_auto_login_token"
+    internal const val KEY_USER_ID = "key_user_id"
 
     internal fun getBoolean(context: Context, key: String, defaultValue: Boolean): Boolean {
         return context
@@ -52,7 +52,7 @@ object SharedReferencesUtil {
         SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE
     ).getInt(key, default)
 
-    internal fun saveInt(context: Context, key: String, value: Int) {
+    internal fun setInt(context: Context, key: String, value: Int) {
         context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
             .edit().putInt(key, value)
             .apply()

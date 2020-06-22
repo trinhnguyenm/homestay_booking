@@ -5,7 +5,10 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.ctr.hotelreservations.R
 import com.ctr.hotelreservations.base.BaseActivity
+import com.ctr.hotelreservations.data.source.response.HotelResponse
+import com.ctr.hotelreservations.data.source.response.RoomTypeResponse
 import com.ctr.hotelreservations.extension.addFragment
+import com.ctr.hotelreservations.ui.home.rooms.RoomFragment.Companion.KEY_BRAND
 
 /**
  * Created by at-trinhnguyen2 on 2020/06/13
@@ -13,20 +16,27 @@ import com.ctr.hotelreservations.extension.addFragment
 class RoomDetailActivity : BaseActivity() {
 
     companion object {
-        internal const val KEY_ROOM_ID = "key_room_id"
-        private const val REQUEST_CODE_ROOM_DETAIL = 1000
+        internal const val KEY_ROOM_TYPE_STATUS = "key_room_type_status"
+        internal const val KEY_START_DATE = "key_start_date"
+        internal const val KEY_END_DATE = "key_end_date"
+
         internal fun start(
             from: Fragment,
-            roomId: Int
+            brand: HotelResponse.Hotel.Brand,
+            roomTypeStatus: RoomTypeResponse.RoomTypeStatus,
+            startDate: String,
+            endDate: String
         ) {
             RoomDetailActivity()
                 .apply {
                     val intent = Intent(from.activity, RoomDetailActivity::class.java)
-                    intent.putExtra(KEY_ROOM_ID, roomId)
-                    from.startActivityForResult(
-                        intent,
-                        REQUEST_CODE_ROOM_DETAIL
-                    )
+                    intent.putExtras(Bundle().apply {
+                        putParcelable(KEY_BRAND, brand)
+                        putParcelable(KEY_ROOM_TYPE_STATUS, roomTypeStatus)
+                        putString(KEY_START_DATE, startDate)
+                        putString(KEY_END_DATE, endDate)
+                    })
+                    from.startActivity(intent)
                 }
         }
     }

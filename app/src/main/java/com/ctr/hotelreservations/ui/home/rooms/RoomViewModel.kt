@@ -1,8 +1,9 @@
-package com.ctr.hotelreservations.ui.home.room
+package com.ctr.hotelreservations.ui.home.rooms
 
 import com.ctr.hotelreservations.base.BaseViewModel
 import com.ctr.hotelreservations.data.source.HotelRepository
 import com.ctr.hotelreservations.data.source.response.RoomResponse
+import com.ctr.hotelreservations.data.source.response.RoomTypeResponse
 import io.reactivex.Single
 import io.reactivex.subjects.BehaviorSubject
 
@@ -40,7 +41,7 @@ class RoomViewModel(
                 val a = response
                 getRoomTypes().apply {
                     clear()
-                    addAll(response.roomTypeStatusList)
+                    addAll(response.roomTypeStatusList.filter { it.totalRoomAvailable > 0 })
                 }
             }
     }
