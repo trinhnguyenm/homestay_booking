@@ -28,6 +28,7 @@
                     android:layout_width="match_parent"
                     android:layout_centerInParent="true"
                     android:layout_centerHorizontal="true"
+                    android:id="@+id/tvHotel"
                     android:gravity="center_horizontal"
                     android:text="Hotel Detail" />
 
@@ -94,10 +95,10 @@
                     android:layout_marginEnd="@dimen/dimen_20dp"
                     android:ellipsize="end"
                     android:fontFamily="@font/lato_black"
-                    android:maxLines="1"
+                    android:maxLines="2"
                     android:text="Muong Thanh"
                     android:textColor="@color/colorBlack"
-                    android:textSize="16sp"
+                    android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/ivHotel" />

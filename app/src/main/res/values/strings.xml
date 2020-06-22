@@ -391,7 +391,7 @@ Internet banking"</string>
     <string name="hint_pickup_location">please enter the pick up location</string>
     <string name="hint_search">" Try your search “Ha Noi”"</string>
     <string name="hint_signin_favorite">Sign in to create and manage your collections</string>
-    <string name="hint_where_you_go">Where do you want to go%1$s?</string>
+    <string name="hint_where_you_go">Where do you want to go?</string>
     <string name="host_is_not_found">No host found</string>
     <string name="host_line">Hotline</string>
     <string name="hours">%1$d hours</string>
@@ -586,7 +586,6 @@ Internet banking"</string>
     <string name="payment_methods_title">Payment method</string>
     <string name="paynow">Pay Now</string>
     <string name="pending_invite">Pending</string>
-    <string name="per_night">x %1$s night</string>
     <string name="percent">%1$s%%</string>
     <string name="phone_number">Phone</string>
     <string name="phone_number_contact">18006586</string>
@@ -648,8 +647,6 @@ Internet banking"</string>
     <string name="review_message">Thanks! Please review this accommodation</string>
     <string name="reviews">Reviews</string>
     <string name="reviews_params">%1$s rating</string>
-    <string name="room_code">"Room ID
- %1$s"</string>
     <string name="room_of_host">More from this host</string>
     <string name="room_rates">Room rates</string>
     <string name="room_rates_param">Room rates(%1$s night)</string>
@@ -859,4 +856,6 @@ Wellcome back Luxstay!!"</string>
     <string name="error002MAx255">Please enter it within 255 the characters.</string>
     <string name="roomNameFormat">Room %s</string>
     <string name="roomDayNumber">%dD</string>
+    <string name="room_code">"Room ID\n%1$s"</string>
+    <string name="per_night">x %d night</string>
 </resources>

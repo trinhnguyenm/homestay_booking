@@ -2,7 +2,6 @@ package com.ctr.hotelreservations.ui.splash
 
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,7 +34,6 @@ class SplashFragment : BaseFragment() {
         Handler().postDelayed({
             viewModel?.let {
                 if (it.isFirstLunch()) {
-                    Log.d("--=", "onViewCreated:")
                     (activity as? SplashActivity)?.startOnBoardingActivity()
                 } else {
                     (activity as? SplashActivity)?.startHomeActivity()

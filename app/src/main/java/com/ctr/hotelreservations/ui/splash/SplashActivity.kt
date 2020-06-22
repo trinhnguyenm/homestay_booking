@@ -17,7 +17,7 @@ class SplashActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-        SharedReferencesUtil.saveInt(
+        SharedReferencesUtil.setInt(
             this,
             SharedReferencesUtil.KEY_STATUS_BAR_HEIGHT,
             this@SplashActivity.getStatusBarHeight()

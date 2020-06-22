@@ -1,6 +1,7 @@
-package com.ctr.hotelreservations.ui.home.room
+package com.ctr.hotelreservations.ui.home.rooms
 
 import com.ctr.hotelreservations.data.source.response.RoomResponse
+import com.ctr.hotelreservations.data.source.response.RoomTypeResponse
 import io.reactivex.Single
 import io.reactivex.subjects.BehaviorSubject
 

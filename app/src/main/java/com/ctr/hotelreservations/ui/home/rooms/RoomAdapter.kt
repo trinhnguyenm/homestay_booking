@@ -1,4 +1,4 @@
-package com.ctr.hotelreservations.ui.home.room
+package com.ctr.hotelreservations.ui.home.rooms
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ctr.hotelreservations.R
 import com.ctr.hotelreservations.data.source.response.HotelResponse
+import com.ctr.hotelreservations.data.source.response.RoomTypeResponse
 import com.ctr.hotelreservations.extension.getPriceFormat
 import com.ctr.hotelreservations.extension.onClickDelayAction
 import kotlinx.android.synthetic.main.layout_item_room_of_brand.view.*
@@ -46,11 +47,12 @@ class RoomAdapter(
                 tvName.text = resources.getString(R.string.roomNameFormat, item.roomType.name)
                 tvAddress.text = brand.address
                 tvRoomInfo.text =
-                    item.roomType.capacity.toString() + " guests · " + "size " + item.roomType.size + "㎡"
+                    item.roomType.getRoomTypeInfo()
                 Glide.with(itemView.context)
                     .load(item.roomType.thumbnail)
                     .into(ivContent)
                 tvPrice.text = item.roomType.price.toString().getPriceFormat()
+                tvAvailable.text = "Available: ${item.totalRoomAvailable}"
             }
         }
     }

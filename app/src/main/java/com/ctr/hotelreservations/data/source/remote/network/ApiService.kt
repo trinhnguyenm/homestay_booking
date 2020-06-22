@@ -1,10 +1,8 @@
 package com.ctr.hotelreservations.data.source.remote.network
 
 import com.ctr.hotelreservations.data.source.request.LoginBody
-import com.ctr.hotelreservations.data.source.response.HotelResponse
-import com.ctr.hotelreservations.data.source.response.LoginResponse
-import com.ctr.hotelreservations.data.source.response.RoomResponse
-import com.ctr.hotelreservations.ui.home.room.RoomTypeResponse
+import com.ctr.hotelreservations.data.source.request.RoomsReservationBody
+import com.ctr.hotelreservations.data.source.response.*
 import io.reactivex.Single
 import retrofit2.http.*
 
@@ -22,6 +20,9 @@ interface ApiService {
     @POST("/api/auth/login")
     fun login(@Body loginBody: LoginBody): Single<LoginResponse>
 
+    @GET("/api/users/{id}")
+    fun getUserFollowId(@Path("id") userId: Int): Single<UserResponse>
+
     @GET("/api/hotels")
     fun getHotels(): Single<HotelResponse>
 
@@ -34,4 +35,11 @@ interface ApiService {
         @Query("startDate") startDate: String,
         @Query("endDate") endDate: String
     ): Single<RoomTypeResponse>
+
+    @POST("/api/room-reservations?")
+    fun addNewRoomsReservation(
+        @Query("numberOfRooms") numberOfRooms: Int,
+        @Query("listPromoCode") listPromoCode: List<String>?,
+        @Body roomsReservationBody: RoomsReservationBody
+    ): Single<RoomReservationResponse>
 }

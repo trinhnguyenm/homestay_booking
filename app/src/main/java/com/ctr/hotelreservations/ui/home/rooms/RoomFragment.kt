@@ -1,8 +1,7 @@
-package com.ctr.hotelreservations.ui.home.room
+package com.ctr.hotelreservations.ui.home.rooms
 
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,17 +10,19 @@ import com.ctr.hotelreservations.R
 import com.ctr.hotelreservations.base.BaseFragment
 import com.ctr.hotelreservations.data.source.HotelRepository
 import com.ctr.hotelreservations.data.source.response.HotelResponse
+import com.ctr.hotelreservations.data.source.response.RoomTypeResponse
 import com.ctr.hotelreservations.extension.*
 import com.ctr.hotelreservations.ui.home.MainActivity
+import com.ctr.hotelreservations.ui.roomdetail.RoomDetailActivity
 import com.ctr.hotelreservations.util.DateUtil
 import com.ctr.hotelreservations.util.DateUtil.FORMAT_DATE_TIME_CHECK_IN
 import com.ctr.hotelreservations.util.DateUtil.FORMAT_DATE_TIME_DAY_IN_WEEK
-import com.ctr.hotelreservations.util.DateUtil.FORMAT_DATE_TIME_FROM_API
-import com.ctr.hotelreservations.util.DateUtil.ONE_HOUR
+import com.ctr.hotelreservations.util.compareDay
+import com.ctr.hotelreservations.util.parseToString
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_room_of_brand.*
 import kotlinx.android.synthetic.main.include_layout_select_date.*
 import java.util.*
-import kotlin.math.abs
 
 /**
  * Created by at-trinhnguyen2 on 2020/06/19
@@ -30,12 +31,11 @@ class RoomFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
     private lateinit var viewModel: RoomVMContract
     private lateinit var brand: HotelResponse.Hotel.Brand
     private val startDate = Calendar.getInstance()
-    private val endDate = Calendar.getInstance()
-    private var startDateString = "2020-06-20T14:00:00.682Z"
-    private var endDateString = "2020-06-20T14:00:00.682Z"
+    private val endDate = Calendar.getInstance().apply { add(Calendar.DATE, 1) }
+    private lateinit var datePicker: DatePickerDialog
 
     companion object {
-        private const val KEY_BRAND = "key_brand"
+        internal const val KEY_BRAND = "key_brand"
 
         fun getInstance(brand: HotelResponse.Hotel.Brand) =
             RoomFragment().apply {
@@ -61,34 +61,12 @@ class RoomFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
         viewModel = RoomViewModel(
             HotelRepository()
         )
-        brand = arguments?.getParcelable<HotelResponse.Hotel.Brand>(KEY_BRAND)
+        brand = arguments?.getParcelable(KEY_BRAND)
             ?: HotelResponse.Hotel.Brand()
-        getAllRoomStatus(brand.id, startDateString, endDateString)
+        getAllRoomStatus(brand.id, startDate.parseToString(), endDate.parseToString())
         initListener()
         initRecyclerView()
         initSwipeRefresh()
-    }
-
-    private fun initListener() {
-        imgBack.onClickDelayAction {
-            activity?.onBackPressed()
-        }
-
-        viewSelected.onClickDelayAction {
-            val calendar = Calendar.getInstance()
-            val datePicker = DatePickerDialog.newInstance(
-                this,
-                calendar[Calendar.YEAR],
-                calendar[Calendar.MONTH],
-                calendar[Calendar.DAY_OF_MONTH]
-            )
-            datePicker.apply {
-                isAutoHighlight = true
-                setEndTitle("Check Out")
-                setStartTitle("Check In")
-            }
-            (activity as? MainActivity)?.showDatePickerDialog(datePicker)
-        }
     }
 
     override fun onResume() {
@@ -98,6 +76,30 @@ class RoomFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
 
     override fun isNeedPaddingTop() = true
 
+    private fun initListener() {
+        imgBack.onClickDelayAction {
+            activity?.onBackPressed()
+        }
+
+        viewSelected.onClickDelayAction {
+            val calendar = Calendar.getInstance()
+            datePicker = DatePickerDialog.newInstance(
+                this,
+                calendar[Calendar.YEAR],
+                calendar[Calendar.MONTH],
+                calendar[Calendar.DAY_OF_MONTH]
+            )
+            datePicker.apply {
+//                isAutoHighlight = true
+                setEndTitle("Check Out")
+                setStartTitle("Check In")
+                minDate = calendar
+            }
+            datePicker.selectableDays
+            (activity as? MainActivity)?.showDatePickerDialog(datePicker)
+        }
+    }
+
     private fun initRecyclerView() {
         recyclerView.let {
             it.setHasFixedSize(true)
@@ -105,11 +107,16 @@ class RoomFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
                 adapter.onItemClicked = this::handlerItemClick
             }
         }
-
     }
 
     private fun handlerItemClick(room: RoomTypeResponse.RoomTypeStatus) {
-        Log.d("--=", "handlerItemClick: ${room}")
+        RoomDetailActivity.start(
+            this,
+            Gson().fromJson(brand.toJsonString(), HotelResponse.Hotel.Brand::class.java),
+            room,
+            startDate.parseToString(),
+            endDate.parseToString()
+        )
     }
 
     private fun initSwipeRefresh() {
@@ -120,8 +127,8 @@ class RoomFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
             }, 300L)
             getAllRoomStatus(
                 brand.id,
-                startDateString,
-                endDateString
+                startDate.parseToString(),
+                endDate.parseToString()
             )
         }
     }
@@ -168,8 +175,9 @@ class RoomFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
     ) {
         startDate.set(year, monthOfYear, dayOfMonth, 14, 0, 0)
         endDate.set(yearEnd, monthOfYearEnd, dayOfMonthEnd, 12, 0, 0)
-        startDateString = DateUtil.format(startDate, FORMAT_DATE_TIME_FROM_API)
-        endDateString = DateUtil.format(endDate, FORMAT_DATE_TIME_FROM_API)
+//        val highlightDays = calculateHighlightedDays(startDate, endDate).toTypedArray()
+//        Log.d("--=", "onDateSet: ${highlightDays.size}")
+//        datePicker.setHighlightedDays(highlightDays, highlightDays)
         lnSelected.invisible()
         lnStartDate.visible()
         tvRangeDate.visible()
@@ -178,15 +186,12 @@ class RoomFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
         tvEndDayOfTheWeek.text = DateUtil.format(endDate, FORMAT_DATE_TIME_DAY_IN_WEEK)
         tvStartDate.text = DateUtil.format(startDate, FORMAT_DATE_TIME_CHECK_IN)
         tvEndDate.text = DateUtil.format(endDate, FORMAT_DATE_TIME_CHECK_IN)
-        val dayNumber =
-            (abs(startDate.timeInMillis - endDate.timeInMillis) + 2 * ONE_HOUR) / (24 * ONE_HOUR)
+        val dayNumber = startDate.compareDay(endDate)
         tvRangeDate.text = resources.getString(R.string.roomDayNumber, dayNumber)
-        if (startDateString.isNotEmpty() && endDateString.isNotEmpty()) {
-            getAllRoomStatus(
-                brand.id,
-                startDateString,
-                endDateString
-            )
-        }
+        getAllRoomStatus(
+            brand.id,
+            startDate.parseToString(),
+            endDate.parseToString()
+        )
     }
 }

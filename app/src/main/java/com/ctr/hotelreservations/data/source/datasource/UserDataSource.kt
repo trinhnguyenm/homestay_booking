@@ -2,6 +2,7 @@ package com.ctr.hotelreservations.data.source.datasource
 
 import com.ctr.hotelreservations.data.source.request.LoginBody
 import com.ctr.hotelreservations.data.source.response.LoginResponse
+import com.ctr.hotelreservations.data.source.response.UserResponse
 import io.reactivex.Single
 
 /**
@@ -10,4 +11,5 @@ import io.reactivex.Single
 interface UserDataSource {
     fun login(body: LoginBody): Single<LoginResponse>
 
+    fun getUserFollowId(userId: Int): Single<UserResponse>
 }
