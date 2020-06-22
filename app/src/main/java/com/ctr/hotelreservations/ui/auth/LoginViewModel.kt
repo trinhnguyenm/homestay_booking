@@ -25,6 +25,10 @@ class LoginViewModel(
         localRepository.saveAutoLoginToken(token)
     }
 
+    override fun saveUserId(id: Int) {
+        localRepository.saveUserId(id)
+    }
+
     override fun getProgressObservable(): BehaviorSubject<Boolean> =
         progressBarDialogStateObservable
 }

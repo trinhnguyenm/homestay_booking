@@ -15,4 +15,6 @@ interface LoginVMContract {
     fun getProgressObservable(): BehaviorSubject<Boolean>
 
     fun saveAutoLoginToken(token: String?)
+
+    fun saveUserId(id: Int)
 }

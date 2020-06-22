@@ -34,10 +34,15 @@ class LoginFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initView()
         initListener()
         context?.let {
             viewModel = LoginViewModel(App.instance.localRepository, UserRepository())
         }
+    }
+
+    private fun initView() {
+        tvLogin.isEnabled = false
     }
 
     override fun isNeedPaddingTop() = true
@@ -56,10 +61,12 @@ class LoginFragment : BaseFragment() {
 
         inputEmail.afterTextChange = {
             loginBody.email = it
+            updateButtonNext()
         }
 
         inputPassword.afterTextChange = {
             loginBody.password = it
+            updateButtonNext()
         }
 
         tvLogin.onClickDelayAction {
@@ -67,13 +74,23 @@ class LoginFragment : BaseFragment() {
                 viewModel.login(loginBody)
                     .observeOnUiThread()
                     .subscribe({
-                        viewModel.saveAutoLoginToken(it.body.token)
+                        viewModel.saveAutoLoginToken(it.body?.token)
+                        viewModel.saveUserId(it?.body?.userDTO?.id ?: -1)
                         activity?.let { it1 -> MainActivity.start(it1) }
                     }, {
                         activity?.showErrorDialog(it)
                     })
             }
         }
+    }
+
+    private fun updateButtonNext() {
+        tvLogin.isEnabled = validateData()
+    }
+
+    private fun validateData(): Boolean {
+        return inputEmail.isValidateDataNotEmpty()
+                && inputPassword.isValidateDataNotEmpty()
     }
 
     override fun getProgressBarControlObservable() = viewModel?.getProgressObservable()
