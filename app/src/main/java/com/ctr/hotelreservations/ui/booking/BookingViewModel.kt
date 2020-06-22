@@ -47,6 +47,8 @@ class BookingViewModel(
             }
     }
 
+    override fun getUserId() = localRepository.getUserId()
+
     override fun getUserInfo(): Single<UserResponse> {
         return userRepository.getUserFollowId(localRepository.getUserId())
             .addProgressLoading()

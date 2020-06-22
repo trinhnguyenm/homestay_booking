@@ -20,7 +20,7 @@ interface ApiService {
     @POST("/api/auth/login")
     fun login(@Body loginBody: LoginBody): Single<LoginResponse>
 
-    @POST("/api/users/{id}")
+    @GET("/api/users/{id}")
     fun getUserFollowId(@Path("id") userId: Int): Single<UserResponse>
 
     @GET("/api/hotels")

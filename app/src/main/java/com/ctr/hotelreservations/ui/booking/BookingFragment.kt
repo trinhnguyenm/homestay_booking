@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.PagerSnapHelper
+import com.borax12.materialdaterangepicker.date.DatePickerDialog
 import com.bumptech.glide.Glide
 import com.ctr.hotelreservations.R
 import com.ctr.hotelreservations.base.BaseFragment
@@ -30,14 +31,16 @@ import java.util.*
 /**
  * Created by at-trinhnguyen2 on 2020/06/16
  */
-class BookingFragment : BaseFragment() {
+class BookingFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
     private lateinit var viewModel: BookingVMContract
     private var brand: HotelResponse.Hotel.Brand? = null
     private var roomTypeStatus: RoomTypeResponse.RoomTypeStatus? = null
     private var startDate: Calendar? = null
     private var endDate: Calendar? = null
+    private var numberOfDays = 1
     private var numberOfRooms = 1
-    private var prizePerNight = 0.0
+    private var prize = 0.0
+    private lateinit var datePicker: DatePickerDialog
 
     companion object {
         fun newInstance() = BookingFragment()
@@ -98,31 +101,54 @@ class BookingFragment : BaseFragment() {
             }
             tvRoomTitle.text = it.roomType.name
             tvRoomInfo.text = it.roomType.getRoomTypeInfo()
+            pickerRoomNo.setMax(it.totalRoomAvailable)
 
             brand?.let { brand ->
                 tvRoomAddress.text = brand.address
             }
 
-            tvStartDate.text = startDate?.parseToString(DateUtil.FORMAT_DATE_TIME_CHECK_IN_BOOKING)
-            tvEndDate.text = endDate?.parseToString(DateUtil.FORMAT_DATE_TIME_CHECK_IN_BOOKING)
-            tvCheckinTime.text = startDate?.parseToString(DateUtil.FORMAT_DATE_TIME_DAY_IN_WEEK)
-            tvCheckOutTime.text = endDate?.parseToString(DateUtil.FORMAT_DATE_TIME_DAY_IN_WEEK)
-            tvRangeDate.text = "${startDate.compareDay(endDate)}D"
-            pickerGuestNo.setMax(it.roomType.capacity)
-            pickerRoomNo.setMax(it.totalRoomAvailable)
-            prizePerNight =
-                startDate.compareDay(endDate).times(it.roomType.price).times(numberOfRooms)
-                    .times(1.1)
-            tvTotalFee.text = prizePerNight.toString().getPriceFormat()
-            tvPerNight.text = "${it.roomType.price.toString().getPriceFormat()} x 1 night"
+            numberOfDays = startDate.compareDay(endDate)
+            prize = it.roomType.price.toDouble()
+
+            updateUI(startDate, endDate, numberOfDays, numberOfRooms, prize)
+
             viewModel.getRoomsReservationBody().let { body ->
                 body.brandId = brand?.id
                 body.roomTypeId = roomTypeStatus?.roomType?.id
-                body.startDate = startDate?.parseToString(DateUtil.FORMAT_DATE_TIME_FROM_API_3)
-                body.endDate = endDate?.parseToString(DateUtil.FORMAT_DATE_TIME_FROM_API_3)
                 body.status = BookingStatus.PENDING.toString()
+                body.id = viewModel.getUserId()
             }
         }
+    }
+
+    private fun updateUI(
+        startDate: Calendar?,
+        endDate: Calendar?,
+        numberOfDays: Int,
+        numberOfRooms: Int,
+        prize: Double
+    ) {
+        tvStartDate.text = startDate?.parseToString(DateUtil.FORMAT_DATE_TIME_CHECK_IN_BOOKING)
+        tvEndDate.text = endDate?.parseToString(DateUtil.FORMAT_DATE_TIME_CHECK_IN_BOOKING)
+        tvCheckinTime.text = startDate?.parseToString(DateUtil.FORMAT_DATE_TIME_DAY_IN_WEEK)
+        tvCheckOutTime.text = endDate?.parseToString(DateUtil.FORMAT_DATE_TIME_DAY_IN_WEEK)
+        tvRangeDate.text = numberOfDays.toString()
+
+        viewModel.getRoomsReservationBody().let { body ->
+            body.startDate = startDate?.parseToString(DateUtil.FORMAT_DATE_TIME_FROM_API_3)
+            body.endDate = endDate?.parseToString(DateUtil.FORMAT_DATE_TIME_FROM_API_3)
+        }
+
+        updateTotalFee(numberOfDays, numberOfRooms, prize)
+    }
+
+    private fun updateTotalFee(numberOfDays: Int, numberOfRooms: Int, prize: Double) {
+        val prizeAllNight = prize * numberOfDays
+        tvPerNight.text = "${prizeAllNight.toString().getPriceFormat()} x $numberOfDays night"
+        tvPerRoom.text =
+            "${(prizeAllNight * numberOfRooms).toString().getPriceFormat()} x $numberOfRooms room"
+        tvTax.text = "${(prizeAllNight * numberOfRooms).toString().getPriceFormat()} x 10% tax"
+        tvTotalFee.text = (prizeAllNight * numberOfRooms * 1.1).toString().getPriceFormat()
     }
 
     private fun initListener() {
@@ -172,11 +198,35 @@ class BookingFragment : BaseFragment() {
 
         pickerRoomNo.onValueChange = {
             numberOfRooms = it
-            tvTotalFee.text = numberOfRooms.times(prizePerNight).toString().getPriceFormat()
+            updateTotalFee(numberOfDays, numberOfRooms, prize)
         }
 
         tvBookNow.onClickDelayAction {
             addNewRoomsReservation(numberOfRooms)
+        }
+
+        constrainDate.onClickDelayAction {
+            startDate?.let { startDate ->
+                endDate?.let { endDate ->
+                    datePicker = DatePickerDialog.newInstance(
+                        this,
+                        startDate[Calendar.YEAR],
+                        startDate[Calendar.MONTH],
+                        startDate[Calendar.DAY_OF_MONTH],
+                        endDate[Calendar.YEAR],
+                        endDate[Calendar.MONTH],
+                        endDate[Calendar.DAY_OF_MONTH]
+                    )
+                    datePicker.apply {
+//                        isAutoHighlight = true
+                        setEndTitle("Check Out")
+                        setStartTitle("Check In")
+                        minDate = Calendar.getInstance()
+                    }
+                    (activity as? BookingActivity)?.showDatePickerDialog(datePicker)
+                }
+            }
+
         }
     }
 
@@ -226,5 +276,23 @@ class BookingFragment : BaseFragment() {
                     activity?.showErrorDialog(it)
                 })
         )
+    }
+
+    override fun onDateSet(
+        view: DatePickerDialog?,
+        year: Int,
+        monthOfYear: Int,
+        dayOfMonth: Int,
+        yearEnd: Int,
+        monthOfYearEnd: Int,
+        dayOfMonthEnd: Int
+    ) {
+        startDate?.set(year, monthOfYear, dayOfMonth, 14, 0, 0)
+        endDate?.set(yearEnd, monthOfYearEnd, dayOfMonthEnd, 12, 0, 0)
+//        val highlightDays = calculateHighlightedDays(startDate, endDate).toTypedArray()
+//        Log.d("--=", "onDateSet: ${highlightDays.size}")
+//        datePicker.setHighlightedDays(highlightDays, highlightDays)
+        numberOfDays = startDate.compareDay(endDate)
+        updateUI(startDate, endDate, numberOfDays, numberOfRooms, prize)
     }
 }

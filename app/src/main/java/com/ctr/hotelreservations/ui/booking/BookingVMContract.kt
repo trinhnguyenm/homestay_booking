@@ -23,4 +23,5 @@ interface BookingVMContract {
     ): Single<RoomReservationResponse>
 
     fun getUserInfo(): Single<UserResponse>
+    fun getUserId(): Int
 }

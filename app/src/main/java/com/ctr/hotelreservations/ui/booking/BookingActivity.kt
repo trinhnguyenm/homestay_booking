@@ -3,6 +3,7 @@ package com.ctr.hotelreservations.ui.booking
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import com.borax12.materialdaterangepicker.date.DatePickerDialog
 import com.ctr.hotelreservations.R
 import com.ctr.hotelreservations.base.BaseActivity
 import com.ctr.hotelreservations.data.source.response.HotelResponse
@@ -46,4 +47,14 @@ class BookingActivity : BaseActivity() {
 
     override fun getAppearAnimType(): BaseActivity.AppearAnim =
         BaseActivity.AppearAnim.SLIDE_FROM_RIGHT
+
+    internal fun showDatePickerDialog(dialog: DatePickerDialog) {
+        dialog.show(fragmentManager, "DatePickerDialogBooking")
+    }
+
+    internal fun setOnDateSetListener(dialog: DatePickerDialog.OnDateSetListener) {
+        val datePickerDialog =
+            fragmentManager?.findFragmentByTag("DatePickerDialogBooking") as? DatePickerDialog
+        datePickerDialog?.setOnDateSetListener(dialog)
+    }
 }
