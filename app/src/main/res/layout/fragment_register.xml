@@ -24,7 +24,7 @@
                 android:layout_centerInParent="true"
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
-                android:text="Login" />
+                android:text="Sign Up" />
 
             <ImageView
                 android:id="@+id/imgBack"
@@ -60,7 +60,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_24dp"
-                android:visibility="gone"
                 app:edit_hint="Enter first name"
                 app:error_textOnEmpty="@string/error001"
                 app:label_text="First name" />
@@ -71,7 +70,6 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/inputFirstName"
                 android:layout_marginTop="@dimen/dimen_24dp"
-                android:visibility="gone"
                 app:edit_hint="Enter last name"
                 app:error_textOnEmpty="@string/error001"
                 app:label_text="Last name" />
@@ -82,7 +80,6 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/inputLastName"
                 android:layout_marginTop="@dimen/dimen_24dp"
-                android:visibility="gone"
                 app:edit_hint="Enter phone number"
                 app:edit_inputType="phone"
                 app:error_text="Phone number is not valid"
@@ -120,7 +117,6 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/inputPassword"
                 android:layout_marginTop="@dimen/dimen_24dp"
-                android:visibility="gone"
                 app:edit_hint="Confirm your password"
                 app:edit_inputType="textPassword"
                 app:edit_maxLength="50"
@@ -129,28 +125,28 @@
                 app:label_text="Confirm Password" />
 
             <Button
-                android:id="@+id/tvLogin"
+                android:id="@+id/tvSignUp"
                 style="@style/AppButton"
                 android:layout_width="200dp"
                 android:layout_height="@dimen/dimen_48dp"
-                android:layout_above="@+id/tvAlready"
+                android:layout_below="@id/inputEmail"
                 android:layout_centerHorizontal="true"
                 android:layout_marginStart="@dimen/dimen_20dp"
+                android:layout_marginTop="240dp"
                 android:layout_marginEnd="@dimen/dimen_20dp"
-                android:layout_marginBottom="@dimen/dimen_30dp"
                 android:background="@drawable/bg_button_round_gradient_enable"
-                android:text="@string/log_in"
+                android:text="SIGN UP"
                 android:textColor="#ffffffff" />
 
             <TextView
                 android:id="@+id/tvAlready"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_above="@id/tvActionHere"
+                android:layout_below="@id/tvSignUp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="@dimen/dimen_12dp"
+                android:layout_marginTop="@dimen/dimen_30dp"
                 android:fontFamily="@font/lato_black"
-                android:text="Don't have an account?"
+                android:text="Already have an account?"
                 android:textColor="#ff666666"
                 android:textSize="15sp" />
 
@@ -158,11 +154,11 @@
                 android:id="@+id/tvActionHere"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
+                android:layout_below="@id/tvAlready"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="@dimen/dimen_30dp"
+                android:layout_marginTop="@dimen/dimen_12dp"
                 android:fontFamily="@font/lato_black"
-                android:text="SIGN UP HERE"
+                android:text="LOGIN HERE"
                 android:textColor="@color/colorAccent"
                 android:textSize="16sp" />
         </RelativeLayout>

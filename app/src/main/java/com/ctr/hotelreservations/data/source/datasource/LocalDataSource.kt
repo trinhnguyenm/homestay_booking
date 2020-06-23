@@ -29,4 +29,5 @@ interface LocalDataSource {
     fun getUserId(): Int
 
     fun removeToken()
+    fun removeUserId()
 }

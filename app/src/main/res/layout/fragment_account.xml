@@ -65,7 +65,7 @@
                 app:layout_constraintTop_toTopOf="@+id/avatar">
 
                 <TextView
-                    android:id="@+id/tvSignUp"
+                    android:id="@+id/tvName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dimen_12dp"
@@ -76,7 +76,7 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/tvSignIn"
+                    android:id="@+id/tvEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dimen_12dp"
@@ -94,7 +94,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:fontFamily="@font/lato_heavy"
-                    android:text="Log in here"
+                    android:text="View Profile"
                     android:textAllCaps="true"
                     android:textColor="@color/colorAccent"
                     android:textSize="16sp" />
@@ -247,4 +247,19 @@
                 android:text="Rate 5 star" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tvLogout"
+        android:layout_width="180dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="@dimen/dimen_4dp"
+        android:layout_marginBottom="44dp"
+        android:background="@drawable/bg_btn_default_radius"
+        android:fontFamily="@font/lato_black"
+        android:gravity="center"
+        android:text="Logout"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

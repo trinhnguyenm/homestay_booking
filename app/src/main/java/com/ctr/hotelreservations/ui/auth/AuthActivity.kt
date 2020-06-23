@@ -10,13 +10,22 @@ import com.ctr.hotelreservations.extension.addFragment
 class AuthActivity : BaseActivity() {
 
     companion object {
-        private const val KEY_OPEN_LOGIN = "key_open_login"
-        internal fun start(from: Fragment, isOpenLogin: Boolean) {
+        internal const val KEY_OPEN_LOGIN = "key_open_login"
+        internal const val KEY_SHOW_BUTTON_BACK = "key_show_button_back"
+        internal const val KEY_EMAIL = "key_email"
+        internal fun start(
+            from: Fragment,
+            isOpenLogin: Boolean = true,
+            isShowButtonBack: Boolean = true,
+            email: String? = null
+        ) {
             AuthActivity()
                 .apply {
                     val intent = Intent(from.activity, AuthActivity::class.java)
                     intent.putExtras(Bundle().apply {
                         putBoolean(KEY_OPEN_LOGIN, isOpenLogin)
+                        putBoolean(KEY_SHOW_BUTTON_BACK, isShowButtonBack)
+                        putString(KEY_EMAIL, email)
                     })
                     from.startActivity(intent)
                 }
@@ -34,4 +43,8 @@ class AuthActivity : BaseActivity() {
     }
 
     override fun getContainerId() = R.id.container
+
+    internal fun openRegisterFragment() {
+        addFragment(getContainerId(), RegisterFragment.newInstance(), addToBackStack = true)
+    }
 }

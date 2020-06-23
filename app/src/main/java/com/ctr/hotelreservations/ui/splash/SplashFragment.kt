@@ -2,6 +2,7 @@ package com.ctr.hotelreservations.ui.splash
 
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,7 +37,12 @@ class SplashFragment : BaseFragment() {
                 if (it.isFirstLunch()) {
                     (activity as? SplashActivity)?.startOnBoardingActivity()
                 } else {
-                    (activity as? SplashActivity)?.startHomeActivity()
+                    it.getLoginToken().apply { Log.d("--=", "+${this}") }
+                    if (it.getLoginToken().isNullOrEmpty()) {
+                        (activity as? SplashActivity)?.startAuthActivity(this)
+                    } else {
+                        (activity as? SplashActivity)?.startHomeActivity()
+                    }
                 }
             }
         }, 1000L)

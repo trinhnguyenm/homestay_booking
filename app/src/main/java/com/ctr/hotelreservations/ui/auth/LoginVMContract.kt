@@ -1,7 +1,9 @@
 package com.ctr.hotelreservations.ui.auth
 
 import com.ctr.hotelreservations.data.source.request.LoginBody
+import com.ctr.hotelreservations.data.source.request.RegisterBody
 import com.ctr.hotelreservations.data.source.response.LoginResponse
+import com.ctr.hotelreservations.data.source.response.RegisterResponse
 import io.reactivex.Single
 import io.reactivex.subjects.BehaviorSubject
 
@@ -17,4 +19,5 @@ interface LoginVMContract {
     fun saveAutoLoginToken(token: String?)
 
     fun saveUserId(id: Int)
+    fun register(registerBody: RegisterBody): Single<RegisterResponse>
 }

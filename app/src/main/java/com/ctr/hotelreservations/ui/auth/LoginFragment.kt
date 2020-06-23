@@ -10,6 +10,8 @@ import com.ctr.hotelreservations.data.source.UserRepository
 import com.ctr.hotelreservations.data.source.request.LoginBody
 import com.ctr.hotelreservations.extension.*
 import com.ctr.hotelreservations.ui.App
+import com.ctr.hotelreservations.ui.auth.AuthActivity.Companion.KEY_EMAIL
+import com.ctr.hotelreservations.ui.auth.AuthActivity.Companion.KEY_SHOW_BUTTON_BACK
 import com.ctr.hotelreservations.ui.home.MainActivity
 import kotlinx.android.synthetic.main.fragment_login.*
 
@@ -42,6 +44,12 @@ class LoginFragment : BaseFragment() {
     }
 
     private fun initView() {
+        if (activity?.intent?.extras?.getBoolean(KEY_SHOW_BUTTON_BACK) != false) {
+            imgBack.visible()
+        } else {
+            imgBack.invisible()
+        }
+        inputEmail.setText(activity?.intent?.extras?.getString(KEY_EMAIL))
         tvLogin.isEnabled = false
     }
 
@@ -81,6 +89,10 @@ class LoginFragment : BaseFragment() {
                         activity?.showErrorDialog(it)
                     })
             }
+        }
+
+        tvActionHere.onClickDelayAction {
+            (activity as? AuthActivity)?.openRegisterFragment()
         }
     }
 

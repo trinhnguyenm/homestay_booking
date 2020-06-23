@@ -4,8 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import com.ctr.hotelreservations.R
 import com.ctr.hotelreservations.base.BaseActivity
+import com.ctr.hotelreservations.base.BaseFragment
 import com.ctr.hotelreservations.extension.getStatusBarHeight
 import com.ctr.hotelreservations.extension.replaceFragment
+import com.ctr.hotelreservations.ui.auth.AuthActivity
 import com.ctr.hotelreservations.ui.home.MainActivity
 import com.ctr.hotelreservations.ui.onboarding.OnBoardingActivity
 import com.ctr.hotelreservations.util.SharedReferencesUtil
@@ -36,13 +38,18 @@ class SplashActivity : BaseActivity() {
         replaceFragment(getContainerId(), SplashFragment.newInstance())
     }
 
-    internal fun startHomeActivity() {
-        startActivity(Intent(this, MainActivity::class.java))
+    internal fun startOnBoardingActivity() {
+        startActivity(Intent(this, OnBoardingActivity::class.java))
         finishAffinity()
     }
 
-    internal fun startOnBoardingActivity() {
-        startActivity(Intent(this, OnBoardingActivity::class.java))
+    internal fun startAuthActivity(fragment: BaseFragment) {
+        AuthActivity.start(fragment, isOpenLogin = true, isShowButtonBack = false)
+        finishAffinity()
+    }
+
+    internal fun startHomeActivity() {
+        startActivity(Intent(this, MainActivity::class.java))
         finishAffinity()
     }
 }

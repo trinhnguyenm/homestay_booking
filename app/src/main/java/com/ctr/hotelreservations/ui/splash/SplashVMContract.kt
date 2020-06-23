@@ -8,4 +8,6 @@ interface SplashVMContract {
     fun isFirstLunch(): Boolean
 
     fun updateFirstLaunch()
+
+    fun getLoginToken(): String?
 }

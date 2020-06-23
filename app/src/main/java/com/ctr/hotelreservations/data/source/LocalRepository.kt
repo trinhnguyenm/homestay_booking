@@ -49,6 +49,10 @@ class LocalRepository(private val context: Context) : LocalDataSource {
         SharedReferencesUtil.remove(context, SharedReferencesUtil.KEY_AUTO_LOGIN_TOKEN)
     }
 
+    override fun removeUserId() {
+        SharedReferencesUtil.remove(context, SharedReferencesUtil.KEY_USER_ID)
+    }
+
     override fun getDeviceToken(): String? =
         SharedReferencesUtil.getString(context, SharedReferencesUtil.KEY_DEVICE_TOKEN)
 

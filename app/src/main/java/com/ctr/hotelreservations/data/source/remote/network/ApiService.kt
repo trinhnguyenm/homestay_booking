@@ -1,6 +1,7 @@
 package com.ctr.hotelreservations.data.source.remote.network
 
 import com.ctr.hotelreservations.data.source.request.LoginBody
+import com.ctr.hotelreservations.data.source.request.RegisterBody
 import com.ctr.hotelreservations.data.source.request.RoomsReservationBody
 import com.ctr.hotelreservations.data.source.response.*
 import io.reactivex.Single
@@ -19,6 +20,9 @@ interface ApiService {
      */
     @POST("/api/auth/login")
     fun login(@Body loginBody: LoginBody): Single<LoginResponse>
+
+    @POST("/api/auth/register")
+    fun register(@Body registerBody: RegisterBody): Single<RegisterResponse>
 
     @GET("/api/users/{id}")
     fun getUserFollowId(@Path("id") userId: Int): Single<UserResponse>
