@@ -1,13 +1,13 @@
 package com.ctr.hotelreservations.extension
 
-import com.google.android.material.snackbar.Snackbar
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.FrameLayout
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import com.ctr.hotelreservations.R
+import com.google.android.material.snackbar.Snackbar
 
 /**
  * Use this extension for Fragment

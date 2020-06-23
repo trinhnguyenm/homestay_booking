@@ -31,7 +31,14 @@ private const val SNACK_BAR_DURATION = 1000
 internal fun FragmentActivity.addFragment(
     containerId: Int,
     fragment: Fragment,
-    transactionCallback: ((transaction: FragmentTransaction) -> Unit)? = null,
+    transactionCallback: ((transaction: FragmentTransaction) -> Unit)? = {
+        it.setCustomAnimations(
+            R.anim.anim_slide_right_in,
+            0,
+            0,
+            R.anim.anim_slide_right_out
+        )
+    },
     addToBackStack: Boolean = false,
     tag: String? = null,
     isAddExisted: Boolean = false
@@ -54,7 +61,14 @@ internal fun FragmentActivity.addFragment(
 internal fun FragmentActivity.replaceFragment(
     containerId: Int,
     fragment: Fragment,
-    transactionCallback: ((transaction: FragmentTransaction) -> Unit)? = null,
+    transactionCallback: ((transaction: FragmentTransaction) -> Unit)? = {
+        it.setCustomAnimations(
+            R.anim.anim_slide_right_in,
+            0,
+            0,
+            R.anim.anim_slide_right_out
+        )
+    },
     addToBackStack: Boolean = false,
     tag: String? = null
 ) {

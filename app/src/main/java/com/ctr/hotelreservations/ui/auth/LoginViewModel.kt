@@ -4,7 +4,9 @@ import com.ctr.hotelreservations.base.BaseViewModel
 import com.ctr.hotelreservations.data.source.datasource.LocalDataSource
 import com.ctr.hotelreservations.data.source.datasource.UserDataSource
 import com.ctr.hotelreservations.data.source.request.LoginBody
+import com.ctr.hotelreservations.data.source.request.RegisterBody
 import com.ctr.hotelreservations.data.source.response.LoginResponse
+import com.ctr.hotelreservations.data.source.response.RegisterResponse
 import io.reactivex.Single
 import io.reactivex.subjects.BehaviorSubject
 
@@ -18,6 +20,11 @@ class LoginViewModel(
 
     override fun login(loginBody: LoginBody): Single<LoginResponse> {
         return userRepository.login(loginBody)
+            .addProgressLoading()
+    }
+
+    override fun register(registerBody: RegisterBody): Single<RegisterResponse> {
+        return userRepository.register(registerBody)
             .addProgressLoading()
     }
 
