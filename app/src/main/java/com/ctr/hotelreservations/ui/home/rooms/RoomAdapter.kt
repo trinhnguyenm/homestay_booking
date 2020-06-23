@@ -44,7 +44,7 @@ class RoomAdapter(
         fun onBind(item: RoomTypeResponse.RoomTypeStatus) {
             itemView.apply {
 //                tvTypeRoom.text = item.roomType.name
-                tvName.text = resources.getString(R.string.roomNameFormat, item.roomType.name)
+                tvName.text = item.roomType.name
                 tvAddress.text = brand.address
                 tvRoomInfo.text =
                     item.roomType.getRoomTypeInfo()

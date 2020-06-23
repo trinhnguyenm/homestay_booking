@@ -70,14 +70,14 @@ class RoomDetailFragment : BaseFragment() {
                 Glide.with(context).load(it.roomType.images[2].name).into(imgBanner4)
             }
 
-            tvName.text = it.roomType.name
+            tvTypeRoom.text = it.roomType.name
             tvCodePlace.text = getString(R.string.room_code, it.roomType.id.toString())
             tvPerNight.text = getString(R.string.per_night, 1)
             tvRoomPrice.text = it.roomType.price.toString().getPriceFormat()
         }
 
         brand?.let {
-            Log.d("--=", "initView: ${brand}")
+            tvName.text = it.name
             tvAddress.text = brand?.address
         }
     }

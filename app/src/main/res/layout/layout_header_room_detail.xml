@@ -50,7 +50,6 @@
         android:layout_marginEnd="@dimen/dimen_16dp"
         android:ellipsize="end"
         android:fontFamily="@font/lato_bold"
-        android:lineSpacingExtra="8sp"
         android:maxLines="3"
         android:tag="binding_3"
         android:text="Phòng Deluxe King"
