@@ -16,7 +16,7 @@ import com.ctr.hotelreservations.ui.roomdetail.RoomDetailActivity
 class BookingActivity : BaseActivity() {
 
     companion object {
-        internal const val KEY_PROMOS = "key_promos"
+        internal const val KEY_PROMO = "key_promos"
 
         internal fun start(
             from: Fragment,
@@ -24,7 +24,7 @@ class BookingActivity : BaseActivity() {
             roomTypeStatus: RoomTypeResponse.RoomTypeStatus,
             startDate: String,
             endDate: String,
-            promos: PromoResponse
+            promo: PromoResponse.Promo?
         ) {
             BookingActivity()
                 .apply {
@@ -34,7 +34,7 @@ class BookingActivity : BaseActivity() {
                         putParcelable(RoomDetailActivity.KEY_ROOM_TYPE_STATUS, roomTypeStatus)
                         putString(RoomDetailActivity.KEY_START_DATE, startDate)
                         putString(RoomDetailActivity.KEY_END_DATE, endDate)
-                        putParcelable(KEY_PROMOS, promos)
+                        putParcelable(KEY_PROMO, promo)
                     })
                     from.startActivity(intent)
                 }

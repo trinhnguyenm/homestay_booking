@@ -10,7 +10,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/actionBarCustom"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/dimen_80dp"
         android:gravity="center_vertical"
         android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent">
@@ -93,7 +93,6 @@
             </RelativeLayout>
         </RelativeLayout>
     </com.google.android.material.appbar.AppBarLayout>
-
 
     <include layout="@layout/layout_room_detail_booking" />
 

@@ -20,7 +20,7 @@ data class PromoResponse(
         @SerializedName("endDate") val endDate: String = "",
         @SerializedName("id") val id: Int? = 0,
         @SerializedName("percentDiscount") val percentDiscount: Int = 0,
-        @SerializedName("promoCode") val promoCode: String? = "",
+        @SerializedName("promoCode") val promoCode: String = "",
         @SerializedName("roomType") val roomType: RoomType? = RoomType(),
         @SerializedName("startDate") val startDate: String = ""
     ) : Parcelable {

@@ -17,7 +17,7 @@ import com.ctr.hotelreservations.data.source.response.PromoResponse
 import com.ctr.hotelreservations.data.source.response.RoomTypeResponse
 import com.ctr.hotelreservations.extension.*
 import com.ctr.hotelreservations.ui.App
-import com.ctr.hotelreservations.ui.booking.BookingActivity.Companion.KEY_PROMOS
+import com.ctr.hotelreservations.ui.booking.BookingActivity.Companion.KEY_PROMO
 import com.ctr.hotelreservations.ui.home.rooms.RoomFragment
 import com.ctr.hotelreservations.ui.roomdetail.RoomDetailActivity
 import com.ctr.hotelreservations.util.DateUtil
@@ -28,7 +28,6 @@ import kotlinx.android.synthetic.main.fragment_booking.*
 import kotlinx.android.synthetic.main.layout_room_detail_booking.*
 import java.util.*
 
-
 /**
  * Created by at-trinhnguyen2 on 2020/06/16
  */
@@ -38,7 +37,7 @@ class BookingFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
     private var roomTypeStatus: RoomTypeResponse.RoomTypeStatus? = null
     private var startDate: Calendar? = null
     private var endDate: Calendar? = null
-    private var promoResponse: PromoResponse? = null
+    private var promo: PromoResponse.Promo? = null
     private var numberOfDays = 1
     private var numberOfRooms = 1
     private var prize = 0.0
@@ -94,7 +93,7 @@ class BookingFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
             roomTypeStatus = getParcelable(RoomDetailActivity.KEY_ROOM_TYPE_STATUS)
             startDate = getString(RoomDetailActivity.KEY_START_DATE)?.parseToCalendar()
             endDate = getString(RoomDetailActivity.KEY_END_DATE)?.parseToCalendar()
-            promoResponse = getParcelable(KEY_PROMOS)
+            promo = getParcelable(KEY_PROMO)
         }
         tvBookNow.isEnabled = false
 
@@ -105,6 +104,7 @@ class BookingFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
             tvRoomTitle.text = it.roomType.name
             tvRoomInfo.text = it.roomType.getRoomTypeInfo()
             pickerRoomNo.setMax(it.totalRoomAvailable)
+            pickerGuestNo.setMax(it.roomType.capacity)
 
             brand?.let { brand ->
                 tvRoomAddress.text = brand.address
@@ -142,16 +142,34 @@ class BookingFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
             body.endDate = endDate?.parseToString(DateUtil.FORMAT_DATE_TIME_FROM_API_3)
         }
 
-        updateTotalFee(numberOfDays, numberOfRooms, prize)
+        updateTotalFee(numberOfDays, numberOfRooms, prize, promo?.percentDiscount ?: 0)
     }
 
-    private fun updateTotalFee(numberOfDays: Int, numberOfRooms: Int, prize: Double) {
-        val prizeAllNight = prize * numberOfDays
-        tvPerNight.text = "${prizeAllNight.toString().getPriceFormat()} x $numberOfDays night"
-        tvPerRoom.text =
-            "${(prizeAllNight * numberOfRooms).toString().getPriceFormat()} x $numberOfRooms room"
-        tvTax.text = "${(prizeAllNight * numberOfRooms).toString().getPriceFormat()} x 10% tax"
-        tvTotalFee.text = (prizeAllNight * numberOfRooms * 1.1).toString().getPriceFormat()
+    private fun updateTotalFee(
+        numberOfDays: Int,
+        numberOfRooms: Int,
+        prize: Double,
+        promoPercent: Int
+    ) {
+        if (promoPercent == 0) llPromo.gone() else llPromo.visible()
+        tvTitlePerNoNight.text = "Price per $numberOfDays night"
+        val pricePerNoNight = prize * numberOfDays
+        tvPerNoNight.text = "${prize.toString().getPriceFormat()} x $numberOfDays"
+
+        tvTitlePerNoRoom.text = "Price per $numberOfRooms room"
+        val pricePerNoRoom = pricePerNoNight * numberOfRooms
+        tvPerNoRoom.text = "${pricePerNoNight.toString().getPriceFormat()} x $numberOfRooms"
+        tvRoomPrice.text = pricePerNoRoom.toString().getPriceFormat()
+
+        tvDiscount.text = "${pricePerNoRoom.toString().getPriceFormat()} x $promoPercent%"
+        val pricePromo = pricePerNoRoom * promoPercent / 100.0
+        tvPromo.text = "-${pricePromo.toString().getPriceFormat()}"
+
+        val priceTax = (pricePerNoRoom - pricePromo) * 10 / 100.0
+        tvTaxPercent.text = "${(pricePerNoRoom - pricePromo).toString().getPriceFormat()} x 10%"
+        tvTax.text = priceTax.toString().getPriceFormat()
+
+        tvTotalFee.text = (pricePerNoRoom - pricePromo + priceTax).toString().getPriceFormat()
     }
 
     private fun initListener() {
@@ -201,14 +219,20 @@ class BookingFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
 
         pickerRoomNo.onValueChange = {
             numberOfRooms = it
-            updateTotalFee(numberOfDays, numberOfRooms, prize)
+            updateTotalFee(numberOfDays, numberOfRooms, prize, promo?.percentDiscount ?: 0)
         }
 
         tvBookNow.onClickDelayAction {
-            addNewRoomsReservation(numberOfRooms)
+            if (promo == null) {
+                addNewRoomsReservation(numberOfRooms)
+            } else {
+                promo?.let {
+                    addNewRoomsReservation(numberOfRooms, listOf(it.promoCode))
+                }
+            }
         }
 
-        constrainDate.onClickDelayAction {
+        /*constrainDate.onClickDelayAction {
             startDate?.let { startDate ->
                 endDate?.let { endDate ->
                     datePicker = DatePickerDialog.newInstance(
@@ -230,7 +254,7 @@ class BookingFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
                 }
             }
 
-        }
+        }*/
     }
 
     private fun updateNextButtonState() {
@@ -298,3 +322,4 @@ class BookingFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
         updateUI(startDate, endDate, numberOfDays, numberOfRooms, prize)
     }
 }
+

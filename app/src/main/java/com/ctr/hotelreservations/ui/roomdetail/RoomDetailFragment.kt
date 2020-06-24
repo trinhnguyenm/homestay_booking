@@ -104,13 +104,13 @@ class RoomDetailFragment : BaseFragment() {
             BookingActivity.start(
                 this,
                 Gson().fromJson(
-                    brand?.toJsonString().apply { Log.d("--=", "+${this}") },
+                    brand?.toJsonString(),
                     HotelResponse.Hotel.Brand::class.java
                 ),
                 roomTypeStatus ?: RoomTypeResponse.RoomTypeStatus(),
                 startDate?.parseToString() ?: Calendar.getInstance().parseToString(),
                 endDate?.parseToString() ?: Calendar.getInstance().parseToString(),
-                promoResponse ?: PromoResponse()
+                viewModel.getMaxPromo()
             )
         }
     }
