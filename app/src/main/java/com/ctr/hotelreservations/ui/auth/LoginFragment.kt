@@ -41,6 +41,7 @@ class LoginFragment : BaseFragment() {
         context?.let {
             viewModel = LoginViewModel(App.instance.localRepository, UserRepository())
         }
+        inputEmail.setText(activity?.intent?.extras?.getString(KEY_EMAIL))
     }
 
     private fun initView() {
@@ -49,7 +50,6 @@ class LoginFragment : BaseFragment() {
         } else {
             imgBack.invisible()
         }
-        inputEmail.setText(activity?.intent?.extras?.getString(KEY_EMAIL))
         tvLogin.isEnabled = false
     }
 

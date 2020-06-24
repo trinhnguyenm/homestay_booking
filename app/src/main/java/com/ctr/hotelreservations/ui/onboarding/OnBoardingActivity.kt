@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import com.ctr.hotelreservations.R
 import com.ctr.hotelreservations.base.BaseFragment
 import com.ctr.hotelreservations.extension.onClickDelayAction
-import com.ctr.hotelreservations.ui.home.MainActivity
+import com.ctr.hotelreservations.ui.auth.AuthActivity
 import com.ctr.hotelreservations.util.SharedReferencesUtil
 import kotlinx.android.synthetic.main.activity_on_boarding.*
 import kotlin.math.abs
@@ -37,7 +37,7 @@ class OnBoardingActivity : AppCompatActivity() {
                     SharedReferencesUtil.KEY_IS_FIRST_LAUNCH,
                     false
                 )
-                MainActivity.start(this)
+                AuthActivity.start(this, isOpenLogin = true, isShowButtonBack = false)
                 finishAffinity()
             }
             viewPager.currentItem = viewPager.currentItem + 1

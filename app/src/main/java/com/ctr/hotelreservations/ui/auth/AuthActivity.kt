@@ -1,5 +1,6 @@
 package com.ctr.hotelreservations.ui.auth
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -22,6 +23,24 @@ class AuthActivity : BaseActivity() {
             AuthActivity()
                 .apply {
                     val intent = Intent(from.activity, AuthActivity::class.java)
+                    intent.putExtras(Bundle().apply {
+                        putBoolean(KEY_OPEN_LOGIN, isOpenLogin)
+                        putBoolean(KEY_SHOW_BUTTON_BACK, isShowButtonBack)
+                        putString(KEY_EMAIL, email)
+                    })
+                    from.startActivity(intent)
+                }
+        }
+
+        internal fun start(
+            from: Activity,
+            isOpenLogin: Boolean = true,
+            isShowButtonBack: Boolean = true,
+            email: String? = null
+        ) {
+            AuthActivity()
+                .apply {
+                    val intent = Intent(from, AuthActivity::class.java)
                     intent.putExtras(Bundle().apply {
                         putBoolean(KEY_OPEN_LOGIN, isOpenLogin)
                         putBoolean(KEY_SHOW_BUTTON_BACK, isShowButtonBack)
