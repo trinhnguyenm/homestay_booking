@@ -7,6 +7,7 @@ import com.borax12.materialdaterangepicker.date.DatePickerDialog
 import com.ctr.hotelreservations.R
 import com.ctr.hotelreservations.base.BaseActivity
 import com.ctr.hotelreservations.data.source.response.HotelResponse
+import com.ctr.hotelreservations.data.source.response.PromoResponse
 import com.ctr.hotelreservations.data.source.response.RoomTypeResponse
 import com.ctr.hotelreservations.extension.addFragment
 import com.ctr.hotelreservations.ui.home.rooms.RoomFragment
@@ -15,13 +16,15 @@ import com.ctr.hotelreservations.ui.roomdetail.RoomDetailActivity
 class BookingActivity : BaseActivity() {
 
     companion object {
+        internal const val KEY_PROMOS = "key_promos"
 
         internal fun start(
             from: Fragment,
             brand: HotelResponse.Hotel.Brand,
             roomTypeStatus: RoomTypeResponse.RoomTypeStatus,
             startDate: String,
-            endDate: String
+            endDate: String,
+            promos: PromoResponse
         ) {
             BookingActivity()
                 .apply {
@@ -31,6 +34,7 @@ class BookingActivity : BaseActivity() {
                         putParcelable(RoomDetailActivity.KEY_ROOM_TYPE_STATUS, roomTypeStatus)
                         putString(RoomDetailActivity.KEY_START_DATE, startDate)
                         putString(RoomDetailActivity.KEY_END_DATE, endDate)
+                        putParcelable(KEY_PROMOS, promos)
                     })
                     from.startActivity(intent)
                 }

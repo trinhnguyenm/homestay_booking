@@ -27,4 +27,6 @@ class HotelRemoteDataSource(private val apiService: ApiService = ApiClient.getIn
         apiService.getHotels()
         return apiService.addNewRoomsReservation(numberOfRooms, listPromoCode, roomsReservationBody)
     }
+
+    override fun getAllPromoStillActive() = apiService.getAllPromoStillActive()
 }

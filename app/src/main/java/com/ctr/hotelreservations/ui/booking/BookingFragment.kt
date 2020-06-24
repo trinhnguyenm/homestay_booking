@@ -1,7 +1,6 @@
 package com.ctr.hotelreservations.ui.booking
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,9 +13,11 @@ import com.ctr.hotelreservations.data.model.BookingStatus
 import com.ctr.hotelreservations.data.source.HotelRepository
 import com.ctr.hotelreservations.data.source.UserRepository
 import com.ctr.hotelreservations.data.source.response.HotelResponse
+import com.ctr.hotelreservations.data.source.response.PromoResponse
 import com.ctr.hotelreservations.data.source.response.RoomTypeResponse
 import com.ctr.hotelreservations.extension.*
 import com.ctr.hotelreservations.ui.App
+import com.ctr.hotelreservations.ui.booking.BookingActivity.Companion.KEY_PROMOS
 import com.ctr.hotelreservations.ui.home.rooms.RoomFragment
 import com.ctr.hotelreservations.ui.roomdetail.RoomDetailActivity
 import com.ctr.hotelreservations.util.DateUtil
@@ -37,6 +38,7 @@ class BookingFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
     private var roomTypeStatus: RoomTypeResponse.RoomTypeStatus? = null
     private var startDate: Calendar? = null
     private var endDate: Calendar? = null
+    private var promoResponse: PromoResponse? = null
     private var numberOfDays = 1
     private var numberOfRooms = 1
     private var prize = 0.0
@@ -92,6 +94,7 @@ class BookingFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
             roomTypeStatus = getParcelable(RoomDetailActivity.KEY_ROOM_TYPE_STATUS)
             startDate = getString(RoomDetailActivity.KEY_START_DATE)?.parseToCalendar()
             endDate = getString(RoomDetailActivity.KEY_END_DATE)?.parseToCalendar()
+            promoResponse = getParcelable(KEY_PROMOS)
         }
         tvBookNow.isEnabled = false
 
@@ -254,7 +257,6 @@ class BookingFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
                         "Complete!",
                         "Booking id: ${it.roomReservations.firstOrNull()?.id}"
                     )
-                    Log.d("--=", "addNewRoomsReservation: ${it}")
                 }, {
                     activity?.showErrorDialog(it)
                 })

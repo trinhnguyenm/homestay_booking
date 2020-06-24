@@ -15,6 +15,7 @@ object DateUtil {
     internal const val FORMAT_DATE_TIME = "yyyy/MM/dd"
     internal const val FORMAT_DATE_TIME_CHECK_IN = "dd/MM/yyyy"
     internal const val FORMAT_DATE_DAY_MONTH = "dd/MM"
+    internal const val FORMAT_DATE_PROMO_SERVER = "yyyy-MM-dd"
     internal const val FORMAT_DATE_TIME_CHECK_IN_BOOKING = "dd MMMM, yyyy"
     internal const val FORMAT_DATE_TIME_DAY_IN_WEEK = "EEEE"
     internal const val ONE_HOUR = 1000 * 60 * 60
