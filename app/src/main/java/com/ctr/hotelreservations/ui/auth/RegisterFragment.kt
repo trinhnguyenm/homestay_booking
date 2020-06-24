@@ -48,6 +48,7 @@ class RegisterFragment : BaseFragment() {
         inputLastName.visible()
         inputPhone.visible()
         inputConfirmPassword.visible()
+        tvSignUp.isEnabled = false
     }
 
     private fun initListener() {
@@ -81,21 +82,30 @@ class RegisterFragment : BaseFragment() {
 
         inputFirstName.afterTextChange = {
             registerBody.firstName = it
+            updateNextButton()
         }
 
         inputLastName.afterTextChange = {
             registerBody.lastName = it
+            updateNextButton()
         }
         inputPhone.afterTextChange = {
             registerBody.phone = it
+            updateNextButton()
         }
 
         inputEmail.afterTextChange = {
             registerBody.email = it
+            updateNextButton()
         }
 
         inputPassword.afterTextChange = {
             registerBody.password = it
+            updateNextButton()
+        }
+
+        inputConfirmPassword.afterTextChange = {
+            updateNextButton()
         }
 
         tvActionHere.onClickDelayAction {
@@ -125,6 +135,19 @@ class RegisterFragment : BaseFragment() {
                     })
             }
         }
+    }
+
+    private fun validateData(): Boolean {
+        return inputFirstName.isValidateDataNotEmpty() &&
+                inputLastName.isValidateDataNotEmpty() &&
+                inputPhone.isValidateDataNotEmpty() &&
+                inputEmail.isValidateDataNotEmpty() &&
+                inputPassword.isValidateDataNotEmpty() &&
+                inputConfirmPassword.isValidateDataNotEmpty()
+    }
+
+    private fun updateNextButton() {
+        tvSignUp.isEnabled = validateData()
     }
 
     override fun getProgressBarControlObservable() = viewModel?.getProgressObservable()

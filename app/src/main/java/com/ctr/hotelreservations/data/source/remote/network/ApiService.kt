@@ -40,6 +40,9 @@ interface ApiService {
         @Query("endDate") endDate: String
     ): Single<RoomTypeResponse>
 
+    @GET("api/promos/active")
+    fun getAllPromoStillActive(): Single<PromoResponse>
+
     @POST("/api/room-reservations?")
     fun addNewRoomsReservation(
         @Query("numberOfRooms") numberOfRooms: Int,

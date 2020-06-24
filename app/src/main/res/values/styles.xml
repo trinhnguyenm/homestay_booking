@@ -44,6 +44,12 @@
         <item name="android:fontFamily">@font/lato_heavy</item>
     </style>
 
+    <style name="line">
+        <item name="android:background">#fff6f6f6</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+    </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

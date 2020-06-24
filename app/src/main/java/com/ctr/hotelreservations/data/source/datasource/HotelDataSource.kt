@@ -1,10 +1,7 @@
 package com.ctr.hotelreservations.data.source.datasource
 
 import com.ctr.hotelreservations.data.source.request.RoomsReservationBody
-import com.ctr.hotelreservations.data.source.response.HotelResponse
-import com.ctr.hotelreservations.data.source.response.RoomReservationResponse
-import com.ctr.hotelreservations.data.source.response.RoomResponse
-import com.ctr.hotelreservations.data.source.response.RoomTypeResponse
+import com.ctr.hotelreservations.data.source.response.*
 import io.reactivex.Single
 
 /**
@@ -22,4 +19,6 @@ interface HotelDataSource {
         listPromoCode: List<String>?,
         roomsReservationBody: RoomsReservationBody
     ): Single<RoomReservationResponse>
+
+    fun getAllPromoStillActive(): Single<PromoResponse>
 }

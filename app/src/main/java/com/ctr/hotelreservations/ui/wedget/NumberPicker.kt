@@ -25,10 +25,12 @@ class NumberPicker @JvmOverloads constructor(
 
     internal fun setMin(value: Int) {
         min = value
+        invalidate()
     }
 
     internal fun setMax(value: Int) {
         max = value
+        invalidate()
     }
 
     init {

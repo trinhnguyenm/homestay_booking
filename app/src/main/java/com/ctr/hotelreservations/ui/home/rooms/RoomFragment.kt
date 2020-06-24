@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.borax12.materialdaterangepicker.date.DatePickerDialog
+import com.bumptech.glide.Glide
 import com.ctr.hotelreservations.R
 import com.ctr.hotelreservations.base.BaseFragment
 import com.ctr.hotelreservations.data.source.HotelRepository
@@ -63,6 +64,12 @@ class RoomFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
         )
         brand = arguments?.getParcelable(KEY_BRAND)
             ?: HotelResponse.Hotel.Brand()
+        brand.let {
+            context?.let { context -> Glide.with(context).load(it.imgLink).into(ivBrand) }
+            tvName.text = it.name
+            tvDescription.text =
+                if (it.desciption.isNullOrEmpty()) "Brand have no description" else it.desciption
+        }
         getAllRoomStatus(brand.id, startDate.parseToString(), endDate.parseToString())
         initListener()
         initRecyclerView()

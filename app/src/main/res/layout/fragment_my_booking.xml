@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     style="@style/match_parent"
     android:background="@color/bgDefault"
     android:orientation="vertical"
@@ -10,14 +11,13 @@
         android:id="@+id/appbarLayout"
         style="@style/match_width"
         android:background="@color/white"
-        android:paddingTop="@dimen/default_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
+            android:layout_height="@dimen/headerBarHeight"
             app:contentInsetStart="0.0dip">
 
             <TextView
@@ -30,21 +30,83 @@
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swRefresh"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0.0dip"
-        android:visibility="gone"
+        android:layout_height="0dp"
+        android:background="@color/bgDefault"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appbarLayout">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appbarLayout">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rclFavorite"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:paddingTop="@dimen/dimen_10dp" />
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/bgDefault">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cvFilterCheckIn"
+                    style="@style/match_width"
+                    android:layout_marginStart="20.0dip"
+                    android:layout_marginTop="20.0dip"
+                    android:layout_marginEnd="20.0dip"
+                    android:layout_marginBottom="@dimen/dimen_10dp"
+                    android:background="#ffffffff"
+                    android:gravity="center_vertical"
+                    app:cardCornerRadius="6.0dip"
+                    app:cardElevation="6.0dip"
+                    app:layout_scrollFlags="exitUntilCollapsed|scroll">
+
+                    <LinearLayout
+                        style="@style/match_width"
+                        android:padding="10.0dip">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/txtFilterCheckIn"
+                            style="@style/wrap_content"
+                            android:layout_width="0.0dip"
+                            android:layout_weight="1.0"
+                            android:fontFamily="@font/lato_bold"
+                            android:text="@string/all"
+                            android:textColor="#ff222222"
+                            android:textSize="14.0sp" />
+
+                        <TextView
+                            style="@style/wrap_content"
+                            android:layout_marginEnd="10.0dip"
+                            android:fontFamily="@font/lato_regular"
+                            android:text="@string/filter"
+                            android:textColor="#ff999999"
+                            android:textSize="14.0sp" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/imageButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:srcCompat="@drawable/ic_svg_calendar" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/swRefresh"
+                style="@style/match_parent"
+                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rclBooking"
+                    style="@style/match_parent"
+                    android:background="@color/bgDefault"
+                    app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+                    tools:listitem="@layout/layout_item_my_booking" />
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/llNoData"
@@ -52,7 +114,7 @@
         android:layout_height="0dp"
         android:orientation="vertical"
         android:padding="@dimen/dimen_50dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appbarLayout">

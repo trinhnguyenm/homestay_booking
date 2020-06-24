@@ -27,4 +27,6 @@ class HotelRepository : HotelDataSource {
         listPromoCode,
         roomsReservationBody
     )
+
+    override fun getAllPromoStillActive() = hotelRemoteDataSource.getAllPromoStillActive()
 }
