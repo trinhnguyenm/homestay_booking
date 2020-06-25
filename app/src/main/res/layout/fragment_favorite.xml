@@ -3,22 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/match_parent"
     android:background="@color/bgDefault"
-    android:orientation="vertical"
-    android:tag="layout/fragment_favorite_0">
+    android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbarLayout"
         style="@style/match_width"
-        android:background="@color/white"
-        android:paddingTop="@dimen/default_margin"
+        android:background="@color/bgDefault"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            app:contentInsetStart="0.0dip">
+            android:layout_height="@dimen/headerBarHeight"
+            app:contentInsetStart="0dp">
 
             <TextView
                 style="@style/style_title_action_bar"
@@ -33,7 +31,7 @@
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swRefresh"
         android:layout_width="match_parent"
-        android:layout_height="0.0dip"
+        android:layout_height="0dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appbarLayout">

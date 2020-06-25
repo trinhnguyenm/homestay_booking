@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_5dp"
         android:fontFamily="@font/lato_regular"
-        android:text="@string/code"
+        android:text="Code"
         android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/tvPercentDiscount"

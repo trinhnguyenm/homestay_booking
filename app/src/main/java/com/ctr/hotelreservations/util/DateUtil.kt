@@ -102,6 +102,10 @@ internal fun String.parseToCalendar(): Calendar {
     return DateUtil.parse(this, DateUtil.FORMAT_DATE_TIME_FROM_API)
 }
 
+internal fun String.parseToCalendar(format: String): Calendar {
+    return DateUtil.parse(this, format)
+}
+
 internal fun Calendar.parseToString(): String {
     return DateUtil.format(this, DateUtil.FORMAT_DATE_TIME_FROM_API)
 }

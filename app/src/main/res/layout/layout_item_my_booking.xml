@@ -5,7 +5,6 @@
     android:layout_marginStart="17dp"
     android:layout_marginEnd="17dp"
     android:foreground="?selectableItemBackground"
-    android:tag="layout/adapter_my_booking_item_0"
     app:cardCornerRadius="8dp"
     app:cardElevation="3dp"
     app:cardUseCompatPadding="true">
@@ -25,18 +24,18 @@
             android:gravity="center_vertical">
 
             <TextView
+                android:id="@+id/tvBookingId"
                 style="@style/wrap_content"
                 android:layout_width="0dp"
                 android:layout_weight="1.0"
                 android:fontFamily="@font/lato_regular"
-                android:tag="binding_1"
                 android:textColor="#ff3d3d3d"
                 android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/tvTotalPrize"
                 style="@style/wrap_content"
                 android:fontFamily="@font/lato_bold"
-                android:tag="binding_2"
                 android:textColor="#ff4a4a4a"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -64,9 +63,9 @@
                     app:SpinKit_Color="@color/colorAccent" />
 
                 <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/ivRoomThumb"
                     style="@style/match_parent"
                     android:scaleType="centerCrop"
-                    android:tag="binding_3"
                     app:riv_corner_radius="8dp" />
             </RelativeLayout>
 
@@ -76,6 +75,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tvRoomType"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1.0"
@@ -83,12 +83,12 @@
                     android:fontFamily="@font/lato_regular"
                     android:gravity="center_vertical"
                     android:maxLines="1"
-                    android:tag="binding_4"
                     android:textAllCaps="true"
                     android:textColor="#b3000000"
                     android:textSize="11sp" />
 
                 <TextView
+                    android:id="@+id/tvBrand"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1.0"
@@ -96,11 +96,11 @@
                     android:fontFamily="@font/lato_bold"
                     android:gravity="center_vertical"
                     android:maxLines="1"
-                    android:tag="binding_5"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/tvAddress"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1.0"
@@ -108,7 +108,6 @@
                     android:fontFamily="@font/lato_regular"
                     android:gravity="center_vertical"
                     android:maxLines="1"
-                    android:tag="binding_6"
                     android:textColor="#80000000"
                     android:textSize="13sp" />
             </LinearLayout>
@@ -122,18 +121,18 @@
             android:gravity="center_vertical">
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvCheckInDay"
                 style="@style/wrap_content"
                 android:layout_width="0dp"
                 android:layout_weight="1.0"
                 android:fontFamily="@font/lato_bold"
-                android:tag="binding_7"
                 android:textColor="#ff4a4a4a"
                 android:textSize="13sp" />
 
             <TextView
+                android:id="@+id/tvBookingStatus"
                 style="@style/wrap_content"
                 android:fontFamily="@font/lato_semibold"
-                android:tag="binding_8"
                 android:textSize="13sp" />
         </LinearLayout>
     </LinearLayout>

@@ -97,7 +97,7 @@ class RoomFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
                 calendar[Calendar.DAY_OF_MONTH]
             )
             datePicker.apply {
-//                isAutoHighlight = true
+                isAutoHighlight = true
                 setEndTitle("Check Out")
                 setStartTitle("Check In")
                 minDate = calendar
@@ -180,25 +180,34 @@ class RoomFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
         monthOfYearEnd: Int,
         dayOfMonthEnd: Int
     ) {
-        startDate.set(year, monthOfYear, dayOfMonth, 14, 0, 0)
-        endDate.set(yearEnd, monthOfYearEnd, dayOfMonthEnd, 12, 0, 0)
-//        val highlightDays = calculateHighlightedDays(startDate, endDate).toTypedArray()
-//        Log.d("--=", "onDateSet: ${highlightDays.size}")
-//        datePicker.setHighlightedDays(highlightDays, highlightDays)
-        lnSelected.invisible()
-        lnStartDate.visible()
-        tvRangeDate.visible()
-        lnEndDate.visible()
-        tvStartDayOfTheWeek.text = DateUtil.format(startDate, FORMAT_DATE_TIME_DAY_IN_WEEK)
-        tvEndDayOfTheWeek.text = DateUtil.format(endDate, FORMAT_DATE_TIME_DAY_IN_WEEK)
-        tvStartDate.text = DateUtil.format(startDate, FORMAT_DATE_TIME_CHECK_IN)
-        tvEndDate.text = DateUtil.format(endDate, FORMAT_DATE_TIME_CHECK_IN)
-        val dayNumber = startDate.compareDay(endDate)
-        tvRangeDate.text = resources.getString(R.string.roomDayNumber, dayNumber)
-        getAllRoomStatus(
-            brand.id,
-            startDate.parseToString(),
-            endDate.parseToString()
-        )
+        val start = Calendar.getInstance()
+        start.set(year, monthOfYear, dayOfMonth, 14, 0, 0)
+        val end = Calendar.getInstance()
+        end.set(yearEnd, monthOfYearEnd, dayOfMonthEnd, 12, 0, 0)
+        if (start.timeInMillis > end.timeInMillis) {
+            activity?.showDialog(
+                "Ops!",
+                "Please select check out date greater than check in date!",
+                "OK"
+            )
+        } else {
+            startDate.set(year, monthOfYear, dayOfMonth, 14, 0, 0)
+            endDate.set(yearEnd, monthOfYearEnd, dayOfMonthEnd, 12, 0, 0)
+            lnSelected.invisible()
+            lnStartDate.visible()
+            tvRangeDate.visible()
+            lnEndDate.visible()
+            tvStartDayOfTheWeek.text = DateUtil.format(startDate, FORMAT_DATE_TIME_DAY_IN_WEEK)
+            tvEndDayOfTheWeek.text = DateUtil.format(endDate, FORMAT_DATE_TIME_DAY_IN_WEEK)
+            tvStartDate.text = DateUtil.format(startDate, FORMAT_DATE_TIME_CHECK_IN)
+            tvEndDate.text = DateUtil.format(endDate, FORMAT_DATE_TIME_CHECK_IN)
+            val dayNumber = startDate.compareDay(endDate)
+            tvRangeDate.text = resources.getString(R.string.roomDayNumber, dayNumber)
+            getAllRoomStatus(
+                brand.id,
+                startDate.parseToString(),
+                endDate.parseToString()
+            )
+        }
     }
 }

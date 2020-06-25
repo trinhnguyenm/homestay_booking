@@ -24,11 +24,11 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : BaseActivity() {
 
     companion object {
-        const val PAGER_NUMBER = 4
-        const val TAB_HOME_POSITION = 0
-        const val TAB_SAVE_POSITION = 1
-        const val TAB_MY_BOOKING_POSITION = 2
-        const val TAB_ACCOUNT_POSITION = 3
+        internal const val PAGER_NUMBER = 4
+        internal const val TAB_HOME_POSITION = 0
+        internal const val TAB_SAVE_POSITION = 1
+        internal const val TAB_MY_BOOKING_POSITION = 2
+        internal const val TAB_ACCOUNT_POSITION = 3
 
         internal fun start(from: Activity) {
             MainActivity().apply {
@@ -140,5 +140,9 @@ class MainActivity : BaseActivity() {
         val datePickerDialog =
             fragmentManager?.findFragmentByTag("DatePickerDialog") as? DatePickerDialog
         datePickerDialog?.setOnDateSetListener(dialog)
+    }
+
+    internal fun setTabSelection(position: Int) {
+        tabLayout.getTabAt(position)?.select()
     }
 }

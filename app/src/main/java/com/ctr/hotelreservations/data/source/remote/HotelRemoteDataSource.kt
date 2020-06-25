@@ -29,4 +29,6 @@ class HotelRemoteDataSource(private val apiService: ApiService = ApiClient.getIn
     }
 
     override fun getAllPromoStillActive() = apiService.getAllPromoStillActive()
+
+    override fun getBookingHistory() = apiService.getBookingHistory()
 }

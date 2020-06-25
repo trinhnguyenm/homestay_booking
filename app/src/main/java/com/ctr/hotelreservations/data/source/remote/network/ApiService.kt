@@ -49,4 +49,7 @@ interface ApiService {
         @Query("listPromoCode") listPromoCode: List<String>?,
         @Body roomsReservationBody: RoomsReservationBody
     ): Single<RoomReservationResponse>
+
+    @GET("/api/room-reservations")
+    fun getBookingHistory(): Single<MyBookingResponse>
 }
