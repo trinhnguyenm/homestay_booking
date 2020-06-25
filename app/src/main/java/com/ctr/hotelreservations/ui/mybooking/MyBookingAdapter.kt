@@ -56,12 +56,14 @@ class MyBookingAdapter(private val myBookings: List<MyBookingResponse.MyBooking>
                 tvBookingStatus.setTextColor(
                     when (item.status) {
                         BookingStatus.PENDING.name -> {
-                            R.color.colorAccent
+                            resources.getColor(R.color.colorAccent)
                         }
                         BookingStatus.COMPLETED.name -> {
-                            R.color.booking_status_complete
+                            resources.getColor(R.color.booking_status_complete)
                         }
-                        else -> R.color.error
+                        else -> {
+                            resources.getColor(R.color.error)
+                        }
                     }
                 )
             }

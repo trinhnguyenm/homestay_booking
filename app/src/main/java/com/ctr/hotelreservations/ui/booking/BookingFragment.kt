@@ -135,7 +135,7 @@ class BookingFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
         tvEndDate.text = endDate?.parseToString(DateUtil.FORMAT_DATE_TIME_CHECK_IN_BOOKING)
         tvCheckinTime.text = startDate?.parseToString(DateUtil.FORMAT_DATE_TIME_DAY_IN_WEEK)
         tvCheckOutTime.text = endDate?.parseToString(DateUtil.FORMAT_DATE_TIME_DAY_IN_WEEK)
-        tvRangeDate.text = numberOfDays.toString()
+        tvRangeDate.text = "${numberOfDays}D"
 
         viewModel.getRoomsReservationBody().let { body ->
             body.startDate = startDate?.parseToString(DateUtil.FORMAT_DATE_TIME_FROM_API_3)
