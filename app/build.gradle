@@ -72,6 +72,7 @@ android.applicationVariants.all { variant ->
 }
 
 dependencies {
+    implementation project(':library')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'com.google.android.material:material:1.1.0'
@@ -106,7 +107,7 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.8.0'
 
     // Date Picker
-    implementation 'com.borax12.materialdaterangepicker:library:1.9'
+    implementation 'com.wdullaer:materialdatetimepicker:4.2.1'
 
     // View
     implementation 'me.grantland:autofittextview:0.2.1'
