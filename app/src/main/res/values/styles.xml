@@ -75,7 +75,7 @@
     </style>
 
     <style name="style_title_action_bar" parent="@style/wrap_content">
-        <item name="android:textSize">18.0sp</item>
+        <item name="android:textSize">18sp</item>
         <item name="android:textColor">#ff333333</item>
         <item name="android:fontFamily">@font/lato_bold</item>
     </style>

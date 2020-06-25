@@ -19,10 +19,10 @@
         android:layout_gravity="center_horizontal"
         android:fontFamily="@font/lato_semibold"
         android:gravity="center_horizontal"
-        android:lineSpacingExtra="6.0sp"
+        android:lineSpacingExtra="6sp"
         android:text="@string/favorite_empty"
         android:textColor="#ff333333"
-        android:textSize="14.0sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/tvSubContent" />
 
     <TextView
@@ -30,9 +30,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:lineSpacingExtra="6.0sp"
+        android:lineSpacingExtra="6sp"
         android:textColor="#ff666666"
-        android:textSize="13.0sp"
+        android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="@+id/ivNoData" />
 
     <TextView
@@ -49,6 +49,6 @@
         android:paddingBottom="@dimen/dimen_10dp"
         android:text="@string/discovery_more"
         android:textColor="@color/white"
-        android:textSize="16.0sp"
+        android:textSize="16sp"
         android:visibility="visible" />
 </LinearLayout>

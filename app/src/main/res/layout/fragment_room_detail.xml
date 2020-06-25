@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:tag="layout/layout_room_detail_0">
+    android:background="@color/white">
 
     <RelativeLayout
         android:id="@+id/header"
@@ -246,7 +245,6 @@
             android:paddingTop="@dimen/dimen_12dp"
             android:paddingEnd="@dimen/dimen_10dp"
             android:paddingBottom="@dimen/dimen_12dp"
-            android:tag="binding_4"
             android:text="Booking now"
             android:textColor="#ffffffff"
             android:textSize="15sp" />

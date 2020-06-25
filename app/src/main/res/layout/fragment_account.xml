@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:tag="layout/layout_profile_0">
+    android:background="@color/white">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/banner"
@@ -50,7 +49,6 @@
                 android:layout_height="80dp"
                 android:layout_margin="@dimen/dimen_16dp"
                 android:src="@drawable/default_avatar"
-                android:tag="binding_1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:riv_corner_radius="40dp" />
@@ -70,7 +68,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dimen_12dp"
                     android:fontFamily="@font/lato_heavy"
-                    android:tag="binding_2"
                     android:text="Create an account"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
@@ -82,7 +79,6 @@
                     android:layout_marginStart="@dimen/dimen_12dp"
                     android:layout_marginTop="@dimen/dimen_2dp"
                     android:fontFamily="@font/lato_regular"
-                    android:tag="binding_3"
                     android:text="Or sign in by email" />
 
                 <TextView
