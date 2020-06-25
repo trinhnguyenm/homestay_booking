@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_marginTop="0dp"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <androidx.core.widget.NestedScrollView
@@ -23,19 +24,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="@dimen/dimen_25"
+                android:layout_marginTop="@dimen/dimen_20dp"
                 android:layout_marginEnd="@dimen/dimen_20dp"
                 android:gravity="bottom"
                 android:orientation="horizontal"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <TextView
+                    android:id="@+id/tvBrand"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/lato_regular"
-                    android:text="@string/customer"
+                    android:fontFamily="@font/lato_black"
                     android:textColor="#ff333333"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:text="asdasdasd" />
 
                 <TextView
                     android:id="@+id/tvCustomer"
@@ -47,14 +49,15 @@
                     android:gravity="end"
                     android:maxLines="1"
                     android:textColor="#ff333333"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dip"
                 android:layout_marginStart="@dimen/dimen_20dp"
-                android:layout_marginTop="@dimen/dimen_24dp"
+                android:layout_marginTop="@dimen/dimen_20dp"
                 android:layout_marginEnd="@dimen/dimen_20dp"
                 android:layout_marginBottom="@dimen/dimen_20dp"
                 android:background="@color/color_divider" />
@@ -318,9 +321,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dimen_4dp"
                         android:layout_weight="0.0"
                         android:fontFamily="@font/lato_black"
-                        android:layout_marginLeft="@dimen/dimen_4dp"
                         android:text="@string/total"
                         android:textColor="@color/black"
                         android:textSize="20sp" />
@@ -453,8 +456,8 @@
                 <LinearLayout
                     android:id="@+id/llPromo"
                     android:layout_width="match_parent"
-                    android:layout_marginTop="@dimen/dimen_5dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_5dp"
                     android:orientation="vertical">
 
                     <LinearLayout

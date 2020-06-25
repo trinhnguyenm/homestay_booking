@@ -3,17 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/white"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/actionBarCustom"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_80dp"
-        android:gravity="center_vertical"
-        android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -23,12 +19,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/headerBarHeight"
+                android:gravity="center_vertical"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/tvTitle"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/headerBarHeight"
+                    android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:fontFamily="@font/lato_heavy"
                     android:gravity="center"

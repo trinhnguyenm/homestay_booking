@@ -107,6 +107,7 @@ class BookingFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
             pickerGuestNo.setMax(it.roomType.capacity)
 
             brand?.let { brand ->
+                tvBrand.text = brand.name
                 tvRoomAddress.text = brand.address
             }
 

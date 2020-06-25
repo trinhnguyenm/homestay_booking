@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bgDefault"
+    android:background="@color/white"
     android:orientation="vertical"
     android:paddingTop="@dimen/status_bar_size">
 
@@ -12,20 +12,18 @@
         android:id="@+id/appbarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/bgDefault"
         app:elevation="0dp">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/bgDefault"
+            android:background="@color/white"
             android:elevation="0dp"
             app:layout_scrollFlags="exitUntilCollapsed|scroll">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/bgDefault"
                 android:orientation="vertical"
                 android:paddingStart="@dimen/dimen_20dp"
                 android:paddingTop="16dp"
@@ -37,14 +35,14 @@
                     android:visibility="invisible"
                     app:srcCompat="@drawable/ic_logo" />
 
-                <me.grantland.widget.AutofitTextView
+                <TextView
                     android:id="@+id/tvAssistant"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="26dp"
                     android:fontFamily="@font/lato_black"
                     android:maxLines="1"
-                    android:paddingBottom="@dimen/dimen_20dp"
+                    android:paddingBottom="@dimen/dimen_10dp"
                     android:text="@string/hint_where_you_go"
                     android:textColor="#ff333333"
                     android:textSize="24sp" />
@@ -58,15 +56,10 @@
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <View
-            android:id="@+id/viewSpaceRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="26dp" />
-
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipeRefresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
@@ -77,71 +70,65 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/layout_item_hotels" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
     </LinearLayout>
-
-    <com.loopeer.shadow.ShadowView
-        android:id="@+id/layoutSearch"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dimen_10dp"
-        android:layout_marginTop="135dp"
-        android:layout_marginEnd="@dimen/dimen_10dp"
-        android:elevation="10dp"
-        android:minHeight="63dp"
-        android:paddingStart="@dimen/dimen_10dp"
-        android:paddingEnd="@dimen/dimen_10dp"
-        android:visibility="gone"
-        app:cornerRadius="4dp"
-        app:shadowMarginBottom="10dp"
-        app:shadowMarginLeft="10dp"
-        app:shadowMarginRight="10dp"
-        app:shadowMarginTop="10dp"
-        app:shadowRadius="20dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_gravity="center_vertical">
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="9dp"
-                app:layout_gravity="center_vertical"
-                app:srcCompat="@drawable/ic_search" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="21dp"
-                android:background="@android:color/transparent"
-                android:ellipsize="end"
-                android:fontFamily="@font/lato_bold"
-                android:hint="@string/hint_search"
-                android:maxLines="3"
-                android:textColor="#ff919191"
-                android:textSize="@dimen/dimen_15sp" />
-        </LinearLayout>
-    </com.loopeer.shadow.ShadowView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/bgDefault"
+        android:background="@color/white"
+        android:clickable="true"
+        android:focusable="true"
         android:gravity="center_vertical"
         android:minHeight="63dp"
         android:orientation="vertical"
-        android:paddingStart="@dimen/dimen_20dp"
-        android:paddingEnd="@dimen/dimen_20dp">
+        android:paddingTop="@dimen/dimen_10dp">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivLogo"
-            android:layout_width="wrap_content"
+        <com.loopeer.shadow.ShadowView
+            android:id="@+id/layoutSearch"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="2dp"
-            app:srcCompat="@drawable/ic_logo" />
+            android:layout_marginStart="@dimen/dimen_10dp"
+            android:layout_marginEnd="@dimen/dimen_10dp"
+            android:elevation="10dp"
+            android:minHeight="63dp"
+            android:paddingStart="@dimen/dimen_10dp"
+            android:paddingEnd="@dimen/dimen_10dp"
+            app:cornerRadius="4dp"
+            app:shadowMarginBottom="10dp"
+            app:shadowMarginLeft="10dp"
+            app:shadowMarginRight="10dp"
+            app:shadowMarginTop="10dp"
+            app:shadowRadius="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_gravity="center_vertical">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="9dp"
+                    app:layout_gravity="center_vertical"
+                    app:srcCompat="@drawable/ic_search" />
+
+                <EditText
+                    android:id="@+id/edtSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="21dp"
+                    android:background="@android:color/transparent"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/lato_bold"
+                    android:hint="@string/hint_search"
+                    android:maxLines="3"
+                    android:textColor="#ff919191"
+                    android:textSize="@dimen/dimen_15sp" />
+            </LinearLayout>
+        </com.loopeer.shadow.ShadowView>
     </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
