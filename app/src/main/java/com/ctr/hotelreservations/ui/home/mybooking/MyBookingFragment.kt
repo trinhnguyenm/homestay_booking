@@ -1,4 +1,4 @@
-package com.ctr.hotelreservations.ui.mybooking
+package com.ctr.hotelreservations.ui.home.mybooking
 
 import android.os.Bundle
 import android.os.Handler
@@ -24,7 +24,8 @@ class MyBookingFragment : BaseFragment() {
     private lateinit var viewModel: MyBookingVMContract
 
     companion object {
-        fun newInstance() = MyBookingFragment()
+        fun newInstance() =
+            MyBookingFragment()
     }
 
     override fun onCreateView(
@@ -37,7 +38,10 @@ class MyBookingFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = MyBookingViewModel(HotelRepository())
+        viewModel =
+            MyBookingViewModel(
+                HotelRepository()
+            )
         getMyBookings()
         initView()
         initRecyclerView()
@@ -55,7 +59,9 @@ class MyBookingFragment : BaseFragment() {
     private fun initRecyclerView() {
         rclBooking.let {
             it.setHasFixedSize(true)
-            it.adapter = MyBookingAdapter(viewModel.getBookings()).also { adapter ->
+            it.adapter = MyBookingAdapter(
+                viewModel.getBookings()
+            ).also { adapter ->
                 adapter.onItemClicked = this::handlerItemClick
             }
         }

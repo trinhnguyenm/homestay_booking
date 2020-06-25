@@ -1,4 +1,4 @@
-package com.ctr.hotelreservations.ui.mybooking
+package com.ctr.hotelreservations.ui.home.mybooking
 
 import android.view.LayoutInflater
 import android.view.View

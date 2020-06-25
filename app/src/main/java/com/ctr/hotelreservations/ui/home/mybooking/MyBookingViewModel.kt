@@ -1,4 +1,4 @@
-package com.ctr.hotelreservations.ui.mybooking
+package com.ctr.hotelreservations.ui.home.mybooking
 
 import com.ctr.hotelreservations.base.BaseViewModel
 import com.ctr.hotelreservations.data.source.HotelRepository

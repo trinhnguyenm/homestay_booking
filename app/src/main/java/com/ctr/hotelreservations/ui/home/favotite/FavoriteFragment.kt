@@ -1,4 +1,4 @@
-package com.ctr.hotelreservations.ui.favotite
+package com.ctr.hotelreservations.ui.home.favotite
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,7 +17,8 @@ import kotlinx.android.synthetic.main.layout_view_no_data.*
 class FavoriteFragment : BaseFragment() {
 
     companion object {
-        fun newInstance() = FavoriteFragment()
+        fun newInstance() =
+            FavoriteFragment()
     }
 
     override fun onCreateView(

@@ -1,4 +1,4 @@
-package com.ctr.hotelreservations.ui.account
+package com.ctr.hotelreservations.ui.home.account
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -25,7 +25,8 @@ class AccountFragment : BaseFragment() {
     private lateinit var viewModel: AccountVMContract
 
     companion object {
-        fun newInstance() = AccountFragment()
+        fun newInstance() =
+            AccountFragment()
     }
 
     override fun onCreateView(
@@ -38,7 +39,10 @@ class AccountFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = AccountViewModel(App.instance.localRepository, UserRepository())
+        viewModel = AccountViewModel(
+            App.instance.localRepository,
+            UserRepository()
+        )
         getUserInfo()
 
         tvViewProfile.onClickDelayAction {
