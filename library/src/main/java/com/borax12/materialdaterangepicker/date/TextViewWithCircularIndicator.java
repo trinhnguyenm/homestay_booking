@@ -16,6 +16,7 @@
 
 package com.borax12.materialdaterangepicker.date;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
@@ -105,6 +106,7 @@ public class TextViewWithCircularIndicator extends TextView {
         super.onDraw(canvas);
     }
 
+    @SuppressLint("GetContentDescriptionOverride")
     @Override
     public CharSequence getContentDescription() {
         CharSequence itemText = getText();
