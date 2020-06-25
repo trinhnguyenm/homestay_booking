@@ -5,5 +5,7 @@ package com.ctr.hotelreservations.data.model
  */
 enum class BookingStatus {
     PENDING,
+    COMPLETED,
+    CANCELED,
     UNPAID
 }

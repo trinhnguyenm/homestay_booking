@@ -25,6 +25,7 @@
             android:gravity="center_vertical">
 
             <TextView
+                android:id="@+id/tvBookingId"
                 style="@style/wrap_content"
                 android:layout_width="0dp"
                 android:layout_weight="1.0"
@@ -34,6 +35,7 @@
                 android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/tvTotalPrize"
                 style="@style/wrap_content"
                 android:fontFamily="@font/lato_bold"
                 android:tag="binding_2"
@@ -64,9 +66,9 @@
                     app:SpinKit_Color="@color/colorAccent" />
 
                 <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/ivRoomThumb"
                     style="@style/match_parent"
                     android:scaleType="centerCrop"
-                    android:tag="binding_3"
                     app:riv_corner_radius="8dp" />
             </RelativeLayout>
 
@@ -76,6 +78,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tvRoomType"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1.0"
@@ -89,6 +92,7 @@
                     android:textSize="11sp" />
 
                 <TextView
+                    android:id="@+id/tvBrand"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1.0"
@@ -101,6 +105,7 @@
                     android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/tvAddress"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1.0"
@@ -122,6 +127,7 @@
             android:gravity="center_vertical">
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvCheckInDay"
                 style="@style/wrap_content"
                 android:layout_width="0dp"
                 android:layout_weight="1.0"
@@ -131,6 +137,7 @@
                 android:textSize="13sp" />
 
             <TextView
+                android:id="@+id/tvBookingStatus"
                 style="@style/wrap_content"
                 android:fontFamily="@font/lato_semibold"
                 android:tag="binding_8"
