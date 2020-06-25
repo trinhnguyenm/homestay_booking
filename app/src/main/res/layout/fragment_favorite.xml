@@ -8,15 +8,14 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbarLayout"
         style="@style/match_width"
-        android:background="@color/white"
-        android:paddingTop="@dimen/default_margin"
+        android:background="@color/bgDefault"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
+            android:layout_height="@dimen/headerBarHeight"
             app:contentInsetStart="0dp">
 
             <TextView
