@@ -13,6 +13,8 @@ class RoomViewModel(
 
     private val rooms = mutableListOf<RoomResponse.Room>()
 
+    private var rawRoomTypes = listOf<RoomTypeResponse.RoomTypeStatus>()
+
     private val roomTypes = mutableListOf<RoomTypeResponse.RoomTypeStatus>()
 
     override fun getRooms(): MutableList<RoomResponse.Room> = rooms
@@ -30,18 +32,30 @@ class RoomViewModel(
             }
     }
 
+    override fun filterRoomStatus(
+        numOfGuest: Int,
+        numOfRoom: Int
+    ) {
+        getRoomTypes().apply {
+            clear()
+            addAll(rawRoomTypes.filter { it.totalRoomAvailable >= numOfRoom && it.roomType.capacity >= numOfGuest })
+        }
+    }
+
     override fun getAllRoomStatus(
         brandId: Int,
         startDate: String,
-        endDate: String
+        endDate: String,
+        numOfGuest: Int,
+        numOfRoom: Int
     ): Single<RoomTypeResponse> {
         return hotelRepository.getAllRoomStatus(brandId, startDate, endDate)
             .addProgressLoading()
             .doOnSuccess { response ->
-                val a = response
+                rawRoomTypes = response.roomTypeStatusList
                 getRoomTypes().apply {
                     clear()
-                    addAll(response.roomTypeStatusList.filter { it.totalRoomAvailable > 0 })
+                    addAll(rawRoomTypes.filter { it.totalRoomAvailable >= numOfRoom && it.roomType.capacity >= numOfGuest })
                 }
             }
     }

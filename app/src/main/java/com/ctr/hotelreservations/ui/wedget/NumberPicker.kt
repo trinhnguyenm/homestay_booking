@@ -18,6 +18,12 @@ class NumberPicker @JvmOverloads constructor(
     private var value = min
     internal var onValueChange: ((value: Int) -> Unit)? = null
 
+    internal fun setValue(_value: Int) {
+        value = _value
+        refresh()
+    }
+
+    internal fun getValue(): Int = value
 
     internal fun setTitle(value: String) {
         tvTitle.text = value
@@ -25,12 +31,12 @@ class NumberPicker @JvmOverloads constructor(
 
     internal fun setMin(value: Int) {
         min = value
-        invalidate()
+        refresh()
     }
 
     internal fun setMax(value: Int) {
         max = value
-        invalidate()
+        refresh()
     }
 
     init {
@@ -49,13 +55,7 @@ class NumberPicker @JvmOverloads constructor(
 
         ivPlus.isEnabled = false
         ivSubtract.isEnabled = false
-        if (min == max) {
-            ivPlus.isEnabled = false
-            ivSubtract.isEnabled = false
-        }
-
-        if (value == min) ivSubtract.isEnabled = false
-        if (value < max) ivPlus.isEnabled = true
+        refresh()
 
         tvNumber.afterTextChanged {
             value = it.toInt()
@@ -77,6 +77,17 @@ class NumberPicker @JvmOverloads constructor(
                 tvNumber.text = value.toString()
             }
         }
+    }
+
+    private fun refresh() {
+        tvNumber.text = value.toString()
+        if (min == max && max == value) {
+            ivPlus.isEnabled = false
+            ivSubtract.isEnabled = false
+        }
+
+        if (value == min) ivSubtract.isEnabled = false
+        if (value < max) ivPlus.isEnabled = true
     }
 
 }
