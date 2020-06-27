@@ -12,4 +12,6 @@ class SplashViewModel(private val localRepository: LocalDataSource) : SplashVMCo
     override fun updateFirstLaunch() = localRepository.updateFirstLaunch()
 
     override fun getLoginToken() = localRepository.getAutoLoginToken()
+
+    override fun getUserId() = localRepository.getUserId()
 }

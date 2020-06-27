@@ -7,5 +7,6 @@ enum class BookingStatus {
     PENDING,
     COMPLETED,
     CANCELED,
-    UNPAID
+    UNPAID,
+    PAID
 }

@@ -1,11 +1,10 @@
-package com.ctr.hotelreservations.ui.home
+package com.ctr.hotelreservations.ui.home.hotels
 
 import com.ctr.hotelreservations.R
 import com.ctr.hotelreservations.base.HomeContainerBaseFragment
 import com.ctr.hotelreservations.data.source.response.HotelResponse
 import com.ctr.hotelreservations.extension.addFragment
 import com.ctr.hotelreservations.ui.home.brands.BrandFragment
-import com.ctr.hotelreservations.ui.home.hotels.HomeFragment
 import com.ctr.hotelreservations.ui.home.rooms.RoomFragment
 
 /**
@@ -14,7 +13,8 @@ import com.ctr.hotelreservations.ui.home.rooms.RoomFragment
 class HomeContainerFragment : HomeContainerBaseFragment() {
 
     companion object {
-        internal fun getNewInstance() = HomeContainerFragment()
+        internal fun getNewInstance() =
+            HomeContainerFragment()
     }
 
     override fun getRootFragment() = HomeFragment.getInstance()

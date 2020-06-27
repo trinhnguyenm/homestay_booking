@@ -1,5 +1,7 @@
 package com.ctr.hotelreservations.ui.home.account
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -47,6 +49,12 @@ class AccountFragment : BaseFragment() {
 
         tvViewProfile.onClickDelayAction {
             Toast.makeText(context, "TODO", Toast.LENGTH_SHORT).show()
+        }
+
+        llSupport.onClickDelayAction {
+            val intent = Intent(Intent.ACTION_DIAL)
+            intent.data = Uri.parse("tel:1800 6969")
+            startActivity(intent)
         }
 
         tvLogout.onClickDelayAction {

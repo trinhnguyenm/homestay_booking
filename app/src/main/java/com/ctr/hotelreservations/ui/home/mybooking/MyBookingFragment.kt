@@ -2,11 +2,14 @@ package com.ctr.hotelreservations.ui.home.mybooking
 
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.ctr.hotelreservations.R
 import com.ctr.hotelreservations.base.BaseFragment
+import com.ctr.hotelreservations.bus.RxBus
+import com.ctr.hotelreservations.data.model.UpdateMyBooking
 import com.ctr.hotelreservations.data.source.HotelRepository
 import com.ctr.hotelreservations.data.source.response.MyBookingResponse
 import com.ctr.hotelreservations.extension.invisible
@@ -48,6 +51,18 @@ class MyBookingFragment : BaseFragment() {
         initSwipeRefresh()
     }
 
+    override fun onResume() {
+        super.onResume()
+        addDisposables(RxBus.listen(UpdateMyBooking::class.java)
+            .observeOnUiThread()
+            .subscribe {
+                Log.d("--=", "onResume: ${it.isNeedUpdate}")
+                if (it.isNeedUpdate) {
+                    getMyBookings()
+                }
+            })
+    }
+
     private fun initView() {
         ivNoData.setBackgroundDrawable(resources.getDrawable(R.drawable.ic_empty_data))
         tvNoData.text = resources.getString(R.string.no_data_booking)
@@ -68,7 +83,7 @@ class MyBookingFragment : BaseFragment() {
     }
 
     private fun handlerItemClick(booking: MyBookingResponse.MyBooking) {
-
+        (parentFragment as? MyBookingContainerFragment)?.openPaymentFragment(booking)
     }
 
     private fun initSwipeRefresh() {
@@ -81,7 +96,8 @@ class MyBookingFragment : BaseFragment() {
         }
     }
 
-    private fun getMyBookings() {
+    internal fun getMyBookings() {
+        Log.d("--=", "getMyBookings: ")
         addDisposables(
             viewModel.getBookingHistory()
                 .observeOnUiThread()

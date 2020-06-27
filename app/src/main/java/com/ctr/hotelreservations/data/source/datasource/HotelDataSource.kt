@@ -23,4 +23,6 @@ interface HotelDataSource {
     fun getAllPromoStillActive(): Single<PromoResponse>
 
     fun getBookingHistory(): Single<MyBookingResponse>
+
+    fun changeReservationStatus(reservationId: Int): Single<ChangeReservationStatusResponse>
 }

@@ -31,4 +31,7 @@ class HotelRepository : HotelDataSource {
     override fun getAllPromoStillActive() = hotelRemoteDataSource.getAllPromoStillActive()
 
     override fun getBookingHistory() = hotelRemoteDataSource.getBookingHistory()
+
+    override fun changeReservationStatus(reservationId: Int) =
+        hotelRemoteDataSource.changeReservationStatus(reservationId)
 }

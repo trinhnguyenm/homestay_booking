@@ -16,7 +16,6 @@ class MyBookingViewModel(
 
     override fun getBookingHistory(): Single<MyBookingResponse> {
         return hotelRepository.getBookingHistory()
-            .addProgressLoading()
             .doOnSuccess { response ->
                 getBookings().apply {
                     clear()

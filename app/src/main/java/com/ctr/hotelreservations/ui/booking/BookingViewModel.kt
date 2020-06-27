@@ -5,6 +5,7 @@ import com.ctr.hotelreservations.data.source.HotelRepository
 import com.ctr.hotelreservations.data.source.LocalRepository
 import com.ctr.hotelreservations.data.source.UserRepository
 import com.ctr.hotelreservations.data.source.request.RoomsReservationBody
+import com.ctr.hotelreservations.data.source.response.ChangeReservationStatusResponse
 import com.ctr.hotelreservations.data.source.response.RoomReservationResponse
 import com.ctr.hotelreservations.data.source.response.UserResponse
 import io.reactivex.Single
@@ -51,6 +52,11 @@ class BookingViewModel(
 
     override fun getUserInfo(): Single<UserResponse> {
         return userRepository.getUserFollowId(localRepository.getUserId())
+            .addProgressLoading()
+    }
+
+    override fun changeReservationStatus(reservationId: Int): Single<ChangeReservationStatusResponse> {
+        return hotelRepository.changeReservationStatus(reservationId)
             .addProgressLoading()
     }
 

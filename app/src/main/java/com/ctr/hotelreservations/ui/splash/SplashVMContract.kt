@@ -10,4 +10,5 @@ interface SplashVMContract {
     fun updateFirstLaunch()
 
     fun getLoginToken(): String?
+    fun getUserId(): Int
 }

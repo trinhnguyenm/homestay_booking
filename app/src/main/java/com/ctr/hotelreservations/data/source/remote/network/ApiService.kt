@@ -9,15 +9,6 @@ import retrofit2.http.*
 
 interface ApiService {
 
-    /**
-     * Sign up new account.
-     */
-//    @POST("Account/SignUp")
-//    fun signUp(@Body signUpBody: SignUpBody): Single<ApiResponse>
-
-    /**
-     * Login
-     */
     @POST("/api/auth/login")
     fun login(@Body loginBody: LoginBody): Single<LoginResponse>
 
@@ -52,4 +43,7 @@ interface ApiService {
 
     @GET("/api/room-reservations")
     fun getBookingHistory(): Single<MyBookingResponse>
+
+    @PATCH("/api/reservations/{id}/status")
+    fun changeReservationStatus(@Path("id") reservationId: Int): Single<ChangeReservationStatusResponse>
 }

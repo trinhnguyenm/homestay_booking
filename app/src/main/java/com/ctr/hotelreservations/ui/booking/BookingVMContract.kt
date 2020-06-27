@@ -1,6 +1,7 @@
 package com.ctr.hotelreservations.ui.booking
 
 import com.ctr.hotelreservations.data.source.request.RoomsReservationBody
+import com.ctr.hotelreservations.data.source.response.ChangeReservationStatusResponse
 import com.ctr.hotelreservations.data.source.response.RoomReservationResponse
 import com.ctr.hotelreservations.data.source.response.UserResponse
 import io.reactivex.Single
@@ -25,4 +26,5 @@ interface BookingVMContract {
     fun getUserInfo(): Single<UserResponse>
 
     fun getUserId(): Int
+    fun changeReservationStatus(reservationId: Int): Single<ChangeReservationStatusResponse>
 }

@@ -12,7 +12,6 @@ import com.ctr.hotelreservations.data.source.response.HotelResponse
 import com.ctr.hotelreservations.extension.observeOnUiThread
 import com.ctr.hotelreservations.extension.showErrorDialog
 import com.ctr.hotelreservations.ui.App
-import com.ctr.hotelreservations.ui.home.HomeContainerFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 
 /**

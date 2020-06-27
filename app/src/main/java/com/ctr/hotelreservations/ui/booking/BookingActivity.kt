@@ -61,4 +61,13 @@ class BookingActivity : BaseActivity() {
             fragmentManager?.findFragmentByTag("DatePickerDialogBooking") as? DatePickerDialog
         datePickerDialog?.setOnDateSetListener(dialog)
     }
+
+    internal fun openBookingFragment() {
+        addFragment(
+            R.id.container,
+            BookingFragment.newInstance(),
+            addToBackStack = true,
+            tag = "BookingFragment.Payment"
+        )
+    }
 }

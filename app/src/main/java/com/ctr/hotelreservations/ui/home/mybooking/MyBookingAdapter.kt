@@ -1,5 +1,6 @@
 package com.ctr.hotelreservations.ui.home.mybooking
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,7 @@ import kotlinx.android.synthetic.main.layout_item_my_booking.view.*
 /**
  * Created by at-trinhnguyen2 on 2020/06/24
  */
+@SuppressLint("SetTextI18n")
 class MyBookingAdapter(private val myBookings: List<MyBookingResponse.MyBooking>) :
     RecyclerView.Adapter<MyBookingAdapter.ItemHolder>() {
     internal var onItemClicked: ((item: MyBookingResponse.MyBooking) -> Unit)? = null
@@ -45,7 +47,12 @@ class MyBookingAdapter(private val myBookings: List<MyBookingResponse.MyBooking>
             itemView.apply {
                 Glide.with(itemView.context).load(item.room?.roomType?.thumbnail).into(ivRoomThumb)
                 tvBookingId.text = "Booking ID: ${item.id}"
-                tvTotalPrize.text = item.reservation?.totalAfterTax.toString().getPriceFormat()
+                tvTotalPrize.text = item.reservation.totalBeforeTax.toString().getPriceFormat()
+                item.reservation.promos?.firstOrNull()?.let {
+                    tvTotalPrize.text =
+                        (item.reservation.totalBeforeTax * (100 - it.percentDiscount) / 100.0).toString()
+                            .getPriceFormat()
+                }
                 tvRoomType.text = item.room?.roomType?.name
                 tvBrand.text = item.room?.brand?.name
                 tvAddress.text = item.room?.brand?.address
@@ -56,13 +63,22 @@ class MyBookingAdapter(private val myBookings: List<MyBookingResponse.MyBooking>
                 tvBookingStatus.setTextColor(
                     when (item.status) {
                         BookingStatus.PENDING.name -> {
-                            resources.getColor(R.color.colorAccent)
+                            when (item.reservation.status) {
+                                BookingStatus.PAID.name -> {
+                                    tvBookingStatus.text = "CHECK IN"
+                                    resources.getColor(R.color.colorAccent)
+                                }
+                                else -> {
+                                    tvBookingStatus.text = "PENDING"
+                                    resources.getColor(R.color.colorAccent)
+                                }
+                            }
                         }
                         BookingStatus.COMPLETED.name -> {
                             resources.getColor(R.color.booking_status_complete)
                         }
                         else -> {
-                            resources.getColor(R.color.error)
+                            resources.getColor(R.color.booking_status_incomplete)
                         }
                     }
                 )
