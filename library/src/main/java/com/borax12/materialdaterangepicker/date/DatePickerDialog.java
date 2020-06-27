@@ -890,6 +890,7 @@ public class DatePickerDialog extends DialogFragment implements
             mCalendarEnd.set(Calendar.YEAR, year);
             mCalendarEnd.set(Calendar.MONTH, month);
             mCalendarEnd.set(Calendar.DAY_OF_MONTH, day);
+            tabHost.setCurrentTab(1);
         } else {
             mCalendarEnd.set(Calendar.YEAR, year);
             mCalendarEnd.set(Calendar.MONTH, month);

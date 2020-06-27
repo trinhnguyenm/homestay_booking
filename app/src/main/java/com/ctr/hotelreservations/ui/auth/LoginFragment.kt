@@ -64,7 +64,7 @@ class LoginFragment : BaseFragment() {
         }
 
         inputPassword.validateData = {
-            it.trim().isNotEmpty() && it.isPasswordValid()
+            it.trim().isNotEmpty()
         }
 
         inputEmail.afterTextChange = {
@@ -85,6 +85,7 @@ class LoginFragment : BaseFragment() {
                         viewModel.saveAutoLoginToken(it.body?.token)
                         viewModel.saveUserId(it?.body?.userDTO?.id ?: -1)
                         activity?.let { it1 -> MainActivity.start(it1) }
+                        activity?.finishAffinity()
                     }, {
                         activity?.showErrorDialog(it)
                     })

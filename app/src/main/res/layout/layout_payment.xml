@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_marginTop="0dp"
     android:layout_height="match_parent"
+    android:layout_marginTop="0dp"
     android:background="@color/white"
     android:orientation="vertical">
 
@@ -20,11 +19,55 @@
             android:background="@color/white"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/tvBookAlertTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_20dp"
+                android:layout_marginTop="@dimen/dimen_24dp"
+                android:layout_marginRight="@dimen/dimen_20dp"
+                android:fontFamily="@font/lato_bold"
+                android:textColor="@android:color/black"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tvBookAlert"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_20dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="@dimen/dimen_20dp"
+                android:fontFamily="@font/lato_regular"
+                android:minLines="2"
+                android:textColor="#ff666666"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tvPayNow"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="@dimen/dimen_24dp"
+                android:layout_marginRight="60dp"
+                android:background="@drawable/bg_button_gradient_enable"
+                android:fontFamily="@font/lato_black"
+                android:gravity="center"
+                android:text="Pay Now"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_10dp"
+                android:layout_marginTop="@dimen/dimen_20dp"
+                android:background="@color/color_divider_2" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="@dimen/dimen_20dp"
+                android:layout_marginTop="@dimen/dimen_24dp"
                 android:layout_marginEnd="@dimen/dimen_20dp"
                 android:gravity="bottom"
                 android:orientation="horizontal"
@@ -35,9 +78,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lato_black"
+                    android:text="Customer"
                     android:textColor="#ff333333"
-                    android:textSize="16sp"
-                    tools:text="asdasdasd" />
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/tvCustomer"
@@ -48,7 +91,8 @@
                     android:fontFamily="@font/lato_bold"
                     android:gravity="end"
                     android:maxLines="1"
-                    android:textColor="#ff333333"
+                    android:text="Trinh Nguyen"
+                    android:textColor="#ff666666"
                     android:textSize="16sp"
                     android:visibility="gone" />
             </LinearLayout>
@@ -232,81 +276,10 @@
                 android:layout_marginTop="@dimen/dimen_20dp"
                 android:background="@color/color_divider_2" />
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
-                <com.ctr.hotelreservations.ui.wedget.NumberPicker
-                    android:id="@+id/pickerGuestNo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dimen_20dp"
-                    android:layout_marginTop="@dimen/dimen_20dp"
-                    android:layout_marginEnd="@dimen/dimen_20dp"
-                    app:label="Guest" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dip"
-                    android:layout_marginStart="@dimen/dimen_20dp"
-                    android:layout_marginTop="@dimen/dimen_10dp"
-                    android:layout_marginEnd="@dimen/dimen_20dp"
-                    android:layout_marginBottom="@dimen/dimen_10dp"
-                    android:background="@color/color_divider" />
-
-                <com.ctr.hotelreservations.ui.wedget.NumberPicker
-                    android:id="@+id/pickerRoomNo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dimen_20dp"
-                    android:layout_marginEnd="@dimen/dimen_20dp"
-                    app:label="Room" />
-
-                <com.ctr.hotelreservations.ui.wedget.InputGroupLayout
-                    android:id="@+id/inputFirstName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen_20dp"
-                    app:edit_hint="Enter first name"
-                    app:edit_maxLength="50"
-                    app:error_textOnEmpty="@string/error001"
-                    app:label_text="First name" />
-
-                <com.ctr.hotelreservations.ui.wedget.InputGroupLayout
-                    android:id="@+id/inputLastName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen_20dp"
-                    app:edit_hint="Enter last name"
-                    app:edit_maxLength="50"
-                    app:error_textOnEmpty="@string/error001"
-                    app:label_text="Last name" />
-
-                <com.ctr.hotelreservations.ui.wedget.InputGroupLayout
-                    android:id="@+id/inputEmail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen_20dp"
-                    app:edit_hint="Enter your email"
-                    app:edit_maxLength="255"
-                    app:error_text="Email is not valid"
-                    app:error_textOnEmpty="@string/error001"
-                    app:label_text="Email" />
-
-                <com.ctr.hotelreservations.ui.wedget.InputGroupLayout
-                    android:id="@+id/inputPhone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen_20dp"
-                    app:edit_hint="Enter phone number"
-                    app:edit_inputType="number"
-                    app:edit_maxLength="15"
-                    app:error_text="Phone number is not valid"
-                    app:error_textOnEmpty="@string/error001"
-                    app:is_elipsize_end="false"
-                    app:label_text="Phone" />
 
                 <LinearLayout
                     android:id="@+id/lnExpandPrice"
@@ -338,8 +311,8 @@
                         android:fontFamily="@font/lato_heavy"
                         android:gravity="end"
                         android:text="7,760,000"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="24sp" />
+                        android:textColor="@android:color/black"
+                        android:textSize="22sp" />
                 </LinearLayout>
 
                 <View
@@ -599,22 +572,49 @@
                         android:background="@color/color_divider" />
                 </LinearLayout>
 
-            </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_10dp"
+                    android:layout_marginTop="@dimen/dimen_20dp"
+                    android:background="@color/color_divider_2" />
 
-            <TextView
-                android:id="@+id/tvBookNow"
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_marginLeft="@dimen/dimen_20dp"
-                android:layout_marginTop="36dp"
-                android:layout_marginRight="@dimen/dimen_20dp"
-                android:layout_marginBottom="100dp"
-                android:background="@drawable/bg_button_gradient_enable"
-                android:fontFamily="@font/lato_black"
-                android:gravity="center"
-                android:text="Book Now"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/dimen_20dp"
+                    android:fontFamily="@font/lato_black"
+                    android:text="Need Help?"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="34dp"
+                    android:layout_marginTop="@dimen/dimen_16dp"
+                    android:layout_marginRight="34dp"
+                    android:fontFamily="@font/lato_regular"
+                    android:text="Should you need assistance, kindly reach out to Customer Service by tapping the button below."
+                    android:textColor="#ff333333"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tvContactUs"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginLeft="@dimen/dimen_20dp"
+                    android:layout_marginTop="@dimen/dimen_16dp"
+                    android:layout_marginRight="@dimen/dimen_20dp"
+                    android:layout_marginBottom="@dimen/dimen_50dp"
+                    android:background="@drawable/bg_btn_default_radius"
+                    android:fontFamily="@font/lato_bold"
+                    android:gravity="center"
+                    android:text="Contact Us"
+                    android:textColor="@color/colorAccent" />
+
+            </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </LinearLayout>

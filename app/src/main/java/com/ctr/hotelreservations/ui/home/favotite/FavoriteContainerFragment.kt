@@ -1,4 +1,4 @@
-package com.ctr.hotelreservations.ui.favotite
+package com.ctr.hotelreservations.ui.home.favotite
 
 import com.ctr.hotelreservations.base.HomeContainerBaseFragment
 
@@ -8,8 +8,10 @@ import com.ctr.hotelreservations.base.HomeContainerBaseFragment
 class FavoriteContainerFragment : HomeContainerBaseFragment() {
 
     companion object {
-        internal fun getNewInstance() = FavoriteContainerFragment()
+        internal fun getNewInstance() =
+            FavoriteContainerFragment()
     }
 
-    override fun getRootFragment() = FavoriteFragment.newInstance()
+    override fun getRootFragment() =
+        FavoriteFragment.newInstance()
 }

@@ -1,12 +1,15 @@
-package com.ctr.hotelreservations.ui.mybooking
+package com.ctr.hotelreservations.ui.home.mybooking
 
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.ctr.hotelreservations.R
 import com.ctr.hotelreservations.base.BaseFragment
+import com.ctr.hotelreservations.bus.RxBus
+import com.ctr.hotelreservations.data.model.UpdateMyBooking
 import com.ctr.hotelreservations.data.source.HotelRepository
 import com.ctr.hotelreservations.data.source.response.MyBookingResponse
 import com.ctr.hotelreservations.extension.invisible
@@ -24,7 +27,8 @@ class MyBookingFragment : BaseFragment() {
     private lateinit var viewModel: MyBookingVMContract
 
     companion object {
-        fun newInstance() = MyBookingFragment()
+        fun newInstance() =
+            MyBookingFragment()
     }
 
     override fun onCreateView(
@@ -37,11 +41,26 @@ class MyBookingFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = MyBookingViewModel(HotelRepository())
+        viewModel =
+            MyBookingViewModel(
+                HotelRepository()
+            )
         getMyBookings()
         initView()
         initRecyclerView()
         initSwipeRefresh()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        addDisposables(RxBus.listen(UpdateMyBooking::class.java)
+            .observeOnUiThread()
+            .subscribe {
+                Log.d("--=", "onResume: ${it.isNeedUpdate}")
+                if (it.isNeedUpdate) {
+                    getMyBookings()
+                }
+            })
     }
 
     private fun initView() {
@@ -55,14 +74,16 @@ class MyBookingFragment : BaseFragment() {
     private fun initRecyclerView() {
         rclBooking.let {
             it.setHasFixedSize(true)
-            it.adapter = MyBookingAdapter(viewModel.getBookings()).also { adapter ->
+            it.adapter = MyBookingAdapter(
+                viewModel.getBookings()
+            ).also { adapter ->
                 adapter.onItemClicked = this::handlerItemClick
             }
         }
     }
 
     private fun handlerItemClick(booking: MyBookingResponse.MyBooking) {
-
+        (parentFragment as? MyBookingContainerFragment)?.openPaymentFragment(booking)
     }
 
     private fun initSwipeRefresh() {
@@ -75,7 +96,8 @@ class MyBookingFragment : BaseFragment() {
         }
     }
 
-    private fun getMyBookings() {
+    internal fun getMyBookings() {
+        Log.d("--=", "getMyBookings: ")
         addDisposables(
             viewModel.getBookingHistory()
                 .observeOnUiThread()

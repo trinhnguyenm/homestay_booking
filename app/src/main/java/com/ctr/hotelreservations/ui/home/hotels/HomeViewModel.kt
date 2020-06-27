@@ -22,7 +22,7 @@ class HomeViewModel(
             .doOnSuccess { response ->
                 getHotelList().apply {
                     clear()
-                    addAll(response.hotels)
+                    addAll(response.hotels.reversed())
                 }
             }
     }

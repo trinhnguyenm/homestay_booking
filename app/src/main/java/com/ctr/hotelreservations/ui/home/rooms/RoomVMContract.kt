@@ -14,6 +14,13 @@ interface RoomVMContract {
 
     fun getAllRoomByBrand(brandId: Int): Single<RoomResponse>
 
-    fun getAllRoomStatus(brandId: Int, startDate: String, endDate: String): Single<RoomTypeResponse>
+    fun getAllRoomStatus(
+        brandId: Int,
+        startDate: String,
+        endDate: String,
+        numOfGuest: Int,
+        numOfRoom: Int
+    ): Single<RoomTypeResponse>
 
+    fun filterRoomStatus(numOfGuest: Int, numOfRoom: Int)
 }

@@ -1,6 +1,7 @@
 package com.ctr.hotelreservations.ui.booking
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,9 @@ import com.borax12.materialdaterangepicker.date.DatePickerDialog
 import com.bumptech.glide.Glide
 import com.ctr.hotelreservations.R
 import com.ctr.hotelreservations.base.BaseFragment
+import com.ctr.hotelreservations.bus.RxBus
 import com.ctr.hotelreservations.data.model.BookingStatus
+import com.ctr.hotelreservations.data.model.UpdateMyBooking
 import com.ctr.hotelreservations.data.source.HotelRepository
 import com.ctr.hotelreservations.data.source.UserRepository
 import com.ctr.hotelreservations.data.source.response.HotelResponse
@@ -31,7 +34,7 @@ import java.util.*
 /**
  * Created by at-trinhnguyen2 on 2020/06/16
  */
-class BookingFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
+class BookingFragment : BaseFragment() {
     private lateinit var viewModel: BookingVMContract
     private var brand: HotelResponse.Hotel.Brand? = null
     private var roomTypeStatus: RoomTypeResponse.RoomTypeStatus? = null
@@ -78,10 +81,10 @@ class BookingFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
             setHasFixedSize(true)
             adapter = BookingStepAdapter(
                 listOf(
-                    StepBookingUI(StepBooking.STEP_BOOKING, "Booking"),
-                    StepBookingUI(StepBooking.STEP_BOOKING, "Payment"),
-                    StepBookingUI(StepBooking.STEP_BOOKING, "Check in"),
-                    StepBookingUI(StepBooking.STEP_BOOKING, "Review")
+                    StepBookingUI("Booking"),
+                    StepBookingUI("Payment"),
+                    StepBookingUI("Check in"),
+                    StepBookingUI("Review")
                 )
             ).apply { setSelectedPosition(0) }
         }
@@ -107,6 +110,7 @@ class BookingFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
             pickerGuestNo.setMax(it.roomType.capacity)
 
             brand?.let { brand ->
+                tvBrand.text = brand.name
                 tvRoomAddress.text = brand.address
             }
 
@@ -156,6 +160,8 @@ class BookingFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
         val pricePerNoNight = prize * numberOfDays
         tvPerNoNight.text = "${prize.toString().getPriceFormat()} x $numberOfDays"
 
+        tvTitlePerNoRoom.visibility = if (numberOfRooms == 1) View.GONE else View.VISIBLE
+        tvPerNoRoom.visibility = if (numberOfRooms == 1) View.GONE else View.VISIBLE
         tvTitlePerNoRoom.text = "Price per $numberOfRooms room"
         val pricePerNoRoom = pricePerNoNight * numberOfRooms
         tvPerNoRoom.text = "${pricePerNoNight.toString().getPriceFormat()} x $numberOfRooms"
@@ -232,29 +238,6 @@ class BookingFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
             }
         }
 
-        /*constrainDate.onClickDelayAction {
-            startDate?.let { startDate ->
-                endDate?.let { endDate ->
-                    datePicker = DatePickerDialog.newInstance(
-                        this,
-                        startDate[Calendar.YEAR],
-                        startDate[Calendar.MONTH],
-                        startDate[Calendar.DAY_OF_MONTH],
-                        endDate[Calendar.YEAR],
-                        endDate[Calendar.MONTH],
-                        endDate[Calendar.DAY_OF_MONTH]
-                    )
-                    datePicker.apply {
-//                        isAutoHighlight = true
-                        setEndTitle("Check Out")
-                        setStartTitle("Check In")
-                        minDate = Calendar.getInstance()
-                    }
-                    (activity as? BookingActivity)?.showDatePickerDialog(datePicker)
-                }
-            }
-
-        }*/
     }
 
     private fun updateNextButtonState() {
@@ -277,10 +260,8 @@ class BookingFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
             viewModel.addNewRoomsReservation(numberOfRooms, listPromoCode)
                 .observeOnUiThread()
                 .subscribe({
-                    activity?.showDialog(
-                        "Complete!",
-                        "Booking id: ${it.roomReservations.firstOrNull()?.id}"
-                    )
+                    RxBus.publish(UpdateMyBooking(true))
+                    Log.d("--=", "addNewRoomsReservation: ${it}")
                 }, {
                     activity?.showErrorDialog(it)
                 })
@@ -303,23 +284,4 @@ class BookingFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
                 })
         )
     }
-
-    override fun onDateSet(
-        view: DatePickerDialog?,
-        year: Int,
-        monthOfYear: Int,
-        dayOfMonth: Int,
-        yearEnd: Int,
-        monthOfYearEnd: Int,
-        dayOfMonthEnd: Int
-    ) {
-        startDate?.set(year, monthOfYear, dayOfMonth, 14, 0, 0)
-        endDate?.set(yearEnd, monthOfYearEnd, dayOfMonthEnd, 12, 0, 0)
-//        val highlightDays = calculateHighlightedDays(startDate, endDate).toTypedArray()
-//        Log.d("--=", "onDateSet: ${highlightDays.size}")
-//        datePicker.setHighlightedDays(highlightDays, highlightDays)
-        numberOfDays = startDate.compareDay(endDate)
-        updateUI(startDate, endDate, numberOfDays, numberOfRooms, prize)
-    }
 }
-

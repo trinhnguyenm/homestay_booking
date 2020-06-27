@@ -45,6 +45,7 @@ class BookingStepAdapter(private val stepBookings: List<StepBookingUI>) :
                     viewDivider.invisible()
                 }
 
+                updateUI(adapterPosition)
                 when {
                     adapterPosition > selectedPosition -> {
                         ivStatusStepDone.invisible()
@@ -69,7 +70,12 @@ class BookingStepAdapter(private val stepBookings: List<StepBookingUI>) :
         }
     }
 
+    private fun updateUI(adapterPosition: Int) {
+
+    }
+
     internal fun setSelectedPosition(value: Int) {
         selectedPosition = value
+
     }
 }

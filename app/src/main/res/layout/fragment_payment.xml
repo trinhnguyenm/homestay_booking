@@ -20,7 +20,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/headerBarHeight"
                 android:gravity="center_vertical"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingLeft="36dp"
+                android:paddingRight="36dp">
 
                 <TextView
                     android:id="@+id/tvTitle"
@@ -42,7 +44,7 @@
                     android:gravity="center_horizontal"
                     android:text="@string/booking_id"
                     android:textSize="11sp"
-                    android:visibility="gone" />
+                    android:visibility="visible" />
             </LinearLayout>
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -91,51 +93,5 @@
         </RelativeLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/layout_room_detail_booking" />
-
-    <FrameLayout
-        android:id="@+id/frameLoading"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@color/white"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-        <com.github.ybq.android.spinkit.SpinKitView
-            style="@style/SpinKitView.Large.ThreeBounce"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:paddingStart="@dimen/dimen_10dp"
-            android:paddingEnd="@dimen/dimen_10dp"
-            app:SpinKit_Color="@color/colorAccent_dark" />
-    </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/frameLoadingFirst"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:visibility="gone">
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivBackOnLoading"
-            android:layout_width="@dimen/dimen_48dp"
-            android:layout_height="@dimen/dimen_48dp"
-            android:scaleType="centerInside"
-            android:tint="@color/colorAccent"
-            app:layout_constraintBottom_toBottomOf="@+id/tvBookingId"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tvTitle"
-            app:srcCompat="@drawable/ic_back_white" />
-
-        <com.github.ybq.android.spinkit.SpinKitView
-            android:id="@+id/progressBar"
-            style="@style/SpinKitView.Large.ThreeBounce"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:visibility="visible"
-            app:SpinKit_Color="@color/colorAccent" />
-    </FrameLayout>
+    <include layout="@layout/layout_payment" />
 </LinearLayout>

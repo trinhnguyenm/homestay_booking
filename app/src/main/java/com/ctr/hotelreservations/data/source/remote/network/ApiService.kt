@@ -1,5 +1,6 @@
 package com.ctr.hotelreservations.data.source.remote.network
 
+import com.ctr.hotelreservations.data.model.BookingStatus
 import com.ctr.hotelreservations.data.source.request.LoginBody
 import com.ctr.hotelreservations.data.source.request.RegisterBody
 import com.ctr.hotelreservations.data.source.request.RoomsReservationBody
@@ -9,15 +10,6 @@ import retrofit2.http.*
 
 interface ApiService {
 
-    /**
-     * Sign up new account.
-     */
-//    @POST("Account/SignUp")
-//    fun signUp(@Body signUpBody: SignUpBody): Single<ApiResponse>
-
-    /**
-     * Login
-     */
     @POST("/api/auth/login")
     fun login(@Body loginBody: LoginBody): Single<LoginResponse>
 
@@ -48,8 +40,17 @@ interface ApiService {
         @Query("numberOfRooms") numberOfRooms: Int,
         @Query("listPromoCode") listPromoCode: List<String>?,
         @Body roomsReservationBody: RoomsReservationBody
-    ): Single<RoomReservationResponse>
+    ): Single<MyBookingResponse>
 
     @GET("/api/room-reservations")
     fun getBookingHistory(): Single<MyBookingResponse>
+
+    @PATCH("/api/reservations/{id}/status")
+    fun changeReservationStatus(@Path("id") reservationId: Int): Single<ChangeReservationStatusResponse>
+
+    @PATCH("/api/room-reservations/{id}/status")
+    fun changeRoomReservationStatus(
+        @Path("id") roomReservationId: Int,
+        @Query("status") status: BookingStatus
+    ): Single<ChangeRoomReservationStatusResponse>
 }

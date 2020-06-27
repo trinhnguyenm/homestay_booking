@@ -1,4 +1,4 @@
-package com.ctr.hotelreservations.ui.account
+package com.ctr.hotelreservations.ui.home.account
 
 import com.ctr.hotelreservations.base.HomeContainerBaseFragment
 
@@ -8,8 +8,10 @@ import com.ctr.hotelreservations.base.HomeContainerBaseFragment
 class AccountContainerFragment : HomeContainerBaseFragment() {
 
     companion object {
-        internal fun getNewInstance() = AccountContainerFragment()
+        internal fun getNewInstance() =
+            AccountContainerFragment()
     }
 
-    override fun getRootFragment() = AccountFragment.newInstance()
+    override fun getRootFragment() =
+        AccountFragment.newInstance()
 }

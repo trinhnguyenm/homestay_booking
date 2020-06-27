@@ -224,14 +224,14 @@
             <ImageView
                 android:layout_width="@dimen/dimen_24dp"
                 android:layout_height="@dimen/dimen_24dp"
-                android:src="@drawable/user_review" />
+                android:src="@drawable/user_currency" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_8dp"
                 android:fontFamily="@font/lato_heavy"
-                android:text="Review us"
+                android:text="Currency"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
@@ -240,7 +240,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_4dp"
                 android:fontFamily="@font/lato_regular"
-                android:text="Rate 5 star" />
+                android:text="USD" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -249,12 +249,12 @@
         android:layout_width="180dp"
         android:layout_height="44dp"
         android:layout_marginTop="@dimen/dimen_4dp"
-        android:layout_marginBottom="44dp"
+        android:layout_marginBottom="36dp"
         android:background="@drawable/bg_btn_default_radius"
         android:fontFamily="@font/lato_black"
         android:gravity="center"
         android:text="Logout"
-        android:textColor="@android:color/black"
+        android:textColor="#ff666666"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

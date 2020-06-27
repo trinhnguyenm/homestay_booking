@@ -1,10 +1,11 @@
 package com.ctr.hotelreservations.data.source.remote
 
+import com.ctr.hotelreservations.data.model.BookingStatus
 import com.ctr.hotelreservations.data.source.datasource.HotelDataSource
 import com.ctr.hotelreservations.data.source.remote.network.ApiClient
 import com.ctr.hotelreservations.data.source.remote.network.ApiService
 import com.ctr.hotelreservations.data.source.request.RoomsReservationBody
-import com.ctr.hotelreservations.data.source.response.RoomReservationResponse
+import com.ctr.hotelreservations.data.source.response.MyBookingResponse
 import io.reactivex.Single
 
 /**
@@ -23,7 +24,7 @@ class HotelRemoteDataSource(private val apiService: ApiService = ApiClient.getIn
         numberOfRooms: Int,
         listPromoCode: List<String>?,
         roomsReservationBody: RoomsReservationBody
-    ): Single<RoomReservationResponse> {
+    ): Single<MyBookingResponse> {
         apiService.getHotels()
         return apiService.addNewRoomsReservation(numberOfRooms, listPromoCode, roomsReservationBody)
     }
@@ -31,4 +32,10 @@ class HotelRemoteDataSource(private val apiService: ApiService = ApiClient.getIn
     override fun getAllPromoStillActive() = apiService.getAllPromoStillActive()
 
     override fun getBookingHistory() = apiService.getBookingHistory()
+
+    override fun changeReservationStatus(reservationId: Int) =
+        apiService.changeReservationStatus(reservationId)
+
+    override fun changeRoomReservationStatus(roomReservationId: Int) =
+        apiService.changeRoomReservationStatus(roomReservationId, BookingStatus.CANCELLED)
 }

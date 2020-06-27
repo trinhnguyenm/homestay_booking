@@ -9,7 +9,7 @@ import com.ctr.hotelreservations.R
 import com.ctr.hotelreservations.base.BaseFragment
 import com.ctr.hotelreservations.data.source.response.HotelResponse
 import com.ctr.hotelreservations.extension.onClickDelayAction
-import com.ctr.hotelreservations.ui.home.HomeContainerFragment
+import com.ctr.hotelreservations.ui.home.hotels.HomeContainerFragment
 import kotlinx.android.synthetic.main.fragment_brand.*
 
 /**

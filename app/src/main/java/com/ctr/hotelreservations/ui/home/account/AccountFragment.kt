@@ -1,5 +1,7 @@
-package com.ctr.hotelreservations.ui.account
+package com.ctr.hotelreservations.ui.home.account
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -25,7 +27,8 @@ class AccountFragment : BaseFragment() {
     private lateinit var viewModel: AccountVMContract
 
     companion object {
-        fun newInstance() = AccountFragment()
+        fun newInstance() =
+            AccountFragment()
     }
 
     override fun onCreateView(
@@ -38,11 +41,20 @@ class AccountFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = AccountViewModel(App.instance.localRepository, UserRepository())
+        viewModel = AccountViewModel(
+            App.instance.localRepository,
+            UserRepository()
+        )
         getUserInfo()
 
         tvViewProfile.onClickDelayAction {
             Toast.makeText(context, "TODO", Toast.LENGTH_SHORT).show()
+        }
+
+        llSupport.onClickDelayAction {
+            val intent = Intent(Intent.ACTION_DIAL)
+            intent.data = Uri.parse("tel:1800 6969")
+            startActivity(intent)
         }
 
         tvLogout.onClickDelayAction {

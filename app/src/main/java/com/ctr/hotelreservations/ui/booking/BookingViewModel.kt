@@ -5,7 +5,9 @@ import com.ctr.hotelreservations.data.source.HotelRepository
 import com.ctr.hotelreservations.data.source.LocalRepository
 import com.ctr.hotelreservations.data.source.UserRepository
 import com.ctr.hotelreservations.data.source.request.RoomsReservationBody
-import com.ctr.hotelreservations.data.source.response.RoomReservationResponse
+import com.ctr.hotelreservations.data.source.response.ChangeReservationStatusResponse
+import com.ctr.hotelreservations.data.source.response.ChangeRoomReservationStatusResponse
+import com.ctr.hotelreservations.data.source.response.MyBookingResponse
 import com.ctr.hotelreservations.data.source.response.UserResponse
 import io.reactivex.Single
 import io.reactivex.subjects.BehaviorSubject
@@ -20,19 +22,19 @@ class BookingViewModel(
     private val userRepository: UserRepository
 ) : BookingVMContract, BaseViewModel() {
 
-    private val roomReservations = mutableListOf<RoomReservationResponse.RoomReservation>()
-
     private val roomsReservationBody = RoomsReservationBody()
+
+    private val roomReservations = mutableListOf<MyBookingResponse.MyBooking>()
 
     override fun getRoomsReservationBody() = roomsReservationBody
 
-    override fun getRoomReservations(): MutableList<RoomReservationResponse.RoomReservation> =
+    override fun getRoomReservations(): MutableList<MyBookingResponse.MyBooking> =
         roomReservations
 
     override fun addNewRoomsReservation(
         numberOfRooms: Int,
         listPromoCode: List<String>?
-    ): Single<RoomReservationResponse> {
+    ): Single<MyBookingResponse> {
         return hotelRepository.addNewRoomsReservation(
             numberOfRooms,
             listPromoCode,
@@ -42,7 +44,7 @@ class BookingViewModel(
             .doOnSuccess { response ->
                 getRoomReservations().apply {
                     clear()
-                    addAll(response.roomReservations)
+                    addAll(response.myBookings)
                 }
             }
     }
@@ -51,6 +53,16 @@ class BookingViewModel(
 
     override fun getUserInfo(): Single<UserResponse> {
         return userRepository.getUserFollowId(localRepository.getUserId())
+            .addProgressLoading()
+    }
+
+    override fun changeReservationStatus(reservationId: Int): Single<ChangeReservationStatusResponse> {
+        return hotelRepository.changeReservationStatus(reservationId)
+            .addProgressLoading()
+    }
+
+    override fun changeRoomReservationStatus(roomReservationId: Int): Single<ChangeRoomReservationStatusResponse> {
+        return hotelRepository.changeRoomReservationStatus(roomReservationId)
             .addProgressLoading()
     }
 

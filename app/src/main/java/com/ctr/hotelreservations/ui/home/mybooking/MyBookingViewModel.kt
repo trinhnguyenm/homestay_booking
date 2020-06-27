@@ -1,4 +1,4 @@
-package com.ctr.hotelreservations.ui.mybooking
+package com.ctr.hotelreservations.ui.home.mybooking
 
 import com.ctr.hotelreservations.base.BaseViewModel
 import com.ctr.hotelreservations.data.source.HotelRepository
@@ -16,7 +16,6 @@ class MyBookingViewModel(
 
     override fun getBookingHistory(): Single<MyBookingResponse> {
         return hotelRepository.getBookingHistory()
-            .addProgressLoading()
             .doOnSuccess { response ->
                 getBookings().apply {
                     clear()
