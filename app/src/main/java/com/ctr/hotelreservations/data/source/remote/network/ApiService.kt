@@ -1,5 +1,6 @@
 package com.ctr.hotelreservations.data.source.remote.network
 
+import com.ctr.hotelreservations.data.model.BookingStatus
 import com.ctr.hotelreservations.data.source.request.LoginBody
 import com.ctr.hotelreservations.data.source.request.RegisterBody
 import com.ctr.hotelreservations.data.source.request.RoomsReservationBody
@@ -39,11 +40,17 @@ interface ApiService {
         @Query("numberOfRooms") numberOfRooms: Int,
         @Query("listPromoCode") listPromoCode: List<String>?,
         @Body roomsReservationBody: RoomsReservationBody
-    ): Single<RoomReservationResponse>
+    ): Single<MyBookingResponse>
 
     @GET("/api/room-reservations")
     fun getBookingHistory(): Single<MyBookingResponse>
 
     @PATCH("/api/reservations/{id}/status")
     fun changeReservationStatus(@Path("id") reservationId: Int): Single<ChangeReservationStatusResponse>
+
+    @PATCH("/api/room-reservations/{id}/status")
+    fun changeRoomReservationStatus(
+        @Path("id") roomReservationId: Int,
+        @Query("status") status: BookingStatus
+    ): Single<ChangeRoomReservationStatusResponse>
 }

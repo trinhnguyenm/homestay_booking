@@ -18,11 +18,13 @@ interface HotelDataSource {
         numberOfRooms: Int,
         listPromoCode: List<String>?,
         roomsReservationBody: RoomsReservationBody
-    ): Single<RoomReservationResponse>
+    ): Single<MyBookingResponse>
 
     fun getAllPromoStillActive(): Single<PromoResponse>
 
     fun getBookingHistory(): Single<MyBookingResponse>
 
     fun changeReservationStatus(reservationId: Int): Single<ChangeReservationStatusResponse>
+
+    fun changeRoomReservationStatus(roomReservationId: Int): Single<ChangeRoomReservationStatusResponse>
 }

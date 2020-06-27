@@ -44,6 +44,13 @@ class PaymentFragment : BaseFragment() {
     private var totalFree = 0.0
     private var status: BookingStatus = BookingStatus.PENDING
     private var reservationId = 0
+    private var roomReservationId = 0
+    private var bookingSteps = mutableListOf(
+        StepBookingUI("Booking"),
+        StepBookingUI("Payment"),
+        StepBookingUI("Check in"),
+        StepBookingUI("Review")
+    )
 
     companion object {
         internal const val KEY_MY_BOOKING = "key_my_booking"
@@ -79,12 +86,7 @@ class PaymentFragment : BaseFragment() {
         rcvStepBooking.apply {
             PagerSnapHelper().attachToRecyclerView(this)
             adapterBookingStep = BookingStepAdapter(
-                listOf(
-                    StepBookingUI(StepBooking.STEP_BOOKING, "Booking"),
-                    StepBookingUI(StepBooking.STEP_BOOKING, "Payment"),
-                    StepBookingUI(StepBooking.STEP_BOOKING, "Check in"),
-                    StepBookingUI(StepBooking.STEP_BOOKING, "Review")
-                )
+                bookingSteps
             ).apply { setSelectedPosition(1) }
             setHasFixedSize(true)
             adapter = adapterBookingStep
@@ -105,7 +107,7 @@ class PaymentFragment : BaseFragment() {
                         }
                         "PAID" -> {
                             status = BookingStatus.PAID
-                            tvPayNow.gone()
+                            tvPayNow.text = "Cancel Booking"
                             tvBookAlertTitle.text = "Wait for you check in"
                             tvBookAlert.text =
                                 "Please check in before 14:00 ${it.startDate?.parseToCalendar(
@@ -125,16 +127,29 @@ class PaymentFragment : BaseFragment() {
                     rcvStepBooking.scrollToPosition(3)
                 }
                 else -> {
-                    status = BookingStatus.CANCELED
+                    status = BookingStatus.CANCELLED
                     tvPayNow.text = "Book Again"
                     tvBookAlertTitle.text = "You booking has been canceled"
                     tvBookAlert.text =
                         "Sorry, the booking has been cancelled. Please book again or book another room."
+                    adapterBookingStep.setSelectedPosition(2)
+                    bookingSteps.apply {
+                        clear()
+                        addAll(
+                            listOf(
+                                StepBookingUI("Booking"),
+                                StepBookingUI("Payment"),
+                                StepBookingUI("Cancelled")
+                            )
+                        )
+                    }
+                    rcvStepBooking.adapter?.notifyDataSetChanged()
+                    rcvStepBooking.scrollToPosition(2)
                 }
             }
 
             tvTitle.text = it.room?.brand?.name.toString()
-            tvBookingId.text = "Bookng ID: ${it.id}"
+            tvBookingId.text = "Booking ID: ${it.id}"
             tvCustomer.apply {
                 visible()
                 text = "${it.reservation.user?.firstName} ${it.reservation.user?.lastName} "
@@ -148,6 +163,7 @@ class PaymentFragment : BaseFragment() {
 
             tvRoomAddress.text = it.room?.brand?.address
             reservationId = it.reservation.id
+            roomReservationId = it.id
             startDate = it.startDate?.parseToCalendar(DateUtil.FORMAT_DATE_TIME_FROM_API_3)
             endDate = it.endDate?.parseToCalendar(DateUtil.FORMAT_DATE_TIME_FROM_API_3)
             numberOfDays = startDate.compareDay(endDate)
@@ -214,11 +230,23 @@ class PaymentFragment : BaseFragment() {
                     activity?.showDialog(
                         "Payment Method",
                         "Do you want pay ${totalFree.toString().getPriceFormat()} now?",
-                        "OK",
+                        "Yes",
                         {
-                            changeReservationStatus(reservationId)
-                        }, "Cancel"
+                            changeReservationStatus()
+                        }, "No"
                     )
+                }
+                BookingStatus.PAID -> {
+                    activity?.showDialog(
+                        "Warning!",
+                        "Do you want cancel booking?",
+                        "Yes",
+                        {
+                            changeRoomReservationStatus()
+                        }, "No"
+                    )
+                }
+                else -> {
                 }
             }
 
@@ -231,14 +259,14 @@ class PaymentFragment : BaseFragment() {
         }
     }
 
-    private fun changeReservationStatus(reservationId: Int) {
+    private fun changeReservationStatus() {
         addDisposables(
             viewModel.changeReservationStatus(reservationId)
                 .observeOnUiThread()
                 .subscribe({
                     if (it.body.status == BookingStatus.PAID.name) {
                         status = BookingStatus.PAID
-                        tvPayNow.gone()
+                        tvPayNow.text = "Cancer Booking"
                         tvBookAlertTitle.text = "Wait for you check in"
                         tvBookAlert.text =
                             "Please check in before 14:00 ${startDate?.parseToString(DateUtil.FORMAT_DATE_TIME_CHECK_IN_BOOKING)}"
@@ -253,7 +281,40 @@ class PaymentFragment : BaseFragment() {
         )
     }
 
-    override fun getProgressBarControlObservable() = viewModel.progressBarDialogStateObservable
+    private fun changeRoomReservationStatus() {
+        addDisposables(
+            viewModel.changeRoomReservationStatus(roomReservationId)
+                .observeOnUiThread()
+                .subscribe({
+                    if (it.body.status == BookingStatus.CANCELLED.name) {
+                        status = BookingStatus.CANCELLED
+                        tvPayNow.text = "Book Again"
+                        tvBookAlertTitle.text = "You booking has been canceled"
+                        tvBookAlert.text =
+                            "Sorry, the booking has been cancelled. Please book again or book another room."
+                        adapterBookingStep.setSelectedPosition(2)
+                        bookingSteps.apply {
+                            clear()
+                            addAll(
+                                listOf(
+                                    StepBookingUI("Booking"),
+                                    StepBookingUI("Payment"),
+                                    StepBookingUI("Cancelled")
+                                )
+                            )
+                        }
+                        rcvStepBooking.adapter?.notifyDataSetChanged()
+                        rcvStepBooking.scrollToPosition(2)
+                        RxBus.publish(UpdateMyBooking(true))
+                    }
+                }, {
+                    activity?.showErrorDialog(it)
+                })
+        )
+    }
+
+    override fun getProgressBarControlObservable() =
+        viewModel.progressBarDialogStateObservable
 }
 
 

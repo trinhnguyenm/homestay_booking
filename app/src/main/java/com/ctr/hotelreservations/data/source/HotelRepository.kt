@@ -34,4 +34,7 @@ class HotelRepository : HotelDataSource {
 
     override fun changeReservationStatus(reservationId: Int) =
         hotelRemoteDataSource.changeReservationStatus(reservationId)
+
+    override fun changeRoomReservationStatus(roomReservationId: Int) =
+        hotelRemoteDataSource.changeRoomReservationStatus(roomReservationId)
 }

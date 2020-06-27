@@ -1,6 +1,7 @@
 package com.ctr.hotelreservations.ui.booking
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -80,10 +81,10 @@ class BookingFragment : BaseFragment() {
             setHasFixedSize(true)
             adapter = BookingStepAdapter(
                 listOf(
-                    StepBookingUI(StepBooking.STEP_BOOKING, "Booking"),
-                    StepBookingUI(StepBooking.STEP_BOOKING, "Payment"),
-                    StepBookingUI(StepBooking.STEP_BOOKING, "Check in"),
-                    StepBookingUI(StepBooking.STEP_BOOKING, "Review")
+                    StepBookingUI("Booking"),
+                    StepBookingUI("Payment"),
+                    StepBookingUI("Check in"),
+                    StepBookingUI("Review")
                 )
             ).apply { setSelectedPosition(0) }
         }
@@ -260,7 +261,7 @@ class BookingFragment : BaseFragment() {
                 .observeOnUiThread()
                 .subscribe({
                     RxBus.publish(UpdateMyBooking(true))
-
+                    Log.d("--=", "addNewRoomsReservation: ${it}")
                 }, {
                     activity?.showErrorDialog(it)
                 })
