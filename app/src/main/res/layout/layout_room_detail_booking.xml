@@ -254,12 +254,14 @@
                     android:layout_marginTop="@dimen/dimen_10dp"
                     android:layout_marginEnd="@dimen/dimen_20dp"
                     android:layout_marginBottom="@dimen/dimen_10dp"
+                    android:visibility="gone"
                     android:background="@color/color_divider" />
 
                 <com.ctr.hotelreservations.ui.wedget.NumberPicker
                     android:id="@+id/pickerRoomNo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:layout_marginStart="@dimen/dimen_20dp"
                     android:layout_marginEnd="@dimen/dimen_20dp"
                     app:label="Room" />
