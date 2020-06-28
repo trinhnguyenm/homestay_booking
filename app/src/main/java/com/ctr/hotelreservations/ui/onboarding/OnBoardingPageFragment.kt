@@ -38,12 +38,12 @@ class OnBoardingPageFragment : BaseFragment() {
                 container.tag = 0
                 imageView.setImageResource(R.drawable.bg_onboard1)
                 textView.text =
-                    "Welcome to Mường Thanh - Chuỗi khách sạn lớn nhất Đông Nam Á"
+                    "Welcome to Hotel Booking, an online hotel booking."
             }
             1 -> {
                 container.tag = 1
                 imageView.setImageResource(R.drawable.bg_onboard2)
-                textView.text = "Trải nghiệm phong cách du lịch bản địa, sang trọng và đẳng cấp"
+                textView.text = "Experience the indigenous and luxurious travel style\n"
             }
         }
     }
