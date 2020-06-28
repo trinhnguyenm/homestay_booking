@@ -1,21 +1,20 @@
 package com.ctr.hotelreservations.ui.home.mybooking
 
+import android.app.Dialog
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.ctr.hotelreservations.R
 import com.ctr.hotelreservations.base.BaseFragment
 import com.ctr.hotelreservations.bus.RxBus
 import com.ctr.hotelreservations.data.model.UpdateMyBooking
 import com.ctr.hotelreservations.data.source.HotelRepository
 import com.ctr.hotelreservations.data.source.response.MyBookingResponse
-import com.ctr.hotelreservations.extension.invisible
-import com.ctr.hotelreservations.extension.observeOnUiThread
-import com.ctr.hotelreservations.extension.showErrorDialog
-import com.ctr.hotelreservations.extension.visible
+import com.ctr.hotelreservations.extension.*
 import kotlinx.android.synthetic.main.fragment_home.swipeRefresh
 import kotlinx.android.synthetic.main.fragment_my_booking.*
 import kotlinx.android.synthetic.main.layout_view_no_data.*
@@ -25,6 +24,7 @@ import kotlinx.android.synthetic.main.layout_view_no_data.*
  */
 class MyBookingFragment : BaseFragment() {
     private lateinit var viewModel: MyBookingVMContract
+    private var filterDays = 365
 
     companion object {
         fun newInstance() =
@@ -47,19 +47,59 @@ class MyBookingFragment : BaseFragment() {
             )
         getMyBookings()
         initView()
+        initListener()
         initRecyclerView()
         initSwipeRefresh()
     }
 
+    private fun initListener() {
+        cvFilterCheckIn.onClickDelayAction {
+            context?.let { context ->
+                val dialog = Dialog(context)
+                dialog.apply {
+                    setContentView(R.layout.layout_bottom_sheet_filter_day)
+                    val tvAll = findViewById<TextView>(R.id.tvAll)
+                    val tv7Days = findViewById<TextView>(R.id.tv7Days)
+                    val tv30Days = findViewById<TextView>(R.id.tv30Days)
+                    tvAll.onClickDelayAction {
+                        filterDays = 365
+                        this@MyBookingFragment.txtFilterCheckIn.text = "All"
+                        dismiss()
+                    }
+
+                    tv7Days.onClickDelayAction {
+                        filterDays = 3
+                        this@MyBookingFragment.txtFilterCheckIn.text = "3 days ago"
+                        dismiss()
+                    }
+
+                    tv30Days.onClickDelayAction {
+                        filterDays = 30
+                        this@MyBookingFragment.txtFilterCheckIn.text = "30 days ago"
+                        dismiss()
+                    }
+                    setOnDismissListener {
+                        Log.d("--=", "initListener: setOnDismissListener")
+
+                        viewModel.filterMyBooking(filterDays)
+                        this@MyBookingFragment.rclBooking.adapter?.notifyDataSetChanged()
+                    }
+                    show()
+                }
+            }
+        }
+    }
+
     override fun onResume() {
         super.onResume()
-        addDisposables(RxBus.listen(UpdateMyBooking::class.java)
-            .observeOnUiThread()
-            .subscribe {
-                Log.d("--=", "onResume: ${it.isNeedUpdate}")
-                if (it.isNeedUpdate) {
-                    getMyBookings()
-                }
+        addDisposables(
+            RxBus.listen(UpdateMyBooking::class.java)
+                .observeOnUiThread()
+                .subscribe {
+                    Log.d("--=", "onResume: ${it.isNeedUpdate}")
+                    if (it.isNeedUpdate) {
+                        getMyBookings()
+                    }
             })
     }
 

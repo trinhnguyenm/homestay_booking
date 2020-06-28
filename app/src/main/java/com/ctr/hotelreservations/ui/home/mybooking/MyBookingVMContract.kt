@@ -10,4 +10,6 @@ interface MyBookingVMContract {
     fun getBookingHistory(): Single<MyBookingResponse>
 
     fun getProgressObservable(): BehaviorSubject<Boolean>
+
+    fun filterMyBooking(filterDays: Int)
 }

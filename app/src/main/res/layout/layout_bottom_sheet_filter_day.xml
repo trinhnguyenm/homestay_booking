@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottom_sheet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+
+    <TextView
+        android:id="@+id/tvAll"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:fontFamily="@font/lato_regular"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/dimen_16dp"
+        android:text="All"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dip"
+        android:background="@color/color_divider" />
+
+    <TextView
+        android:id="@+id/tv7Days"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:fontFamily="@font/lato_regular"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/dimen_16dp"
+        android:text="3 days"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dip"
+        android:background="@color/color_divider" />
+
+    <TextView
+        android:id="@+id/tv30Days"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:fontFamily="@font/lato_regular"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/dimen_16dp"
+        android:text="30 days"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
+
+</LinearLayout>

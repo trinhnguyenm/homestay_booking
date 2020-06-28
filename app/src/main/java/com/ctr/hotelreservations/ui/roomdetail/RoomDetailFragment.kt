@@ -88,6 +88,10 @@ class RoomDetailFragment : BaseFragment() {
             tvCodePlace.text = getString(R.string.room_code, it.roomType.id.toString())
             tvPerNight.text = getString(R.string.per_night, 1)
             tvRoomPrice.text = it.roomType.price.toString().getPriceFormat()
+            it.roomType.capacity.let { capacity ->
+                tvGuests.text = if (capacity == 1) "1 Guest" else "$capacity Guests"
+            }
+            tvRoomType.text = "Size ${it.roomType.size}㎡"
         }
 
         brand?.let {
