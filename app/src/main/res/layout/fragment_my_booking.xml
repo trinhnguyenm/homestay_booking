@@ -39,73 +39,69 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/appbarLayout">
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/bgDefault">
 
-            <com.google.android.material.appbar.AppBarLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/bgDefault">
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvFilterCheckIn"
+                style="@style/match_width"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="@dimen/dimen_10dp"
+                android:background="#ffffffff"
+                android:gravity="center_vertical"
+                app:cardCornerRadius="6dp"
+                app:cardElevation="6dp"
+                app:layout_scrollFlags="exitUntilCollapsed|scroll">
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cvFilterCheckIn"
+                <LinearLayout
                     style="@style/match_width"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="@dimen/dimen_10dp"
-                    android:background="#ffffffff"
-                    android:gravity="center_vertical"
-                    app:cardCornerRadius="6dp"
-                    app:cardElevation="6dp"
-                    app:layout_scrollFlags="exitUntilCollapsed|scroll">
+                    android:padding="10dp">
 
-                    <LinearLayout
-                        style="@style/match_width"
-                        android:padding="10dp">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txtFilterCheckIn"
+                        style="@style/wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_weight="1.0"
+                        android:fontFamily="@font/lato_bold"
+                        android:text="All"
+                        android:textColor="#ff222222"
+                        android:textSize="14sp" />
 
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/txtFilterCheckIn"
-                            style="@style/wrap_content"
-                            android:layout_width="0dp"
-                            android:layout_weight="1.0"
-                            android:fontFamily="@font/lato_bold"
-                            android:text="All"
-                            android:textColor="#ff222222"
-                            android:textSize="14sp" />
+                    <TextView
+                        style="@style/wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="@font/lato_regular"
+                        android:text="@string/filter"
+                        android:textColor="#ff999999"
+                        android:textSize="14sp" />
 
-                        <TextView
-                            style="@style/wrap_content"
-                            android:layout_marginEnd="10dp"
-                            android:fontFamily="@font/lato_regular"
-                            android:text="@string/filter"
-                            android:textColor="#ff999999"
-                            android:textSize="14sp" />
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imageButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/ic_svg_calendar" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </com.google.android.material.appbar.AppBarLayout>
 
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/imageButton"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:srcCompat="@drawable/ic_svg_calendar" />
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-            </com.google.android.material.appbar.AppBarLayout>
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefresh"
+            style="@style/match_parent"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                android:id="@+id/swipeRefresh"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rclBooking"
                 style="@style/match_parent"
-                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rclBooking"
-                    style="@style/match_parent"
-                    android:background="@color/bgDefault"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-                    tools:listitem="@layout/layout_item_my_booking" />
-            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+                android:background="@color/bgDefault"
+                android:paddingTop="@dimen/dimen_8dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+                tools:listitem="@layout/layout_item_my_booking" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </LinearLayout>
 
     <LinearLayout
