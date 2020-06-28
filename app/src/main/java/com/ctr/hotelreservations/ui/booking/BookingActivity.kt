@@ -7,6 +7,7 @@ import com.borax12.materialdaterangepicker.date.DatePickerDialog
 import com.ctr.hotelreservations.R
 import com.ctr.hotelreservations.base.BaseActivity
 import com.ctr.hotelreservations.data.source.response.HotelResponse
+import com.ctr.hotelreservations.data.source.response.MyBookingResponse
 import com.ctr.hotelreservations.data.source.response.PromoResponse
 import com.ctr.hotelreservations.data.source.response.RoomTypeResponse
 import com.ctr.hotelreservations.extension.addFragment
@@ -62,10 +63,10 @@ class BookingActivity : BaseActivity() {
         datePickerDialog?.setOnDateSetListener(dialog)
     }
 
-    internal fun openBookingFragment() {
+    internal fun openPaymentFragment(myBooking: MyBookingResponse.MyBooking) {
         addFragment(
             R.id.container,
-            BookingFragment.newInstance(),
+            PaymentFragment.newInstance(myBooking),
             addToBackStack = true,
             tag = "BookingFragment.Payment"
         )

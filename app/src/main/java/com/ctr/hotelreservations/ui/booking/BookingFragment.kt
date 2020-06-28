@@ -1,7 +1,6 @@
 package com.ctr.hotelreservations.ui.booking
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -259,9 +258,11 @@ class BookingFragment : BaseFragment() {
         addDisposables(
             viewModel.addNewRoomsReservation(numberOfRooms, listPromoCode)
                 .observeOnUiThread()
-                .subscribe({
+                .subscribe({ response ->
                     RxBus.publish(UpdateMyBooking(true))
-                    Log.d("--=", "addNewRoomsReservation: ${it}")
+                    response.myBookings.firstOrNull()?.let {
+                        (activity as? BookingActivity)?.openPaymentFragment(it)
+                    }
                 }, {
                     activity?.showErrorDialog(it)
                 })

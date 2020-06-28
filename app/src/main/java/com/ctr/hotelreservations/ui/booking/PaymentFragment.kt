@@ -152,7 +152,7 @@ class PaymentFragment : BaseFragment() {
             tvBookingId.text = "Booking ID: ${it.id}"
             tvCustomer.apply {
                 visible()
-                text = "${it.reservation.user?.firstName} ${it.reservation.user?.lastName} "
+                text = "${it.firstName} ${it.lastName} "
             }
             context?.let { context ->
                 Glide.with(context).load(it.room?.roomType?.thumbnail).into(ivRoomThumb)
@@ -168,7 +168,7 @@ class PaymentFragment : BaseFragment() {
             endDate = it.endDate?.parseToCalendar(DateUtil.FORMAT_DATE_TIME_FROM_API_3)
             numberOfDays = startDate.compareDay(endDate)
             prize = it.room?.roomType?.price?.toDouble() ?: 0.0
-
+            promoPercent = it.reservation.promos.firstOrNull()?.percentDiscount ?: 0
             updateUI(startDate, endDate, numberOfDays, numberOfRooms, prize)
         }
     }

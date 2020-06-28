@@ -27,7 +27,7 @@ data class MyBookingResponse(
         @Parcelize
         data class Reservation(
             @SerializedName("id") val id: Int = 0,
-            @SerializedName("promos") val promos: List<Promo?>? = listOf(),
+            @SerializedName("promos") val promos: List<Promo> = listOf(),
             @SerializedName("status") val status: String = "",
             @SerializedName("taxPercent") val taxPercent: Int = 0,
             @SerializedName("totalAfterTax") val totalAfterTax: Int = 0,
