@@ -237,7 +237,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.ctr.hotelreservations.ui.wedget.NumberPicker
+                <com.ctr.homestaybooking.ui.wedget.NumberPicker
                     android:id="@+id/pickerGuestNo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -256,7 +256,7 @@
                     android:background="@color/color_divider"
                     android:visibility="gone" />
 
-                <com.ctr.hotelreservations.ui.wedget.NumberPicker
+                <com.ctr.homestaybooking.ui.wedget.NumberPicker
                     android:id="@+id/pickerRoomNo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -265,7 +265,7 @@
                     android:visibility="gone"
                     app:label="Room" />
 
-                <com.ctr.hotelreservations.ui.wedget.InputGroupLayout
+                <com.ctr.homestaybooking.ui.wedget.InputGroupLayout
                     android:id="@+id/inputFirstName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -275,7 +275,7 @@
                     app:error_textOnEmpty="@string/error001"
                     app:label_text="First name" />
 
-                <com.ctr.hotelreservations.ui.wedget.InputGroupLayout
+                <com.ctr.homestaybooking.ui.wedget.InputGroupLayout
                     android:id="@+id/inputLastName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -285,7 +285,7 @@
                     app:error_textOnEmpty="@string/error001"
                     app:label_text="Last name" />
 
-                <com.ctr.hotelreservations.ui.wedget.InputGroupLayout
+                <com.ctr.homestaybooking.ui.wedget.InputGroupLayout
                     android:id="@+id/inputEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -296,7 +296,7 @@
                     app:error_textOnEmpty="@string/error001"
                     app:label_text="Email" />
 
-                <com.ctr.hotelreservations.ui.wedget.InputGroupLayout
+                <com.ctr.homestaybooking.ui.wedget.InputGroupLayout
                     android:id="@+id/inputPhone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

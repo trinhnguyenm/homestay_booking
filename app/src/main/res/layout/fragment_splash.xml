@@ -18,12 +18,12 @@
         android:layout_centerInParent="true"
         android:fontFamily="@font/lato_black"
         android:gravity="center"
-        android:text="Hotel Booking"
+        android:text="Homestay booking"
         android:textColor="@color/colorAccent"
         android:textSize="30sp"
         android:visibility="visible" />
 
-    <com.ctr.hotelreservations.ui.wedget.DotProgressBar
+    <com.ctr.homestaybooking.ui.wedget.DotProgressBar
         android:id="@+id/dotProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

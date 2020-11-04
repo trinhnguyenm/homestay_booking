@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <com.ctr.hotelreservations.ui.wedget.NumberPicker
+    <com.ctr.homestaybooking.ui.wedget.NumberPicker
         android:id="@+id/pickerGuestNo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,7 +23,7 @@
         android:layout_marginBottom="@dimen/dimen_10dp"
         android:background="@color/color_divider" />
 
-    <com.ctr.hotelreservations.ui.wedget.NumberPicker
+    <com.ctr.homestaybooking.ui.wedget.NumberPicker
         android:id="@+id/pickerRoomNo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
