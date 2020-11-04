@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.ctr.hotelreservations.ui.wedget.CustomEditText
+    <com.ctr.homestaybooking.ui.wedget.CustomEditText
         android:id="@+id/inputField"
         style="@style/inputGroupEditText"
         android:gravity="top"

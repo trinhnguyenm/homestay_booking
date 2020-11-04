@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HotelReservations</string>
+    <string name="app_name">Homestay Booking</string>
     <string name="ok">OK</string>
     <string name="dialogMessageNotInstallGoogleChrome">Please download Google Chrome browser to view the page</string>
     <string name="about_guests_params">The additional guest fee is %1$s per guests from the %2$s guests, maximum %3$s guests.</string>

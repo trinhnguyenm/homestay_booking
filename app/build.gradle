@@ -6,7 +6,7 @@ android {
     compileSdkVersion 29
 
     defaultConfig {
-        applicationId "com.ctr.hotelreservations"
+        applicationId "com.ctr.homestaybooking"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
@@ -50,9 +50,9 @@ android {
     applicationVariants.all { variant ->
         switch (variant.getName()) {
             case "debug":
-                variant.buildConfigField "String", "BASE_API_URL", '"https://online-hotel-management.herokuapp.com/"'
+                variant.buildConfigField "String", "BASE_API_URL", '"http://172.18.19.213:8080/api/"'
                 variant.buildConfigField "String", "BASE_IMAGE_URL", '"https:"'
-                variant.buildConfigField "String", "APP_NAME", '"Hotel reservation"'
+                variant.buildConfigField "String", "APP_NAME", '"Homestay booking"'
                 break
             }
     }

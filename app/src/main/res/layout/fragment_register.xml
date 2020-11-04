@@ -55,7 +55,7 @@
             android:orientation="vertical"
             android:paddingBottom="54dp">
 
-            <com.ctr.hotelreservations.ui.wedget.InputGroupLayout
+            <com.ctr.homestaybooking.ui.wedget.InputGroupLayout
                 android:id="@+id/inputFirstName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -64,7 +64,7 @@
                 app:error_textOnEmpty="@string/error001"
                 app:label_text="First name" />
 
-            <com.ctr.hotelreservations.ui.wedget.InputGroupLayout
+            <com.ctr.homestaybooking.ui.wedget.InputGroupLayout
                 android:id="@+id/inputLastName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -74,7 +74,7 @@
                 app:error_textOnEmpty="@string/error001"
                 app:label_text="Last name" />
 
-            <com.ctr.hotelreservations.ui.wedget.InputGroupLayout
+            <com.ctr.homestaybooking.ui.wedget.InputGroupLayout
                 android:id="@+id/inputPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -86,7 +86,7 @@
                 app:error_textOnEmpty="@string/error001"
                 app:label_text="Phone" />
 
-            <com.ctr.hotelreservations.ui.wedget.InputGroupLayout
+            <com.ctr.homestaybooking.ui.wedget.InputGroupLayout
                 android:id="@+id/inputEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -98,7 +98,7 @@
                 app:error_textOnEmpty="@string/error001"
                 app:label_text="Email" />
 
-            <com.ctr.hotelreservations.ui.wedget.InputGroupLayout
+            <com.ctr.homestaybooking.ui.wedget.InputGroupLayout
                 android:id="@+id/inputPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -111,7 +111,7 @@
                 app:error_textOnEmpty="@string/error001"
                 app:label_text="Password" />
 
-            <com.ctr.hotelreservations.ui.wedget.InputGroupLayout
+            <com.ctr.homestaybooking.ui.wedget.InputGroupLayout
                 android:id="@+id/inputConfirmPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
