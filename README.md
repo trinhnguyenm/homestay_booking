@@ -1,5 +1,5 @@
-# Hotel Reservations App
-Back end: https://github.com/trinhlecong94/online-hotel-reservations-backend
+# Homestay Booking App
+Back end: https://github.com/congtrinhmn/homestay_booking_backend
 ## 1. Installing JDK
 Before installing Android Studio, make sure you have JDK 6 or higher installed—the JRE alone is not sufficient. When developing for Android 5.0 (API level 21) and higher, you will need to install JDK 7. To check if you have the correct version of the JDK installed, open a terminal and type javac -version. If the JDK is not available or the version is lower than version 6, download the [Java SE Development Kit 7](http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html).
 ## 2. [Installing Android Studio](https://developer.android.com/studio?pkg=studio&hl=vi "Installing Android Studio")
