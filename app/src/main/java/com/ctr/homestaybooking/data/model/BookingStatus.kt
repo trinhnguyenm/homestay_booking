@@ -5,8 +5,9 @@ package com.ctr.homestaybooking.data.model
  */
 enum class BookingStatus {
     PENDING,
+    ACCEPTED,
     UNPAID,
     PAID,
-    CANCELLED,
-    COMPLETED
+    COMPLETED,
+    CANCELLED
 }

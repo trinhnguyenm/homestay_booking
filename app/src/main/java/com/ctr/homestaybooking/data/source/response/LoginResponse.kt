@@ -11,30 +11,44 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class LoginResponse(
-    @SerializedName("body") val body: Body? = Body(),
-    @SerializedName("length") val length: Int = 0
-) : Parcelable {
-    @Parcelize
-    data class Body(
-        @SerializedName("token") val token: String? = "",
-        @SerializedName("userDTO") val userDTO: UserDTO? = UserDTO()
-    ) : Parcelable {
-        @Parcelize
-        data class UserDTO(
-            @SerializedName("birthday") val birthday: String? = "",
-            @SerializedName("email") val email: String? = "",
-            @SerializedName("firstName") val firstName: String? = "",
-            @SerializedName("id") val id: Int = 0,
-            @SerializedName("lastName") val lastName: String? = "",
-            @SerializedName("phone") val phone: String? = "",
-            @SerializedName("roleEntities") val roleEntities: List<RoleEntity?>? = listOf(),
-            @SerializedName("status") val status: String? = ""
-        ) : Parcelable {
-            @Parcelize
-            data class RoleEntity(
-                @SerializedName("id") val id: Int = 0,
-                @SerializedName("name") val name: String? = ""
-            ) : Parcelable
-        }
-    }
-}
+    @SerializedName("body")
+    val authToken: AuthToken,
+    @SerializedName("length")
+    val length: Int
+) : Parcelable
+
+@Parcelize
+data class AuthToken(
+    @SerializedName("token")
+    val token: String,
+    @SerializedName("userDetailDto")
+    val userDetailDto: UserDetailDto
+) : Parcelable
+
+@Parcelize
+data class UserDetailDto(
+    @SerializedName("birthday")
+    val birthday: String,
+    @SerializedName("deviceToken")
+    val deviceToken: String,
+    @SerializedName("email")
+    val email: String,
+    @SerializedName("firstName")
+    val firstName: String,
+    @SerializedName("gender")
+    val gender: String,
+    @SerializedName("id")
+    val id: Int,
+    @SerializedName("imageUrl")
+    val imageUrl: String,
+    @SerializedName("lastName")
+    val lastName: String,
+    @SerializedName("phoneNumber")
+    val phoneNumber: String,
+    @SerializedName("roles")
+    val roles: List<String>,
+    @SerializedName("status")
+    val status: String,
+    @SerializedName("uuid")
+    val uuid: String
+) : Parcelable

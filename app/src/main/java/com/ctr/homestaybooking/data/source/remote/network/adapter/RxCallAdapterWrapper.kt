@@ -86,13 +86,13 @@ class RxCallAdapterWrapper<R>(type: Type, retrofit: Retrofit, wrapped: CallAdapt
 
         if (throwable is UnknownHostException) {
             // Set message error of this case in activity extension
-            val apiException = ApiErrorMessage("", "", "", listOf(SubError("", "", "", "")), "")
+            val apiException = ApiErrorMessage("", "", "", "", listOf(SubError("", "", "", "")), "")
             apiException.httpStatusCode = ApiErrorMessage.NETWORK_ERROR_CODE
             return apiException
         }
 
         if (throwable is SocketTimeoutException) {
-            val apiException = ApiErrorMessage("", "", "", listOf(SubError("", "", "", "")), "")
+            val apiException = ApiErrorMessage("", "", "", "", listOf(SubError("", "", "", "")), "")
             apiException.httpStatusCode = HttpURLConnection.HTTP_CLIENT_TIMEOUT
             return apiException
         }

@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import com.ctr.homestaybooking.R
 import com.ctr.homestaybooking.base.BaseFragment
 import com.ctr.homestaybooking.data.source.UserRepository
-import com.ctr.homestaybooking.data.source.request.RegisterBody
 import com.ctr.homestaybooking.extension.*
 import com.ctr.homestaybooking.ui.App
 import kotlinx.android.synthetic.main.fragment_register.*
@@ -16,8 +15,7 @@ import kotlinx.android.synthetic.main.fragment_register.*
  * Created by at-trinhnguyen2 on 2020/06/18
  */
 class RegisterFragment : BaseFragment() {
-    private var viewModel: LoginVMContract? = null
-    private var registerBody = RegisterBody()
+    private var vm: LoginVMContract? = null
 
     companion object {
         fun newInstance() = RegisterFragment()
@@ -36,7 +34,7 @@ class RegisterFragment : BaseFragment() {
         initView()
         initListener()
         context?.let {
-            viewModel = LoginViewModel(App.instance.localRepository, UserRepository())
+            vm = LoginViewModel(App.instance.localRepository, UserRepository())
         }
     }
 
@@ -81,26 +79,26 @@ class RegisterFragment : BaseFragment() {
         }
 
         inputFirstName.afterTextChange = {
-            registerBody.firstName = it
+            vm?.getRegisterBody()?.firstName = it
             updateNextButton()
         }
 
         inputLastName.afterTextChange = {
-            registerBody.lastName = it
+            vm?.getRegisterBody()?.lastName = it
             updateNextButton()
         }
         inputPhone.afterTextChange = {
-            registerBody.phone = it
+            vm?.getRegisterBody()?.phoneNumber = it
             updateNextButton()
         }
 
         inputEmail.afterTextChange = {
-            registerBody.email = it
+            vm?.getRegisterBody()?.email = it
             updateNextButton()
         }
 
         inputPassword.afterTextChange = {
-            registerBody.password = it
+            vm?.getRegisterBody()?.password = it
             updateNextButton()
         }
 
@@ -113,8 +111,8 @@ class RegisterFragment : BaseFragment() {
         }
 
         tvSignUp.onClickDelayAction {
-            viewModel?.let { viewModel ->
-                viewModel.register(registerBody)
+            vm?.let { viewModel ->
+                viewModel.register()
                     .observeOnUiThread()
                     .subscribe({
                         if (it.body.id != null) {
@@ -150,5 +148,5 @@ class RegisterFragment : BaseFragment() {
         tvSignUp.isEnabled = validateData()
     }
 
-    override fun getProgressBarControlObservable() = viewModel?.getProgressObservable()
+    override fun getProgressBarControlObservable() = vm?.getProgressObservable()
 }

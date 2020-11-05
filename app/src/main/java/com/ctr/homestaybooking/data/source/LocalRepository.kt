@@ -4,6 +4,7 @@ import android.content.Context
 import com.ctr.homestaybooking.data.source.datasource.LocalDataSource
 import com.ctr.homestaybooking.util.SharedReferencesUtil
 import java.nio.charset.StandardCharsets
+import java.util.*
 
 /**
  * This class used to define the functions which use to get data from local storage.
@@ -56,4 +57,13 @@ class LocalRepository(private val context: Context) : LocalDataSource {
     override fun getDeviceToken(): String? =
         SharedReferencesUtil.getString(context, SharedReferencesUtil.KEY_DEVICE_TOKEN)
 
+    @Synchronized
+    override fun getUUID(): String {
+        var uuid = SharedReferencesUtil.getString(context, SharedReferencesUtil.KEY_UUID)
+        if (uuid.isNullOrEmpty()) {
+            uuid = UUID.randomUUID().toString()
+            SharedReferencesUtil.setString(context, SharedReferencesUtil.KEY_UUID, uuid)
+        }
+        return uuid
+    }
 }

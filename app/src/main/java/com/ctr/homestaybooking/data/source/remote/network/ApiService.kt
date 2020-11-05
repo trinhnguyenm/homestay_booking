@@ -2,8 +2,8 @@ package com.ctr.homestaybooking.data.source.remote.network
 
 import com.ctr.homestaybooking.data.model.BookingStatus
 import com.ctr.homestaybooking.data.source.request.LoginBody
-import com.ctr.homestaybooking.data.source.request.RegisterBody
 import com.ctr.homestaybooking.data.source.request.RoomsReservationBody
+import com.ctr.homestaybooking.data.source.request.UserBody
 import com.ctr.homestaybooking.data.source.response.*
 import io.reactivex.Single
 import retrofit2.http.*
@@ -14,7 +14,7 @@ interface ApiService {
     fun login(@Body loginBody: LoginBody): Single<LoginResponse>
 
     @POST("/api/auth/register")
-    fun register(@Body registerBody: RegisterBody): Single<RegisterResponse>
+    fun register(@Body userBody: UserBody): Single<RegisterResponse>
 
     @GET("/api/users/{id}")
     fun getUserFollowId(@Path("id") userId: Int): Single<UserResponse>

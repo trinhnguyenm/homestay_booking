@@ -17,6 +17,7 @@
     <string name="dialog_unauthorized_message">401 Unauthorized</string>
     <string name="dialog_forbidden_message">403 Forbidden</string>
     <string name="dialog_not_found_message">404 Not Found</string>
+    <string name="dialog_internal_error">500 Internal Error</string>
     <string name="dialog_client_time_out_message">408 Request Timeout</string>
     <string name="dialog_unavailable_message">503 Service Unavailable</string>
     <string name="dialog_server_error_message">Server error：%s</string>

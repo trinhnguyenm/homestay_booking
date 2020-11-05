@@ -31,4 +31,6 @@ interface LocalDataSource {
     fun removeToken()
 
     fun removeUserId()
+
+    fun getUUID(): String
 }

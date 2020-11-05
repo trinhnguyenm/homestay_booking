@@ -1,7 +1,7 @@
 package com.ctr.homestaybooking.ui.auth
 
 import com.ctr.homestaybooking.data.source.request.LoginBody
-import com.ctr.homestaybooking.data.source.request.RegisterBody
+import com.ctr.homestaybooking.data.source.request.UserBody
 import com.ctr.homestaybooking.data.source.response.LoginResponse
 import com.ctr.homestaybooking.data.source.response.RegisterResponse
 import io.reactivex.Single
@@ -19,5 +19,8 @@ interface LoginVMContract {
     fun saveAutoLoginToken(token: String?)
 
     fun saveUserId(id: Int)
-    fun register(registerBody: RegisterBody): Single<RegisterResponse>
+
+    fun register(): Single<RegisterResponse>
+
+    fun getRegisterBody(): UserBody
 }
