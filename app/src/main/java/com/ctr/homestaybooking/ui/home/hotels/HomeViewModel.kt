@@ -1,28 +1,29 @@
 package com.ctr.homestaybooking.ui.home.hotels
 
 import com.ctr.homestaybooking.base.BaseViewModel
-import com.ctr.homestaybooking.data.source.HotelRepository
+import com.ctr.homestaybooking.data.source.PlaceRepository
 import com.ctr.homestaybooking.data.source.datasource.LocalDataSource
-import com.ctr.homestaybooking.data.source.response.HotelResponse
+import com.ctr.homestaybooking.data.source.response.Place
+import com.ctr.homestaybooking.data.source.response.PlaceResponse
 import io.reactivex.Single
 import io.reactivex.subjects.BehaviorSubject
 
 class HomeViewModel(
     private val localRepository: LocalDataSource,
-    private val hotelRepository: HotelRepository
+    private val placeRepository: PlaceRepository
 ) : HomeVMContract, BaseViewModel() {
 
-    private val hotels = mutableListOf<HotelResponse.Hotel>()
+    private val places = mutableListOf<Place>()
 
-    override fun getHotelList(): MutableList<HotelResponse.Hotel> = hotels
+    override fun getPlaces(): MutableList<Place> = places
 
-    override fun getHotels(): Single<HotelResponse> {
-        return hotelRepository.getHotels()
+    override fun getPlacesFromServer(): Single<PlaceResponse> {
+        return placeRepository.getPlaces()
             .addProgressLoading()
             .doOnSuccess { response ->
-                getHotelList().apply {
+                getPlaces().apply {
                     clear()
-                    addAll(response.hotels.reversed())
+                    addAll(response.places)
                 }
             }
     }

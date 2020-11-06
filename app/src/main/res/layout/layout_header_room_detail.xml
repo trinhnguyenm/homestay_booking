@@ -8,7 +8,7 @@
     android:paddingBottom="100dp">
 
     <TextView
-        android:id="@+id/tvTypeRoom"
+        android:id="@+id/tvPlaceType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dimen_16dp"
@@ -54,8 +54,8 @@
         android:textColor="#ff333333"
         android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/viewReview"
-        app:layout_constraintStart_toStartOf="@+id/tvTypeRoom"
-        app:layout_constraintTop_toBottomOf="@+id/tvTypeRoom" />
+        app:layout_constraintStart_toStartOf="@+id/tvPlaceType"
+        app:layout_constraintTop_toBottomOf="@+id/tvPlaceType" />
 
     <TextView
         android:id="@+id/tvAddress"
@@ -80,7 +80,7 @@
         android:layout_marginTop="18dp"
         android:layout_marginEnd="3dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTypeRoom"
+        app:layout_constraintTop_toBottomOf="@+id/tvPlaceType"
         app:layout_goneMarginEnd="@dimen/dimen_8dp">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -169,7 +169,7 @@
             app:srcCompat="@drawable/ic_type_room" />
 
         <TextView
-            android:id="@+id/tvRoomType"
+            android:id="@+id/tvPlaceType"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -238,7 +238,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@+id/ivAreaRoom"
-            app:layout_constraintStart_toEndOf="@+id/tvRoomType"
+            app:layout_constraintStart_toEndOf="@+id/tvPlaceType"
             app:layout_constraintTop_toTopOf="@+id/ivAreaRoom"
             app:srcCompat="@drawable/ic_rooms_icon" />
 

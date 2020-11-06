@@ -9,7 +9,7 @@ import com.ctr.homestaybooking.R
 import com.ctr.homestaybooking.data.source.response.HotelResponse
 import com.ctr.homestaybooking.extension.onClickDelayAction
 import com.ctr.homestaybooking.extension.visible
-import kotlinx.android.synthetic.main.layout_item_hotels.view.*
+import kotlinx.android.synthetic.main.layout_item_place.view.*
 import kotlinx.android.synthetic.main.layout_item_room_of_brand.view.tvName
 
 /**
@@ -21,7 +21,7 @@ class BrandAdapter(private val brands: List<HotelResponse.Hotel.Brand>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return ItemHolder(inflater.inflate(R.layout.layout_item_hotels, parent, false))
+        return ItemHolder(inflater.inflate(R.layout.layout_item_place, parent, false))
     }
 
     override fun getItemCount() = brands.size
@@ -43,10 +43,10 @@ class BrandAdapter(private val brands: List<HotelResponse.Hotel.Brand>) :
                 tvAddress.visible()
                 tvName.text = item.name
                 tvAddress.text = item.address
-                tvDescription.text = item.desciption
+//                tvDescription.text = item.desciption
                 Glide.with(itemView.context)
                     .load(item.imgLink)
-                    .into(itemView.ivContent)
+                    .into(itemView.ivThumbnail)
             }
         }
     }

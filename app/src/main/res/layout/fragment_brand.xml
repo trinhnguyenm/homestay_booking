@@ -76,15 +76,15 @@
                     style="@style/SpinKitView.Small.Wave"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/ivContent"
-                    android:layout_alignBottom="@+id/ivContent"
+                    android:layout_alignTop="@+id/ivThumbnail"
+                    android:layout_alignBottom="@+id/ivThumbnail"
                     android:layout_centerHorizontal="true"
                     android:visibility="gone"
                     app:SpinKit_Color="@color/colorAccent"
-                    app:layout_constraintBottom_toBottomOf="@+id/ivContent"
-                    app:layout_constraintEnd_toEndOf="@+id/ivContent"
-                    app:layout_constraintStart_toStartOf="@+id/ivContent"
-                    app:layout_constraintTop_toTopOf="@+id/ivContent" />
+                    app:layout_constraintBottom_toBottomOf="@+id/ivThumbnail"
+                    app:layout_constraintEnd_toEndOf="@+id/ivThumbnail"
+                    app:layout_constraintStart_toStartOf="@+id/ivThumbnail"
+                    app:layout_constraintTop_toTopOf="@+id/ivThumbnail" />
 
                 <TextView
                     android:id="@+id/tvName"
@@ -144,7 +144,7 @@
                 android:clipToPadding="false"
                 android:paddingBottom="65dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/layout_item_hotels" />
+                tools:listitem="@layout/layout_item_place" />
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
 

@@ -50,7 +50,7 @@ android {
     applicationVariants.all { variant ->
         switch (variant.getName()) {
             case "debug":
-                variant.buildConfigField "String", "BASE_API_URL", '"http://192.168.43.45:8080/api/"'
+                variant.buildConfigField "String", "BASE_API_URL", '"http://172.18.19.213:8080/api/"'
                 variant.buildConfigField "String", "BASE_IMAGE_URL", '"https:"'
                 variant.buildConfigField "String", "APP_NAME", '"Homestay booking"'
                 break

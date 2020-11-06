@@ -5,10 +5,11 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.ctr.homestaybooking.R
 import com.ctr.homestaybooking.base.BaseFragment
-import com.ctr.homestaybooking.data.source.HotelRepository
-import com.ctr.homestaybooking.data.source.response.HotelResponse
+import com.ctr.homestaybooking.data.source.PlaceRepository
+import com.ctr.homestaybooking.data.source.response.Place
 import com.ctr.homestaybooking.extension.observeOnUiThread
 import com.ctr.homestaybooking.extension.showErrorDialog
 import com.ctr.homestaybooking.ui.App
@@ -37,7 +38,7 @@ class HomeFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = HomeViewModel(
             App.instance.localRepository,
-            HotelRepository()
+            PlaceRepository()
         )
         getHotels()
         initRecyclerView()
@@ -48,16 +49,16 @@ class HomeFragment : BaseFragment() {
 
         recyclerView.let {
             it.setHasFixedSize(true)
-            it.adapter = HotelAdapter(viewModel.getHotelList()).also { adapter ->
+            it.adapter = HotelAdapter(viewModel.getPlaces()).also { adapter ->
                 adapter.onItemClicked = this::handlerItemClick
             }
         }
 
     }
 
-    private fun handlerItemClick(hotel: HotelResponse.Hotel) {
-        (parentFragment as? HomeContainerFragment)?.openBrandFragment(hotel)
-
+    private fun handlerItemClick(place: Place) {
+//        (parentFragment as? HomeContainerFragment)?.openBrandFragment(place)
+        Toast.makeText(context, "${place.id}", Toast.LENGTH_SHORT).show()
     }
 
     private fun initSwipeRefresh() {
@@ -72,7 +73,7 @@ class HomeFragment : BaseFragment() {
 
     private fun getHotels() {
         addDisposables(
-            viewModel.getHotels()
+            viewModel.getPlacesFromServer()
                 .observeOnUiThread()
                 .subscribe({
                     recyclerView.adapter?.notifyDataSetChanged()

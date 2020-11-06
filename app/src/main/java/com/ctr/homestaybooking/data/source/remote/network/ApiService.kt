@@ -19,8 +19,8 @@ interface ApiService {
     @GET("/api/users/{id}")
     fun getUserFollowId(@Path("id") userId: Int): Single<UserResponse>
 
-    @GET("/api/hotels")
-    fun getHotels(): Single<HotelResponse>
+    @GET("/api/places")
+    fun getPlaces(): Single<PlaceResponse>
 
     @GET("/api/rooms/brand/{id}")
     fun getAllRoomByBrand(@Path("id") brandId: Int): Single<RoomResponse>

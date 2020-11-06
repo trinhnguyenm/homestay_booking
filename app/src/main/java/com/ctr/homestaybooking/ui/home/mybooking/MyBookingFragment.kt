@@ -12,7 +12,7 @@ import com.ctr.homestaybooking.R
 import com.ctr.homestaybooking.base.BaseFragment
 import com.ctr.homestaybooking.bus.RxBus
 import com.ctr.homestaybooking.data.model.UpdateMyBooking
-import com.ctr.homestaybooking.data.source.HotelRepository
+import com.ctr.homestaybooking.data.source.PlaceRepository
 import com.ctr.homestaybooking.data.source.response.MyBookingResponse
 import com.ctr.homestaybooking.extension.*
 import kotlinx.android.synthetic.main.fragment_home.swipeRefresh
@@ -43,7 +43,7 @@ class MyBookingFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel =
             MyBookingViewModel(
-                HotelRepository()
+                PlaceRepository()
             )
         getMyBookings()
         initView()

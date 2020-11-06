@@ -2,7 +2,7 @@ package com.ctr.homestaybooking.ui.home.mybooking
 
 import android.util.Log
 import com.ctr.homestaybooking.base.BaseViewModel
-import com.ctr.homestaybooking.data.source.HotelRepository
+import com.ctr.homestaybooking.data.source.PlaceRepository
 import com.ctr.homestaybooking.data.source.response.MyBookingResponse
 import com.ctr.homestaybooking.util.DateUtil
 import com.ctr.homestaybooking.util.compareDay
@@ -12,7 +12,7 @@ import io.reactivex.subjects.BehaviorSubject
 import java.util.*
 
 class MyBookingViewModel(
-    private val hotelRepository: HotelRepository
+    private val hotelRepository: PlaceRepository
 ) : MyBookingVMContract, BaseViewModel() {
 
     private val bookings = mutableListOf<MyBookingResponse.MyBooking>()

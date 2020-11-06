@@ -49,7 +49,7 @@ class RoomAdapter(
                     item.roomType.getRoomTypeInfo()
                 Glide.with(itemView.context)
                     .load(item.roomType.thumbnail)
-                    .into(ivContent)
+                    .into(ivThumbnail)
                 tvPrice.text = item.roomType.price.toString().getPriceFormat()
                 tvAvailable.text = "Available: ${item.totalRoomAvailable}"
             }

@@ -1,7 +1,7 @@
 package com.ctr.homestaybooking.data.source.remote
 
 import com.ctr.homestaybooking.data.model.BookingStatus
-import com.ctr.homestaybooking.data.source.datasource.HotelDataSource
+import com.ctr.homestaybooking.data.source.datasource.PlaceDataSource
 import com.ctr.homestaybooking.data.source.remote.network.ApiClient
 import com.ctr.homestaybooking.data.source.remote.network.ApiService
 import com.ctr.homestaybooking.data.source.request.RoomsReservationBody
@@ -11,9 +11,9 @@ import io.reactivex.Single
 /**
  * Created by at-trinhnguyen2 on 2020/06/19
  */
-class HotelRemoteDataSource(private val apiService: ApiService = ApiClient.getInstance(null).service) :
-    HotelDataSource {
-    override fun getHotels() = apiService.getHotels()
+class PlaceRemoteDataSource(private val apiService: ApiService = ApiClient.getInstance(null).service) :
+    PlaceDataSource {
+    override fun getPlaces() = apiService.getPlaces()
 
     override fun getAllRoomByBrand(brandId: Int) = apiService.getAllRoomByBrand(brandId)
 
@@ -25,7 +25,7 @@ class HotelRemoteDataSource(private val apiService: ApiService = ApiClient.getIn
         listPromoCode: List<String>?,
         roomsReservationBody: RoomsReservationBody
     ): Single<MyBookingResponse> {
-        apiService.getHotels()
+        apiService.getPlaces()
         return apiService.addNewRoomsReservation(numberOfRooms, listPromoCode, roomsReservationBody)
     }
 

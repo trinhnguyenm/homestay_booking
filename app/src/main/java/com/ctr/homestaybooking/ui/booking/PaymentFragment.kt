@@ -14,7 +14,7 @@ import com.ctr.homestaybooking.base.BaseFragment
 import com.ctr.homestaybooking.bus.RxBus
 import com.ctr.homestaybooking.data.model.BookingStatus
 import com.ctr.homestaybooking.data.model.UpdateMyBooking
-import com.ctr.homestaybooking.data.source.HotelRepository
+import com.ctr.homestaybooking.data.source.PlaceRepository
 import com.ctr.homestaybooking.data.source.UserRepository
 import com.ctr.homestaybooking.data.source.response.MyBookingResponse
 import com.ctr.homestaybooking.extension.*
@@ -73,7 +73,7 @@ class PaymentFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = BookingViewModel(
-            App.instance.localRepository, HotelRepository(), UserRepository()
+            App.instance.localRepository, PlaceRepository(), UserRepository()
         )
         initRecyclerView()
         initView()

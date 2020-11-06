@@ -1,7 +1,7 @@
 package com.ctr.homestaybooking.ui.roomdetail
 
 import com.ctr.homestaybooking.base.BaseViewModel
-import com.ctr.homestaybooking.data.source.HotelRepository
+import com.ctr.homestaybooking.data.source.PlaceRepository
 import com.ctr.homestaybooking.data.source.response.PromoResponse
 import com.ctr.homestaybooking.util.DateUtil
 import io.reactivex.Single
@@ -12,7 +12,7 @@ import java.util.*
  * Created by at-trinhnguyen2 on 2020/06/24
  */
 class RoomDetailViewModel(
-    private val hotelRepository: HotelRepository
+    private val hotelRepository: PlaceRepository
 ) : RoomDetailVMContract, BaseViewModel() {
 
     private val promos = mutableListOf<PromoResponse.Promo>()

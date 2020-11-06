@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.ctr.homestaybooking.R
 import com.ctr.homestaybooking.base.BaseFragment
-import com.ctr.homestaybooking.data.source.HotelRepository
+import com.ctr.homestaybooking.data.source.PlaceRepository
 import com.ctr.homestaybooking.data.source.response.HotelResponse
 import com.ctr.homestaybooking.data.source.response.PromoResponse
 import com.ctr.homestaybooking.data.source.response.RoomTypeResponse
@@ -51,7 +51,7 @@ class RoomDetailFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = RoomDetailViewModel(HotelRepository())
+        viewModel = RoomDetailViewModel(PlaceRepository())
         initView()
         initRecyclerView()
         initListener()
@@ -84,14 +84,14 @@ class RoomDetailFragment : BaseFragment() {
                 Glide.with(context).load(it.roomType.images[2].name).into(imgBanner4)
             }
 
-            tvTypeRoom.text = it.roomType.name
+            tvPlaceType.text = it.roomType.name
             tvCodePlace.text = getString(R.string.room_code, it.roomType.id.toString())
             tvPerNight.text = getString(R.string.per_night, 1)
             tvRoomPrice.text = it.roomType.price.toString().getPriceFormat()
             it.roomType.capacity.let { capacity ->
                 tvGuests.text = if (capacity == 1) "1 Guest" else "$capacity Guests"
             }
-            tvRoomType.text = "Size ${it.roomType.size}㎡"
+            tvPlaceType.text = "Size ${it.roomType.size}㎡"
         }
 
         brand?.let {

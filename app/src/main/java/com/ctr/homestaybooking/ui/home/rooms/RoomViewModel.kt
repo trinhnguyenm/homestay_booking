@@ -1,14 +1,14 @@
 package com.ctr.homestaybooking.ui.home.rooms
 
 import com.ctr.homestaybooking.base.BaseViewModel
-import com.ctr.homestaybooking.data.source.HotelRepository
+import com.ctr.homestaybooking.data.source.PlaceRepository
 import com.ctr.homestaybooking.data.source.response.RoomResponse
 import com.ctr.homestaybooking.data.source.response.RoomTypeResponse
 import io.reactivex.Single
 import io.reactivex.subjects.BehaviorSubject
 
 class RoomViewModel(
-    private val hotelRepository: HotelRepository
+    private val hotelRepository: PlaceRepository
 ) : RoomVMContract, BaseViewModel() {
 
     private val rooms = mutableListOf<RoomResponse.Room>()

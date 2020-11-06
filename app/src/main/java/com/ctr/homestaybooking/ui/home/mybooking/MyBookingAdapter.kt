@@ -53,7 +53,7 @@ class MyBookingAdapter(private val myBookings: List<MyBookingResponse.MyBooking>
                         (item.reservation.totalBeforeTax * (100 - it.percentDiscount) / 100.0).toString()
                             .getPriceFormat()
                 }
-                tvRoomType.text = item.room?.roomType?.name
+                tvPlaceType.text = item.room?.roomType?.name
                 tvBrand.text = item.room?.brand?.name
                 tvAddress.text = item.room?.brand?.address
                 tvCheckInDay.text =

@@ -7,8 +7,8 @@ import io.reactivex.Single
 /**
  * Created by at-trinhnguyen2 on 2020/06/19
  */
-interface HotelDataSource {
-    fun getHotels(): Single<HotelResponse>
+interface PlaceDataSource {
+    fun getPlaces(): Single<PlaceResponse>
 
     fun getAllRoomByBrand(brandId: Int): Single<RoomResponse>
 

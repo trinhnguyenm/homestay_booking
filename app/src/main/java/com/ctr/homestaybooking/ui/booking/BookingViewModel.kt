@@ -1,8 +1,8 @@
 package com.ctr.homestaybooking.ui.booking
 
 import com.ctr.homestaybooking.base.BaseViewModel
-import com.ctr.homestaybooking.data.source.HotelRepository
 import com.ctr.homestaybooking.data.source.LocalRepository
+import com.ctr.homestaybooking.data.source.PlaceRepository
 import com.ctr.homestaybooking.data.source.UserRepository
 import com.ctr.homestaybooking.data.source.request.RoomsReservationBody
 import com.ctr.homestaybooking.data.source.response.ChangeReservationStatusResponse
@@ -18,7 +18,7 @@ import io.reactivex.subjects.BehaviorSubject
 
 class BookingViewModel(
     private var localRepository: LocalRepository,
-    private val hotelRepository: HotelRepository,
+    private val hotelRepository: PlaceRepository,
     private val userRepository: UserRepository
 ) : BookingVMContract, BaseViewModel() {
 

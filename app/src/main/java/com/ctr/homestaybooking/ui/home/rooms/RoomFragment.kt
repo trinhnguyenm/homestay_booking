@@ -11,7 +11,7 @@ import com.borax12.materialdaterangepicker.date.DatePickerDialog
 import com.bumptech.glide.Glide
 import com.ctr.homestaybooking.R
 import com.ctr.homestaybooking.base.BaseFragment
-import com.ctr.homestaybooking.data.source.HotelRepository
+import com.ctr.homestaybooking.data.source.PlaceRepository
 import com.ctr.homestaybooking.data.source.response.HotelResponse
 import com.ctr.homestaybooking.data.source.response.RoomTypeResponse
 import com.ctr.homestaybooking.extension.*
@@ -66,7 +66,7 @@ class RoomFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = RoomViewModel(
-            HotelRepository()
+            PlaceRepository()
         )
         brand = arguments?.getParcelable(KEY_BRAND)
             ?: HotelResponse.Hotel.Brand()
