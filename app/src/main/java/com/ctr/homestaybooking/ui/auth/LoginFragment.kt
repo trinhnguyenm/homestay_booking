@@ -83,7 +83,7 @@ class LoginFragment : BaseFragment() {
                     .observeOnUiThread()
                     .subscribe({
                         viewModel.saveAutoLoginToken(it.authToken.token)
-                        viewModel.saveUserId(it.authToken.userDetailDto.id)
+                        viewModel.saveUserId(it.authToken.userDetail.id)
                         activity?.let { it1 -> MainActivity.start(it1) }
                         activity?.finishAffinity()
                     }, {

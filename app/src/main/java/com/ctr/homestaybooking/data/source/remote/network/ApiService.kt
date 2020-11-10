@@ -22,6 +22,9 @@ interface ApiService {
     @GET("/api/places")
     fun getPlaces(): Single<PlaceResponse>
 
+    @GET("/api/places/{id}")
+    fun getPlaceDetail(@Path("id") placeId: Int): Single<PlaceDetailResponse>
+
     @GET("/api/rooms/brand/{id}")
     fun getAllRoomByBrand(@Path("id") brandId: Int): Single<RoomResponse>
 

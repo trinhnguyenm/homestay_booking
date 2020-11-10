@@ -157,4 +157,77 @@
         <item name="android:textColor">#ff333333</item>
         <item name="android:fontFamily">@font/lato_heavy</item>
     </style>
+
+    <style name="space">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_marginTop">@dimen/dimen_24dp</item>
+        <item name="android:layout_marginEnd">@dimen/dimen_24dp</item>
+        <item name="android:layout_marginStart">@dimen/dimen_24dp</item>
+        <item name="android:background">@color/gray_light</item>
+    </style>
+
+    <style name="textBlackBold">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">24dp</item>
+        <item name="android:layout_marginEnd">24dp</item>
+        <item name="android:fontFamily">@font/lato_bold</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textColor">@color/colorTextBack</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="textBlackRegular">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">24dp</item>
+        <item name="android:layout_marginEnd">24dp</item>
+        <item name="android:fontFamily">@font/lato_regular</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textColor">@color/colorTextBack</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="textBlackBoldWrap">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:fontFamily">@font/lato_bold</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textColor">@color/colorTextBack</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="textBlackRegularWrap">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:fontFamily">@font/lato_regular</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textColor">@color/colorTextBack</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="textGray">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">24dp</item>
+        <item name="android:layout_marginEnd">24dp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:fontFamily">@font/lato_regular</item>
+        <item name="android:textColor">@color/colorTextGray</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="textGrayWrap">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:fontFamily">@font/lato_regular</item>
+        <item name="android:textColor">@color/colorTextGray</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <!-- RatingBar -->
+    <style name="RatingBar" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/ratingbar_full</item>
+        <item name="android:indeterminateDrawable">@drawable/ratingbar_full</item>
+        <item name="android:minHeight">13.4dp</item>
+        <item name="android:maxHeight">13.4dp</item>
+    </style>
 </resources>

@@ -205,7 +205,7 @@ class PaymentFragment : BaseFragment() {
         tvTitlePerNoRoom.text = "Price per $numberOfRooms room"
         val pricePerNoRoom = pricePerNoNight * numberOfRooms
         tvPerNoRoom.text = "${pricePerNoNight.toString().getPriceFormat()} x $numberOfRooms"
-        tvRoomPrice.text = pricePerNoRoom.toString().getPriceFormat()
+        tvPlacePrice.text = pricePerNoRoom.toString().getPriceFormat()
 
         tvDiscount.text = "${pricePerNoRoom.toString().getPriceFormat()} x $promoPercent%"
         val pricePromo = pricePerNoRoom * promoPercent / 100.0

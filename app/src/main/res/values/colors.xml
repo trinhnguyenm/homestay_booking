@@ -98,4 +98,7 @@
     <color name="colorWhite">#ffffff</color>
     <color name="colorBlack">#000000</color>
     <color name="colorTundoraLine">#1F404040</color>
+    <color name="colorTextBack">#222222</color>
+    <color name="colorTextGray">#717171</color>
+    <color name="colorRatingStar">#FCAE33</color>
 </resources>

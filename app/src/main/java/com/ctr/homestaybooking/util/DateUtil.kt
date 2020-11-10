@@ -9,10 +9,13 @@ import kotlin.math.abs
  * Created by at-chauhoang on 11/06/2019.
  */
 object DateUtil {
+    internal const val FORMAT_DATE_API = "yyyy-MM-dd"
+    internal const val FORMAT_TIME_API = "'T'HH:mm:ss.SSSz"
+    internal const val FORMAT_DATE_TIME_API = "yyyy-MM-dd'T'HH:mm:ss.SSSz"
+    internal const val FORMAT_DATE = "yyyy/MM/dd"
     internal const val FORMAT_DATE_TIME_FROM_API2 = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
     internal const val FORMAT_DATE_TIME_FROM_API = "yyyy-MM-dd'T'HH:mm:ss.SSS'z'"
     internal const val FORMAT_DATE_TIME_FROM_API_3 = "yyyy-MM-dd'T'HH:mm:ss.SSSX"
-    internal const val FORMAT_DATE_TIME = "yyyy/MM/dd"
     internal const val FORMAT_DATE_TIME_CHECK_IN = "dd/MM/yyyy"
     internal const val FORMAT_DATE_DAY_MONTH = "dd/MM"
     internal const val FORMAT_DATE_PROMO_SERVER = "yyyy-MM-dd"
@@ -20,7 +23,7 @@ object DateUtil {
     internal const val FORMAT_DATE_TIME_DAY_IN_WEEK = "EEEE"
     internal const val ONE_HOUR = 1000 * 60 * 60
 
-    internal fun parse(targetString: String, format: String): Calendar {
+    internal fun parse(targetString: String, format: String = FORMAT_DATE_TIME_API): Calendar {
         val formatter = SimpleDateFormat(format, Locale.getDefault())
         try {
             val calendar = Calendar.getInstance()
@@ -31,9 +34,17 @@ object DateUtil {
         }
     }
 
-    internal fun format(calendar: Calendar, format: String): String {
+    internal fun format(calendar: Calendar, format: String = FORMAT_DATE_TIME_API): String {
         val resultFormat = SimpleDateFormat(format, Locale.getDefault())
         return resultFormat.format(calendar.time)
+    }
+
+    internal fun convert(
+        targetString: String,
+        outputFormat: String,
+        inputFormat: String = FORMAT_DATE_TIME_API
+    ): String {
+        return format(parse(targetString, inputFormat), outputFormat)
     }
 
     internal fun formatToUTC(calendar: Calendar, format: String): String {

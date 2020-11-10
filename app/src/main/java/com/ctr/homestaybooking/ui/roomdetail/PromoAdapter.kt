@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ctr.homestaybooking.R
-import com.ctr.homestaybooking.data.source.response.PromoResponse
+import com.ctr.homestaybooking.data.source.response.Promo
 import com.ctr.homestaybooking.extension.onClickDelayAction
 import com.ctr.homestaybooking.util.DateUtil
 import kotlinx.android.synthetic.main.layout_item_sale.view.*
@@ -13,9 +13,9 @@ import kotlinx.android.synthetic.main.layout_item_sale.view.*
 /**
  * Created by at-trinhnguyen2 on 2020/06/24
  */
-class PromoAdapter(private val promos: List<PromoResponse.Promo>) :
+class PromoAdapter(private val promos: List<Promo>) :
     RecyclerView.Adapter<PromoAdapter.ItemHolder>() {
-    internal var onItemClicked: ((item: PromoResponse.Promo) -> Unit)? = null
+    internal var onItemClicked: ((item: Promo) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -36,7 +36,7 @@ class PromoAdapter(private val promos: List<PromoResponse.Promo>) :
             }
         }
 
-        fun onBind(item: PromoResponse.Promo) {
+        fun onBind(item: Promo) {
             itemView.apply {
                 val startDate = DateUtil.format(
                     DateUtil.parse(
@@ -49,7 +49,7 @@ class PromoAdapter(private val promos: List<PromoResponse.Promo>) :
                     DateUtil.FORMAT_DATE_DAY_MONTH
                 )
                 tvContent.text =
-                    "Sale off ${item.percentDiscount}% for reservation with check-in date from $startDate to $endDate"
+                    "Sale off ${item.discountPercent}% for booking with check-in date from $startDate to $endDate"
             }
         }
     }

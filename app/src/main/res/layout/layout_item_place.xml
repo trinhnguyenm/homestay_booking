@@ -79,7 +79,18 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/ivLike"
+                android:id="@+id/imgFlash"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_flash" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgLike"
                 android:layout_width="@dimen/dimen_30dp"
                 android:layout_height="26dp"
                 android:layout_marginTop="17dp"
@@ -106,7 +117,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/ivThumbnail"
                 tools:text="PLACE TYPE" />
 
-            <TextView
+            <com.ctr.homestaybooking.util.ExpandableTextView
                 android:id="@+id/tvName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -116,7 +127,6 @@
                 android:ellipsize="end"
                 android:fontFamily="@font/lato_black"
                 android:gravity="center_vertical"
-                android:maxLines="2"
                 android:textColor="#ff333333"
                 android:textSize="17sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -213,11 +223,10 @@
                 android:id="@+id/imgRatingStar"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/ic_rating_star"
-                android:tint="#FCAE33"
-                app:layout_constraintBottom_toBottomOf="@id/tvPrice"
+                android:src="@drawable/btn_rating_star_on_normal"
+                app:layout_constraintBottom_toBottomOf="@id/tvRateCount"
                 app:layout_constraintEnd_toStartOf="@id/tvRateAverage"
-                app:layout_constraintTop_toTopOf="@id/tvPrice" />
+                app:layout_constraintTop_toTopOf="@id/tvRateCount" />
 
             <TextView
                 android:id="@+id/tvRateAverage"
@@ -226,9 +235,9 @@
                 android:fontFamily="@font/lato_black"
                 android:textColor="#ff333333"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@id/tvPrice"
+                app:layout_constraintBottom_toBottomOf="@id/tvRateCount"
                 app:layout_constraintEnd_toStartOf="@id/tvRateCount"
-                app:layout_constraintTop_toTopOf="@id/tvPrice"
+                app:layout_constraintTop_toTopOf="@id/tvRateCount"
                 tools:text="4.50" />
 
             <TextView

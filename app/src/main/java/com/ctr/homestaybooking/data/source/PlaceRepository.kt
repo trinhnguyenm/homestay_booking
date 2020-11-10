@@ -13,6 +13,8 @@ class PlaceRepository : PlaceDataSource {
 
     override fun getPlaces() = placeRemoteDataSource.getPlaces()
 
+    override fun getPlaceDetail(placeId: Int) = placeRemoteDataSource.getPlaceDetail(placeId)
+
     override fun getAllRoomByBrand(brandId: Int) = placeRemoteDataSource.getAllRoomByBrand(brandId)
 
     override fun getAllRoomStatus(brandId: Int, startDate: String, endDate: String) =
@@ -27,8 +29,6 @@ class PlaceRepository : PlaceDataSource {
         listPromoCode,
         roomsReservationBody
     )
-
-    override fun getAllPromoStillActive() = placeRemoteDataSource.getAllPromoStillActive()
 
     override fun getBookingHistory() = placeRemoteDataSource.getBookingHistory()
 

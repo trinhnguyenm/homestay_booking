@@ -1,18 +1,13 @@
 package com.ctr.homestaybooking.ui.booking
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.borax12.materialdaterangepicker.date.DatePickerDialog
 import com.ctr.homestaybooking.R
 import com.ctr.homestaybooking.base.BaseActivity
-import com.ctr.homestaybooking.data.source.response.HotelResponse
 import com.ctr.homestaybooking.data.source.response.MyBookingResponse
 import com.ctr.homestaybooking.data.source.response.PromoResponse
-import com.ctr.homestaybooking.data.source.response.RoomTypeResponse
 import com.ctr.homestaybooking.extension.addFragment
-import com.ctr.homestaybooking.ui.home.rooms.RoomFragment
-import com.ctr.homestaybooking.ui.roomdetail.RoomDetailActivity
 
 class BookingActivity : BaseActivity() {
 
@@ -21,24 +16,22 @@ class BookingActivity : BaseActivity() {
 
         internal fun start(
             from: Fragment,
-            brand: HotelResponse.Hotel.Brand,
-            roomTypeStatus: RoomTypeResponse.RoomTypeStatus,
             startDate: String,
             endDate: String,
             promo: PromoResponse.Promo?
         ) {
             BookingActivity()
-                .apply {
-                    val intent = Intent(from.activity, BookingActivity::class.java)
-                    intent.putExtras(Bundle().apply {
-                        putParcelable(RoomFragment.KEY_BRAND, brand)
-                        putParcelable(RoomDetailActivity.KEY_ROOM_TYPE_STATUS, roomTypeStatus)
-                        putString(RoomDetailActivity.KEY_START_DATE, startDate)
-                        putString(RoomDetailActivity.KEY_END_DATE, endDate)
-                        putParcelable(KEY_PROMO, promo)
-                    })
-                    from.startActivity(intent)
-                }
+//                .apply {
+//                    val intent = Intent(from.activity, BookingActivity::class.java)
+//                    intent.putExtras(Bundle().apply {
+//                        putParcelable(RoomFragment.KEY_BRAND, brand)
+//                        putParcelable(PromoDetailActivity.KEY_ROOM_TYPE_STATUS, roomTypeStatus)
+//                        putString(PromoDetailActivity.KEY_START_DATE, startDate)
+//                        putString(PromoDetailActivity.KEY_END_DATE, endDate)
+//                        putParcelable(KEY_PROMO, promo)
+//                    })
+//                    from.startActivity(intent)
+//                }
         }
     }
 

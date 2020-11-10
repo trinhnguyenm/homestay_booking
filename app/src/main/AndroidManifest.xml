@@ -40,7 +40,7 @@
             android:name="com.ctr.homestaybooking.ui.home.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.ctr.homestaybooking.ui.roomdetail.RoomDetailActivity"
+            android:name="com.ctr.homestaybooking.ui.roomdetail.PlaceDetailActivity"
             android:screenOrientation="portrait" />
         <activity android:name="com.ctr.homestaybooking.ui.booking.BookingActivity" />
 

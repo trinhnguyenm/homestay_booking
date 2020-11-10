@@ -15,6 +15,8 @@ class PlaceRemoteDataSource(private val apiService: ApiService = ApiClient.getIn
     PlaceDataSource {
     override fun getPlaces() = apiService.getPlaces()
 
+    override fun getPlaceDetail(placeId: Int) = apiService.getPlaceDetail(placeId)
+
     override fun getAllRoomByBrand(brandId: Int) = apiService.getAllRoomByBrand(brandId)
 
     override fun getAllRoomStatus(brandId: Int, startDate: String, endDate: String) =
@@ -28,8 +30,6 @@ class PlaceRemoteDataSource(private val apiService: ApiService = ApiClient.getIn
         apiService.getPlaces()
         return apiService.addNewRoomsReservation(numberOfRooms, listPromoCode, roomsReservationBody)
     }
-
-    override fun getAllPromoStillActive() = apiService.getAllPromoStillActive()
 
     override fun getBookingHistory() = apiService.getBookingHistory()
 

@@ -21,7 +21,7 @@ import com.ctr.homestaybooking.extension.*
 import com.ctr.homestaybooking.ui.App
 import com.ctr.homestaybooking.ui.booking.BookingActivity.Companion.KEY_PROMO
 import com.ctr.homestaybooking.ui.home.rooms.RoomFragment
-import com.ctr.homestaybooking.ui.roomdetail.RoomDetailActivity
+import com.ctr.homestaybooking.ui.roomdetail.PlaceDetailActivity
 import com.ctr.homestaybooking.util.DateUtil
 import com.ctr.homestaybooking.util.compareDay
 import com.ctr.homestaybooking.util.parseToCalendar
@@ -92,9 +92,9 @@ class BookingFragment : BaseFragment() {
     private fun initView() {
         (activity as? BookingActivity)?.intent?.extras?.apply {
             brand = getParcelable(RoomFragment.KEY_BRAND) ?: HotelResponse.Hotel.Brand()
-            roomTypeStatus = getParcelable(RoomDetailActivity.KEY_ROOM_TYPE_STATUS)
-            startDate = getString(RoomDetailActivity.KEY_START_DATE)?.parseToCalendar()
-            endDate = getString(RoomDetailActivity.KEY_END_DATE)?.parseToCalendar()
+            roomTypeStatus = getParcelable(PlaceDetailActivity.KEY_ROOM_TYPE_STATUS)
+            startDate = getString(PlaceDetailActivity.KEY_START_DATE)?.parseToCalendar()
+            endDate = getString(PlaceDetailActivity.KEY_END_DATE)?.parseToCalendar()
             promo = getParcelable(KEY_PROMO)
         }
         tvBookNow.isEnabled = false
@@ -164,7 +164,7 @@ class BookingFragment : BaseFragment() {
         tvTitlePerNoRoom.text = "Price per $numberOfRooms room"
         val pricePerNoRoom = pricePerNoNight * numberOfRooms
         tvPerNoRoom.text = "${pricePerNoNight.toString().getPriceFormat()} x $numberOfRooms"
-        tvRoomPrice.text = pricePerNoRoom.toString().getPriceFormat()
+        tvPlacePrice.text = pricePerNoRoom.toString().getPriceFormat()
 
         tvDiscount.text = "${pricePerNoRoom.toString().getPriceFormat()} x $promoPercent%"
         val pricePromo = pricePerNoRoom * promoPercent / 100.0

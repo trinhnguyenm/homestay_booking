@@ -6,6 +6,6 @@ import java.util.*
 /**
  * Created by at-trinhnguyen2 on 2020/11/06
  */
-fun Long.toMoney() = NumberFormat.getInstance(Locale("nv", "VN")).format(this).plus("₫")
+fun Double?.toMoney() = NumberFormat.getInstance(Locale("nv", "VN")).format(this).plus("₫")
 
 fun Double.format(digits: Int) = "%.${digits}f".format(this)

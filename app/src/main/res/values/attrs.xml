@@ -199,4 +199,7 @@
     <declare-styleable name="NumberPicker">
         <attr name="label" format="string" />
     </declare-styleable>
+    <declare-styleable name="ExpandableTextView">
+        <attr name="trimLength" format="integer" />
+    </declare-styleable>
 </resources>

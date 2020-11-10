@@ -6,18 +6,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ctr.homestaybooking.R
+import com.ctr.homestaybooking.data.model.BookingType
 import com.ctr.homestaybooking.data.source.response.Place
-import com.ctr.homestaybooking.extension.format
-import com.ctr.homestaybooking.extension.gone
-import com.ctr.homestaybooking.extension.onClickDelayAction
-import com.ctr.homestaybooking.extension.toMoney
+import com.ctr.homestaybooking.extension.*
 import kotlinx.android.synthetic.main.layout_item_place.view.*
 
 /**
  * Created by at-trinhnguyen2 on 2020/06/06
  */
-class HotelAdapter(private val places: List<Place>) :
-    RecyclerView.Adapter<HotelAdapter.ItemHolder>() {
+class PlaceAdapter(private val places: List<Place>) :
+    RecyclerView.Adapter<PlaceAdapter.ItemHolder>() {
     internal var onItemClicked: ((item: Place) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
@@ -50,11 +48,19 @@ class HotelAdapter(private val places: List<Place>) :
                     .load(item.images?.firstOrNull())
                     .into(ivThumbnail)
                 tvPrice.text = "${item.pricePerDay?.toMoney()}/đêm"
+                if (item.bookingType == BookingType.INSTANT_BOOKING) {
+                    imgFlash.visible()
+                } else {
+                    imgFlash.gone()
+                }
                 if (item.rateCount == 0) {
                     imgRatingStar.gone()
                     tvRateAverage.gone()
                     tvRateCount.gone()
                 } else {
+                    imgRatingStar.visible()
+                    tvRateAverage.visible()
+                    tvRateCount.visible()
                     tvRateAverage.text = item.rateAverage?.format(2)
                     tvRateCount.text = "(${item.rateCount})"
                 }

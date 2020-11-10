@@ -5,7 +5,6 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.ctr.homestaybooking.R
 import com.ctr.homestaybooking.base.BaseFragment
 import com.ctr.homestaybooking.data.source.PlaceRepository
@@ -13,6 +12,7 @@ import com.ctr.homestaybooking.data.source.response.Place
 import com.ctr.homestaybooking.extension.observeOnUiThread
 import com.ctr.homestaybooking.extension.showErrorDialog
 import com.ctr.homestaybooking.ui.App
+import com.ctr.homestaybooking.ui.roomdetail.PlaceDetailActivity
 import kotlinx.android.synthetic.main.fragment_home.*
 
 /**
@@ -49,16 +49,14 @@ class HomeFragment : BaseFragment() {
 
         recyclerView.let {
             it.setHasFixedSize(true)
-            it.adapter = HotelAdapter(viewModel.getPlaces()).also { adapter ->
+            it.adapter = PlaceAdapter(viewModel.getPlaces()).also { adapter ->
                 adapter.onItemClicked = this::handlerItemClick
             }
         }
-
     }
 
     private fun handlerItemClick(place: Place) {
-//        (parentFragment as? HomeContainerFragment)?.openBrandFragment(place)
-        Toast.makeText(context, "${place.id}", Toast.LENGTH_SHORT).show()
+        place.id?.let { PlaceDetailActivity.start(this, it) }
     }
 
     private fun initSwipeRefresh() {

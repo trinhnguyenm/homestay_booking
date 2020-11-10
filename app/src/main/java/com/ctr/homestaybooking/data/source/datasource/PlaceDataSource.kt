@@ -10,6 +10,8 @@ import io.reactivex.Single
 interface PlaceDataSource {
     fun getPlaces(): Single<PlaceResponse>
 
+    fun getPlaceDetail(placeId: Int): Single<PlaceDetailResponse>
+
     fun getAllRoomByBrand(brandId: Int): Single<RoomResponse>
 
     fun getAllRoomStatus(brandId: Int, startDate: String, endDate: String): Single<RoomTypeResponse>
@@ -19,8 +21,6 @@ interface PlaceDataSource {
         listPromoCode: List<String>?,
         roomsReservationBody: RoomsReservationBody
     ): Single<MyBookingResponse>
-
-    fun getAllPromoStillActive(): Single<PromoResponse>
 
     fun getBookingHistory(): Single<MyBookingResponse>
 

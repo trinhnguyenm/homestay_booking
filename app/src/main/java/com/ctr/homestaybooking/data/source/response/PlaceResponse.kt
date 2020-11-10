@@ -1,6 +1,7 @@
 package com.ctr.homestaybooking.data.source.response
 
 import android.os.Parcelable
+import com.ctr.homestaybooking.data.model.BookingType
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
@@ -21,7 +22,7 @@ data class Place(
     @SerializedName("id") val id: Int? = 0,
     @SerializedName("name") val name: String? = "",
     @SerializedName("description") val description: String? = "",
-    @SerializedName("bookingType") val bookingType: String? = "",
+    @SerializedName("bookingType") val bookingType: BookingType? = null,
     @SerializedName("street") val street: String? = "",
     @SerializedName("address") val address: String? = "",
     @SerializedName("guestCount") val guestCount: Int? = 0,
@@ -29,7 +30,7 @@ data class Place(
     @SerializedName("bedCount") val bedCount: Int? = 0,
     @SerializedName("bathroomCount") val bathroomCount: Int? = 0,
     @SerializedName("size") val size: Int? = 0,
-    @SerializedName("pricePerDay") val pricePerDay: Long? = 0,
+    @SerializedName("pricePerDay") val pricePerDay: Double? = 0.0,
     @SerializedName("images") val images: List<String>? = listOf(),
     @SerializedName("placeType") val placeType: String? = "",
     @SerializedName("rateCount") val rateCount: Int? = 0,

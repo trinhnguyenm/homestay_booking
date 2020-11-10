@@ -16,14 +16,12 @@ import com.ctr.homestaybooking.data.source.response.HotelResponse
 import com.ctr.homestaybooking.data.source.response.RoomTypeResponse
 import com.ctr.homestaybooking.extension.*
 import com.ctr.homestaybooking.ui.home.MainActivity
-import com.ctr.homestaybooking.ui.roomdetail.RoomDetailActivity
 import com.ctr.homestaybooking.ui.wedget.NumberPicker
 import com.ctr.homestaybooking.util.DateUtil
 import com.ctr.homestaybooking.util.DateUtil.FORMAT_DATE_TIME_CHECK_IN
 import com.ctr.homestaybooking.util.DateUtil.FORMAT_DATE_TIME_DAY_IN_WEEK
 import com.ctr.homestaybooking.util.compareDay
 import com.ctr.homestaybooking.util.parseToString
-import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_room_of_brand.*
 import kotlinx.android.synthetic.main.include_layout_select_date.*
 import java.util.*
@@ -159,13 +157,13 @@ class RoomFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
     }
 
     private fun handlerItemClick(room: RoomTypeResponse.RoomTypeStatus) {
-        RoomDetailActivity.start(
-            this,
-            Gson().fromJson(brand.toJsonString(), HotelResponse.Hotel.Brand::class.java),
-            room,
-            startDate.parseToString(),
-            endDate.parseToString()
-        )
+//        PlaceDetailActivity.start(
+//            this,
+//            Gson().fromJson(brand.toJsonString(), HotelResponse.Hotel.Brand::class.java),
+//            room,
+//            startDate.parseToString(),
+//            endDate.parseToString()
+//        )
     }
 
     private fun initSwipeRefresh() {

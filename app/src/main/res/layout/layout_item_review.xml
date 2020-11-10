@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/dimen_16dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgUser"
+        android:layout_width="@dimen/dimen_40"
+        android:layout_height="@dimen/dimen_40"
+        android:layout_marginStart="@dimen/dimen_24dp"
+        android:layout_marginTop="@dimen/dimen_16dp"
+        android:background="@color/colorTextGray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvUsername"
+        style="@style/textBlackBoldWrap"
+        android:layout_width="0dp"
+        android:layout_marginStart="@dimen/dimen_16dp"
+        android:layout_marginEnd="@dimen/dimen_24dp"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imgUser"
+        app:layout_constraintTop_toTopOf="@id/imgUser"
+        tools:text="Trinh Nguyen" />
+
+    <TextView
+        android:id="@+id/tvTime"
+        style="@style/textGrayWrap"
+        android:layout_width="0dp"
+        android:layout_marginStart="@dimen/dimen_16dp"
+        android:layout_marginEnd="@dimen/dimen_24dp"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imgUser"
+        app:layout_constraintTop_toBottomOf="@id/tvUsername"
+        tools:text="tháng 7 năm 2020" />
+
+    <com.ctr.homestaybooking.util.ExpandableTextView
+        android:id="@+id/tvComment"
+        style="@style/textBlackRegular"
+        android:layout_width="match_parent"
+        android:layout_marginStart="@dimen/dimen_24dp"
+        android:layout_marginTop="@dimen/dimen_16dp"
+        android:layout_marginEnd="@dimen/dimen_24dp"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/imgUser"
+        tools:text="Truly amazing view, even better than the photo for me. They so humble and helpful. Totoly goodtime in Da Nang" />
+</androidx.constraintlayout.widget.ConstraintLayout>

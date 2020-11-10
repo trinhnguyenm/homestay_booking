@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_header_detail_room">
+
+    <TextView
+        android:id="@+id/tvName"
+        style="@style/textBlackBold"
+        android:layout_width="match_parent"
+        android:layout_marginTop="24dp"
+        android:maxLines="3"
+        android:textSize="20sp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Place name\nPlace name\nPlace name\nPlace name" />
+
+    <ImageView
+        android:id="@+id/imgRatingStar"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/btn_rating_star_on_normal"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@id/tvName"
+        app:layout_constraintTop_toBottomOf="@id/tvName"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/tvRateAverage"
+        style="@style/textBlackBoldWrap"
+        android:layout_marginStart="@dimen/dimen_4dp"
+        android:fontFamily="@font/lato_black"
+        android:textSize="16sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/imgRatingStar"
+        app:layout_constraintStart_toEndOf="@id/imgRatingStar"
+        app:layout_constraintTop_toTopOf="@id/imgRatingStar"
+        tools:text="4.50" />
+
+    <TextView
+        android:id="@+id/tvRateCount"
+        style="@style/textGrayWrap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_4dp"
+        android:layout_marginEnd="@dimen/dimen_20dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/imgRatingStar"
+        app:layout_constraintStart_toEndOf="@id/tvRateAverage"
+        app:layout_constraintTop_toTopOf="@id/imgRatingStar"
+        tools:text="(10)" />
+
+    <TextView
+        android:id="@+id/tvAddress"
+        style="@style/textGray"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/dimen_10dp"
+        android:maxLines="2"
+        app:layout_constraintTop_toBottomOf="@+id/imgRatingStar"
+        tools:text="Hoàng Mai, Hà Nội, Việt Nam" />
+
+    <View
+        android:id="@+id/space1"
+        style="@style/space"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        app:layout_constraintTop_toBottomOf="@id/tvAddress" />
+
+    <TextView
+        android:id="@+id/tvPlaceType"
+        style="@style/textBlackBold"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/dimen_24dp"
+        android:layout_marginEnd="@dimen/dimen_76dp"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/space1"
+        tools:text="Homestay" />
+
+    <TextView
+        android:id="@+id/tvHostName"
+        style="@style/textBlackBold"
+        android:layout_width="match_parent"
+        android:layout_marginEnd="@dimen/dimen_76dp"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@+id/tvPlaceType"
+        tools:text="chủ nhà A" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgHost"
+        android:layout_width="@dimen/dimen_48dp"
+        android:layout_height="@dimen/dimen_48dp"
+        android:layout_marginTop="@dimen/dimen_24dp"
+        android:layout_marginEnd="@dimen/dimen_24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/space1"
+        tools:background="@color/colorTextGray" />
+
+    <TextView
+        android:id="@+id/tvPlaceRoom"
+        style="@style/textBlackRegular"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/dimen_8dp"
+        android:maxLines="2"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@+id/tvHostName"
+        tools:text="10 khách 3 phòng ngủ 4 giường 3 phòng tắm" />
+
+    <View
+        android:id="@+id/space2"
+        style="@style/space"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/tvPlaceRoom" />
+
+    <com.ctr.homestaybooking.util.ExpandableTextView
+        android:id="@+id/tvDescription"
+        style="@style/textBlackRegular"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/dimen_24dp"
+        android:lineSpacingExtra="4sp"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@+id/space2"
+        tools:text="S. Camellia 2 có diện tích 70m2 gồm phòng khách, bếp, phòng ngủ và không gian làm việc. Với thiết kế hiện đại và gu thẩm mỹ tinh tế dễ dàng gây thiện cảm cho người nhìn. Đầy đủ trang thiết bị tiện nghi, hiện đại, sẽ giúp các bạn sẽ cảm thấy thoải mái như ở nhà" />
+
+    <View
+        android:id="@+id/space3"
+        style="@style/space"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/tvDescription" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewPromos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_12dp"
+        android:background="@color/white"
+        android:clipToPadding="false"
+        android:visibility="visible"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/space3"
+        tools:itemCount="2"
+        tools:listitem="@layout/layout_item_sale" />
+</androidx.constraintlayout.widget.ConstraintLayout>

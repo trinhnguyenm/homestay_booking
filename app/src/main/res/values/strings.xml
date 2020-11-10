@@ -671,5 +671,5 @@ Wellcome back Hotel Booking!!"</string>
     <string name="roomNameFormat">Room %s</string>
     <string name="roomDayNumber">%dD</string>
     <string name="room_code">"Room ID\n%1$s"</string>
-    <string name="per_night">x %d night</string>
+    <string name="per_night">x 1 đêm</string>
 </resources>
