@@ -21,8 +21,8 @@ import com.ctr.homestaybooking.extension.*
 import com.ctr.homestaybooking.ui.App
 import com.ctr.homestaybooking.util.DateUtil
 import com.ctr.homestaybooking.util.compareDay
-import com.ctr.homestaybooking.util.parseToCalendar
-import com.ctr.homestaybooking.util.parseToString
+import com.ctr.homestaybooking.util.toCalendar
+import com.ctr.homestaybooking.util.format
 import kotlinx.android.synthetic.main.fragment_payment.*
 import kotlinx.android.synthetic.main.layout_payment.*
 import java.util.*
@@ -110,9 +110,9 @@ class PaymentFragment : BaseFragment() {
                             tvPayNow.text = "Cancel Booking"
                             tvBookAlertTitle.text = "Wait for you check in"
                             tvBookAlert.text =
-                                "Please check in before 14:00 ${it.startDate?.parseToCalendar(
+                                "Please check in before 14:00 ${it.startDate?.toCalendar(
                                     DateUtil.FORMAT_DATE_TIME_FROM_API_3
-                                )?.parseToString(DateUtil.FORMAT_DATE_TIME_CHECK_IN_BOOKING)}"
+                                )?.format(DateUtil.FORMAT_DATE_TIME_CHECK_IN_BOOKING)}"
                             adapterBookingStep.setSelectedPosition(2)
                             rcvStepBooking.scrollToPosition(2)
                         }
@@ -164,8 +164,8 @@ class PaymentFragment : BaseFragment() {
             tvRoomAddress.text = it.room?.brand?.address
             reservationId = it.reservation.id
             roomReservationId = it.id
-            startDate = it.startDate?.parseToCalendar(DateUtil.FORMAT_DATE_TIME_FROM_API_3)
-            endDate = it.endDate?.parseToCalendar(DateUtil.FORMAT_DATE_TIME_FROM_API_3)
+            startDate = it.startDate?.toCalendar(DateUtil.FORMAT_DATE_TIME_FROM_API_3)
+            endDate = it.endDate?.toCalendar(DateUtil.FORMAT_DATE_TIME_FROM_API_3)
             numberOfDays = startDate.compareDay(endDate)
             prize = it.room?.roomType?.price?.toDouble() ?: 0.0
             promoPercent = it.reservation.promos.firstOrNull()?.percentDiscount ?: 0
@@ -180,10 +180,10 @@ class PaymentFragment : BaseFragment() {
         numberOfRooms: Int,
         prize: Double
     ) {
-        tvStartDate.text = startDate?.parseToString(DateUtil.FORMAT_DATE_TIME_CHECK_IN_BOOKING)
-        tvEndDate.text = endDate?.parseToString(DateUtil.FORMAT_DATE_TIME_CHECK_IN_BOOKING)
-        tvCheckinTime.text = startDate?.parseToString(DateUtil.FORMAT_DATE_TIME_DAY_IN_WEEK)
-        tvCheckOutTime.text = endDate?.parseToString(DateUtil.FORMAT_DATE_TIME_DAY_IN_WEEK)
+        tvStartDate.text = startDate?.format(DateUtil.FORMAT_DATE_TIME_CHECK_IN_BOOKING)
+        tvEndDate.text = endDate?.format(DateUtil.FORMAT_DATE_TIME_CHECK_IN_BOOKING)
+        tvCheckinTime.text = startDate?.format(DateUtil.FORMAT_DATE_TIME_DAY_IN_WEEK)
+        tvCheckOutTime.text = endDate?.format(DateUtil.FORMAT_DATE_TIME_DAY_IN_WEEK)
         tvRangeDate.text = "${numberOfDays}D"
 
         updateTotalFee(numberOfDays, numberOfRooms, prize, promoPercent)
@@ -269,7 +269,7 @@ class PaymentFragment : BaseFragment() {
                         tvPayNow.text = "Cancer Booking"
                         tvBookAlertTitle.text = "Wait for you check in"
                         tvBookAlert.text =
-                            "Please check in before 14:00 ${startDate?.parseToString(DateUtil.FORMAT_DATE_TIME_CHECK_IN_BOOKING)}"
+                            "Please check in before 14:00 ${startDate?.format(DateUtil.FORMAT_DATE_TIME_CHECK_IN_BOOKING)}"
                         adapterBookingStep.setSelectedPosition(2)
                         rcvStepBooking.scrollToPosition(2)
                         rcvStepBooking.adapter?.notifyDataSetChanged()

@@ -24,8 +24,8 @@ import com.ctr.homestaybooking.ui.home.rooms.RoomFragment
 import com.ctr.homestaybooking.ui.roomdetail.PlaceDetailActivity
 import com.ctr.homestaybooking.util.DateUtil
 import com.ctr.homestaybooking.util.compareDay
-import com.ctr.homestaybooking.util.parseToCalendar
-import com.ctr.homestaybooking.util.parseToString
+import com.ctr.homestaybooking.util.toCalendar
+import com.ctr.homestaybooking.util.format
 import kotlinx.android.synthetic.main.fragment_booking.*
 import kotlinx.android.synthetic.main.layout_room_detail_booking.*
 import java.util.*
@@ -64,10 +64,10 @@ class BookingFragment : BaseFragment() {
             PlaceRepository(),
             UserRepository()
         )
-        initView()
-        initRecyclerView()
-        initListener()
-        getUserInfo()
+//        initView()
+//        initRecyclerView()
+//        initListener()
+//        getUserInfo()
     }
 
     override fun getProgressBarControlObservable() = viewModel.getProgressObservable()
@@ -93,8 +93,8 @@ class BookingFragment : BaseFragment() {
         (activity as? BookingActivity)?.intent?.extras?.apply {
             brand = getParcelable(RoomFragment.KEY_BRAND) ?: HotelResponse.Hotel.Brand()
             roomTypeStatus = getParcelable(PlaceDetailActivity.KEY_ROOM_TYPE_STATUS)
-            startDate = getString(PlaceDetailActivity.KEY_START_DATE)?.parseToCalendar()
-            endDate = getString(PlaceDetailActivity.KEY_END_DATE)?.parseToCalendar()
+            startDate = getString(PlaceDetailActivity.KEY_START_DATE)?.toCalendar()
+            endDate = getString(PlaceDetailActivity.KEY_END_DATE)?.toCalendar()
             promo = getParcelable(KEY_PROMO)
         }
         tvBookNow.isEnabled = false
@@ -134,15 +134,15 @@ class BookingFragment : BaseFragment() {
         numberOfRooms: Int,
         prize: Double
     ) {
-        tvStartDate.text = startDate?.parseToString(DateUtil.FORMAT_DATE_TIME_CHECK_IN_BOOKING)
-        tvEndDate.text = endDate?.parseToString(DateUtil.FORMAT_DATE_TIME_CHECK_IN_BOOKING)
-        tvCheckinTime.text = startDate?.parseToString(DateUtil.FORMAT_DATE_TIME_DAY_IN_WEEK)
-        tvCheckOutTime.text = endDate?.parseToString(DateUtil.FORMAT_DATE_TIME_DAY_IN_WEEK)
+        tvStartDate.text = startDate?.format(DateUtil.FORMAT_DATE_TIME_CHECK_IN_BOOKING)
+        tvEndDate.text = endDate?.format(DateUtil.FORMAT_DATE_TIME_CHECK_IN_BOOKING)
+        tvCheckinTime.text = startDate?.format(DateUtil.FORMAT_DATE_TIME_DAY_IN_WEEK)
+        tvCheckOutTime.text = endDate?.format(DateUtil.FORMAT_DATE_TIME_DAY_IN_WEEK)
         tvRangeDate.text = "${numberOfDays}D"
 
         viewModel.getRoomsReservationBody().let { body ->
-            body.startDate = startDate?.parseToString(DateUtil.FORMAT_DATE_TIME_FROM_API_3)
-            body.endDate = endDate?.parseToString(DateUtil.FORMAT_DATE_TIME_FROM_API_3)
+            body.startDate = startDate?.format(DateUtil.FORMAT_DATE_TIME_FROM_API_3)
+            body.endDate = endDate?.format(DateUtil.FORMAT_DATE_TIME_FROM_API_3)
         }
 
         updateTotalFee(numberOfDays, numberOfRooms, prize, promo?.percentDiscount ?: 0)

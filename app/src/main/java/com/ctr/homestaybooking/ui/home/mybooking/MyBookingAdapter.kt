@@ -12,8 +12,8 @@ import com.ctr.homestaybooking.data.source.response.MyBookingResponse
 import com.ctr.homestaybooking.extension.getPriceFormat
 import com.ctr.homestaybooking.extension.onClickDelayAction
 import com.ctr.homestaybooking.util.DateUtil
-import com.ctr.homestaybooking.util.parseToCalendar
-import com.ctr.homestaybooking.util.parseToString
+import com.ctr.homestaybooking.util.toCalendar
+import com.ctr.homestaybooking.util.format
 import kotlinx.android.synthetic.main.layout_item_my_booking.view.*
 
 /**
@@ -57,8 +57,8 @@ class MyBookingAdapter(private val myBookings: List<MyBookingResponse.MyBooking>
                 tvBrand.text = item.room?.brand?.name
                 tvAddress.text = item.room?.brand?.address
                 tvCheckInDay.text =
-                    "Checkin: " + item.startDate?.parseToCalendar(DateUtil.FORMAT_DATE_TIME_FROM_API_3)
-                        ?.parseToString("dd.MM.yyyy")
+                    "Checkin: " + item.startDate?.toCalendar(DateUtil.FORMAT_DATE_TIME_FROM_API_3)
+                        ?.format("dd.MM.yyyy")
                 tvBookingStatus.text = item.status
                 tvBookingStatus.setTextColor(
                     when (item.status) {

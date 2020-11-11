@@ -1,6 +1,7 @@
 package com.ctr.homestaybooking.data.source.response
 
 import android.os.Parcelable
+import com.ctr.homestaybooking.data.model.DateStatus
 import com.ctr.homestaybooking.data.model.PlaceStatus
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
@@ -55,8 +56,8 @@ data class PlaceDetail(
 
 @Parcelize
 data class BookingSlot(
-    @SerializedName("date") val date: String? = null,
-    @SerializedName("status") val status: String? = null
+    @SerializedName("date") val date: String,
+    @SerializedName("status") val status: DateStatus
 ) : Parcelable
 
 @Parcelize

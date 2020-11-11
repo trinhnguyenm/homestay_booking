@@ -45,11 +45,11 @@ class MyBookingFragment : BaseFragment() {
             MyBookingViewModel(
                 PlaceRepository()
             )
-        getMyBookings()
-        initView()
-        initListener()
-        initRecyclerView()
-        initSwipeRefresh()
+//        getMyBookings()
+//        initView()
+//        initListener()
+//        initRecyclerView()
+//        initSwipeRefresh()
     }
 
     private fun initListener() {

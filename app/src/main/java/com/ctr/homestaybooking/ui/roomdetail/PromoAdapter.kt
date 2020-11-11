@@ -8,6 +8,7 @@ import com.ctr.homestaybooking.R
 import com.ctr.homestaybooking.data.source.response.Promo
 import com.ctr.homestaybooking.extension.onClickDelayAction
 import com.ctr.homestaybooking.util.DateUtil
+import com.ctr.homestaybooking.util.convert
 import kotlinx.android.synthetic.main.layout_item_sale.view.*
 
 /**
@@ -38,16 +39,8 @@ class PromoAdapter(private val promos: List<Promo>) :
 
         fun onBind(item: Promo) {
             itemView.apply {
-                val startDate = DateUtil.format(
-                    DateUtil.parse(
-                        item.startDate,
-                        DateUtil.FORMAT_DATE_PROMO_SERVER
-                    ), DateUtil.FORMAT_DATE_DAY_MONTH
-                )
-                val endDate = DateUtil.format(
-                    DateUtil.parse(item.endDate, DateUtil.FORMAT_DATE_PROMO_SERVER),
-                    DateUtil.FORMAT_DATE_DAY_MONTH
-                )
+                val startDate = item.startDate.convert(DateUtil.FORMAT_DATE_DAY_MONTH)
+                val endDate = item.startDate.convert(DateUtil.FORMAT_DATE_DAY_MONTH)
                 tvContent.text =
                     "Sale off ${item.discountPercent}% for booking with check-in date from $startDate to $endDate"
             }

@@ -6,7 +6,7 @@ import com.ctr.homestaybooking.data.source.PlaceRepository
 import com.ctr.homestaybooking.data.source.response.MyBookingResponse
 import com.ctr.homestaybooking.util.DateUtil
 import com.ctr.homestaybooking.util.compareDay
-import com.ctr.homestaybooking.util.parseToCalendar
+import com.ctr.homestaybooking.util.toCalendar
 import io.reactivex.Single
 import io.reactivex.subjects.BehaviorSubject
 import java.util.*
@@ -26,7 +26,7 @@ class MyBookingViewModel(
         getBookings().apply {
             clear()
             addAll(rawBookings.filter {
-                it.createDate.parseToCalendar(DateUtil.FORMAT_DATE_TIME_FROM_API_3).compareDay(
+                it.createDate.toCalendar(DateUtil.FORMAT_DATE_TIME_FROM_API_3).compareDay(
                     Calendar.getInstance()
                 ).apply { Log.d("--=", "+${this}") } <= filterDays
             })

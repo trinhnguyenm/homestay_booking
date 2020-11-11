@@ -45,7 +45,7 @@ class AccountFragment : BaseFragment() {
             App.instance.localRepository,
             UserRepository()
         )
-        getUserInfo()
+//        getUserInfo()
 
         tvViewProfile.onClickDelayAction {
             Toast.makeText(context, "TODO", Toast.LENGTH_SHORT).show()

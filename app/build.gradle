@@ -72,7 +72,7 @@ android.applicationVariants.all { variant ->
 }
 
 dependencies {
-    implementation project(':library')
+//    implementation project(':library')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'com.google.android.material:material:1.1.0'
@@ -116,4 +116,5 @@ dependencies {
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
     implementation 'com.makeramen:roundedimageview:2.3.0'
     implementation 'me.relex:circleindicator:2.1.4'
+    implementation 'com.squareup:android-times-square:1.7.10'
 }

@@ -21,7 +21,7 @@ import com.ctr.homestaybooking.util.DateUtil
 import com.ctr.homestaybooking.util.DateUtil.FORMAT_DATE_TIME_CHECK_IN
 import com.ctr.homestaybooking.util.DateUtil.FORMAT_DATE_TIME_DAY_IN_WEEK
 import com.ctr.homestaybooking.util.compareDay
-import com.ctr.homestaybooking.util.parseToString
+import com.ctr.homestaybooking.util.format
 import kotlinx.android.synthetic.main.fragment_room_of_brand.*
 import kotlinx.android.synthetic.main.include_layout_select_date.*
 import java.util.*
@@ -76,8 +76,8 @@ class RoomFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
         }
         getAllRoomStatus(
             brand.id,
-            startDate.parseToString(),
-            endDate.parseToString(),
+            startDate.format(),
+            endDate.format(),
             numOfGuest,
             numOfRoom
         )
@@ -174,8 +174,8 @@ class RoomFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
             }, 300L)
             getAllRoomStatus(
                 brand.id,
-                startDate.parseToString(),
-                endDate.parseToString(),
+                startDate.format(),
+                endDate.format(),
                 numOfGuest,
                 numOfRoom
             )
@@ -245,16 +245,16 @@ class RoomFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
             lnStartDate.visible()
             tvRangeDate.visible()
             lnEndDate.visible()
-            tvStartDayOfTheWeek.text = DateUtil.format(startDate, FORMAT_DATE_TIME_DAY_IN_WEEK)
-            tvEndDayOfTheWeek.text = DateUtil.format(endDate, FORMAT_DATE_TIME_DAY_IN_WEEK)
-            tvStartDate.text = DateUtil.format(startDate, FORMAT_DATE_TIME_CHECK_IN)
-            tvEndDate.text = DateUtil.format(endDate, FORMAT_DATE_TIME_CHECK_IN)
+//            tvStartDayOfTheWeek.text = DateUtil.format(startDate, FORMAT_DATE_TIME_DAY_IN_WEEK)
+//            tvEndDayOfTheWeek.text = DateUtil.format(endDate, FORMAT_DATE_TIME_DAY_IN_WEEK)
+//            tvStartDate.text = DateUtil.format(startDate, FORMAT_DATE_TIME_CHECK_IN)
+//            tvEndDate.text = DateUtil.format(endDate, FORMAT_DATE_TIME_CHECK_IN)
             val dayNumber = startDate.compareDay(endDate)
             tvRangeDate.text = resources.getString(R.string.roomDayNumber, dayNumber)
             getAllRoomStatus(
                 brand.id,
-                startDate.parseToString(),
-                endDate.parseToString(),
+                startDate.format(),
+                endDate.format(),
                 numOfGuest,
                 numOfRoom
             )

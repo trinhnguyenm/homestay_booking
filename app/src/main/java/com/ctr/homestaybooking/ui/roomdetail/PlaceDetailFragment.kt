@@ -9,9 +9,8 @@ import com.ctr.homestaybooking.R
 import com.ctr.homestaybooking.base.BaseFragment
 import com.ctr.homestaybooking.data.source.PlaceRepository
 import com.ctr.homestaybooking.extension.*
-import com.ctr.homestaybooking.ui.booking.BookingActivity
 import com.ctr.homestaybooking.util.DateUtil
-import com.ctr.homestaybooking.util.parseToString
+import com.ctr.homestaybooking.util.convert
 import kotlinx.android.synthetic.main.fragment_place_detail.*
 import kotlinx.android.synthetic.main.layout_item_review.*
 import kotlinx.android.synthetic.main.layout_place_amenity.*
@@ -31,7 +30,7 @@ class PlaceDetailFragment : BaseFragment() {
     companion object {
         fun newInstance() = PlaceDetailFragment()
 
-        private const val KEY_PLACE_ID = "key_place_id"
+        internal const val KEY_PLACE_ID = "key_place_id"
     }
 
     override fun onCreateView(
@@ -67,6 +66,7 @@ class PlaceDetailFragment : BaseFragment() {
         activity?.intent?.getIntExtra(KEY_PLACE_ID, 0)?.let { placeId ->
             viewModel.getPlaceDetail(placeId).observeOnUiThread().subscribe({ placeDetailResponse ->
                 placeDetailResponse.placeDetail?.let { placeDetail ->
+                    (activity as? PlaceDetailActivity)?.bookingSlots = placeDetail.bookingSlots
                     placeDetail.images?.let {
                         context?.let { context ->
                             Glide.with(context).load(it[0]).into(imgBanner1)
@@ -107,7 +107,7 @@ class PlaceDetailFragment : BaseFragment() {
                         placeDetail.reviews?.firstOrNull()?.let {
                             tvReviewUsername.text = it.userName
                             tvReviewComment.text = it.comment
-                            tvTime.text = DateUtil.convert(it.createDate, DateUtil.FORMAT_DATE)
+                            tvTime.text = it.createDate.convert(DateUtil.FORMAT_DATE)
                         }
                     }
                 }
@@ -140,12 +140,13 @@ class PlaceDetailFragment : BaseFragment() {
             activity?.onBackPressed()
         }
         lnBooking.onClickDelayAction {
-            BookingActivity.start(
-                this,
-                startDate?.parseToString() ?: Calendar.getInstance().parseToString(),
-                endDate?.parseToString() ?: Calendar.getInstance().parseToString(),
-                null
-            )
+            (activity as? PlaceDetailActivity)?.openCalendarFragment()
+//            BookingActivity.start(
+//                this,
+//                startDate?.parseToString() ?: Calendar.getInstance().parseToString(),
+//                endDate?.parseToString() ?: Calendar.getInstance().parseToString(),
+//                null
+//            )
         }
     }
 

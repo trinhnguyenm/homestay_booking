@@ -5,12 +5,14 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.ctr.homestaybooking.R
 import com.ctr.homestaybooking.base.BaseActivity
+import com.ctr.homestaybooking.data.source.response.BookingSlot
 import com.ctr.homestaybooking.extension.addFragment
 
 /**
  * Created by at-trinhnguyen2 on 2020/06/13
  */
 class PlaceDetailActivity : BaseActivity() {
+    internal var bookingSlots: List<BookingSlot>? = null
 
     companion object {
         internal const val KEY_ROOM_TYPE_STATUS = "key_room_type_status"
@@ -46,4 +48,8 @@ class PlaceDetailActivity : BaseActivity() {
     override fun getContainerId(): Int = R.id.container
 
     override fun getAppearAnimType(): AppearAnim = AppearAnim.SLIDE_FROM_RIGHT
+
+    internal fun openCalendarFragment() {
+        addFragment(getContainerId(), CalendarFragment.newInstance())
+    }
 }
