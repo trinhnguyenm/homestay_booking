@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.PagerSnapHelper
-import com.borax12.materialdaterangepicker.date.DatePickerDialog
 import com.bumptech.glide.Glide
 import com.ctr.homestaybooking.R
 import com.ctr.homestaybooking.base.BaseFragment
@@ -24,8 +23,8 @@ import com.ctr.homestaybooking.ui.home.rooms.RoomFragment
 import com.ctr.homestaybooking.ui.roomdetail.PlaceDetailActivity
 import com.ctr.homestaybooking.util.DateUtil
 import com.ctr.homestaybooking.util.compareDay
-import com.ctr.homestaybooking.util.toCalendar
 import com.ctr.homestaybooking.util.format
+import com.ctr.homestaybooking.util.toCalendar
 import kotlinx.android.synthetic.main.fragment_booking.*
 import kotlinx.android.synthetic.main.layout_room_detail_booking.*
 import java.util.*
@@ -43,7 +42,6 @@ class BookingFragment : BaseFragment() {
     private var numberOfDays = 1
     private var numberOfRooms = 1
     private var prize = 0.0
-    private lateinit var datePicker: DatePickerDialog
 
     companion object {
         fun newInstance() = BookingFragment()

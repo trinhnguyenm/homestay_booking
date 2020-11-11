@@ -7,20 +7,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.borax12.materialdaterangepicker.date.DatePickerDialog
 import com.bumptech.glide.Glide
 import com.ctr.homestaybooking.R
 import com.ctr.homestaybooking.base.BaseFragment
 import com.ctr.homestaybooking.data.source.PlaceRepository
 import com.ctr.homestaybooking.data.source.response.HotelResponse
 import com.ctr.homestaybooking.data.source.response.RoomTypeResponse
-import com.ctr.homestaybooking.extension.*
-import com.ctr.homestaybooking.ui.home.MainActivity
+import com.ctr.homestaybooking.extension.observeOnUiThread
+import com.ctr.homestaybooking.extension.onClickDelayAction
+import com.ctr.homestaybooking.extension.showErrorDialog
 import com.ctr.homestaybooking.ui.wedget.NumberPicker
-import com.ctr.homestaybooking.util.DateUtil
-import com.ctr.homestaybooking.util.DateUtil.FORMAT_DATE_TIME_CHECK_IN
-import com.ctr.homestaybooking.util.DateUtil.FORMAT_DATE_TIME_DAY_IN_WEEK
-import com.ctr.homestaybooking.util.compareDay
 import com.ctr.homestaybooking.util.format
 import kotlinx.android.synthetic.main.fragment_room_of_brand.*
 import kotlinx.android.synthetic.main.include_layout_select_date.*
@@ -30,14 +26,13 @@ import java.util.*
 /**
  * Created by at-trinhnguyen2 on 2020/06/19
  */
-class RoomFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
+class RoomFragment : BaseFragment() {
     private lateinit var viewModel: RoomVMContract
     private lateinit var brand: HotelResponse.Hotel.Brand
     private val startDate = Calendar.getInstance()
     private val endDate = Calendar.getInstance().apply { add(Calendar.DATE, 1) }
     private var numOfGuest = 1
     private var numOfRoom = 1
-    private lateinit var datePicker: DatePickerDialog
 
     companion object {
         internal const val KEY_BRAND = "key_brand"
@@ -86,11 +81,6 @@ class RoomFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
         initSwipeRefresh()
     }
 
-    override fun onResume() {
-        super.onResume()
-        (activity as? MainActivity)?.setOnDateSetListener(this)
-    }
-
     override fun isNeedPaddingTop() = true
 
     private fun initListener() {
@@ -100,20 +90,6 @@ class RoomFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
 
         viewSelected.onClickDelayAction {
             val calendar = Calendar.getInstance()
-            datePicker = DatePickerDialog.newInstance(
-                this,
-                calendar[Calendar.YEAR],
-                calendar[Calendar.MONTH],
-                calendar[Calendar.DAY_OF_MONTH]
-            )
-            datePicker.apply {
-                isAutoHighlight = true
-                setEndTitle("Check Out")
-                setStartTitle("Check In")
-                minDate = calendar
-            }
-            datePicker.selectableDays
-            (activity as? MainActivity)?.showDatePickerDialog(datePicker)
         }
 
         lnGuests.onClickDelayAction {
@@ -218,46 +194,4 @@ class RoomFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
     }
 
     override fun getProgressBarControlObservable() = viewModel.getProgressObservable()
-
-    override fun onDateSet(
-        view: DatePickerDialog?,
-        year: Int,
-        monthOfYear: Int,
-        dayOfMonth: Int,
-        yearEnd: Int,
-        monthOfYearEnd: Int,
-        dayOfMonthEnd: Int
-    ) {
-        val start = Calendar.getInstance()
-        start.set(year, monthOfYear, dayOfMonth, 14, 0, 0)
-        val end = Calendar.getInstance()
-        end.set(yearEnd, monthOfYearEnd, dayOfMonthEnd, 12, 0, 0)
-        if (start.timeInMillis > end.timeInMillis) {
-            activity?.showDialog(
-                "Ops!",
-                "Please select check out date greater than check in date!",
-                "OK"
-            )
-        } else {
-            startDate.set(year, monthOfYear, dayOfMonth, 14, 0, 0)
-            endDate.set(yearEnd, monthOfYearEnd, dayOfMonthEnd, 12, 0, 0)
-            lnSelected.invisible()
-            lnStartDate.visible()
-            tvRangeDate.visible()
-            lnEndDate.visible()
-//            tvStartDayOfTheWeek.text = DateUtil.format(startDate, FORMAT_DATE_TIME_DAY_IN_WEEK)
-//            tvEndDayOfTheWeek.text = DateUtil.format(endDate, FORMAT_DATE_TIME_DAY_IN_WEEK)
-//            tvStartDate.text = DateUtil.format(startDate, FORMAT_DATE_TIME_CHECK_IN)
-//            tvEndDate.text = DateUtil.format(endDate, FORMAT_DATE_TIME_CHECK_IN)
-            val dayNumber = startDate.compareDay(endDate)
-            tvRangeDate.text = resources.getString(R.string.roomDayNumber, dayNumber)
-            getAllRoomStatus(
-                brand.id,
-                startDate.format(),
-                endDate.format(),
-                numOfGuest,
-                numOfRoom
-            )
-        }
-    }
 }

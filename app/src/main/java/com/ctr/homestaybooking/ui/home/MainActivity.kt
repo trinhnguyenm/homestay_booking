@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
-import com.borax12.materialdaterangepicker.date.DatePickerDialog
 import com.ctr.homestaybooking.R
 import com.ctr.homestaybooking.base.BaseActivity
 import com.ctr.homestaybooking.base.BaseFragment
@@ -130,16 +129,6 @@ class MainActivity : BaseActivity() {
                 super.onBackPressed()
             }
         } ?: super.onBackPressed()
-    }
-
-    internal fun showDatePickerDialog(dialog: DatePickerDialog) {
-        dialog.show(fragmentManager, "DatePickerDialog")
-    }
-
-    internal fun setOnDateSetListener(dialog: DatePickerDialog.OnDateSetListener) {
-        val datePickerDialog =
-            fragmentManager?.findFragmentByTag("DatePickerDialog") as? DatePickerDialog
-        datePickerDialog?.setOnDateSetListener(dialog)
     }
 
     internal fun setTabSelection(position: Int) {

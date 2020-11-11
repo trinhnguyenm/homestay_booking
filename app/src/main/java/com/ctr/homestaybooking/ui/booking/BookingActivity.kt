@@ -2,7 +2,6 @@ package com.ctr.homestaybooking.ui.booking
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import com.borax12.materialdaterangepicker.date.DatePickerDialog
 import com.ctr.homestaybooking.R
 import com.ctr.homestaybooking.base.BaseActivity
 import com.ctr.homestaybooking.data.source.response.MyBookingResponse
@@ -45,16 +44,6 @@ class BookingActivity : BaseActivity() {
 
     override fun getAppearAnimType(): BaseActivity.AppearAnim =
         BaseActivity.AppearAnim.SLIDE_FROM_RIGHT
-
-    internal fun showDatePickerDialog(dialog: DatePickerDialog) {
-        dialog.show(fragmentManager, "DatePickerDialogBooking")
-    }
-
-    internal fun setOnDateSetListener(dialog: DatePickerDialog.OnDateSetListener) {
-        val datePickerDialog =
-            fragmentManager?.findFragmentByTag("DatePickerDialogBooking") as? DatePickerDialog
-        datePickerDialog?.setOnDateSetListener(dialog)
-    }
 
     internal fun openPaymentFragment(myBooking: MyBookingResponse.MyBooking) {
         addFragment(

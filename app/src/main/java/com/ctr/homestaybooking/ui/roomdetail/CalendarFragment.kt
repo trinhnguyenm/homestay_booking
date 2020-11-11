@@ -15,7 +15,6 @@ import com.ctr.homestaybooking.util.isContainAll
 import com.ctr.homestaybooking.util.toDate
 import com.squareup.timessquare.CalendarCellDecorator
 import com.squareup.timessquare.CalendarPickerView
-import com.squareup.timessquare.CalendarPickerView.SelectionMode
 import com.squareup.timessquare.DefaultDayViewAdapter
 import kotlinx.android.synthetic.main.fragment_calendar.*
 import java.util.*
@@ -64,7 +63,7 @@ class CalendarFragment : BaseFragment() {
         calendarPicker.apply {
             setCustomDayView(DefaultDayViewAdapter())
             decorators = emptyList<CalendarCellDecorator>()
-            init(current.time, nextYear.time).inMode(SelectionMode.RANGE)
+            init(current.time, nextYear.time).inMode(CalendarPickerView.SelectionMode.RANGE)
             setOnInvalidDateSelectedListener { null }
             highlightDates(availableDates)
             setDateSelectableFilter { availableDates.isContain(it) }
