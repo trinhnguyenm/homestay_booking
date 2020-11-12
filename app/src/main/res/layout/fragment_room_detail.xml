@@ -166,7 +166,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_toStartOf="@+id/lnBooking">
+            android:layout_toStartOf="@+id/tvBooking">
 
             <TextView
                 android:id="@+id/tvPlacePrice"
@@ -229,7 +229,7 @@
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/lnBooking"
+            android:id="@+id/tvBooking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"

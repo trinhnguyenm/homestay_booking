@@ -1,4 +1,4 @@
-package com.ctr.homestaybooking.ui.home.hotels
+package com.ctr.homestaybooking.ui.home.places
 
 import com.ctr.homestaybooking.R
 import com.ctr.homestaybooking.base.HomeContainerBaseFragment

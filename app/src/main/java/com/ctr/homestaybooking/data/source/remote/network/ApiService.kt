@@ -1,6 +1,7 @@
 package com.ctr.homestaybooking.data.source.remote.network
 
 import com.ctr.homestaybooking.data.model.BookingStatus
+import com.ctr.homestaybooking.data.source.request.BookingBody
 import com.ctr.homestaybooking.data.source.request.LoginBody
 import com.ctr.homestaybooking.data.source.request.RoomsReservationBody
 import com.ctr.homestaybooking.data.source.request.UserBody
@@ -25,6 +26,9 @@ interface ApiService {
     @GET("/api/places/{id}")
     fun getPlaceDetail(@Path("id") placeId: Int): Single<PlaceDetailResponse>
 
+    @POST("/api/bookings")
+    fun addBooking(@Body bookingBody: BookingBody): Single<BookingResponse>
+
     @GET("/api/rooms/brand/{id}")
     fun getAllRoomByBrand(@Path("id") brandId: Int): Single<RoomResponse>
 
@@ -45,8 +49,8 @@ interface ApiService {
         @Body roomsReservationBody: RoomsReservationBody
     ): Single<MyBookingResponse>
 
-    @GET("/api/room-reservations")
-    fun getBookingHistory(): Single<MyBookingResponse>
+    @GET("/api/bookings/user/{id}")
+    fun getBookingHistory(@Path("id") id: Int): Single<BookingHistoryResponse>
 
     @PATCH("/api/reservations/{id}/status")
     fun changeReservationStatus(@Path("id") reservationId: Int): Single<ChangeReservationStatusResponse>

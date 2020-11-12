@@ -1,10 +1,10 @@
 package com.ctr.homestaybooking.ui.home.mybooking
 
-import android.util.Log
 import com.ctr.homestaybooking.base.BaseViewModel
+import com.ctr.homestaybooking.data.source.LocalRepository
 import com.ctr.homestaybooking.data.source.PlaceRepository
-import com.ctr.homestaybooking.data.source.response.MyBookingResponse
-import com.ctr.homestaybooking.util.DateUtil
+import com.ctr.homestaybooking.data.source.response.Booking
+import com.ctr.homestaybooking.data.source.response.BookingHistoryResponse
 import com.ctr.homestaybooking.util.compareDay
 import com.ctr.homestaybooking.util.toCalendar
 import io.reactivex.Single
@@ -12,31 +12,30 @@ import io.reactivex.subjects.BehaviorSubject
 import java.util.*
 
 class MyBookingViewModel(
-    private val hotelRepository: PlaceRepository
+    private val placeRepository: PlaceRepository,
+    private val localRepository: LocalRepository
 ) : MyBookingVMContract, BaseViewModel() {
 
-    private val bookings = mutableListOf<MyBookingResponse.MyBooking>()
+    private val bookings = mutableListOf<Booking>()
 
-    private var rawBookings = listOf<MyBookingResponse.MyBooking>()
+    private var rawBookings = listOf<Booking>()
 
-    override fun getBookings(): MutableList<MyBookingResponse.MyBooking> = bookings
+    override fun getBookings(): MutableList<Booking> = bookings
 
 
     override fun filterMyBooking(filterDays: Int) {
         getBookings().apply {
             clear()
             addAll(rawBookings.filter {
-                it.createDate.toCalendar(DateUtil.FORMAT_DATE_TIME_FROM_API_3).compareDay(
-                    Calendar.getInstance()
-                ).apply { Log.d("--=", "+${this}") } <= filterDays
+                it.createDate.toCalendar().compareDay(Calendar.getInstance()) <= filterDays
             })
         }
     }
 
-    override fun getBookingHistory(): Single<MyBookingResponse> {
-        return hotelRepository.getBookingHistory()
+    override fun getBookingHistory(): Single<BookingHistoryResponse> {
+        return placeRepository.getBookingHistory(localRepository.getUserId())
             .doOnSuccess { response ->
-                rawBookings = response.myBookings.sortedByDescending { it.id }
+                rawBookings = response.bookings.sortedByDescending { it.id }
                 getBookings().apply {
                     clear()
                     addAll(rawBookings)

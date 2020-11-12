@@ -1,6 +1,7 @@
 package com.ctr.homestaybooking.data.source.response
 
 import android.os.Parcelable
+import com.ctr.homestaybooking.data.model.BookingType
 import com.ctr.homestaybooking.data.model.DateStatus
 import com.ctr.homestaybooking.data.model.PlaceStatus
 import com.google.gson.annotations.SerializedName
@@ -21,7 +22,7 @@ data class PlaceDetail(
     @SerializedName("id") val id: Int? = null,
     @SerializedName("name") val name: String? = null,
     @SerializedName("description") val description: String? = null,
-    @SerializedName("bookingType") val bookingType: String? = null,
+    @SerializedName("bookingType") val bookingType: BookingType? = null,
     @SerializedName("longitude") val longitude: String? = null,
     @SerializedName("latitude") val latitude: String? = null,
     @SerializedName("street") val street: String? = null,

@@ -16,13 +16,14 @@ import com.ctr.homestaybooking.data.model.BookingStatus
 import com.ctr.homestaybooking.data.model.UpdateMyBooking
 import com.ctr.homestaybooking.data.source.PlaceRepository
 import com.ctr.homestaybooking.data.source.UserRepository
+import com.ctr.homestaybooking.data.source.response.Booking
 import com.ctr.homestaybooking.data.source.response.MyBookingResponse
 import com.ctr.homestaybooking.extension.*
 import com.ctr.homestaybooking.ui.App
 import com.ctr.homestaybooking.util.DateUtil
 import com.ctr.homestaybooking.util.compareDay
-import com.ctr.homestaybooking.util.toCalendar
 import com.ctr.homestaybooking.util.format
+import com.ctr.homestaybooking.util.toCalendar
 import kotlinx.android.synthetic.main.fragment_payment.*
 import kotlinx.android.synthetic.main.layout_payment.*
 import java.util.*
@@ -55,9 +56,9 @@ class PaymentFragment : BaseFragment() {
     companion object {
         internal const val KEY_MY_BOOKING = "key_my_booking"
 
-        fun newInstance(myBooking: MyBookingResponse.MyBooking) = PaymentFragment().apply {
+        fun newInstance(booking: Booking) = PaymentFragment().apply {
             arguments = Bundle().apply {
-                putParcelable(KEY_MY_BOOKING, myBooking)
+                putParcelable(KEY_MY_BOOKING, booking)
             }
         }
     }
@@ -155,13 +156,13 @@ class PaymentFragment : BaseFragment() {
                 text = "${it.firstName} ${it.lastName} "
             }
             context?.let { context ->
-                Glide.with(context).load(it.room?.roomType?.thumbnail).into(ivRoomThumb)
+                Glide.with(context).load(it.room?.roomType?.thumbnail).into(ivPlaceThumb)
             }
 
-            tvRoomTitle.text = it.room?.roomType?.name
-            tvRoomInfo.text = it.room?.roomType?.getRoomTypeInfo()
+            tvPlaceName.text = it.room?.roomType?.name
+            tvPlaceRoom.text = it.room?.roomType?.getRoomTypeInfo()
 
-            tvRoomAddress.text = it.room?.brand?.address
+            tvPlaceAddress.text = it.room?.brand?.address
             reservationId = it.reservation.id
             roomReservationId = it.id
             startDate = it.startDate?.toCalendar(DateUtil.FORMAT_DATE_TIME_FROM_API_3)

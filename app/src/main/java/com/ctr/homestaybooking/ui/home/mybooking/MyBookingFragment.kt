@@ -13,8 +13,9 @@ import com.ctr.homestaybooking.base.BaseFragment
 import com.ctr.homestaybooking.bus.RxBus
 import com.ctr.homestaybooking.data.model.UpdateMyBooking
 import com.ctr.homestaybooking.data.source.PlaceRepository
-import com.ctr.homestaybooking.data.source.response.MyBookingResponse
+import com.ctr.homestaybooking.data.source.response.Booking
 import com.ctr.homestaybooking.extension.*
+import com.ctr.homestaybooking.ui.App
 import kotlinx.android.synthetic.main.fragment_home.swipeRefresh
 import kotlinx.android.synthetic.main.fragment_my_booking.*
 import kotlinx.android.synthetic.main.layout_view_no_data.*
@@ -43,13 +44,13 @@ class MyBookingFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel =
             MyBookingViewModel(
-                PlaceRepository()
+                PlaceRepository(), App.instance.localRepository
             )
-//        getMyBookings()
-//        initView()
-//        initListener()
-//        initRecyclerView()
-//        initSwipeRefresh()
+        getBookingHistory()
+        initView()
+        initListener()
+        initRecyclerView()
+        initSwipeRefresh()
     }
 
     private fun initListener() {
@@ -96,11 +97,10 @@ class MyBookingFragment : BaseFragment() {
             RxBus.listen(UpdateMyBooking::class.java)
                 .observeOnUiThread()
                 .subscribe {
-                    Log.d("--=", "onResume: ${it.isNeedUpdate}")
                     if (it.isNeedUpdate) {
-                        getMyBookings()
+                        getBookingHistory()
                     }
-            })
+                })
     }
 
     private fun initView() {
@@ -122,7 +122,7 @@ class MyBookingFragment : BaseFragment() {
         }
     }
 
-    private fun handlerItemClick(booking: MyBookingResponse.MyBooking) {
+    private fun handlerItemClick(booking: Booking) {
         (parentFragment as? MyBookingContainerFragment)?.openPaymentFragment(booking)
     }
 
@@ -132,12 +132,11 @@ class MyBookingFragment : BaseFragment() {
             Handler().postDelayed({
                 swipeRefresh?.isRefreshing = false
             }, 300L)
-            getMyBookings()
+            getBookingHistory()
         }
     }
 
-    internal fun getMyBookings() {
-        Log.d("--=", "getMyBookings: ")
+    internal fun getBookingHistory() {
         addDisposables(
             viewModel.getBookingHistory()
                 .observeOnUiThread()

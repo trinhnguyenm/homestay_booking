@@ -40,9 +40,9 @@ class BrandAdapter(private val brands: List<HotelResponse.Hotel.Brand>) :
 
         fun onBind(item: HotelResponse.Hotel.Brand) {
             itemView.apply {
-                tvAddress.visible()
+                tvPlaceAddress.visible()
                 tvName.text = item.name
-                tvAddress.text = item.address
+                tvPlaceAddress.text = item.address
 //                tvDescription.text = item.desciption
                 Glide.with(itemView.context)
                     .load(item.imgLink)

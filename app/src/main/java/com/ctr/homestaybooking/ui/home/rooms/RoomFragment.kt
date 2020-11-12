@@ -97,8 +97,8 @@ class RoomFragment : BaseFragment() {
                 val dialog = Dialog(context)
                 dialog.apply {
                     setContentView(R.layout.layout_dialog_number_picker)
-                    val pickerGuestNo = findViewById<NumberPicker>(R.id.pickerGuestNo)
-                    val pickerRoomNo = findViewById<NumberPicker>(R.id.pickerRoomNo)
+                    val pickerGuestNo = findViewById<NumberPicker>(R.id.pickerAdultNo)
+                    val pickerRoomNo = findViewById<NumberPicker>(R.id.pickerChildrenNo)
                     pickerGuestNo.apply {
                         setMax(50)
                         setValue(numOfGuest)

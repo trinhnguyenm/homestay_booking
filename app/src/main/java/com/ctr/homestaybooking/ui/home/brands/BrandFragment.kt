@@ -9,7 +9,7 @@ import com.ctr.homestaybooking.R
 import com.ctr.homestaybooking.base.BaseFragment
 import com.ctr.homestaybooking.data.source.response.HotelResponse
 import com.ctr.homestaybooking.extension.onClickDelayAction
-import com.ctr.homestaybooking.ui.home.hotels.HomeContainerFragment
+import com.ctr.homestaybooking.ui.home.places.HomeContainerFragment
 import kotlinx.android.synthetic.main.fragment_brand.*
 
 /**

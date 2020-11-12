@@ -1,4 +1,4 @@
-package com.ctr.homestaybooking.ui.home.hotels
+package com.ctr.homestaybooking.ui.home.places
 
 import android.view.LayoutInflater
 import android.view.View
@@ -41,8 +41,8 @@ class PlaceAdapter(private val places: List<Place>) :
             itemView.apply {
                 tvPlaceType.text = item.placeType
                 tvName.text = item.name
-                tvAddress.text = item.address
-                tvRoomInfo.text =
+                tvPlaceAddress.text = item.address
+                tvPlaceRoom.text =
                     "${item.guestCount} khách · ${item.bedCount} phòng ngủ · ${item.bathroomCount} phòng tắm"
                 Glide.with(itemView.context)
                     .load(item.images?.firstOrNull())

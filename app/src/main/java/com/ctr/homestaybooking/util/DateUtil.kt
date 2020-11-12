@@ -86,12 +86,20 @@ internal fun getDate(year: Int, month: Int, day: Int): Date {
     return calendar.time
 }
 
+internal fun Date.addDays(days: Int): Date {
+    val cal = Calendar.getInstance()
+    cal.time = this
+    cal.add(Calendar.DATE, days)
+    return cal.time
+}
+
 internal fun Calendar?.compareDay(otherDate: Calendar?): Int {
     if (this == null || otherDate == null) return -1
     return ((abs(this.timeInMillis - otherDate.timeInMillis) + 2 * DateUtil.ONE_HOUR) / (24 * DateUtil.ONE_HOUR)).toInt()
 }
 
-fun Calendar.datesUntil(endCalendar: Calendar): MutableList<Date> {
+fun Calendar?.datesUntil(endCalendar: Calendar?): MutableList<Date> {
+    if (this == null || endCalendar == null) return mutableListOf()
     val calendar = Calendar.getInstance()
     calendar.time = this.time
     val dates = mutableListOf<Date>()

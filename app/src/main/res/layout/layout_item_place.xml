@@ -25,7 +25,6 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:adjustViewBounds="true"
-                android:background="@drawable/img_dummy"
                 android:minHeight="100dp"
                 android:scaleType="centerCrop"
                 app:layout_constraintDimensionRatio="16:9"
@@ -33,7 +32,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:riv_corner_radius_top_left="6dp"
-                app:riv_corner_radius_top_right="6dp" />
+                app:riv_corner_radius_top_right="6dp"
+                tools:background="@drawable/img_dummy" />
 
             <TextView
                 android:id="@+id/tvDiscount"
@@ -158,7 +158,7 @@
                 app:srcCompat="@drawable/ic_location_icon" />
 
             <TextView
-                android:id="@+id/tvAddress"
+                android:id="@+id/tvPlaceAddress"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dimen_10dp"
@@ -166,13 +166,13 @@
                 android:ellipsize="end"
                 android:fontFamily="@font/lato_regular"
                 android:maxLines="2"
-                android:text="số 42, đường Phan bội châu, Đà Lạt, Lâm Đồng, Việt Nam"
                 android:textColor="#ff767676"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@+id/ivLoaction"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/ivLoaction"
-                app:layout_constraintTop_toTopOf="@+id/ivLoaction" />
+                app:layout_constraintTop_toTopOf="@+id/ivLoaction"
+                tools:text="số 42, đường Phan bội châu, Đà Lạt, Lâm Đồng, Việt Nam" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/ivRoomInfo"
@@ -184,7 +184,7 @@
                 app:srcCompat="@drawable/ic_room_info" />
 
             <TextView
-                android:id="@+id/tvRoomInfo"
+                android:id="@+id/tvPlaceRoom"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dimen_10dp"
@@ -192,13 +192,13 @@
                 android:ellipsize="end"
                 android:fontFamily="@font/lato_regular"
                 android:maxLines="1"
-                android:text="2 khách · 1 phòng ngủ · 1 phòng tắm"
                 android:textColor="#ff767676"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@+id/ivRoomInfo"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/ivRoomInfo"
-                app:layout_constraintTop_toTopOf="@+id/ivRoomInfo" />
+                app:layout_constraintTop_toTopOf="@+id/ivRoomInfo"
+                tools:text="2 khách · 1 phòng ngủ · 1 phòng tắm" />
 
             <View
                 android:id="@+id/space2"
@@ -213,11 +213,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_16dp"
                 android:fontFamily="@font/lato_black"
-                android:text="400,000₫"
                 android:textColor="#ff333333"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="@+id/tvName"
-                app:layout_constraintTop_toBottomOf="@+id/bgInfo" />
+                app:layout_constraintTop_toBottomOf="@+id/bgInfo"
+                tools:text="400,000₫" />
 
             <ImageView
                 android:id="@+id/imgRatingStar"

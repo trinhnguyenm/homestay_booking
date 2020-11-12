@@ -1,4 +1,4 @@
-package com.ctr.homestaybooking.ui.roomdetail
+package com.ctr.homestaybooking.ui.placedetail
 
 import com.ctr.homestaybooking.base.BaseViewModel
 import com.ctr.homestaybooking.data.source.PlaceRepository

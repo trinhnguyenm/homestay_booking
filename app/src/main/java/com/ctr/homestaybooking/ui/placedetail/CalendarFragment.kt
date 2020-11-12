@@ -1,4 +1,4 @@
-package com.ctr.homestaybooking.ui.roomdetail
+package com.ctr.homestaybooking.ui.placedetail
 
 import android.os.Bundle
 import android.util.Log
@@ -10,9 +10,7 @@ import com.ctr.homestaybooking.base.BaseFragment
 import com.ctr.homestaybooking.data.model.DateStatus
 import com.ctr.homestaybooking.data.source.PlaceRepository
 import com.ctr.homestaybooking.extension.onClickDelayAction
-import com.ctr.homestaybooking.util.isContain
-import com.ctr.homestaybooking.util.isContainAll
-import com.ctr.homestaybooking.util.toDate
+import com.ctr.homestaybooking.util.*
 import com.squareup.timessquare.CalendarCellDecorator
 import com.squareup.timessquare.CalendarPickerView
 import com.squareup.timessquare.DefaultDayViewAdapter
@@ -64,7 +62,7 @@ class CalendarFragment : BaseFragment() {
             setCustomDayView(DefaultDayViewAdapter())
             decorators = emptyList<CalendarCellDecorator>()
             init(current.time, nextYear.time).inMode(CalendarPickerView.SelectionMode.RANGE)
-            setOnInvalidDateSelectedListener { null }
+            setOnInvalidDateSelectedListener { }
             highlightDates(availableDates)
             setDateSelectableFilter { availableDates.isContain(it) }
             setOnDateSelectedListener(object :
@@ -72,10 +70,15 @@ class CalendarFragment : BaseFragment() {
                 override fun onDateSelected(date: Date) {
                     if (!availableDates.isContainAll(selectedDates)) {
                         selectDate(date, true)
+                    } else {
+                        tvTitle.text = "${selectedDates.size} ngày"
                     }
                 }
 
                 override fun onDateUnselected(date: Date) {
+                    if (selectedDates.isEmpty()) {
+                        tvTitle.text = "Chọn ngày"
+                    }
                 }
             })
         }
@@ -87,7 +90,14 @@ class CalendarFragment : BaseFragment() {
         }
 
         tvSave.onClickDelayAction {
-            calendarPicker.selectedDates.apply { Log.d("--=", "+${this}") }
+            calendarPicker.selectedDates.let { dates ->
+                if (dates.isNotEmpty()) {
+                    (activity as? PlaceDetailActivity)?.openBookingActivity(
+                        dates.first().format().apply { Log.d("--=", "+${this}") },
+                        dates.last().addDays(1).format().apply { Log.d("--=", "+${this}") }
+                    )
+                }
+            }
         }
     }
 }

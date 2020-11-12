@@ -145,7 +145,7 @@
                 app:srcCompat="@drawable/ic_location_icon" />
 
             <TextView
-                android:id="@+id/tvAddress"
+                android:id="@+id/tvPlaceAddress"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dimen_10dp"
@@ -171,7 +171,7 @@
                 app:srcCompat="@drawable/ic_room_info" />
 
             <TextView
-                android:id="@+id/tvRoomInfo"
+                android:id="@+id/tvPlaceRoom"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dimen_10dp"

@@ -59,7 +59,7 @@ class ExpandableTextView(context: Context, attrs: AttributeSet?) :
 
     companion object {
         private const val DEFAULT_TRIM_LENGTH = 200
-        private const val ELLIPSIS = "..."
+        private const val ELLIPSIS = "...Xem thêm"
     }
 
     init {

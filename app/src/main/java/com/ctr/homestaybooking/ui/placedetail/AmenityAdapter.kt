@@ -1,4 +1,4 @@
-package com.ctr.homestaybooking.ui.roomdetail
+package com.ctr.homestaybooking.ui.placedetail
 
 import android.view.LayoutInflater
 import android.view.View

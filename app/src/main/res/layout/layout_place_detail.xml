@@ -53,7 +53,7 @@
         tools:text="(10)" />
 
     <TextView
-        android:id="@+id/tvAddress"
+        android:id="@+id/tvPlaceAddress"
         style="@style/textGray"
         android:layout_width="match_parent"
         android:layout_marginTop="@dimen/dimen_10dp"
@@ -66,7 +66,7 @@
         style="@style/space"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        app:layout_constraintTop_toBottomOf="@id/tvAddress" />
+        app:layout_constraintTop_toBottomOf="@id/tvPlaceAddress" />
 
     <TextView
         android:id="@+id/tvPlaceType"

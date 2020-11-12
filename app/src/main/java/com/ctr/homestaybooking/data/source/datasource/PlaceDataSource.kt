@@ -1,5 +1,6 @@
 package com.ctr.homestaybooking.data.source.datasource
 
+import com.ctr.homestaybooking.data.source.request.BookingBody
 import com.ctr.homestaybooking.data.source.request.RoomsReservationBody
 import com.ctr.homestaybooking.data.source.response.*
 import io.reactivex.Single
@@ -22,9 +23,10 @@ interface PlaceDataSource {
         roomsReservationBody: RoomsReservationBody
     ): Single<MyBookingResponse>
 
-    fun getBookingHistory(): Single<MyBookingResponse>
 
     fun changeReservationStatus(reservationId: Int): Single<ChangeReservationStatusResponse>
 
     fun changeRoomReservationStatus(roomReservationId: Int): Single<ChangeRoomReservationStatusResponse>
+    fun addBooking(bookingBody: BookingBody): Single<BookingResponse>
+    fun getBookingHistory(id: Int): Single<BookingHistoryResponse>
 }

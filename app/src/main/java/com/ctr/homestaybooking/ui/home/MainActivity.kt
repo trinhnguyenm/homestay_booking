@@ -16,8 +16,8 @@ import com.ctr.homestaybooking.base.BaseActivity
 import com.ctr.homestaybooking.base.BaseFragment
 import com.ctr.homestaybooking.ui.home.account.AccountContainerFragment
 import com.ctr.homestaybooking.ui.home.favotite.FavoriteContainerFragment
-import com.ctr.homestaybooking.ui.home.hotels.HomeContainerFragment
 import com.ctr.homestaybooking.ui.home.mybooking.MyBookingContainerFragment
+import com.ctr.homestaybooking.ui.home.places.HomeContainerFragment
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
 

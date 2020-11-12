@@ -1,4 +1,4 @@
-package com.ctr.homestaybooking.ui.home.hotels
+package com.ctr.homestaybooking.ui.home.places
 
 import android.os.Bundle
 import android.os.Handler
@@ -12,7 +12,7 @@ import com.ctr.homestaybooking.data.source.response.Place
 import com.ctr.homestaybooking.extension.observeOnUiThread
 import com.ctr.homestaybooking.extension.showErrorDialog
 import com.ctr.homestaybooking.ui.App
-import com.ctr.homestaybooking.ui.roomdetail.PlaceDetailActivity
+import com.ctr.homestaybooking.ui.placedetail.PlaceDetailActivity
 import kotlinx.android.synthetic.main.fragment_home.*
 
 /**
@@ -40,7 +40,7 @@ class HomeFragment : BaseFragment() {
             App.instance.localRepository,
             PlaceRepository()
         )
-        getHotels()
+        getPlaceFromServer()
         initRecyclerView()
         initSwipeRefresh()
     }
@@ -65,11 +65,11 @@ class HomeFragment : BaseFragment() {
             Handler().postDelayed({
                 swipeRefresh?.isRefreshing = false
             }, 300L)
-            getHotels()
+            getPlaceFromServer()
         }
     }
 
-    private fun getHotels() {
+    private fun getPlaceFromServer() {
         addDisposables(
             viewModel.getPlacesFromServer()
                 .observeOnUiThread()

@@ -30,7 +30,7 @@
                     android:fontFamily="@font/lato_heavy"
                     android:gravity="center"
                     android:maxLines="1"
-                    android:text="Customer information"
+                    android:text="Đặt chỗ"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
@@ -91,7 +91,7 @@
         </RelativeLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/layout_room_detail_booking" />
+    <include layout="@layout/layout_place_detail_booking" />
 
     <FrameLayout
         android:id="@+id/frameLoading"
