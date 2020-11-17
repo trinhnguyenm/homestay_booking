@@ -1,7 +1,6 @@
 package com.ctr.homestaybooking.ui.booking
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -104,7 +103,7 @@ class BookingFragment : BaseFragment() {
                 viewModel.getBookingBody().apply {
                     id = 0
                     status =
-                        if (placeDetail.bookingType == BookingType.INSTANT_BOOKING) BookingStatus.ACCEPTED else BookingStatus.PENDING
+                        if (placeDetail.bookingType == BookingType.INSTANT_BOOKING) BookingStatus.UNPAID else BookingStatus.PENDING
                     userId = viewModel.getUserId()
                     placeId = placeDetail.id
                 }
@@ -197,9 +196,7 @@ class BookingFragment : BaseFragment() {
                 .observeOnUiThread()
                 .subscribe({ response ->
                     RxBus.publish(UpdateMyBooking(true))
-                    Log.d("--=", "addBooking: ${response}")
-                    activity?.showDialog("Thành công", "")
-//                    (activity as? BookingActivity)?.openPaymentFragment(response)
+                    (activity as? BookingActivity)?.openPaymentFragment(response.booking)
                 }, {
                     activity?.showErrorDialog(it)
                 })

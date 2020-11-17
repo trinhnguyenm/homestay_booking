@@ -1,12 +1,12 @@
 package com.ctr.homestaybooking.ui.booking
 
 import com.ctr.homestaybooking.base.BaseViewModel
+import com.ctr.homestaybooking.data.model.BookingStatus
 import com.ctr.homestaybooking.data.source.LocalRepository
 import com.ctr.homestaybooking.data.source.PlaceRepository
 import com.ctr.homestaybooking.data.source.UserRepository
 import com.ctr.homestaybooking.data.source.request.BookingBody
 import com.ctr.homestaybooking.data.source.response.BookingResponse
-import com.ctr.homestaybooking.data.source.response.ChangeReservationStatusResponse
 import com.ctr.homestaybooking.data.source.response.ChangeRoomReservationStatusResponse
 import com.ctr.homestaybooking.data.source.response.UserResponse
 import io.reactivex.Single
@@ -38,8 +38,11 @@ class BookingViewModel(
             .addProgressLoading()
     }
 
-    override fun changeReservationStatus(reservationId: Int): Single<ChangeReservationStatusResponse> {
-        return placeRepository.changeReservationStatus(reservationId)
+    override fun changeBookingStatus(
+        bookingId: Int,
+        bookingStatus: BookingStatus
+    ): Single<BookingResponse> {
+        return placeRepository.changeBookingStatus(bookingId, bookingStatus)
             .addProgressLoading()
     }
 

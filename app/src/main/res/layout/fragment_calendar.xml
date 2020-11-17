@@ -22,6 +22,13 @@
             android:tint="@color/colorAccent"
             app:srcCompat="@drawable/ic_back_white" />
 
+        <TextView
+            android:id="@+id/tvTitle"
+            style="@style/textBlackBold"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/headerBarHeight"
+            android:gravity="center"
+            android:text="Chọn ngày" />
 
         <TextView
             android:id="@+id/tvSave"
@@ -35,21 +42,11 @@
             android:textSize="16sp" />
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/tvTitle"
-        style="@style/textBlackBold"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/header"
-        android:layout_marginBottom="8dp"
-        android:gravity="center"
-        android:text="Chọn ngày" />
-
     <com.ctr.homestaybooking.ui.wedget.CustomCalendarPickerView
         android:id="@+id/calendarPicker"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/tvTitle"
+        android:layout_below="@+id/header"
         android:background="#FFFFFF"
         android:clipToPadding="false"
         android:paddingLeft="16dp"

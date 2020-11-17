@@ -103,7 +103,6 @@
     <string name="dd_mm_yy">dd/mm/yy</string>
     <string name="dd_mm_yyyy_format">%1$d/%2$d/%3$d</string>
     <string name="default_notification_channel_id">100</string>
-    <string name="default_web_client_id">173426758340-jg6stkr53eflp3h5a5jtpd98d4aot793.apps.googleusercontent.com</string>
     <string name="define_roundedimageview" />
     <string name="description_car_just_payment">Thank you for booking with Hotel Booking! Please pay the order to reserve a seat.</string>
     <string name="description_car_step_2">Please provide correctly information for your better experiences when using our service.</string>
@@ -431,7 +430,6 @@ Internet banking"</string>
     <string name="price_free">Free</string>
     <string name="price_per_night">Price</string>
     <string name="privacy_policy">Privacy Policy</string>
-    <string name="project_id">Hotel Booking-141103</string>
     <string name="promotion">Promotion</string>
     <string name="promotion_code">Promotion code</string>
     <string name="property_type">Property type</string>

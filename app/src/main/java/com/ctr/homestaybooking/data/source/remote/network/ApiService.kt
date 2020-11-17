@@ -52,8 +52,11 @@ interface ApiService {
     @GET("/api/bookings/user/{id}")
     fun getBookingHistory(@Path("id") id: Int): Single<BookingHistoryResponse>
 
-    @PATCH("/api/reservations/{id}/status")
-    fun changeReservationStatus(@Path("id") reservationId: Int): Single<ChangeReservationStatusResponse>
+    @PUT("/api/bookings/{id}?")
+    fun changeBookingStatus(
+        @Path("id") bookingId: Int,
+        @Query("bookingStatus") bookingStatus: BookingStatus
+    ): Single<BookingResponse>
 
     @PATCH("/api/room-reservations/{id}/status")
     fun changeRoomReservationStatus(

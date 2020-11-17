@@ -38,8 +38,8 @@ class PlaceRemoteDataSource(private val apiService: ApiService = ApiClient.getIn
 
     override fun getBookingHistory(id: Int) = apiService.getBookingHistory(id)
 
-    override fun changeReservationStatus(reservationId: Int) =
-        apiService.changeReservationStatus(reservationId)
+    override fun changeBookingStatus(bookingId: Int, bookingStatus: BookingStatus) =
+        apiService.changeBookingStatus(bookingId, bookingStatus)
 
     override fun changeRoomReservationStatus(roomReservationId: Int) =
         apiService.changeRoomReservationStatus(roomReservationId, BookingStatus.CANCELLED)

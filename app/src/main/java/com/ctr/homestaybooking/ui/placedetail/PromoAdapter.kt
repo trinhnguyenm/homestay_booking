@@ -40,7 +40,7 @@ class PromoAdapter(private val promos: List<Promo>) :
         fun onBind(item: Promo) {
             itemView.apply {
                 val startDate = item.startDate.convert(DateUtil.FORMAT_DATE_DAY_MONTH)
-                val endDate = item.startDate.convert(DateUtil.FORMAT_DATE_DAY_MONTH)
+                val endDate = item.endDate.convert(DateUtil.FORMAT_DATE_DAY_MONTH)
                 tvContent.text =
                     "Sale off ${item.discountPercent}% for booking with check-in date from $startDate to $endDate"
             }

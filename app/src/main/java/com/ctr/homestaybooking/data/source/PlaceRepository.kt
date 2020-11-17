@@ -1,5 +1,6 @@
 package com.ctr.homestaybooking.data.source
 
+import com.ctr.homestaybooking.data.model.BookingStatus
 import com.ctr.homestaybooking.data.source.datasource.PlaceDataSource
 import com.ctr.homestaybooking.data.source.remote.PlaceRemoteDataSource
 import com.ctr.homestaybooking.data.source.request.BookingBody
@@ -39,8 +40,8 @@ class PlaceRepository : PlaceDataSource {
         roomsReservationBody
     )
 
-    override fun changeReservationStatus(reservationId: Int) =
-        placeRemoteDataSource.changeReservationStatus(reservationId)
+    override fun changeBookingStatus(bookingId: Int, bookingStatus: BookingStatus) =
+        placeRemoteDataSource.changeBookingStatus(bookingId, bookingStatus)
 
     override fun changeRoomReservationStatus(roomReservationId: Int) =
         placeRemoteDataSource.changeRoomReservationStatus(roomReservationId)
