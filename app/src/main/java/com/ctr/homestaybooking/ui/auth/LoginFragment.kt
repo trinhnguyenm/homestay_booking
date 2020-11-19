@@ -12,7 +12,7 @@ import com.ctr.homestaybooking.extension.*
 import com.ctr.homestaybooking.ui.App
 import com.ctr.homestaybooking.ui.auth.AuthActivity.Companion.KEY_EMAIL
 import com.ctr.homestaybooking.ui.auth.AuthActivity.Companion.KEY_SHOW_BUTTON_BACK
-import com.ctr.homestaybooking.ui.home.MainActivity
+import com.ctr.homestaybooking.ui.home.HomeActivity
 import kotlinx.android.synthetic.main.fragment_login.*
 
 /**
@@ -84,7 +84,7 @@ class LoginFragment : BaseFragment() {
                     .subscribe({
                         viewModel.saveAutoLoginToken(it.authToken.token)
                         viewModel.saveUserId(it.authToken.userDetail.id)
-                        activity?.let { it1 -> MainActivity.start(it1) }
+                        activity?.let { it1 -> HomeActivity.start(it1) }
                         activity?.finishAffinity()
                     }, {
                         activity?.showErrorDialog(it)

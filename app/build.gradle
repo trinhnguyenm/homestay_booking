@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 29
@@ -13,11 +14,11 @@ android {
         versionName "1.0"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled = true
     }
 
     buildTypes {
         debug {
-            applicationIdSuffix ".debug"
             debuggable true
 //            testCoverageEnabled true
         }
@@ -50,11 +51,11 @@ android {
     applicationVariants.all { variant ->
         switch (variant.getName()) {
             case "debug":
-                variant.buildConfigField "String", "BASE_API_URL", '"http://192.168.43.45:8080/api/"'
+                variant.buildConfigField "String", "BASE_API_URL", '"http://172.18.19.213:8080/api/"'
                 variant.buildConfigField "String", "BASE_IMAGE_URL", '"https:"'
                 variant.buildConfigField "String", "APP_NAME", '"Homestay booking"'
                 break
-            }
+        }
     }
 }
 
@@ -73,12 +74,16 @@ android.applicationVariants.all { variant ->
 
 dependencies {
     implementation project(':library')
+    implementation platform('com.google.firebase:firebase-bom:26.1.0')
     implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation "sdk.chat:firebase-app:5.0.9"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'com.google.android.material:material:1.1.0'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.1.0'
     implementation 'androidx.navigation:navigation-ui-ktx:2.1.0'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-database:19.3.0'
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:2.11.0'
     testImplementation "org.robolectric:robolectric:3.6.1"
@@ -111,7 +116,6 @@ dependencies {
 
     // View
     implementation 'me.grantland:autofittextview:0.2.1'
-    implementation 'de.hdodenhof:circleimageview:3.0.0'
     implementation 'com.loopeer.lib:shadow:0.0.4-beta3'
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
     implementation 'com.makeramen:roundedimageview:2.3.0'

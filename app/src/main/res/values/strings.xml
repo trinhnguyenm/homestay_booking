@@ -8,10 +8,11 @@
     <string name="acc_label_card_number">Card number</string>
     <string name="acc_label_expiry_date">Expiration date</string>
     <string-array name="main_tab_title">
-        <item>Explore</item>
-        <item>Favorite</item>
-        <item>My booking</item>
-        <item>Account</item>
+        <item>Khám phá</item>
+        <item>Ưa thích</item>
+        <item>Đặt phòng</item>
+        <item>Inbox</item>
+        <item>Tài khoản</item>
     </string-array>
     <string name="dialog_bad_request_message">400 Bad Request</string>
     <string name="dialog_unauthorized_message">401 Unauthorized</string>

@@ -8,7 +8,7 @@ import com.ctr.homestaybooking.base.BaseFragment
 import com.ctr.homestaybooking.extension.getStatusBarHeight
 import com.ctr.homestaybooking.extension.replaceFragment
 import com.ctr.homestaybooking.ui.auth.AuthActivity
-import com.ctr.homestaybooking.ui.home.MainActivity
+import com.ctr.homestaybooking.ui.home.HomeActivity
 import com.ctr.homestaybooking.ui.onboarding.OnBoardingActivity
 import com.ctr.homestaybooking.util.SharedReferencesUtil
 
@@ -49,7 +49,7 @@ class SplashActivity : BaseActivity() {
     }
 
     internal fun startHomeActivity() {
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(Intent(this, HomeActivity::class.java))
         finishAffinity()
     }
 }

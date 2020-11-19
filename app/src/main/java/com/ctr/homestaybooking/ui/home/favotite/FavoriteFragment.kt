@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import com.ctr.homestaybooking.R
 import com.ctr.homestaybooking.base.BaseFragment
 import com.ctr.homestaybooking.extension.onClickDelayAction
-import com.ctr.homestaybooking.ui.home.MainActivity
-import com.ctr.homestaybooking.ui.home.MainActivity.Companion.TAB_HOME_POSITION
+import com.ctr.homestaybooking.ui.home.HomeActivity
+import com.ctr.homestaybooking.ui.home.HomeActivity.Companion.TAB_HOME_POSITION
 import kotlinx.android.synthetic.main.layout_view_no_data.*
 
 /**
@@ -32,7 +32,7 @@ class FavoriteFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         tvActionMore.onClickDelayAction {
-            (activity as? MainActivity)?.setTabSelection(TAB_HOME_POSITION)
+            (activity as? HomeActivity)?.setTabSelection(TAB_HOME_POSITION)
         }
     }
 

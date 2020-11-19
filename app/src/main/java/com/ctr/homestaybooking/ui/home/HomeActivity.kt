@@ -16,23 +16,26 @@ import com.ctr.homestaybooking.base.BaseActivity
 import com.ctr.homestaybooking.base.BaseFragment
 import com.ctr.homestaybooking.ui.home.account.AccountContainerFragment
 import com.ctr.homestaybooking.ui.home.favotite.FavoriteContainerFragment
+import com.ctr.homestaybooking.ui.home.inbox.InboxContainerFragment
 import com.ctr.homestaybooking.ui.home.mybooking.MyBookingContainerFragment
 import com.ctr.homestaybooking.ui.home.places.HomeContainerFragment
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : BaseActivity() {
+
+class HomeActivity : BaseActivity() {
 
     companion object {
-        internal const val PAGER_NUMBER = 4
+        internal const val PAGER_NUMBER = 5
         internal const val TAB_HOME_POSITION = 0
         internal const val TAB_SAVE_POSITION = 1
         internal const val TAB_MY_BOOKING_POSITION = 2
-        internal const val TAB_ACCOUNT_POSITION = 3
+        internal const val TAB_INBOX_POSITION = 3
+        internal const val TAB_ACCOUNT_POSITION = 4
 
         internal fun start(from: Activity) {
-            MainActivity().apply {
-                from.startActivity(Intent(from, MainActivity::class.java))
+            HomeActivity().apply {
+                from.startActivity(Intent(from, HomeActivity::class.java))
             }
         }
     }
@@ -44,6 +47,7 @@ class MainActivity : BaseActivity() {
         initTab()
     }
 
+
     override fun getContainerId() = R.id.container
 
     private fun initTab() {
@@ -51,11 +55,12 @@ class MainActivity : BaseActivity() {
             R.drawable.bg_icon_tab_home,
             R.drawable.bg_icon_tab_save,
             R.drawable.bg_icon_tab_my_booking,
+            R.drawable.bg_icon_tab_inbox,
             R.drawable.bg_icon_tab_account
         )
         for (i in 0 until PAGER_NUMBER) {
             val tab =
-                View.inflate(this@MainActivity, R.layout.item_tab_layout, null) as? ConstraintLayout
+                View.inflate(this@HomeActivity, R.layout.item_tab_layout, null) as? ConstraintLayout
             (tab?.findViewById(R.id.ivIconTab) as? ImageView)?.setImageResource(icons[i])
             (tab?.findViewById(R.id.tvTitleTab) as? TextView)?.text =
                 viewPager.adapter?.getPageTitle(i)
@@ -111,6 +116,7 @@ class MainActivity : BaseActivity() {
                 TAB_HOME_POSITION -> HomeContainerFragment.getNewInstance()
                 TAB_SAVE_POSITION -> FavoriteContainerFragment.getNewInstance()
                 TAB_MY_BOOKING_POSITION -> MyBookingContainerFragment.getNewInstance()
+                TAB_INBOX_POSITION -> InboxContainerFragment.getNewInstance()
                 else -> AccountContainerFragment.getNewInstance()
             }
         }

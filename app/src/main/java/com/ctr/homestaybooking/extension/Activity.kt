@@ -44,14 +44,14 @@ internal fun FragmentActivity.addFragment(
     isAddExisted: Boolean = false
 ) {
     if (isAddExisted || supportFragmentManager.findFragmentByTag(
-            tag ?: fragment.javaClass.simpleName
+            tag ?: fragment.javaClass.name
         ) == null
     ) {
         val transaction = supportFragmentManager.beginTransaction()
         transactionCallback?.invoke(transaction)
-        transaction.add(containerId, fragment, tag ?: fragment.javaClass.simpleName)
+        transaction.add(containerId, fragment, tag ?: fragment.javaClass.name)
         if (addToBackStack) {
-            transaction.addToBackStack(tag ?: fragment.javaClass.simpleName)
+            transaction.addToBackStack(tag ?: fragment.javaClass.name)
         }
         transaction.commit()
 
@@ -72,12 +72,12 @@ internal fun FragmentActivity.replaceFragment(
     addToBackStack: Boolean = false,
     tag: String? = null
 ) {
-    if (supportFragmentManager.findFragmentByTag(tag ?: fragment.javaClass.simpleName) == null) {
+    if (supportFragmentManager.findFragmentByTag(tag ?: fragment.javaClass.name) == null) {
         val transaction = supportFragmentManager.beginTransaction()
         transactionCallback?.invoke(transaction)
-        transaction.replace(containerId, fragment, tag ?: fragment.javaClass.simpleName)
+        transaction.replace(containerId, fragment, tag ?: fragment.javaClass.name)
         if (addToBackStack) {
-            transaction.addToBackStack(tag ?: fragment.javaClass.simpleName)
+            transaction.addToBackStack(tag ?: fragment.javaClass.name)
         }
         transaction.commit()
     }
