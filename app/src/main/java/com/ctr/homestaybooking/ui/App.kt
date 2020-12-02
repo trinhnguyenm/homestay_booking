@@ -5,20 +5,14 @@ import android.app.Activity
 import android.app.Application
 import android.os.Bundle
 import android.os.SystemClock
-import android.util.Log
 import com.ctr.homestaybooking.R
 import com.ctr.homestaybooking.data.source.LocalRepository
 import com.ctr.homestaybooking.extension.hideKeyboard
-import com.ctr.homestaybooking.ui.home.account.AccountContainerFragment
-import com.ctr.homestaybooking.ui.home.favotite.FavoriteContainerFragment
-import com.ctr.homestaybooking.ui.home.mybooking.MyBookingContainerFragment
-import com.ctr.homestaybooking.ui.home.places.HomeContainerFragment
+import com.ctr.homestaybooking.ui.home.MyMainActivity
 import io.reactivex.plugins.RxJavaPlugins
 import sdk.chat.app.firebase.ChatSDKFirebase
 import sdk.chat.core.session.ChatSDK
-import sdk.chat.core.types.AccountDetails
 import sdk.chat.ui.module.UIModule
-import sdk.guru.common.RX
 
 /**
  * Created by at-trinhnguyen2 on 2020/05/31
@@ -90,8 +84,7 @@ class App : Application(), Application.ActivityLifecycleCallbacks {
             publicRoomRoomsEnabled = false
             setTheme(R.style.Theme_AppCompat_Light_NoActionBar_FullScreen)
         }
-        ChatSDK.currentUser()
-        if (ChatSDK.auth().isAuthenticatedThisSession) {
+        /*if (ChatSDK.auth().isAuthenticatedThisSession) {
             // do nothing
             Log.d("--=", "authenticated}")
         } else if (ChatSDK.auth().isAuthenticated || ChatSDK.auth().isAuthenticating) {
@@ -110,41 +103,10 @@ class App : Application(), Application.ActivityLifecycleCallbacks {
                     },
                     { Log.i("--=", "authenticate error $it") }
                 )
-        }
+        }*/
 
         // If you are overriding the ChatActivity, you will also need to define the main activity for your app
         ChatSDK.ui().mainActivity = MyMainActivity::class.java
-        ChatSDK.ui().removeTab(0)
-        ChatSDK.ui().removeTab(0)
-        ChatSDK.ui().apply {
-            setTab(
-                "Home",
-                getDrawable(R.drawable.bg_icon_tab_home),
-                HomeContainerFragment.getNewInstance(),
-                0
-            )
-            setTab(
-                "Save",
-                getDrawable(R.drawable.bg_icon_tab_save),
-                FavoriteContainerFragment.getNewInstance(),
-                1
-            )
-            setTab(
-                "My Booking",
-                getDrawable(R.drawable.bg_icon_tab_my_booking),
-                MyBookingContainerFragment.getNewInstance(),
-                2
-            )
-            setTab(
-                "Account",
-                getDrawable(R.drawable.bg_icon_tab_account),
-                AccountContainerFragment.getNewInstance(),
-                4
-            )
-            setTab(privateThreadsTab().apply {
-                title = "Inbox"
-                icon = getDrawable(R.drawable.ic_tab_inbox)
-            }, 3)
-        }
+//        ChatSDK.ui().setPrivateThreadsFragment(MyPrivateThreadsFragment.getInstance())
     }
 }

@@ -2,14 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:visibility="visible">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/white">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -32,9 +35,9 @@
                     android:fontFamily="@font/lato_heavy"
                     android:gravity="center"
                     android:maxLines="1"
-                    android:text="Customer information"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:text="Customer information" />
 
                 <TextView
                     android:id="@+id/tvBookingId"
@@ -42,9 +45,9 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lato_regular"
                     android:gravity="center_horizontal"
-                    android:text="@string/booking_id"
                     android:textSize="11sp"
-                    android:visibility="visible" />
+                    android:visibility="visible"
+                    tools:text="@string/booking_id" />
             </LinearLayout>
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -59,7 +62,8 @@
                 android:id="@+id/rlStep"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/imgBack">
+                android:layout_below="@id/imgBack"
+                android:background="@color/white">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rcvStepBooking"

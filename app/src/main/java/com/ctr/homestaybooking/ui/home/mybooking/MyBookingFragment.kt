@@ -16,6 +16,7 @@ import com.ctr.homestaybooking.data.source.PlaceRepository
 import com.ctr.homestaybooking.data.source.response.Booking
 import com.ctr.homestaybooking.extension.*
 import com.ctr.homestaybooking.ui.App
+import com.ctr.homestaybooking.ui.booking.BookingActivity
 import kotlinx.android.synthetic.main.fragment_home.swipeRefresh
 import kotlinx.android.synthetic.main.fragment_my_booking.*
 import kotlinx.android.synthetic.main.layout_view_no_data.*
@@ -24,8 +25,9 @@ import kotlinx.android.synthetic.main.layout_view_no_data.*
  * Created by at-trinhnguyen2 on 2020/06/02
  */
 class MyBookingFragment : BaseFragment() {
-    private lateinit var viewModel: MyBookingVMContract
+    private lateinit var vm: MyBookingVMContract
     private var filterDays = 365
+    private var isVisibleToUser = false
 
     companion object {
         fun newInstance() =
@@ -42,7 +44,7 @@ class MyBookingFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel =
+        vm =
             MyBookingViewModel(
                 PlaceRepository(), App.instance.localRepository
             )
@@ -82,7 +84,7 @@ class MyBookingFragment : BaseFragment() {
                     setOnDismissListener {
                         Log.d("--=", "initListener: setOnDismissListener")
 
-                        viewModel.filterMyBooking(filterDays)
+                        vm.filterMyBooking(filterDays)
                         this@MyBookingFragment.rclBooking.adapter?.notifyDataSetChanged()
                     }
                     show()
@@ -93,14 +95,13 @@ class MyBookingFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-        addDisposables(
-            RxBus.listen(UpdateMyBooking::class.java)
-                .observeOnUiThread()
-                .subscribe {
-                    if (it.isNeedUpdate) {
-                        getBookingHistory()
-                    }
-                })
+        RxBus.listen(UpdateMyBooking::class.java)
+            .observeOnUiThread()
+            .subscribe {
+                if (it.isNeedUpdate) {
+                    getBookingHistory()
+                }
+            }.addDisposable()
     }
 
     private fun initView() {
@@ -109,13 +110,18 @@ class MyBookingFragment : BaseFragment() {
         tvActionMore.invisible()
     }
 
-    override fun isNeedPaddingTop() = true
+    override fun isNeedPaddingTop() = false
+
+    override fun getUserVisibleHint(): Boolean {
+        isVisibleToUser = true
+        return super.getUserVisibleHint()
+    }
 
     private fun initRecyclerView() {
         rclBooking.let {
             it.setHasFixedSize(true)
             it.adapter = MyBookingAdapter(
-                viewModel.getBookings()
+                vm.getBookings()
             ).also { adapter ->
                 adapter.onItemClicked = this::handlerItemClick
             }
@@ -123,7 +129,7 @@ class MyBookingFragment : BaseFragment() {
     }
 
     private fun handlerItemClick(booking: Booking) {
-        (parentFragment as? MyBookingContainerFragment)?.openPaymentFragment(booking)
+        activity?.let { BookingActivity.start(it, booking) }
     }
 
     private fun initSwipeRefresh() {
@@ -137,20 +143,27 @@ class MyBookingFragment : BaseFragment() {
     }
 
     internal fun getBookingHistory() {
-        addDisposables(
-            viewModel.getBookingHistory()
-                .observeOnUiThread()
-                .subscribe({
-                    if (it.length == 0) {
-                        llNoData.visible()
-                    } else {
-                        llNoData.invisible()
-                    }
-                    rclBooking.adapter?.notifyDataSetChanged()
-                }, {
-                    handlerGetApiError(it)
-                })
-        )
+        vm.getBookingHistory()
+            .observeOnUiThread()
+            .doOnSubscribe {
+                if (isVisibleToUser) {
+                    vm.getProgressObservable().onNext(true)
+                }
+            }
+            .doFinally {
+                vm.getProgressObservable().onNext(false)
+            }
+            .subscribe({
+                if (it.length == 0) {
+                    llNoData.visible()
+                } else {
+                    llNoData.invisible()
+                }
+                rclBooking.adapter?.notifyDataSetChanged()
+            }, {
+                handlerGetApiError(it)
+            }).addDisposable()
+
     }
 
 
@@ -158,5 +171,5 @@ class MyBookingFragment : BaseFragment() {
         activity?.showErrorDialog(throwable)
     }
 
-    override fun getProgressBarControlObservable() = viewModel.getProgressObservable()
+    override fun getProgressObservable() = vm.getProgressObservable()
 }

@@ -35,6 +35,11 @@ class LocalRepository(private val context: Context) : LocalDataSource {
     override fun getAutoLoginToken(): String? =
         SharedReferencesUtil.getString(context, SharedReferencesUtil.KEY_AUTO_LOGIN_TOKEN)
 
+
+    override fun removeToken() {
+        SharedReferencesUtil.remove(context, SharedReferencesUtil.KEY_AUTO_LOGIN_TOKEN)
+    }
+
     override fun saveUserId(id: Int) {
         SharedReferencesUtil.setInt(
             context,
@@ -46,12 +51,19 @@ class LocalRepository(private val context: Context) : LocalDataSource {
     override fun getUserId(): Int =
         SharedReferencesUtil.getInt(context, SharedReferencesUtil.KEY_USER_ID, -1)
 
-    override fun removeToken() {
-        SharedReferencesUtil.remove(context, SharedReferencesUtil.KEY_AUTO_LOGIN_TOKEN)
-    }
-
     override fun removeUserId() {
         SharedReferencesUtil.remove(context, SharedReferencesUtil.KEY_USER_ID)
+    }
+
+    override fun isHostSession() =
+        SharedReferencesUtil.getBoolean(context, SharedReferencesUtil.KEY_IS_HOST_SESSION, false)
+
+    override fun setHostSession() {
+        SharedReferencesUtil.setBoolean(context, SharedReferencesUtil.KEY_IS_HOST_SESSION, true)
+    }
+
+    override fun setUserSession() {
+        SharedReferencesUtil.setBoolean(context, SharedReferencesUtil.KEY_IS_HOST_SESSION, false)
     }
 
     override fun getDeviceToken(): String? =

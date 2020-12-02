@@ -21,17 +21,6 @@ class RoomViewModel(
 
     override fun getRoomTypes(): MutableList<RoomTypeResponse.RoomTypeStatus> = roomTypes
 
-    override fun getAllRoomByBrand(brandId: Int): Single<RoomResponse> {
-        return hotelRepository.getAllRoomByBrand(brandId)
-            .addProgressLoading()
-            .doOnSuccess { response ->
-                getRooms().apply {
-                    clear()
-                    addAll(response.rooms)
-                }
-            }
-    }
-
     override fun filterRoomStatus(
         numOfGuest: Int,
         numOfRoom: Int
@@ -61,5 +50,5 @@ class RoomViewModel(
     }
 
     override fun getProgressObservable(): BehaviorSubject<Boolean> =
-        progressBarDialogStateObservable
+        progressBarDialogObservable
 }

@@ -3,34 +3,38 @@ package com.ctr.homestaybooking.data.source.remote.network
 import com.ctr.homestaybooking.data.model.BookingStatus
 import com.ctr.homestaybooking.data.source.request.BookingBody
 import com.ctr.homestaybooking.data.source.request.LoginBody
-import com.ctr.homestaybooking.data.source.request.RoomsReservationBody
 import com.ctr.homestaybooking.data.source.request.UserBody
 import com.ctr.homestaybooking.data.source.response.*
 import io.reactivex.Single
 import retrofit2.http.*
 
 interface ApiService {
-
+    /**
+     * Auth
+     * */
     @POST("/api/auth/login")
     fun login(@Body loginBody: LoginBody): Single<LoginResponse>
 
     @POST("/api/auth/register")
-    fun register(@Body userBody: UserBody): Single<RegisterResponse>
+    fun register(@Body userBody: UserBody): Single<LoginResponse>
 
+    /**
+     * User
+     * */
     @GET("/api/users/{id}")
     fun getUserFollowId(@Path("id") userId: Int): Single<UserResponse>
 
+    /**
+     * Place
+     * */
     @GET("/api/places")
     fun getPlaces(): Single<PlaceResponse>
 
+    @GET("/api/places/host/{id}")
+    fun getPlacesByHostId(@Path("id") id: Int): Single<HostPlaceResponse>
+
     @GET("/api/places/{id}")
     fun getPlaceDetail(@Path("id") placeId: Int): Single<PlaceDetailResponse>
-
-    @POST("/api/bookings")
-    fun addBooking(@Body bookingBody: BookingBody): Single<BookingResponse>
-
-    @GET("/api/rooms/brand/{id}")
-    fun getAllRoomByBrand(@Path("id") brandId: Int): Single<RoomResponse>
 
     @GET("/api/rooms/status/?")
     fun getAllRoomStatus(
@@ -39,28 +43,29 @@ interface ApiService {
         @Query("endDate") endDate: String
     ): Single<RoomTypeResponse>
 
-    @GET("api/promos/active")
-    fun getAllPromoStillActive(): Single<PromoResponse>
+    /**
+     * Booking
+     * */
+    @POST("/api/bookings")
+    fun addBooking(@Body bookingBody: BookingBody): Single<BookingResponse>
 
-    @POST("/api/room-reservations?")
-    fun addNewRoomsReservation(
-        @Query("numberOfRooms") numberOfRooms: Int,
-        @Query("listPromoCode") listPromoCode: List<String>?,
-        @Body roomsReservationBody: RoomsReservationBody
-    ): Single<MyBookingResponse>
+    @GET("/api/bookings/{id}")
+    fun getBookingById(@Path("id") id: Int): Single<BookingResponse>
 
     @GET("/api/bookings/user/{id}")
     fun getBookingHistory(@Path("id") id: Int): Single<BookingHistoryResponse>
 
-    @PUT("/api/bookings/{id}?")
+    @GET("/api/bookings/host/{id}")
+    fun getBookingByHostId(@Path("id") id: Int): Single<BookingHistoryResponse>
+
+    @PATCH("/api/bookings/{id}?")
     fun changeBookingStatus(
         @Path("id") bookingId: Int,
         @Query("bookingStatus") bookingStatus: BookingStatus
     ): Single<BookingResponse>
 
-    @PATCH("/api/room-reservations/{id}/status")
-    fun changeRoomReservationStatus(
-        @Path("id") roomReservationId: Int,
-        @Query("status") status: BookingStatus
-    ): Single<ChangeRoomReservationStatusResponse>
+    @POST("/api/bookings/{id}/payment")
+    fun requestPayment(
+        @Path("id") bookingId: Int
+    ): Single<CaptureMoMoApiResponse>
 }

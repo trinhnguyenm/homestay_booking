@@ -33,4 +33,7 @@ interface LocalDataSource {
     fun removeUserId()
 
     fun getUUID(): String
+    fun isHostSession(): Boolean
+    fun setHostSession()
+    fun setUserSession()
 }

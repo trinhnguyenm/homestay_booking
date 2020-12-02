@@ -32,12 +32,33 @@ class BookingActivity : BaseActivity() {
                 from.startActivity(intent)
             }
         }
+
+        internal fun start(
+            from: Activity,
+            booking: Booking
+        ) {
+            BookingActivity().apply {
+                val intent = Intent(from, BookingActivity::class.java)
+                intent.putExtras(Bundle().apply {
+                    putParcelable(KEY_BOOKING, booking)
+                })
+                from.startActivity(intent)
+            }
+        }
+
+        private const val KEY_BOOKING = "key_booking"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_booking)
-        addFragment(R.id.container, BookingFragment.newInstance())
+        intent?.getParcelableExtra<PlaceDetailResponse>(KEY_PLACE_DETAIL)?.let {
+            addFragment(R.id.container, BookingFragment.newInstance())
+        }
+
+        intent?.getParcelableExtra<Booking>(KEY_BOOKING)?.let {
+            openPaymentFragment(it)
+        }
     }
 
     override fun getContainerId(): Int = R.id.container
@@ -46,11 +67,6 @@ class BookingActivity : BaseActivity() {
         AppearAnim.SLIDE_FROM_RIGHT
 
     internal fun openPaymentFragment(booking: Booking) {
-        addFragment(
-            R.id.container,
-            PaymentFragment.newInstance(booking),
-            addToBackStack = true,
-            tag = "BookingFragment.Payment"
-        )
+        addFragment(R.id.container, PaymentFragment.newInstance(booking))
     }
 }

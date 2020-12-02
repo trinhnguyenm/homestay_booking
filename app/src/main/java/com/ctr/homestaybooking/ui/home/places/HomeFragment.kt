@@ -70,15 +70,13 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun getPlaceFromServer() {
-        addDisposables(
-            viewModel.getPlacesFromServer()
-                .observeOnUiThread()
-                .subscribe({
-                    recyclerView.adapter?.notifyDataSetChanged()
-                }, {
-                    handlerGetApiError(it)
-                })
-        )
+        viewModel.getPlacesFromServer()
+            .observeOnUiThread()
+            .subscribe({
+                recyclerView.adapter?.notifyDataSetChanged()
+            }, {
+                handlerGetApiError(it)
+            }).addDisposable()
     }
 
 
@@ -86,5 +84,5 @@ class HomeFragment : BaseFragment() {
         activity?.showErrorDialog(throwable)
     }
 
-    override fun getProgressBarControlObservable() = viewModel.getProgressObservable()
+    override fun getProgressObservable() = viewModel.getProgressObservable()
 }

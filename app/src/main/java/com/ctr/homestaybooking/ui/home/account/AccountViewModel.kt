@@ -19,6 +19,16 @@ class AccountViewModel(
             .addProgressLoading()
     }
 
+    override fun isHostSession() = localRepository.isHostSession()
+
+    override fun setHostSession() {
+        localRepository.setHostSession()
+    }
+
+    override fun setUserSession() {
+        localRepository.setUserSession()
+    }
+
     override fun getProgressObservable(): BehaviorSubject<Boolean> =
-        progressBarDialogStateObservable
+        progressBarDialogObservable
 }

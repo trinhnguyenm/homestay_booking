@@ -6,10 +6,8 @@ import com.ctr.homestaybooking.data.source.datasource.UserDataSource
 import com.ctr.homestaybooking.data.source.request.LoginBody
 import com.ctr.homestaybooking.data.source.request.UserBody
 import com.ctr.homestaybooking.data.source.response.LoginResponse
-import com.ctr.homestaybooking.data.source.response.RegisterResponse
 import io.reactivex.Single
 import io.reactivex.subjects.BehaviorSubject
-import java.util.*
 
 /**
  * Created by at-trinhnguyen2 on 2020/06/17
@@ -20,9 +18,12 @@ class LoginViewModel(
 ) : LoginVMContract, BaseViewModel() {
     private var registerBody =
         UserBody(
-            uuid = UUID.randomUUID().toString(),
             deviceToken = (1..100000000).random().toString()
         )
+
+    private var loginBody = LoginBody()
+
+    override fun getLoginBody() = loginBody
 
     override fun getRegisterBody() = registerBody
 
@@ -31,7 +32,7 @@ class LoginViewModel(
             .addProgressLoading()
     }
 
-    override fun register(): Single<RegisterResponse> {
+    override fun register(): Single<LoginResponse> {
         return userRepository.register(getRegisterBody())
             .addProgressLoading()
     }
@@ -45,5 +46,5 @@ class LoginViewModel(
     }
 
     override fun getProgressObservable(): BehaviorSubject<Boolean> =
-        progressBarDialogStateObservable
+        progressBarDialogObservable
 }

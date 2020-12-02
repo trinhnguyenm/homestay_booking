@@ -9,13 +9,18 @@ import com.ctr.homestaybooking.base.BaseFragment
 import com.ctr.homestaybooking.data.source.UserRepository
 import com.ctr.homestaybooking.extension.*
 import com.ctr.homestaybooking.ui.App
+import com.ctr.homestaybooking.ui.home.MyMainActivity
 import kotlinx.android.synthetic.main.fragment_register.*
+import sdk.chat.core.session.ChatSDK
+import sdk.chat.core.types.AccountDetails
+import sdk.guru.common.RX
 
 /**
  * Created by at-trinhnguyen2 on 2020/06/18
  */
 class RegisterFragment : BaseFragment() {
-    private var vm: LoginVMContract? = null
+    private var avatarImageURL: String? = null
+    private lateinit var vm: LoginVMContract
 
     companion object {
         fun newInstance() = RegisterFragment()
@@ -79,26 +84,26 @@ class RegisterFragment : BaseFragment() {
         }
 
         inputFirstName.afterTextChange = {
-            vm?.getRegisterBody()?.firstName = it
+            vm.getRegisterBody().firstName = it
             updateNextButton()
         }
 
         inputLastName.afterTextChange = {
-            vm?.getRegisterBody()?.lastName = it
+            vm.getRegisterBody().lastName = it
             updateNextButton()
         }
         inputPhone.afterTextChange = {
-            vm?.getRegisterBody()?.phoneNumber = it
+            vm.getRegisterBody().phoneNumber = it
             updateNextButton()
         }
 
         inputEmail.afterTextChange = {
-            vm?.getRegisterBody()?.email = it
+            vm.getRegisterBody().email = it
             updateNextButton()
         }
 
         inputPassword.afterTextChange = {
-            vm?.getRegisterBody()?.password = it
+            vm.getRegisterBody().password = it
             updateNextButton()
         }
 
@@ -111,27 +116,45 @@ class RegisterFragment : BaseFragment() {
         }
 
         tvSignUp.onClickDelayAction {
-            vm?.let { viewModel ->
-                viewModel.register()
-                    .observeOnUiThread()
-                    .subscribe({
-                        if (it.body.id != null) {
-                            if (it.body.id > 0) {
-                                activity?.showDialog("", "Register successful", "Login Now", {
-                                    AuthActivity.start(
-                                        this,
-                                        isOpenLogin = true,
-                                        isShowButtonBack = false,
-                                        email = it.body.email
-                                    )
-                                    activity?.finishAffinity()
-                                })
-                            }
-                        }
-                    }, {
-                        activity?.showErrorDialog(it)
-                    })
-            }
+            ChatSDK.auth().authenticate(
+                AccountDetails.signUp(
+                    vm.getRegisterBody().email,
+                    vm.getRegisterBody().password
+                )
+            )
+                .doOnSubscribe {
+                    getProgressObservable().onNext(true)
+                }
+                .doFinally {
+                    getProgressObservable().onNext(false)
+                }.observeOn(RX.main())
+                .subscribe({
+                    vm.getRegisterBody().apply {
+                        uuid = ChatSDK.auth().currentUserEntityID
+                    }
+                    vm.let { viewModel ->
+                        viewModel.register()
+                            .observeOnUiThread()
+                            .subscribe({
+                                if (it.authToken.userDetail.id > 0) {
+                                    activity?.showDialog(
+                                        "",
+                                        "Đăng kí thành công",
+                                        "OK",
+                                        {
+                                            vm.saveAutoLoginToken(it.authToken.token)
+                                            vm.saveUserId(it.authToken.userDetail.id)
+                                            activity?.let { it1 -> MyMainActivity.start(it1) }
+                                            activity?.finishAffinity()
+                                        })
+                                }
+                            }, {
+                                activity?.showErrorDialog(it)
+                            })
+                    }
+                }, {
+                    activity?.showErrorDialog(it)
+                })
         }
     }
 
@@ -148,5 +171,5 @@ class RegisterFragment : BaseFragment() {
         tvSignUp.isEnabled = validateData()
     }
 
-    override fun getProgressBarControlObservable() = vm?.getProgressObservable()
+    override fun getProgressObservable() = vm.getProgressObservable()
 }

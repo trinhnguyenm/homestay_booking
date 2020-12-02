@@ -60,7 +60,7 @@ class BookingFragment : BaseFragment() {
         initListener()
     }
 
-    override fun getProgressBarControlObservable() = viewModel.getProgressObservable()
+    override fun getProgressObservable() = viewModel.getProgressObservable()
 
     override fun isNeedPaddingTop() = true
 
@@ -189,17 +189,14 @@ class BookingFragment : BaseFragment() {
         }
     }
 
-
     private fun addBooking() {
-        addDisposables(
-            viewModel.addBooking()
-                .observeOnUiThread()
-                .subscribe({ response ->
-                    RxBus.publish(UpdateMyBooking(true))
-                    (activity as? BookingActivity)?.openPaymentFragment(response.booking)
-                }, {
-                    activity?.showErrorDialog(it)
-                })
-        )
+        viewModel.addBooking()
+            .observeOnUiThread()
+            .subscribe({ response ->
+                RxBus.publish(UpdateMyBooking(true))
+                (activity as? BookingActivity)?.openPaymentFragment(response.booking)
+            }, {
+                activity?.showErrorDialog(it)
+            }).addDisposable()
     }
 }

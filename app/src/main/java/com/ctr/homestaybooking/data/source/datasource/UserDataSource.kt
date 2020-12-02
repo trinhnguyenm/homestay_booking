@@ -3,7 +3,6 @@ package com.ctr.homestaybooking.data.source.datasource
 import com.ctr.homestaybooking.data.source.request.LoginBody
 import com.ctr.homestaybooking.data.source.request.UserBody
 import com.ctr.homestaybooking.data.source.response.LoginResponse
-import com.ctr.homestaybooking.data.source.response.RegisterResponse
 import com.ctr.homestaybooking.data.source.response.UserResponse
 import io.reactivex.Single
 
@@ -13,7 +12,7 @@ import io.reactivex.Single
 interface UserDataSource {
     fun login(body: LoginBody): Single<LoginResponse>
 
-    fun register(body: UserBody): Single<RegisterResponse>
+    fun register(body: UserBody): Single<LoginResponse>
 
     fun getUserFollowId(userId: Int): Single<UserResponse>
 }

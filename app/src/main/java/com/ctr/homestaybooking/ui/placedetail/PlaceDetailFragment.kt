@@ -166,5 +166,5 @@ class PlaceDetailFragment : BaseFragment() {
 //        }
 //    }
 
-    override fun getProgressBarControlObservable() = viewModel.getProgressObservable()
+    override fun getProgressObservable() = viewModel.getProgressObservable()
 }

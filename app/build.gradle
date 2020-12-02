@@ -51,7 +51,7 @@ android {
     applicationVariants.all { variant ->
         switch (variant.getName()) {
             case "debug":
-                variant.buildConfigField "String", "BASE_API_URL", '"http://172.18.19.213:8080/api/"'
+                variant.buildConfigField "String", "BASE_API_URL", '"https://homestay-booking.herokuapp.com/api/"'
                 variant.buildConfigField "String", "BASE_IMAGE_URL", '"https:"'
                 variant.buildConfigField "String", "APP_NAME", '"Homestay booking"'
                 break
@@ -77,6 +77,7 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:26.1.0')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "sdk.chat:firebase-app:5.0.9"
+    implementation "co.chatsdk:matisse:0.5.3-beta3b1"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'com.google.android.material:material:1.1.0'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.1.0'

@@ -158,18 +158,6 @@ class RoomFragment : BaseFragment() {
         }
     }
 
-    private fun getRooms(brandId: Int) {
-        addDisposables(
-            viewModel.getAllRoomByBrand(brandId)
-                .observeOnUiThread()
-                .subscribe({
-                    recyclerView.adapter?.notifyDataSetChanged()
-                }, {
-                    handlerGetApiError(it)
-                })
-        )
-    }
-
     private fun getAllRoomStatus(
         brandId: Int,
         startDate: String,
@@ -177,15 +165,13 @@ class RoomFragment : BaseFragment() {
         numOfGuest: Int,
         numOfRoom: Int
     ) {
-        addDisposables(
-            viewModel.getAllRoomStatus(brandId, startDate, endDate, numOfGuest, numOfRoom)
-                .observeOnUiThread()
-                .subscribe({
-                    recyclerView.adapter?.notifyDataSetChanged()
-                }, {
-                    handlerGetApiError(it)
-                })
-        )
+        viewModel.getAllRoomStatus(brandId, startDate, endDate, numOfGuest, numOfRoom)
+            .observeOnUiThread()
+            .subscribe({
+                recyclerView.adapter?.notifyDataSetChanged()
+            }, {
+                handlerGetApiError(it)
+            }).addDisposable()
     }
 
 
@@ -193,5 +179,5 @@ class RoomFragment : BaseFragment() {
         activity?.showErrorDialog(throwable)
     }
 
-    override fun getProgressBarControlObservable() = viewModel.getProgressObservable()
+    override fun getProgressObservable() = viewModel.getProgressObservable()
 }

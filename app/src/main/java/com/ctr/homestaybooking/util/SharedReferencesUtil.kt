@@ -15,6 +15,7 @@ object SharedReferencesUtil {
     internal const val KEY_AUTO_LOGIN_TOKEN = "key_auto_login_token"
     internal const val KEY_USER_ID = "key_user_id"
     internal const val KEY_UUID = "key_uuid"
+    internal const val KEY_IS_HOST_SESSION = "key_is_host_session"
 
     internal fun getBoolean(context: Context, key: String, defaultValue: Boolean): Boolean {
         return context

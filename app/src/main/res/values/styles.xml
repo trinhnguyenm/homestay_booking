@@ -230,4 +230,162 @@
         <item name="android:minHeight">13.4dp</item>
         <item name="android:maxHeight">13.4dp</item>
     </style>
+
+    <style name="default_padding">
+        <item name="android:paddingStart">@dimen/default_margin</item>
+        <item name="android:paddingEnd">@dimen/default_margin</item>
+    </style>
+
+
+    <style name="CircleImageButtonStyle">
+        <item name="android:background">@drawable/bg_circle</item>
+        <item name="android:layout_width">@dimen/circle_icon_size</item>
+        <item name="android:layout_height">@dimen/circle_icon_size</item>
+    </style>
+
+    <style name="EditTextStyleLogin" parent="@style/Theme.AppCompat.Light">
+        <item name="colorAccent">#ff444953</item>
+    </style>
+
+
+    <style name="TextButtonGradient">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/bg_button_gradient_enable</item>
+        <item name="android:paddingTop">13dp</item>
+        <item name="android:paddingBottom">13dp</item>
+        <item name="android:fontFamily">@font/luxstay_medium</item>
+    </style>
+
+    <style name="TextDayOfWeek">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/tulip_tree</item>
+        <item name="fontFamily">@font/luxstay_bold</item>
+    </style>
+
+    <style name="TextItemHeaderStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/greyishBrown</item>
+        <item name="android:fontFamily">@font/luxstay_medium</item>
+    </style>
+
+    <style name="TextListingInfo">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/greyishBrown</item>
+        <item name="fontFamily">@font/luxstay_bold</item>
+    </style>
+
+    <style name="TextStyleBodyLine1">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/greyishBrown</item>
+        <item name="android:lineSpacingExtra">9sp</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="fontFamily">@font/luxstay_bold</item>
+    </style>
+
+    <style name="TextStyleBodyLine2">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/greyishBrown</item>
+        <item name="android:lineSpacingExtra">9sp</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="fontFamily">@font/luxstay_book</item>
+    </style>
+
+    <style name="TextStyleBottomSheetAction">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#fffa7525</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/bg_bottom_sheet_action</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">57dp</item>
+        <item name="android:fontFamily">@font/luxstay_medium</item>
+        <item name="android:layout_marginStart">@dimen/dimen_8dp</item>
+        <item name="android:layout_marginEnd">@dimen/dimen_8dp</item>
+    </style>
+
+    <style name="TextStyleHeader1">
+        <item name="android:textSize">32sp</item>
+        <item name="android:textColor">@color/greyishBrown</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="fontFamily">@font/luxstay_bold</item>
+    </style>
+
+    <style name="TextStyleHeader2">
+        <item name="android:textSize">26sp</item>
+        <item name="android:textColor">@color/greyishBrown</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="fontFamily">@font/luxstay_bold</item>
+    </style>
+
+    <style name="TextStyleItemList">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/greyishBrown</item>
+        <item name="android:fontFamily">@font/luxstay_book</item>
+    </style>
+
+    <style name="TextStyleNameListing">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/greyishBrown</item>
+        <item name="android:lineSpacingExtra">5sp</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="fontFamily">@font/luxstay_book</item>
+    </style>
+
+    <style name="TextStyleOfferHeader">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/grey_900</item>
+        <item name="android:fontFamily">@font/luxstay_medium</item>
+    </style>
+
+    <style name="TextStyleOfferHeaderRight">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/grey_900</item>
+        <item name="android:fontFamily">@font/luxstay_medium</item>
+        <item name="android:textAlignment">viewEnd</item>
+        <item name="android:layout_marginStart">5dp</item>
+    </style>
+
+    <style name="TextStyleOfferSubHeader">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">#ff666666</item>
+        <item name="android:fontFamily">@font/luxstay_book</item>
+    </style>
+
+    <style name="TextStyleOfferSubHeaderRight">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">#ff666666</item>
+        <item name="android:fontFamily">@font/luxstay_book</item>
+        <item name="android:textAlignment">viewEnd</item>
+        <item name="android:layout_marginStart">5dp</item>
+    </style>
+
+    <style name="TextStyleSpinnerItem">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#ff333333</item>
+        <item name="fontFamily">@font/luxstay_book</item>
+    </style>
+
+    <style name="TextStyleSubHeader">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ff484848</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="fontFamily">@font/luxstay_bold</item>
+    </style>
+
+    <style name="line2">
+        <item name="android:background">#ffcdcdcd</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+    </style>
+
+    <style name="style_edt_default">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#ff484848</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
 </resources>

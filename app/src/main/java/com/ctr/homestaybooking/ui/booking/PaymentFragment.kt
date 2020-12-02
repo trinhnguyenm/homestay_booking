@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,7 +31,7 @@ import java.util.*
  */
 @SuppressLint("SetTextI18n")
 class PaymentFragment : BaseFragment() {
-    private lateinit var viewModel: BookingViewModel
+    private lateinit var vm: BookingViewModel
     private lateinit var adapterBookingStep: BookingStepAdapter
     private var startDate: Calendar? = null
     private var endDate: Calendar? = null
@@ -41,13 +42,13 @@ class PaymentFragment : BaseFragment() {
     private var totalFree = 0.0
     private var status: BookingStatus = BookingStatus.PENDING
     private var bookingId = 0
-    private var roomReservationId = 0
     private var bookingSteps = mutableListOf(
         StepBookingUI("Booking"),
         StepBookingUI("Payment"),
         StepBookingUI("Check in"),
         StepBookingUI("Review")
     )
+    private var isNeedReload = false
 
     companion object {
         internal const val KEY_MY_BOOKING = "key_my_booking"
@@ -69,12 +70,25 @@ class PaymentFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = BookingViewModel(
+        vm = BookingViewModel(
             App.instance.localRepository, PlaceRepository(), UserRepository()
         )
+        arguments?.getParcelable<Booking>(KEY_MY_BOOKING)?.let {
+            getBookingById(it.id)
+        }
+        container.gone()
         initRecyclerView()
-        initView()
         initListener()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (isNeedReload) {
+            isNeedReload = false
+            arguments?.getParcelable<Booking>(KEY_MY_BOOKING)?.let {
+                getBookingById(it.id)
+            }
+        }
     }
 
     override fun isNeedPaddingTop() = true
@@ -91,63 +105,93 @@ class PaymentFragment : BaseFragment() {
         }
     }
 
+    private fun getBookingById(id: Int) {
+        vm.getBookingById(id)
+            .observeOnUiThread()
+            .subscribe({
+                container.visible()
+                initView()
+            }, {
+                activity?.showErrorDialog(it)
+            }).addDisposable()
+    }
+
     private fun initView() {
-        arguments?.getParcelable<Booking>(KEY_MY_BOOKING)?.let {
+        vm.getBooking()?.let {
             bookingId = it.id
-            when (it.status) {
-                BookingStatus.PENDING -> {
-                    tvPayNow.text = "Pay Now"
-                    tvPayNow.isEnabled = false
-                    tvBookAlertTitle.text = "Still Awaiting accept from host"
-                    tvBookAlert.text = "Please complete you payment."
-                }
-                BookingStatus.ACCEPTED, BookingStatus.UNPAID -> {
-                    tvPayNow.text = "Pay Now"
-                    tvBookAlertTitle.text = "Still Awaiting Your Payment"
-                    tvBookAlert.text = "Please complete you payment."
-                }
-                BookingStatus.PAID -> {
-                    tvPayNow.text = "Cancel Booking"
-                    tvBookAlertTitle.text = "Wait for you check in"
-                    tvBookAlert.text =
-                        "Please check in before 14:00 ${
-                            it.startDate.toCalendar(FORMAT_DATE_API)
-                                .format(DateUtil.FORMAT_DATE_TIME_CHECK_IN_BOOKING)
-                        }"
-                    adapterBookingStep.setSelectedPosition(2)
-                    rcvStepBooking.scrollToPosition(2)
-                }
-                BookingStatus.COMPLETED -> {
-                    status = BookingStatus.COMPLETED
-                    tvPayNow.text = "Book Again"
-                    tvBookAlertTitle.text = "You booking has been completed"
-                    tvBookAlert.text = "Please review this room."
-                    adapterBookingStep.setSelectedPosition(3)
-                    rcvStepBooking.scrollToPosition(3)
-                }
-                else -> {
-                    status = BookingStatus.CANCELLED
-                    tvPayNow.text = "Book Again"
-                    tvBookAlertTitle.text = "You booking has been canceled"
-                    tvBookAlert.text =
-                        "Sorry, the booking has been cancelled. Please book again or book another room."
-                    adapterBookingStep.setSelectedPosition(2)
-                    bookingSteps.apply {
-                        clear()
-                        addAll(
-                            listOf(
-                                StepBookingUI("Booking"),
-                                StepBookingUI("Payment"),
-                                StepBookingUI("Cancelled")
-                            )
-                        )
+            status = it.status
+            if (!App.instance.localRepository.isHostSession()) {
+                tvTitle.text = it.place.name
+                when (it.status) {
+                    BookingStatus.PENDING -> {
+                        tvPayNow.text = "Pay Now"
+                        tvPayNow.isEnabled = false
+                        tvBookAlertTitle.text = "Still Awaiting accept from host"
+                        tvBookAlert.text = "Please complete you payment."
                     }
-                    rcvStepBooking.adapter?.notifyDataSetChanged()
-                    rcvStepBooking.scrollToPosition(2)
+                    BookingStatus.ACCEPTED, BookingStatus.UNPAID -> {
+                        tvPayNow.text = "Pay Now"
+                        tvBookAlertTitle.text = "Still Awaiting Your Payment"
+                        tvBookAlert.text = "Please complete you payment."
+                    }
+                    BookingStatus.PAID -> {
+                        tvPayNow.text = "Cancel Booking"
+                        tvBookAlertTitle.text = "Wait for you check in"
+                        tvBookAlert.text =
+                            "Please check in before 14:00 ${
+                                it.startDate.toCalendar(FORMAT_DATE_API)
+                                    .format(DateUtil.FORMAT_DATE_TIME_CHECK_IN_BOOKING)
+                            }"
+                        adapterBookingStep.setSelectedPosition(2)
+                        rcvStepBooking.scrollToPosition(2)
+                        adapterBookingStep.notifyDataSetChanged()
+                    }
+                    BookingStatus.COMPLETED -> {
+                        tvPayNow.text = "Book Again"
+                        tvBookAlertTitle.text = "You booking has been completed"
+                        tvBookAlert.text = "Please review this room."
+                        adapterBookingStep.setSelectedPosition(3)
+                        adapterBookingStep.notifyDataSetChanged()
+                        rcvStepBooking.scrollToPosition(3)
+                    }
+                    else -> {
+                        tvPayNow.text = "Book Again"
+                        tvBookAlertTitle.text = "You booking has been canceled"
+                        tvBookAlert.text =
+                            "Sorry, the booking has been cancelled. Please book again or book another room."
+                        adapterBookingStep.setSelectedPosition(2)
+                        bookingSteps.apply {
+                            clear()
+                            addAll(
+                                listOf(
+                                    StepBookingUI("Booking"),
+                                    StepBookingUI("Payment"),
+                                    StepBookingUI("Cancelled")
+                                )
+                            )
+                        }
+                        rcvStepBooking.adapter?.notifyDataSetChanged()
+                        rcvStepBooking.scrollToPosition(2)
+                    }
+                }
+            } else {
+                rcvStepBooking.invisible()
+                tvTitle.text = it.user.firstName + " " + it.user.lastName
+                when (it.status) {
+                    BookingStatus.PENDING -> {
+                        tvPayNow.text = "Chấp nhận"
+                        tvPayNow.isEnabled = true
+                        tvBookAlertTitle.text = "Still Awaiting accept from you"
+                        tvBookAlert.gone()
+                    }
+                    else -> {
+                        tvPayNow.gone()
+                        tvBookAlert.gone()
+                        tvBookAlertTitle.gone()
+                    }
                 }
             }
 
-            tvTitle.text = it.place.name
             tvBookingId.text = "Booking ID: ${it.id}"
             context?.let { context ->
                 Glide.with(context).load(it.place.images?.firstOrNull()).into(ivPlaceThumb)
@@ -218,31 +262,58 @@ class PaymentFragment : BaseFragment() {
         }
 
         tvPayNow.onClickDelayAction {
-            when (status) {
-                BookingStatus.UNPAID, BookingStatus.PENDING -> {
-                    activity?.showDialog(
-                        "Payment Method",
-                        "Do you want pay ${totalFree.toString().getPriceFormat()} now?",
-                        "Yes",
-                        {
-                            changeBookingStatus(BookingStatus.PAID)
-                        }, "No"
-                    )
+            if (!App.instance.localRepository.isHostSession()) {
+                when (status) {
+                    BookingStatus.UNPAID, BookingStatus.ACCEPTED -> {
+                        vm.let { vm ->
+                            vm.requestPayment(bookingId).observeOnUiThread().subscribe({ response ->
+                                response.body.let {
+                                    if (it.errorCode != 0) {
+                                        activity?.showDialog("Error", it.message)
+                                    } else {
+                                        it.payUrl.apply { Log.d("--=", "+${this}") }
+                                            ?.let { url ->
+                                                isNeedReload = true
+                                                activity?.openBrowser(url)
+                                            }
+                                    }
+                                }
+                            }, {
+                                activity?.showErrorDialog(it)
+                            })
+                        }
+                    }
+                    BookingStatus.PAID -> {
+                        activity?.showDialog(
+                            "Warning!",
+                            "Do you want cancel booking?",
+                            "Yes",
+                            {
+                                changeBookingStatus(BookingStatus.CANCELLED)
+                            }, "No"
+                        )
+                    }
+                    else -> {
+
+                    }
                 }
-                BookingStatus.PAID -> {
-                    activity?.showDialog(
-                        "Warning!",
-                        "Do you want cancel booking?",
-                        "Yes",
-                        {
-                            changeBookingStatus(BookingStatus.CANCELLED)
-                        }, "No"
-                    )
-                }
-                else -> {
+            } else {
+                when (status) {
+                    BookingStatus.PENDING -> {
+                        activity?.showDialog(
+                            "Warning!",
+                            "Bạn có muốn chấp nhận đặt chỗ này?",
+                            "Yes",
+                            {
+                                changeBookingStatus(BookingStatus.ACCEPTED)
+                            }, "No"
+                        )
+                    }
+                    else -> {
+
+                    }
                 }
             }
-
         }
 
         tvContactUs.onClickDelayAction {
@@ -253,11 +324,11 @@ class PaymentFragment : BaseFragment() {
     }
 
     private fun changeBookingStatus(bookingStatus: BookingStatus) {
-        addDisposables(
-            viewModel.changeBookingStatus(bookingId, bookingStatus)
-                .observeOnUiThread()
-                .subscribe({
-                    if (it.booking.status == BookingStatus.PAID) {
+        vm.changeBookingStatus(bookingId, bookingStatus)
+            .observeOnUiThread()
+            .subscribe({
+                when (it.booking.status) {
+                    BookingStatus.PAID -> {
                         status = BookingStatus.PAID
                         tvPayNow.text = "Cancer Booking"
                         tvBookAlertTitle.text = "Wait for you check in"
@@ -267,7 +338,15 @@ class PaymentFragment : BaseFragment() {
                         rcvStepBooking.scrollToPosition(2)
                         rcvStepBooking.adapter?.notifyDataSetChanged()
                         RxBus.publish(UpdateMyBooking(true))
-                    } else if (it.booking.status == BookingStatus.CANCELLED) {
+                    }
+                    BookingStatus.ACCEPTED -> {
+                        status = BookingStatus.ACCEPTED
+                        tvBookAlertTitle.text = "Wait for user check in"
+                        tvBookAlert.text =
+                            "User will check in before 14:00 ${startDate?.format(DateUtil.FORMAT_DATE_TIME_CHECK_IN_BOOKING)}"
+                        RxBus.publish(UpdateMyBooking(true))
+                    }
+                    BookingStatus.CANCELLED -> {
                         status = BookingStatus.CANCELLED
                         tvPayNow.text = "Book Again"
                         tvBookAlertTitle.text = "You booking has been canceled"
@@ -288,12 +367,12 @@ class PaymentFragment : BaseFragment() {
                         rcvStepBooking.scrollToPosition(2)
                         RxBus.publish(UpdateMyBooking(true))
                     }
-                }, {
-                    activity?.showErrorDialog(it)
-                })
-        )
+                }
+            }, {
+                activity?.showErrorDialog(it)
+            }).addDisposable()
     }
-
+/*
     private fun changeRoomReservationStatus() {
         addDisposables(
             viewModel.changeRoomReservationStatus(roomReservationId)
@@ -324,10 +403,10 @@ class PaymentFragment : BaseFragment() {
                     activity?.showErrorDialog(it)
                 })
         )
-    }
+    }*/
 
-    override fun getProgressBarControlObservable() =
-        viewModel.progressBarDialogStateObservable
+    override fun getProgressObservable() =
+        vm.progressBarDialogObservable
 }
 
 

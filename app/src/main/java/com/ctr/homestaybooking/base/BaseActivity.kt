@@ -155,6 +155,8 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
+    protected fun Disposable.addDispose(): Disposable = apply { compositeDisposables.add(this) }
+
     protected fun fullScreenActivity() {
         setTransparent(this)
 //        window.setFlags(

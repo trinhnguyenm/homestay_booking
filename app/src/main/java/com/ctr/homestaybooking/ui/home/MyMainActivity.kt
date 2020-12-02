@@ -1,5 +1,7 @@
-package com.ctr.homestaybooking.ui
+package com.ctr.homestaybooking.ui.home
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -8,7 +10,13 @@ import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.ctr.homestaybooking.R
-import com.ctr.homestaybooking.ui.home.HomeActivity
+import com.ctr.homestaybooking.ui.App
+import com.ctr.homestaybooking.ui.home.account.AccountContainerFragment
+import com.ctr.homestaybooking.ui.home.favotite.FavoriteContainerFragment
+import com.ctr.homestaybooking.ui.home.host.calendar.HostBookingContainerFragment
+import com.ctr.homestaybooking.ui.home.host.place.HostPlaceContainerFragment
+import com.ctr.homestaybooking.ui.home.mybooking.MyBookingContainerFragment
+import com.ctr.homestaybooking.ui.home.places.HomeContainerFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.tabs.TabLayout.TabLayoutOnPageChangeListener
@@ -28,6 +36,15 @@ import sdk.chat.ui.interfaces.SearchSupported
  */
 open class MyMainActivity : MainActivity() {
     protected var adapter: PagerAdapterTabs? = null
+    private lateinit var vm: HomeVMContract
+
+    companion object {
+        internal fun start(from: Activity) {
+            MyMainActivity().apply {
+                from.startActivity(Intent(from, MyMainActivity::class.java))
+            }
+        }
+    }
 
     @LayoutRes
     override fun getLayout(): Int {
@@ -36,6 +53,8 @@ open class MyMainActivity : MainActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        vm = HomeViewModel(App.instance.localRepository)
+        initSdk()
         initViews()
         initTab()
     }
@@ -182,4 +201,73 @@ open class MyMainActivity : MainActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+    private fun initSdk() {
+        ChatSDK.ui().removeTab(0)
+        ChatSDK.ui().removeTab(0)
+        if (!vm.isHostSession()) {
+            ChatSDK.ui().apply {
+                setTab(
+                    "Khám phá",
+                    getDrawable(R.drawable.bg_icon_tab_home),
+                    HomeContainerFragment.getNewInstance(),
+                    0
+                )
+                setTab(
+                    "Ưa thích",
+                    getDrawable(R.drawable.bg_icon_tab_save),
+                    FavoriteContainerFragment.getNewInstance(),
+                    1
+                )
+                setTab(
+                    "Đặt phòng",
+                    getDrawable(R.drawable.bg_icon_tab_my_booking),
+                    MyBookingContainerFragment.getNewInstance(),
+                    2
+                )
+                setTab(
+                    "Tài khoản",
+                    getDrawable(R.drawable.bg_icon_tab_account),
+                    AccountContainerFragment.getNewInstance(),
+                    4
+                )
+                setTab(privateThreadsTab().apply {
+                    title = "Tin nhắn"
+                    icon = getDrawable(R.drawable.ic_tab_inbox)
+                }, 3)
+            }
+        } else {
+            ChatSDK.ui().apply {
+                setTab(
+                    "Chỗ ở",
+                    getDrawable(R.drawable.bg_icon_tab_save),
+                    HostPlaceContainerFragment.getNewInstance(),
+                    0
+                )
+                setTab(
+                    "Thống kê",
+                    getDrawable(R.drawable.bg_icon_tab_my_booking),
+                    FavoriteContainerFragment.getNewInstance(),
+                    1
+                )
+                setTab(
+                    "Quản lý lịch",
+                    getDrawable(R.drawable.bg_icon_tab_home),
+                    HostBookingContainerFragment.getNewInstance(),
+                    2
+                )
+                setTab(
+                    "Tài khoản",
+                    getDrawable(R.drawable.bg_icon_tab_account),
+                    AccountContainerFragment.getNewInstance(),
+                    4
+                )
+                setTab(privateThreadsTab().apply {
+                    title = "Tin nhắn"
+                    icon = getDrawable(R.drawable.ic_tab_inbox)
+                }, 3)
+            }
+        }
+    }
+
 }

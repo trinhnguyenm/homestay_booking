@@ -29,5 +29,5 @@ class HomeViewModel(
     }
 
     override fun getProgressObservable(): BehaviorSubject<Boolean> =
-        progressBarDialogStateObservable
+        progressBarDialogObservable
 }

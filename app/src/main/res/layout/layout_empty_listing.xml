@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginEnd="50dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/bg_empty_listing" />
+
+    <TextView
+        android:id="@+id/textView2"
+        style="@style/default_padding"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_15dp"
+        android:fontFamily="@font/lato_black"
+        android:gravity="center"
+        android:text="@string/title_listing_empty"
+        android:textColor="@color/greyishBrown"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        style="@style/default_padding"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_15dp"
+        android:gravity="center"
+        android:text="@string/content_listing_empty"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tvAddListing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_button_gradient_enable"
+        android:fontFamily="@font/lato_semibold"
+        android:paddingStart="25dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="25dp"
+        android:paddingBottom="10dp"
+        android:text="@string/add_listing"
+        android:textColor="@color/white" />
+</androidx.appcompat.widget.LinearLayoutCompat>

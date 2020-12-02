@@ -3,7 +3,6 @@ package com.ctr.homestaybooking.ui.auth
 import com.ctr.homestaybooking.data.source.request.LoginBody
 import com.ctr.homestaybooking.data.source.request.UserBody
 import com.ctr.homestaybooking.data.source.response.LoginResponse
-import com.ctr.homestaybooking.data.source.response.RegisterResponse
 import io.reactivex.Single
 import io.reactivex.subjects.BehaviorSubject
 
@@ -20,7 +19,9 @@ interface LoginVMContract {
 
     fun saveUserId(id: Int)
 
-    fun register(): Single<RegisterResponse>
+    fun register(): Single<LoginResponse>
 
     fun getRegisterBody(): UserBody
+
+    fun getLoginBody(): LoginBody
 }

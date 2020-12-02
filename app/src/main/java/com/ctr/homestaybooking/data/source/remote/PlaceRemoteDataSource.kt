@@ -5,9 +5,7 @@ import com.ctr.homestaybooking.data.source.datasource.PlaceDataSource
 import com.ctr.homestaybooking.data.source.remote.network.ApiClient
 import com.ctr.homestaybooking.data.source.remote.network.ApiService
 import com.ctr.homestaybooking.data.source.request.BookingBody
-import com.ctr.homestaybooking.data.source.request.RoomsReservationBody
 import com.ctr.homestaybooking.data.source.response.BookingResponse
-import com.ctr.homestaybooking.data.source.response.MyBookingResponse
 import io.reactivex.Single
 
 /**
@@ -17,30 +15,27 @@ class PlaceRemoteDataSource(private val apiService: ApiService = ApiClient.getIn
     PlaceDataSource {
     override fun getPlaces() = apiService.getPlaces()
 
+    override fun getPlacesByHostId(id: Int) = apiService.getPlacesByHostId(id)
+
     override fun getPlaceDetail(placeId: Int) = apiService.getPlaceDetail(placeId)
 
     override fun addBooking(bookingBody: BookingBody): Single<BookingResponse> =
         apiService.addBooking(bookingBody)
 
-    override fun getAllRoomByBrand(brandId: Int) = apiService.getAllRoomByBrand(brandId)
+    override fun getBookingById(id: Int): Single<BookingResponse> =
+        apiService.getBookingById(id)
 
     override fun getAllRoomStatus(brandId: Int, startDate: String, endDate: String) =
         apiService.getAllRoomStatus(brandId, startDate, endDate)
 
-    override fun addNewRoomsReservation(
-        numberOfRooms: Int,
-        listPromoCode: List<String>?,
-        roomsReservationBody: RoomsReservationBody
-    ): Single<MyBookingResponse> {
-        apiService.getPlaces()
-        return apiService.addNewRoomsReservation(numberOfRooms, listPromoCode, roomsReservationBody)
-    }
-
     override fun getBookingHistory(id: Int) = apiService.getBookingHistory(id)
+
+    override fun getBookingByHostId(id: Int) = apiService.getBookingByHostId(id)
 
     override fun changeBookingStatus(bookingId: Int, bookingStatus: BookingStatus) =
         apiService.changeBookingStatus(bookingId, bookingStatus)
 
-    override fun changeRoomReservationStatus(roomReservationId: Int) =
-        apiService.changeRoomReservationStatus(roomReservationId, BookingStatus.CANCELLED)
+    override fun requestPayment(bookingId: Int) =
+        apiService.requestPayment(bookingId)
+
 }

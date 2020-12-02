@@ -59,12 +59,9 @@ abstract class BaseFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        getProgressBarControlObservable()?.let {
-            addDisposables(
-                it.observeOnUiThread()
-                    .subscribe(this::setProgressBarState)
-            )
-        }
+        getProgressObservable()?.observeOnUiThread()
+            ?.subscribe(this::setProgressBarState)
+            ?.addDisposable()
     }
 
     override fun onPause() {
@@ -83,7 +80,7 @@ abstract class BaseFragment : Fragment() {
 
     open fun statusIconTheme(): Int = STATUS_BAR_ICON_THEME_WHITE
 
-    protected open fun getProgressBarControlObservable(): BehaviorSubject<Boolean>? = null
+    protected open fun getProgressObservable(): BehaviorSubject<Boolean>? = null
 
     internal fun isChangeData() = isDataChanged
 
@@ -92,6 +89,8 @@ abstract class BaseFragment : Fragment() {
             compositeDisposables.add(it)
         }
     }
+
+    protected fun Disposable.addDisposable(): Disposable = apply { compositeDisposables.add(this) }
 
     protected fun setProgressBarState(state: Boolean) {
         if (state) {

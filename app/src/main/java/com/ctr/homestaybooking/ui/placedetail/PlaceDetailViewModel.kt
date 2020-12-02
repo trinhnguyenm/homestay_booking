@@ -43,5 +43,5 @@ class PlaceDetailViewModel(
     }
 
     override fun getProgressObservable(): BehaviorSubject<Boolean> =
-        progressBarDialogStateObservable
+        progressBarDialogObservable
 }

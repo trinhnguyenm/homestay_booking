@@ -36,5 +36,5 @@ class FavoriteFragment : BaseFragment() {
         }
     }
 
-    override fun isNeedPaddingTop() = true
+    override fun isNeedPaddingTop() = false
 }

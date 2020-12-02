@@ -44,5 +44,5 @@ class MyBookingViewModel(
     }
 
     override fun getProgressObservable(): BehaviorSubject<Boolean> =
-        progressBarDialogStateObservable
+        progressBarDialogObservable
 }

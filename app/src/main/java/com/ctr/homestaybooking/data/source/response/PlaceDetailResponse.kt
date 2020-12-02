@@ -50,8 +50,33 @@ data class PlaceDetail(
     @SerializedName("rateCount") val rateCount: Int,
     @SerializedName("rateAverage") val rateAverage: Double
 ) : Parcelable {
-    fun getRooms(): String {
+    internal fun getRooms(): String {
         return "$guestCount khách $roomCount phòng ngủ $bedCount giường $bathroomCount phòng tắm "
+    }
+
+    internal fun getSubmitProgress(): Int {
+        var count = 0
+        if (id != null) count++
+        if (name != null) count++
+        if (description != null) count++
+        if (bookingType != null) count++
+        if (street != null) count++
+        if (address != null) count++
+        if (guestCount != null) count++
+        if (roomCount != null) count++
+        if (bedCount != null) count++
+        if (size != null) count++
+        if (pricePerDay != null) count++
+        if (cancelType != null) count++
+        if (earliestCheckInTime != null) count++
+        if (latestCheckInTime != null) count++
+        if (checkOutTime != null) count++
+        if (images != null) count++
+        if (amenities != null) count++
+        if (bookingSlots != null) count++
+        if (wardDetail != null) count++
+        if (placeType != null) count++
+        return count
     }
 }
 

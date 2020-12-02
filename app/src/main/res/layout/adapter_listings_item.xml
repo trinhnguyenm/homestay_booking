@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="17dp"
+    android:background="?android:selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardCornerRadius="5dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/ivCover"
+            android:layout_width="@dimen/image_cover_width_size"
+            android:layout_height="@dimen/image_cover_height_size"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/bg_place_holder"
+            android:scaleType="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:riv_corner_radius="3dp" />
+
+        <TextView
+            android:id="@+id/tvNameListing"
+            style="@style/TextStyleNameListing"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="@+id/ivCover"
+            app:layout_constraintEnd_toStartOf="@+id/ivCover"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/ivCover"
+            tools:text="Ten cho o" />
+
+        <TextView
+            android:id="@+id/textView6"
+            style="@style/TextStyleBodyLine1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/finish_listing_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="19dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/concrete"
+            android:scrollbarSize="1dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivCover" />
+
+        <TextView
+            android:id="@+id/tvProgress"
+            style="@style/TextStyleBodyLine2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="@+id/textView6"
+            app:layout_constraintStart_toStartOf="@+id/textView6"
+            app:layout_constraintTop_toBottomOf="@+id/textView6"
+            tools:text="Ban da hoan thanh 70%" />
+
+        <ProgressBar
+            android:id="@+id/progress_finish"
+            style="?android:progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="5dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="17dp"
+            android:max="20"
+            android:progressDrawable="@drawable/bg_progress_bar"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/tvProgress"
+            app:layout_constraintStart_toStartOf="@+id/tvProgress"
+            app:layout_constraintTop_toBottomOf="@+id/tvProgress" />
+        <!--
+                <ImageButton
+                    android:id="@+id/iv_create"
+                    style="@style/CircleImageButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_titlle_todo"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_title_update"
+                    app:srcCompat="@drawable/ic_create" />
+
+                <TextView
+                    android:id="@+id/tv_title_update"
+                    style="@style/TextStyleBodyLine1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="8dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="@string/suggest_title_header"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView2"
+                    app:layout_constraintStart_toEndOf="@+id/iv_create"
+                    app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+                <TextView
+                    android:id="@+id/tv_titlle_todo"
+                    style="@style/TextStyleBodyLine2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:text="@string/suggest_title"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_title_update"
+                    app:layout_constraintStart_toStartOf="@+id/tv_title_update"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title_update" />
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="8dp"
+                    android:layout_height="12dp"
+                    android:layout_marginEnd="24dp"
+                    android:scaleType="center"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_titlle_todo"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_title_update"
+                    app:srcCompat="@drawable/ic_next" />-->
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
