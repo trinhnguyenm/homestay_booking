@@ -8,6 +8,6 @@ import com.ctr.homestaybooking.data.source.datasource.LocalDataSource
 
 class HomeViewModel(private val localRepository: LocalDataSource) : HomeVMContract {
 
-    override fun isHostSession() = localRepository.isHostSession()
+    override fun isUserSession() = localRepository.isUserSession()
 
 }

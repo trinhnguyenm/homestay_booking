@@ -202,4 +202,12 @@
     <declare-styleable name="ExpandableTextView">
         <attr name="trimLength" format="integer" />
     </declare-styleable>
+    <declare-styleable name="ListingInfoView">
+        <attr name="titleText" format="string|reference" />
+        <attr name="isCompleted" format="boolean" />
+
+    </declare-styleable>
+    <declare-styleable name="CustomSpinner">
+        <attr name="title" format="string|reference" />
+    </declare-styleable>
 </resources>

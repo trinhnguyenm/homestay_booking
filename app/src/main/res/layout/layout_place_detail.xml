@@ -113,7 +113,7 @@
         android:layout_width="match_parent"
         app:layout_constraintTop_toBottomOf="@id/tvPlaceRoom" />
 
-    <com.ctr.homestaybooking.util.ExpandableTextView
+    <com.ctr.homestaybooking.ui.wedget.ExpandableTextView
         android:id="@+id/tvDescription"
         style="@style/textBlackRegular"
         android:layout_width="match_parent"

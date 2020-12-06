@@ -64,7 +64,7 @@ class InputGroupLayout @JvmOverloads constructor(
         breakLine?.isActivated = isValid()
         errorLabel?.isSelected = inputField?.hasFocus() ?: false
         errorLabel?.isActivated = isValid()
-        errorLabel?.visibility = if (isValid()) View.GONE else View.VISIBLE
+        errorLabel?.visibility = if (isValid()) View.INVISIBLE else View.VISIBLE
         if (isValid) {
             inputField.setTextColor(textcolor)
         } else {

@@ -18,7 +18,7 @@ class LoginViewModel(
 ) : LoginVMContract, BaseViewModel() {
     private var registerBody =
         UserBody(
-            deviceToken = (1..100000000).random().toString()
+            deviceToken = localRepository.getDeviceToken()
         )
 
     private var loginBody = LoginBody()

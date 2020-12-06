@@ -1,11 +1,13 @@
 package com.ctr.homestaybooking.ui.auth
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import com.ctr.homestaybooking.R
-import com.ctr.homestaybooking.base.BaseFragment
+import com.ctr.homestaybooking.base.BaseChooseImageFragment
 import com.ctr.homestaybooking.data.source.UserRepository
 import com.ctr.homestaybooking.extension.*
 import com.ctr.homestaybooking.ui.App
@@ -18,7 +20,7 @@ import sdk.guru.common.RX
 /**
  * Created by at-trinhnguyen2 on 2020/06/18
  */
-class RegisterFragment : BaseFragment() {
+class RegisterFragment : BaseChooseImageFragment() {
     private var avatarImageURL: String? = null
     private lateinit var vm: LoginVMContract
 
@@ -41,6 +43,12 @@ class RegisterFragment : BaseFragment() {
         context?.let {
             vm = LoginViewModel(App.instance.localRepository, UserRepository())
         }
+    }
+
+    override fun getImageView(): ImageView = imgAvatar
+
+    override fun getPathImageSuccess(path: String) {
+        Log.d("--=", "getPathImageSuccess: ${path}")
     }
 
     override fun isNeedPaddingTop() = true
@@ -115,6 +123,10 @@ class RegisterFragment : BaseFragment() {
             activity?.onBackPressed()
         }
 
+        imgAvatar.onClickDelayAction {
+            showPopupGetImage()
+        }
+
         tvSignUp.onClickDelayAction {
             ChatSDK.auth().authenticate(
                 AccountDetails.signUp(
@@ -140,7 +152,7 @@ class RegisterFragment : BaseFragment() {
                                     activity?.showDialog(
                                         "",
                                         "Đăng kí thành công",
-                                        "OK",
+                                        getString(R.string.ok),
                                         {
                                             vm.saveAutoLoginToken(it.authToken.token)
                                             vm.saveUserId(it.authToken.userDetail.id)

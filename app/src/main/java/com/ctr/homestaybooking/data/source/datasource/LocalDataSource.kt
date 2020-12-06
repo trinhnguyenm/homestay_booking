@@ -1,5 +1,9 @@
 package com.ctr.homestaybooking.data.source.datasource
 
+import android.graphics.Bitmap
+import android.net.Uri
+import java.io.File
+
 /**
  * This interface used to declare the functions which use to get data from local storage.
  */
@@ -33,7 +37,20 @@ interface LocalDataSource {
     fun removeUserId()
 
     fun getUUID(): String
-    fun isHostSession(): Boolean
+
+    fun isUserSession(): Boolean
+
     fun setHostSession()
+
     fun setUserSession()
+
+    fun savePermission(key: String, isChecked: Boolean)
+
+    fun getPermission(key: String): Boolean
+
+    fun handleBitmapToSave(uri: Uri): Bitmap?
+
+    fun createImageFile(): File?
+
+    fun createFileFromBitmap(bitmap: Bitmap): String
 }

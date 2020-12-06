@@ -24,7 +24,7 @@
                 android:layout_centerInParent="true"
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
-                android:text="Login" />
+                android:text="@string/login" />
 
             <ImageView
                 android:id="@+id/imgBack"
@@ -95,11 +95,11 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/inputPhone"
                 android:layout_marginTop="@dimen/dimen_24dp"
-                app:edit_hint="Enter your email"
+                app:edit_hint="@string/hint_enter_your_email"
                 app:edit_maxLength="255"
-                app:error_text="Email is not valid"
+                app:error_text="@string/error_email_is_not_valid"
                 app:error_textOnEmpty="@string/error001"
-                app:label_text="Email" />
+                app:label_text="@string/email" />
 
             <com.ctr.homestaybooking.ui.wedget.InputGroupLayout
                 android:id="@+id/inputPassword"
@@ -107,12 +107,12 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/inputEmail"
                 android:layout_marginTop="@dimen/dimen_24dp"
-                app:edit_hint="Enter your password"
+                app:edit_hint="@string/hint_enter_password"
                 app:edit_inputType="textPassword"
                 app:edit_maxLength="50"
-                app:error_text="Password must have minimum 8 characters, at least one uppercase letter, one lowercase letter and one number"
+                app:error_text="@string/error_password"
                 app:error_textOnEmpty="@string/error001"
-                app:label_text="Password" />
+                app:label_text="@string/password" />
 
             <com.ctr.homestaybooking.ui.wedget.InputGroupLayout
                 android:id="@+id/inputConfirmPassword"
@@ -139,7 +139,7 @@
                 android:layout_marginEnd="@dimen/dimen_20dp"
                 android:layout_marginBottom="@dimen/dimen_30dp"
                 android:background="@drawable/bg_button_round_gradient_enable"
-                android:text="@string/log_in"
+                android:text="@string/login"
                 android:textColor="#ffffffff" />
 
             <TextView
@@ -150,7 +150,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="@dimen/dimen_12dp"
                 android:fontFamily="@font/lato_black"
-                android:text="Don't have an account?"
+                android:text="@string/dont_have_an_account"
                 android:textColor="#ff666666"
                 android:textSize="15sp" />
 
@@ -162,7 +162,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="@dimen/dimen_30dp"
                 android:fontFamily="@font/lato_black"
-                android:text="SIGN UP HERE"
+                android:text="@string/register"
                 android:textColor="@color/colorAccent"
                 android:textSize="16sp" />
         </RelativeLayout>

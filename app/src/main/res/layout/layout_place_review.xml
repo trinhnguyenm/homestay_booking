@@ -83,7 +83,7 @@
         app:layout_constraintTop_toBottomOf="@id/ratingBar"
         tools:text="tháng 7 năm 2020" />
 
-    <com.ctr.homestaybooking.util.ExpandableTextView
+    <com.ctr.homestaybooking.ui.wedget.ExpandableTextView
         android:id="@+id/tvReviewComment"
         style="@style/textBlackRegular"
         android:layout_width="match_parent"

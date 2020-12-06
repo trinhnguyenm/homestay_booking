@@ -88,13 +88,14 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/luxstay_medium</item>
         <item name="android:drawableRight">@drawable/ic_star</item>
         <item name="android:textColor">@color/input_group_color_state</item>
-        <item name="android:textSize">12dp</item>
     </style>
 
     <style name="inputGroupEditText">
-        <item name="android:layout_height">26dp</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_marginTop">10dp</item>
         <item name="android:layout_marginLeft">12dp</item>
@@ -131,8 +132,8 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
         <item name="android:layout_marginTop">4dp</item>
-        <item name="android:layout_marginLeft">16dp</item>
-        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:layout_marginRight">20dp</item>
         <item name="android:background">@drawable/bg_input_group_break_line</item>
     </style>
 
@@ -149,7 +150,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/input_group_color_state</item>
         <item name="android:textSize">12dp</item>
-        <item name="android:visibility">gone</item>
+        <item name="android:visibility">invisible</item>
     </style>
 
     <style name="text_date_in_search">

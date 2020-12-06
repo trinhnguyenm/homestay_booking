@@ -1,9 +1,9 @@
 package com.ctr.homestaybooking.data.source.response
 
 import android.os.Parcelable
-import com.ctr.homestaybooking.data.model.BookingType
-import com.ctr.homestaybooking.data.model.DateStatus
-import com.ctr.homestaybooking.data.model.PlaceStatus
+import android.util.Log
+import com.ctr.homestaybooking.data.model.*
+import com.ctr.homestaybooking.data.source.request.PlaceBody
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
@@ -13,13 +13,13 @@ import kotlinx.android.parcel.Parcelize
  */
 @Parcelize
 data class PlaceDetailResponse(
-    @SerializedName("body") val placeDetail: PlaceDetail? = null,
+    @SerializedName("body") val placeDetail: PlaceDetail,
     @SerializedName("length") val length: Int
 ) : Parcelable
 
 @Parcelize
 data class PlaceDetail(
-    @SerializedName("id") val id: Int? = null,
+    @SerializedName("id") val id: Int,
     @SerializedName("name") val name: String? = null,
     @SerializedName("description") val description: String? = null,
     @SerializedName("bookingType") val bookingType: BookingType? = null,
@@ -33,18 +33,18 @@ data class PlaceDetail(
     @SerializedName("bathroomCount") val bathroomCount: Int? = null,
     @SerializedName("size") val size: Int? = null,
     @SerializedName("pricePerDay") val pricePerDay: Double? = null,
-    @SerializedName("cancelType") val cancelType: String? = null,
+    @SerializedName("cancelType") val cancelType: CancelType? = null,
     @SerializedName("earliestCheckInTime") val earliestCheckInTime: String? = null,
     @SerializedName("latestCheckInTime") val latestCheckInTime: String? = null,
     @SerializedName("checkOutTime") val checkOutTime: String? = null,
-    @SerializedName("submitStatus") val submitStatus: String? = null,
+    @SerializedName("submitStatus") val submitStatus: SubmitStatus? = null,
     @SerializedName("status") val status: PlaceStatus? = null,
     @SerializedName("images") val images: List<String>? = null,
     @SerializedName("amenities") val amenities: List<Int>? = null,
     @SerializedName("bookingSlots") val bookingSlots: List<BookingSlot>? = null,
     @SerializedName("hostDetail") val hostDetail: UserDetail? = null,
     @SerializedName("wardDetail") val wardDetail: WardDetail? = null,
-    @SerializedName("placeType") val placeType: String? = null,
+    @SerializedName("placeType") val placeType: PlaceType? = null,
     @SerializedName("promos") val promos: List<Promo>? = null,
     @SerializedName("reviews") val reviews: List<Review>? = null,
     @SerializedName("rateCount") val rateCount: Int,
@@ -54,30 +54,87 @@ data class PlaceDetail(
         return "$guestCount khách $roomCount phòng ngủ $bedCount giường $bathroomCount phòng tắm "
     }
 
-    internal fun getSubmitProgress(): Int {
-        var count = 0
-        if (id != null) count++
-        if (name != null) count++
-        if (description != null) count++
-        if (bookingType != null) count++
-        if (street != null) count++
-        if (address != null) count++
-        if (guestCount != null) count++
-        if (roomCount != null) count++
-        if (bedCount != null) count++
-        if (size != null) count++
-        if (pricePerDay != null) count++
-        if (cancelType != null) count++
-        if (earliestCheckInTime != null) count++
-        if (latestCheckInTime != null) count++
-        if (checkOutTime != null) count++
-        if (images != null) count++
-        if (amenities != null) count++
-        if (bookingSlots != null) count++
-        if (wardDetail != null) count++
-        if (placeType != null) count++
-        return count
+    internal fun isSubmitBasicInfo() =
+        listOf(
+            name,
+            description,
+            bookingType,
+            placeType,
+            wardDetail,
+            street,
+            size,
+            guestCount,
+            roomCount,
+            bedCount,
+            bathroomCount
+        ).all { it != null }
+
+    internal fun isSubmitImages(): Boolean {
+        images.apply { Log.d("--=", "images+${this}") }
+        return isSubmitBasicInfo() && images != null && images.size >= 4
     }
+
+    internal fun isSubmitPrice() =
+        isSubmitImages() &&
+                listOf(
+                    pricePerDay,
+                    cancelType
+                ).all { it != null }
+
+    internal fun isSubmitCalendar() = isSubmitPrice() && !bookingSlots.isNullOrEmpty()
+
+    internal fun getSubmitProgressPercent(): Int {
+        val list = listOf(
+            name,
+            description,
+            bookingType,
+            street,
+            address,
+            guestCount,
+            roomCount,
+            bedCount,
+            bathroomCount,
+            size,
+            pricePerDay,
+            cancelType,
+            earliestCheckInTime,
+            latestCheckInTime,
+            checkOutTime,
+            images,
+            amenities,
+            wardDetail,
+            placeType
+        )
+        return (list.count { it != null }.div(list.size.toDouble()) * 100).toInt()
+    }
+
+    internal fun toPlaceBody() = PlaceBody(
+        id = id,
+        name = name,
+        description = description,
+        bookingType = bookingType,
+        longitude = longitude,
+        latitude = latitude,
+        street = street,
+        address = address,
+        guestCount = guestCount,
+        roomCount = roomCount,
+        bedCount = bedCount,
+        bathroomCount = bathroomCount,
+        size = size,
+        pricePerDay = pricePerDay,
+        cancelType = cancelType,
+        earliestCheckInTime = earliestCheckInTime,
+        latestCheckInTime = latestCheckInTime,
+        checkOutTime = checkOutTime,
+        submitStatus = submitStatus ?: SubmitStatus.DRAFT,
+        images = images?.toMutableList(),
+        amenities = amenities,
+        bookingSlots = bookingSlots,
+        userId = hostDetail?.id,
+        wardId = wardDetail?.id,
+        placeTypeId = placeType?.id
+    )
 }
 
 @Parcelize
@@ -128,7 +185,9 @@ data class DistrictDetail(
 
 @Parcelize
 data class Province(
-    @SerializedName("id") val id: Int? = null,
-    @SerializedName("type") val type: String? = null,
-    @SerializedName("name") val name: String? = null
-) : Parcelable
+    @SerializedName("id") val id: Int,
+    @SerializedName("type") val type: String,
+    @SerializedName("name") val name: String
+) : Parcelable {
+    internal fun getName() = "$type $name"
+}

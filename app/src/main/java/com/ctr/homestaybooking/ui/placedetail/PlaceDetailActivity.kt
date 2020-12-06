@@ -5,10 +5,12 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.ctr.homestaybooking.R
 import com.ctr.homestaybooking.base.BaseActivity
+import com.ctr.homestaybooking.data.model.ImageSlideData
 import com.ctr.homestaybooking.data.source.response.BookingSlot
 import com.ctr.homestaybooking.data.source.response.PlaceDetailResponse
 import com.ctr.homestaybooking.extension.addFragment
 import com.ctr.homestaybooking.ui.booking.BookingActivity
+import com.ctr.homestaybooking.ui.setupplace.ImageSliderFragment
 
 /**
  * Created by at-trinhnguyen2 on 2020/06/13
@@ -58,5 +60,20 @@ class PlaceDetailActivity : BaseActivity() {
 
     internal fun openBookingActivity(startDate: String, endDate: String) {
         placeDetailResponse?.let { BookingActivity.start(this, it, startDate, endDate) }
+    }
+
+    internal fun openImageSliderFragment(imageSlideData: ImageSlideData) {
+        addFragment(
+            getContainerId(),
+            ImageSliderFragment.newInstance(imageSlideData),
+            addToBackStack = true, transactionCallback = {
+                it.setCustomAnimations(
+                    R.anim.anim_fade_in,
+                    0,
+                    0,
+                    R.anim.anim_fade_out
+                )
+            }
+        )
     }
 }

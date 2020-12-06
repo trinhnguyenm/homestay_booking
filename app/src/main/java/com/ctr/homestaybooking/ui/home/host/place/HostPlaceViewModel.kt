@@ -24,6 +24,7 @@ class HostPlaceViewModel(
                 getPlaces().apply {
                     clear()
                     addAll(response.places)
+                    sortByDescending { it.id }
                 }
             }
     }

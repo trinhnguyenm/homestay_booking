@@ -120,7 +120,7 @@ class PaymentFragment : BaseFragment() {
         vm.getBooking()?.let {
             bookingId = it.id
             status = it.status
-            if (!App.instance.localRepository.isHostSession()) {
+            if (App.instance.localRepository.isUserSession()) {
                 tvTitle.text = it.place.name
                 when (it.status) {
                     BookingStatus.PENDING -> {
@@ -176,7 +176,7 @@ class PaymentFragment : BaseFragment() {
                 }
             } else {
                 rcvStepBooking.invisible()
-                tvTitle.text = it.user.firstName + " " + it.user.lastName
+                tvTitle.text = it.user.getName()
                 when (it.status) {
                     BookingStatus.PENDING -> {
                         tvPayNow.text = "Chấp nhận"
@@ -262,7 +262,7 @@ class PaymentFragment : BaseFragment() {
         }
 
         tvPayNow.onClickDelayAction {
-            if (!App.instance.localRepository.isHostSession()) {
+            if (App.instance.localRepository.isUserSession()) {
                 when (status) {
                     BookingStatus.UNPAID, BookingStatus.ACCEPTED -> {
                         vm.let { vm ->

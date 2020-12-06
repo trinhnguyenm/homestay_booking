@@ -3,6 +3,7 @@ package com.ctr.homestaybooking.data.source.remote.network
 import com.ctr.homestaybooking.data.model.BookingStatus
 import com.ctr.homestaybooking.data.source.request.BookingBody
 import com.ctr.homestaybooking.data.source.request.LoginBody
+import com.ctr.homestaybooking.data.source.request.PlaceBody
 import com.ctr.homestaybooking.data.source.request.UserBody
 import com.ctr.homestaybooking.data.source.response.*
 import io.reactivex.Single
@@ -24,17 +25,32 @@ interface ApiService {
     @GET("/api/users/{id}")
     fun getUserFollowId(@Path("id") userId: Int): Single<UserResponse>
 
+    @PATCH("/api/users/{id}/host")
+    fun upToHost(@Path("id") userId: Int): Single<UserResponse>
+
     /**
      * Place
      * */
     @GET("/api/places")
     fun getPlaces(): Single<PlaceResponse>
 
+    @PUT("/api/places/")
+    fun editPlace(@Body placeBody: PlaceBody): Single<PlaceDetailResponse>
+
     @GET("/api/places/host/{id}")
     fun getPlacesByHostId(@Path("id") id: Int): Single<HostPlaceResponse>
 
     @GET("/api/places/{id}")
     fun getPlaceDetail(@Path("id") placeId: Int): Single<PlaceDetailResponse>
+
+    @GET("/api/placeTypes")
+    fun getPlaceTypes(): Single<PlaceTypeResponse>
+
+    @GET("/api/provinces")
+    fun getProvinces(): Single<ProvinceResponse>
+
+    @GET("/api/provinces/{id}")
+    fun getProvinceById(@Path("id") id: Int): Single<ProvinceDetailResponse>
 
     @GET("/api/rooms/status/?")
     fun getAllRoomStatus(

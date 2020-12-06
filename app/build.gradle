@@ -85,6 +85,8 @@ dependencies {
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-database:19.3.0'
+    implementation 'com.google.firebase:firebase-messaging:21.0.0'
+    implementation 'com.google.firebase:firebase-storage-ktx:19.2.0'
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:2.11.0'
     testImplementation "org.robolectric:robolectric:3.6.1"
@@ -114,6 +116,9 @@ dependencies {
 
     // Date Picker
     implementation 'com.wdullaer:materialdatetimepicker:4.2.1'
+
+    // Crop Image
+    api 'com.theartofdev.edmodo:android-image-cropper:2.7.0'
 
     // View
     implementation 'me.grantland:autofittextview:0.2.1'

@@ -11,7 +11,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class UserResponse(
     @SerializedName("body")
-    val body: UserDetail,
+    val userDetail: UserDetail,
     @SerializedName("length")
     val length: Int
 ) : Parcelable

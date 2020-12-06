@@ -117,7 +117,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/ivThumbnail"
                 tools:text="PLACE TYPE" />
 
-            <com.ctr.homestaybooking.util.ExpandableTextView
+            <com.ctr.homestaybooking.ui.wedget.ExpandableTextView
                 android:id="@+id/tvName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

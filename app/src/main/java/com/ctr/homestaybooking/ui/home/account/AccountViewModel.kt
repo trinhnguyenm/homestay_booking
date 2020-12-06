@@ -11,15 +11,26 @@ class AccountViewModel(
     private val localRepository: LocalDataSource,
     private val userRepository: UserRepository
 ) : AccountVMContract, BaseViewModel() {
+    private var userResponse: UserResponse? = null
 
     override fun getUserId() = localRepository.getUserId()
+
+    override fun getUserResponse() = userResponse
 
     override fun getUserInfo(): Single<UserResponse> {
         return userRepository.getUserFollowId(localRepository.getUserId())
             .addProgressLoading()
+            .doOnSuccess {
+                userResponse = it
+            }
     }
 
-    override fun isHostSession() = localRepository.isHostSession()
+    override fun upToHost(): Single<UserResponse> {
+        return userRepository.upToHost(localRepository.getUserId())
+            .addProgressLoading()
+    }
+
+    override fun isUserSession() = localRepository.isUserSession()
 
     override fun setHostSession() {
         localRepository.setHostSession()

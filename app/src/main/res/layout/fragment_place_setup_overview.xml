@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <ImageButton
+        android:id="@+id/ivBack"
+        style="@style/CircleImageButtonStyle"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_chevron_left" />
+
+    <TextView
+        android:id="@+id/tvSave"
+        style="@style/TextItemHeaderStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/spacing_side_normal"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/ivBack"
+        app:layout_constraintEnd_toStartOf="@+id/ivMore"
+        app:layout_constraintTop_toTopOf="@+id/ivBack"
+        app:layout_constraintVertical_bias="0.357"
+        tools:text="Save" />
+
+    <TextView
+        android:id="@+id/tvNameListing"
+        style="@style/TextStyleHeader1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_side_normal"
+        android:ellipsize="end"
+        android:maxLines="4"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:text="@string/listing_setup_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivBack" />
+
+    <com.ctr.homestaybooking.ui.wedget.ListingInfoView
+        android:id="@+id/liBasic"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvNameListing"
+        app:titleText="@string/listing_basic_info_title" />
+
+    <com.ctr.homestaybooking.ui.wedget.ListingInfoView
+        android:id="@+id/liTakePhotos"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/liBasic"
+        app:titleText="@string/listing_photo_info_title" />
+
+    <com.ctr.homestaybooking.ui.wedget.ListingInfoView
+        android:id="@+id/liRate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/liTakePhotos"
+        app:titleText="@string/listing_rates_info_title" />
+
+    <com.ctr.homestaybooking.ui.wedget.ListingInfoView
+        android:id="@+id/liCalendar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/liRate"
+        app:titleText="@string/listing_calendar_info_title" />
+
+    <TextView
+        android:id="@+id/tvRequest"
+        style="@style/TextButtonGradient"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="52dp"
+        android:enabled="false"
+        android:text="@string/listing_request_verify"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivMore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/spacing_side_normal"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/tvSave"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvSave"
+        app:srcCompat="@drawable/ic_more_horiz" />
+
+    <TextView
+        android:id="@+id/tvToolbarTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/luxstay_medium"
+        android:maxLines="1"
+        android:textColor="@color/greyishBrown"
+        android:textSize="16sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/ivBack"
+        app:layout_constraintEnd_toStartOf="@+id/tvSave"
+        app:layout_constraintStart_toEndOf="@+id/ivBack"
+        app:layout_constraintTop_toTopOf="@+id/ivBack"
+        tools:text="Title" />
+</androidx.constraintlayout.widget.ConstraintLayout>

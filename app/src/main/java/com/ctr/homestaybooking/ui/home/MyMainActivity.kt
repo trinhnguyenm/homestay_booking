@@ -205,7 +205,7 @@ open class MyMainActivity : MainActivity() {
     private fun initSdk() {
         ChatSDK.ui().removeTab(0)
         ChatSDK.ui().removeTab(0)
-        if (!vm.isHostSession()) {
+        if (vm.isUserSession()) {
             ChatSDK.ui().apply {
                 setTab(
                     "Khám phá",

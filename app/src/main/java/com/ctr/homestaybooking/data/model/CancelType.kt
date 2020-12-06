@@ -5,7 +5,7 @@ package com.ctr.homestaybooking.data.model
  */
 enum class CancelType {
     FLEXIBLE,
-    TYPE_2,
-    TYPE_3
+    MODERATE,
+    STRICT
 }
 

@@ -40,7 +40,7 @@
         app:layout_constraintTop_toBottomOf="@id/tvUsername"
         tools:text="tháng 7 năm 2020" />
 
-    <com.ctr.homestaybooking.util.ExpandableTextView
+    <com.ctr.homestaybooking.ui.wedget.ExpandableTextView
         android:id="@+id/tvComment"
         style="@style/textBlackRegular"
         android:layout_width="match_parent"

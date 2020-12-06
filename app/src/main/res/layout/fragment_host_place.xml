@@ -21,7 +21,6 @@
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:contentScrim="?colorPrimary"
                 app:layout_scrollFlags="exitUntilCollapsed|scroll|snap"
                 app:toolbarId="@+id/toolbar">
 
@@ -47,7 +46,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/spacing_side_normal"
                     android:layout_marginTop="69dp"
-                    android:paddingBottom="11dp"
                     android:text="@string/tab_listings"
                     app:layout_collapseMode="pin" />
             </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -71,7 +69,7 @@
                 android:nestedScrollingEnabled="true"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                tools:listitem="" />
+                tools:listitem="@layout/fragment_host_place" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <androidx.cardview.widget.CardView

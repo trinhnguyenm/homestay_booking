@@ -24,7 +24,7 @@
                 android:layout_centerInParent="true"
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
-                android:text="Sign Up" />
+                android:text="@string/sign_up" />
 
             <ImageView
                 android:id="@+id/imgBack"
@@ -55,13 +55,31 @@
             android:orientation="vertical"
             android:paddingBottom="54dp">
 
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvAvatar"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dimen_16dp"
+                android:layout_marginBottom="@dimen/dimen_16dp"
+                android:elevation="16dp"
+                app:cardCornerRadius="70dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgAvatar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/default_avatar" />
+            </androidx.cardview.widget.CardView>
+
             <com.ctr.homestaybooking.ui.wedget.InputGroupLayout
                 android:id="@+id/inputFirstName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/cvAvatar"
                 android:layout_marginTop="@dimen/dimen_24dp"
                 app:error_textOnEmpty="@string/error001"
-                app:label_text="Tên" />
+                app:label_text="@string/first_name" />
 
             <com.ctr.homestaybooking.ui.wedget.InputGroupLayout
                 android:id="@+id/inputLastName"
@@ -70,7 +88,7 @@
                 android:layout_below="@id/inputFirstName"
                 android:layout_marginTop="@dimen/dimen_24dp"
                 app:error_textOnEmpty="@string/error001"
-                app:label_text="Họ" />
+                app:label_text="@string/last_name" />
 
             <com.ctr.homestaybooking.ui.wedget.InputGroupLayout
                 android:id="@+id/inputPhone"
@@ -81,7 +99,7 @@
                 app:edit_inputType="phone"
                 app:error_text="Phone number is not valid"
                 app:error_textOnEmpty="@string/error001"
-                app:label_text="Số điện thoại" />
+                app:label_text="@string/phone_number" />
 
             <com.ctr.homestaybooking.ui.wedget.InputGroupLayout
                 android:id="@+id/inputEmail"
@@ -102,7 +120,7 @@
                 android:layout_marginTop="@dimen/dimen_24dp"
                 app:edit_inputType="textPassword"
                 app:edit_maxLength="50"
-                app:error_text="Mật khẩu phải tối thiểu 8 kí tự, có ít nhất 1 chữ hoa, 1 chữ thường, 1 số"
+                app:error_text="@string/error_password"
                 app:error_textOnEmpty="@string/error001"
                 app:label_text="Mật khẩu" />
 
@@ -114,9 +132,9 @@
                 android:layout_marginTop="@dimen/dimen_24dp"
                 app:edit_inputType="textPassword"
                 app:edit_maxLength="50"
-                app:error_text="Mật khẩu không khớp"
+                app:error_text="@string/error_two_password_must_be_same"
                 app:error_textOnEmpty="@string/error001"
-                app:label_text="Nhập lại mật khẩu" />
+                app:label_text="@string/enter_password_againt" />
 
             <Button
                 android:id="@+id/tvSignUp"
@@ -140,7 +158,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/dimen_30dp"
                 android:fontFamily="@font/lato_black"
-                android:text="Bạn đã có tài khoản?"
+                android:text="@string/do_you_have_an_account"
                 android:textColor="#ff666666"
                 android:textSize="15sp" />
 
@@ -152,7 +170,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/dimen_12dp"
                 android:fontFamily="@font/lato_black"
-                android:text="Đăng nhập"
+                android:text="@string/login"
                 android:textColor="@color/colorAccent"
                 android:textSize="16sp" />
         </RelativeLayout>

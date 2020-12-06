@@ -49,7 +49,7 @@ class HostBookingAdapter(private val bookings: List<Booking>) :
                     .into(ivPlaceThumb)
                 tvBookingId.text = "Booking ID: ${item.id}"
                 tvTotalPrize.text = item.totalPaid.toMoney()
-                tvPlaceType.text = item.user.firstName + " " + item.user.lastName
+                tvPlaceType.text = item.user.getName()
                 tvPlaceName.text = item.place.name
                 tvPlaceAddress.text = item.place.address
                 tvCheckInDay.text =

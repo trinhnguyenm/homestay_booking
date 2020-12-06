@@ -11,30 +11,28 @@ import kotlinx.android.parcel.Parcelize
  */
 @Parcelize
 data class PlaceResponse(
-    @SerializedName("body")
-    val places: List<Place> = listOf(),
-    @SerializedName("length")
-    val length: Int? = 0
+    @SerializedName("body") val places: List<Place>,
+    @SerializedName("length") val length: Int
 ) : Parcelable
 
 @Parcelize
 data class Place(
-    @SerializedName("id") val id: Int? = 0,
-    @SerializedName("name") val name: String? = "",
-    @SerializedName("description") val description: String? = "",
+    @SerializedName("id") val id: Int,
+    @SerializedName("name") val name: String? = null,
+    @SerializedName("description") val description: String? = null,
     @SerializedName("bookingType") val bookingType: BookingType? = null,
-    @SerializedName("street") val street: String? = "",
-    @SerializedName("address") val address: String? = "",
-    @SerializedName("guestCount") val guestCount: Int? = 0,
-    @SerializedName("roomCount") val roomCount: Int? = 0,
-    @SerializedName("bedCount") val bedCount: Int? = 0,
-    @SerializedName("bathroomCount") val bathroomCount: Int? = 0,
-    @SerializedName("size") val size: Int? = 0,
-    @SerializedName("pricePerDay") val pricePerDay: Double? = 0.0,
+    @SerializedName("street") val street: String? = null,
+    @SerializedName("address") val address: String? = null,
+    @SerializedName("guestCount") val guestCount: Int? = null,
+    @SerializedName("roomCount") val roomCount: Int? = null,
+    @SerializedName("bedCount") val bedCount: Int? = null,
+    @SerializedName("bathroomCount") val bathroomCount: Int? = null,
+    @SerializedName("size") val size: Int? = null,
+    @SerializedName("pricePerDay") val pricePerDay: Double? = null,
     @SerializedName("images") val images: List<String>? = listOf(),
-    @SerializedName("placeType") val placeType: String? = "",
-    @SerializedName("rateCount") val rateCount: Int? = 0,
-    @SerializedName("rateAverage") val rateAverage: Double? = 0.0
+    @SerializedName("placeType") val placeType: PlaceType? = null,
+    @SerializedName("rateCount") val rateCount: Int? = null,
+    @SerializedName("rateAverage") val rateAverage: Double? = null
 ) : Parcelable {
     fun getRooms(): String {
         return "$guestCount khách $roomCount phòng ngủ $bedCount giường $bathroomCount phòng tắm "

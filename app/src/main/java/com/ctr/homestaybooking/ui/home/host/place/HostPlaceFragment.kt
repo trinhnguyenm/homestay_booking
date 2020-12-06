@@ -10,8 +10,10 @@ import com.ctr.homestaybooking.base.BaseFragment
 import com.ctr.homestaybooking.data.source.PlaceRepository
 import com.ctr.homestaybooking.data.source.response.PlaceDetail
 import com.ctr.homestaybooking.extension.observeOnUiThread
+import com.ctr.homestaybooking.extension.onClickDelayAction
 import com.ctr.homestaybooking.extension.showErrorDialog
 import com.ctr.homestaybooking.ui.App
+import com.ctr.homestaybooking.ui.setupplace.PlaceSetupActivity
 import kotlinx.android.synthetic.main.fragment_host_place.*
 
 /**
@@ -40,12 +42,20 @@ class HostPlaceFragment : BaseFragment() {
             PlaceRepository()
         )
         getPlaceFromServer()
+        initListener()
         initRecyclerView()
         initSwipeRefresh()
     }
 
-    private fun initRecyclerView() {
+    override fun getProgressObservable() = viewModel.getProgressObservable()
 
+    private fun initListener() {
+        ivStartAction.onClickDelayAction {
+            activity?.let { PlaceSetupActivity.start(it, 0) }
+        }
+    }
+
+    private fun initRecyclerView() {
         recyclerView.let {
             it.setHasFixedSize(true)
             it.adapter = HostPlaceAdapter(viewModel.getPlaces()).also { adapter ->
@@ -55,7 +65,7 @@ class HostPlaceFragment : BaseFragment() {
     }
 
     private fun handlerItemClick(place: PlaceDetail) {
-//        place.id?.let { PlaceDetailActivity.start(this, it) }
+        place.id.let { activity?.let { it1 -> PlaceSetupActivity.start(it1, it) } }
     }
 
     private fun initSwipeRefresh() {
@@ -82,6 +92,4 @@ class HostPlaceFragment : BaseFragment() {
     private fun handlerGetApiError(throwable: Throwable) {
         activity?.showErrorDialog(throwable)
     }
-
-    override fun getProgressObservable() = viewModel.getProgressObservable()
 }

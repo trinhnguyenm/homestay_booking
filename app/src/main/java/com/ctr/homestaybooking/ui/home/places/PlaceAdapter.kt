@@ -39,7 +39,7 @@ class PlaceAdapter(private val places: List<Place>) :
 
         fun onBind(item: Place) {
             itemView.apply {
-                tvPlaceType.text = item.placeType
+                tvPlaceType.text = item.placeType?.name
                 tvName.text = item.name
                 tvPlaceAddress.text = item.address
                 tvPlaceRoom.text =

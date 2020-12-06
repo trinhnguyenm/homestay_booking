@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import com.ctr.homestaybooking.R
 import com.ctr.homestaybooking.base.BaseFragment
 import com.ctr.homestaybooking.data.model.BookingType
+import com.ctr.homestaybooking.data.model.ImageSlideData
 import com.ctr.homestaybooking.data.source.PlaceRepository
 import com.ctr.homestaybooking.extension.*
 import com.ctr.homestaybooking.util.DateUtil
@@ -69,7 +70,7 @@ class PlaceDetailFragment : BaseFragment() {
                 .doOnSubscribe { lnLoadingHeaderDetail.visible() }
                 .doFinally { lnLoadingHeaderDetail.gone() }
                 .subscribe({ placeDetailResponse ->
-                    placeDetailResponse.placeDetail?.let { placeDetail ->
+                    placeDetailResponse.placeDetail.let { placeDetail ->
                         (activity as? PlaceDetailActivity)?.placeDetailResponse =
                             placeDetailResponse
                         (activity as? PlaceDetailActivity)?.bookingSlots = placeDetail.bookingSlots
@@ -79,6 +80,10 @@ class PlaceDetailFragment : BaseFragment() {
                                 Glide.with(context).load(it[1]).into(imgBanner2)
                                 Glide.with(context).load(it[2]).into(imgBanner3)
                                 Glide.with(context).load(it[3]).into(imgBanner4)
+                                if (it.size > 4) {
+                                    tvMoreCountImage.visible()
+                                    tvMoreCountImage.text = "${it.size - 3}+"
+                                }
                                 Glide.with(context).load(placeDetail.hostDetail?.imageUrl)
                                     .into(imgHost)
                                 Glide.with(context)
@@ -89,7 +94,7 @@ class PlaceDetailFragment : BaseFragment() {
 
                         tvName.text = placeDetail.name
                         tvPlaceAddress.text = placeDetail.address
-                        tvPlaceType.text = placeDetail.placeType
+                        tvPlaceType.text = placeDetail.placeType?.name
                         tvHostName.text = "chủ nhà ${placeDetail.hostDetail?.firstName}"
                         tvPlaceRoom.text = placeDetail.getRooms()
                         tvDescription.text = placeDetail.description
@@ -125,24 +130,6 @@ class PlaceDetailFragment : BaseFragment() {
                     activity?.showErrorDialog(it)
                 })
         }
-
-//
-//        roomTypeStatus?.let {
-//            context?.let { context ->
-//                Glide.with(context).load(it.roomType.thumbnail).into(imgBanner1)
-//                Glide.with(context).load(it.roomType.images[0].name).into(imgBanner2)
-//                Glide.with(context).load(it.roomType.images[1].name).into(imgBanner3)
-//                Glide.with(context).load(it.roomType.images[2].name).into(imgBanner4)
-//            }
-//
-//            tvPlaceType.text = it.roomType.name
-//            tvPerNight.text = getString(R.string.per_night, 1)
-//            tvRoomPrice.text = it.roomType.price.toString().getPriceFormat()
-//            it.roomType.capacity.let { capacity ->
-//                tvGuests.text = if (capacity == 1) "1 Guest" else "$capacity Guests"
-//            }
-//            tvPlaceType.text = "Size ${it.roomType.size}㎡"
-
     }
 
     private fun initListener() {
@@ -151,6 +138,27 @@ class PlaceDetailFragment : BaseFragment() {
         }
         tvBooking.onClickDelayAction {
             (activity as? PlaceDetailActivity)?.openCalendarFragment()
+        }
+
+        imgBanner1.onClickDelayAction {
+            viewModel.getPlaceDetail()?.images?.let {
+                (activity as? PlaceDetailActivity)?.openImageSliderFragment(ImageSlideData(it, 0))
+            }
+        }
+        imgBanner2.onClickDelayAction {
+            viewModel.getPlaceDetail()?.images?.let {
+                (activity as? PlaceDetailActivity)?.openImageSliderFragment(ImageSlideData(it, 1))
+            }
+        }
+        imgBanner3.onClickDelayAction {
+            viewModel.getPlaceDetail()?.images?.let {
+                (activity as? PlaceDetailActivity)?.openImageSliderFragment(ImageSlideData(it, 2))
+            }
+        }
+        imgBanner4.onClickDelayAction {
+            viewModel.getPlaceDetail()?.images?.let {
+                (activity as? PlaceDetailActivity)?.openImageSliderFragment(ImageSlideData(it, 3))
+            }
         }
     }
 

@@ -1,4 +1,4 @@
-package com.ctr.homestaybooking.util
+package com.ctr.homestaybooking.ui.wedget
 
 import android.content.Context
 import android.content.res.TypedArray

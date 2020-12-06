@@ -43,8 +43,8 @@ class HostPlaceAdapter(private val places: List<PlaceDetail>) :
                     .load(item.images?.firstOrNull())
                     .into(ivCover)
                 tvProgress.text =
-                    "Bạn đã hoàn thành ${(item.getSubmitProgress() / 20.0 * 100).toInt()}%"
-                progress_finish.progress = item.getSubmitProgress()
+                    "Bạn đã hoàn thành ${(item.getSubmitProgressPercent())}%"
+                progress_finish.progress = item.getSubmitProgressPercent() * progress_finish.max
             }
         }
     }

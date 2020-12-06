@@ -15,4 +15,5 @@ interface UserDataSource {
     fun register(body: UserBody): Single<LoginResponse>
 
     fun getUserFollowId(userId: Int): Single<UserResponse>
+    fun upToHost(userId: Int): Single<UserResponse>
 }

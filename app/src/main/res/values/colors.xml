@@ -250,4 +250,6 @@
     <color name="wild_sand_2">#fff5f5f5</color>
     <color name="tulip_tree">#ffeba147</color>
     <color name="grey_900">#ff222222</color>
+    <color name="colorBrightBlue">#3F8ADB</color>
+    <color name="black_alpha_60">#99000000</color>
 </resources>

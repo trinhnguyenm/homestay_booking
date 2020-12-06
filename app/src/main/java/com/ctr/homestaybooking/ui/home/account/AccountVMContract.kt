@@ -15,5 +15,10 @@ interface AccountVMContract {
     fun setHostSession()
 
     fun setUserSession()
-    fun isHostSession(): Boolean
+
+    fun isUserSession(): Boolean
+
+    fun getUserResponse(): UserResponse?
+
+    fun upToHost(): Single<UserResponse>
 }
