@@ -12,11 +12,9 @@ import com.ctr.homestaybooking.R
 import com.ctr.homestaybooking.base.BaseFragment
 import com.ctr.homestaybooking.data.model.ImageSlideData
 import com.ctr.homestaybooking.extension.*
-import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.fragment_place_setup_basic_info.ivBack
 import kotlinx.android.synthetic.main.fragment_place_setup_basic_info.tvSave
 import kotlinx.android.synthetic.main.fragment_place_setup_image.*
-import java.util.*
 
 
 /**
@@ -26,8 +24,6 @@ class PlaceSetupImageFragment : BaseFragment() {
     private lateinit var vm: PlaceSetupVMContract
     private var images = mutableListOf<String>()
     private var imagesPicked = mutableListOf<Uri>()
-    private val storageRef = FirebaseStorage.getInstance()
-        .getReference("files")
 
     companion object {
         fun newInstance() = PlaceSetupImageFragment()
@@ -73,39 +69,15 @@ class PlaceSetupImageFragment : BaseFragment() {
                             }
                         }
                     }
-                    imagesPicked.forEachIndexed { index, uri ->
-                        if (index == 0) {
-                            llProgressBar.visible()
+                    context?.uploadImageFirebase(imagesPicked) { task ->
+                        if (task.isSuccessful) {
+                            images.add(task.result.toString())
+                            recyclerViewImages.adapter?.notifyDataSetChanged()
+                        } else {
+                            task.exception?.let {
+                                activity.showErrorDialog(it)
+                            }
                         }
-                        val imageRef = storageRef.child(UUID.randomUUID().toString() + "_image")
-                        val uploadTask = imageRef.putFile(uri)
-                        uploadTask
-                            .addOnProgressListener {
-                                progressBar.progress =
-                                    (it.bytesTransferred / it.totalByteCount).toInt()
-                            }
-                            .addOnCompleteListener {
-                                if (index == imagesPicked.size - 1) {
-                                    llProgressBar.gone()
-                                }
-                            }
-                            .continueWithTask { task ->
-                                if (!task.isSuccessful) {
-                                    task.exception?.let {
-                                        throw it
-                                    }
-                                }
-                                imageRef.downloadUrl
-                            }.addOnCompleteListener { task ->
-                                if (task.isSuccessful) {
-                                    images.add(task.result.toString())
-                                    recyclerViewImages.adapter?.notifyDataSetChanged()
-                                } else {
-                                    task.exception?.let {
-                                        activity.showErrorDialog(it)
-                                    }
-                                }
-                            }
                     }
                 }
             }

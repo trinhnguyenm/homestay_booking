@@ -25,6 +25,9 @@ interface ApiService {
     @GET("/api/users/{id}")
     fun getUserFollowId(@Path("id") userId: Int): Single<UserResponse>
 
+    @PUT("/api/users")
+    fun editProfile(@Body userBody: UserBody): Single<UserResponse>
+
     @PATCH("/api/users/{id}/host")
     fun upToHost(@Path("id") userId: Int): Single<UserResponse>
 

@@ -19,6 +19,7 @@ import com.ctr.homestaybooking.extension.showDialog
 import com.ctr.homestaybooking.extension.showErrorDialog
 import com.ctr.homestaybooking.ui.App
 import com.ctr.homestaybooking.ui.auth.AuthActivity
+import com.ctr.homestaybooking.ui.editprofile.EditProfileActivity
 import com.ctr.homestaybooking.ui.splash.SplashActivity
 import kotlinx.android.synthetic.main.fragment_profile.*
 import sdk.chat.core.session.ChatSDK
@@ -64,21 +65,35 @@ class AccountFragment : BaseFragment() {
             startActivity(intent)
         }
 
+        llPersonalInfo.onClickDelayAction {
+            EditProfileActivity.start(this)
+        }
+
         llLogout.onClickDelayAction {
             activity?.showDialog(
                 getString(R.string.warning),
                 getString(R.string.do_you_want_logout),
                 getString(R.string.ok),
                 {
-                    ChatSDK.auth().logout().observeOn(RX.main()).subscribe {
-                        App.instance.localRepository.removeToken()
-                        App.instance.localRepository.removeUserId()
-                        App.instance.localRepository.setUserSession()
-                        activity?.let {
-                            AuthActivity.start(this, isOpenLogin = true, isShowButtonBack = false)
-                            finishAffinity(it)
+                    ChatSDK.auth().logout().observeOn(RX.main())
+                        .doOnSubscribe {
+                            vm.getProgressObservable().onNext(true)
+                        }.doFinally {
+                            vm.getProgressObservable().onNext(false)
                         }
-                    }
+                        .subscribe {
+                            App.instance.localRepository.removeToken()
+                            App.instance.localRepository.removeUserId()
+                            App.instance.localRepository.setUserSession()
+                            activity?.let {
+                                AuthActivity.start(
+                                    this,
+                                    isOpenLogin = true,
+                                    isShowButtonBack = false
+                                )
+                                finishAffinity(it)
+                            }
+                        }
                 },
                 getString(R.string.cancer),
                 isCancelable = true

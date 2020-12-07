@@ -170,7 +170,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:tint="#ff484848"
-                    app:srcCompat="@drawable/ic_strikethrough" />
+                    app:srcCompat="@drawable/ic_money_dola" />
             </LinearLayout>
 
             <LinearLayout

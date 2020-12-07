@@ -16,7 +16,9 @@ class UserRepository : UserDataSource {
 
     override fun register(body: UserBody) = userRemoteDataSource.register(body)
 
-    override fun getUserFollowId(userId: Int) = userRemoteDataSource.getUserFollowId(userId)
+    override fun editProfile(body: UserBody) = userRemoteDataSource.editProfile(body)
+
+    override fun getUserById(userId: Int) = userRemoteDataSource.getUserById(userId)
 
     override fun upToHost(userId: Int) = userRemoteDataSource.upToHost(userId)
 }

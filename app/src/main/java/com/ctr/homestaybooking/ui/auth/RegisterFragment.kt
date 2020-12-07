@@ -1,5 +1,6 @@
 package com.ctr.homestaybooking.ui.auth
 
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,13 +17,14 @@ import kotlinx.android.synthetic.main.fragment_register.*
 import sdk.chat.core.session.ChatSDK
 import sdk.chat.core.types.AccountDetails
 import sdk.guru.common.RX
+import java.io.File
 
 /**
  * Created by at-trinhnguyen2 on 2020/06/18
  */
 class RegisterFragment : BaseChooseImageFragment() {
-    private var avatarImageURL: String? = null
     private lateinit var vm: LoginVMContract
+
 
     companion object {
         fun newInstance() = RegisterFragment()
@@ -48,7 +50,16 @@ class RegisterFragment : BaseChooseImageFragment() {
     override fun getImageView(): ImageView = imgAvatar
 
     override fun getPathImageSuccess(path: String) {
-        Log.d("--=", "getPathImageSuccess: ${path}")
+        context?.uploadImageFirebase(listOf(Uri.fromFile(File(path)))) { task ->
+            if (task.isSuccessful) {
+                vm.getRegisterBody().imageUrl = task.result.toString()
+            } else {
+                Log.d("--=", "getPathImageSuccess: ${task.exception}")
+                task.exception?.let {
+                    activity?.showErrorDialog(it)
+                }
+            }
+        }
     }
 
     override fun isNeedPaddingTop() = true

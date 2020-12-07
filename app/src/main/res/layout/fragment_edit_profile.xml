@@ -13,32 +13,64 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/headerBarHeight">
 
+            <ImageButton
+                android:id="@+id/imgBack"
+                style="@style/CircleImageButtonStyle"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="12dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_chevron_left" />
+
             <TextView
-                android:id="@+id/tvTitle"
-                style="@style/style_title_action_bar"
-                android:layout_width="match_parent"
-                android:layout_centerInParent="true"
-                android:layout_centerHorizontal="true"
-                android:gravity="center"
-                android:text="@string/sign_up" />
+                android:id="@+id/tvSave"
+                style="@style/TextItemHeaderStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/spacing_side_normal"
+                android:text="@string/save"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/imgBack"
+                app:layout_constraintEnd_toStartOf="@+id/imgMore"
+                app:layout_constraintTop_toTopOf="@+id/imgBack" />
 
             <ImageView
-                android:id="@+id/imgBack"
+                android:id="@+id/imgMore"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/headerBarHeight"
-                android:paddingStart="24dp"
-                android:paddingEnd="16dp"
-                android:scaleType="centerInside"
-                android:src="@drawable/ic_back_white"
-                android:tint="@color/colorAccent"
-                android:visibility="visible" />
-        </RelativeLayout>
-    </com.google.android.material.appbar.AppBarLayout>
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/spacing_side_normal"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/tvSave"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvSave"
+                app:srcCompat="@drawable/ic_more_horiz" />
 
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/luxstay_medium"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="@string/edt_profile_title"
+                android:textColor="@color/greyishBrown"
+                android:textSize="16sp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/imgBack"
+                app:layout_constraintEnd_toStartOf="@+id/tvSave"
+                app:layout_constraintStart_toEndOf="@+id/imgBack"
+                app:layout_constraintTop_toTopOf="@+id/imgBack" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -63,7 +95,7 @@
                 android:layout_marginTop="@dimen/dimen_16dp"
                 android:layout_marginBottom="@dimen/dimen_16dp"
                 android:elevation="16dp"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:cardCornerRadius="70dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -113,67 +145,21 @@
                 app:error_textOnEmpty="@string/error001"
                 app:label_text="Email" />
 
-            <com.ctr.homestaybooking.ui.wedget.InputGroupLayout
-                android:id="@+id/inputPassword"
+            <com.ctr.homestaybooking.ui.wedget.InputTimeLayout
+                android:id="@+id/inputBirthday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/inputEmail"
-                android:layout_marginTop="@dimen/dimen_24dp"
-                app:edit_inputType="textPassword"
-                app:edit_maxLength="50"
-                app:error_text="@string/error_password"
-                app:error_textOnEmpty="@string/error001"
-                app:label_text="Mật khẩu" />
+                android:layout_below="@+id/inputEmail"
+                android:layout_marginTop="24dp"
+                app:label_text="@string/edit_profile_birth_date" />
 
-            <com.ctr.homestaybooking.ui.wedget.InputGroupLayout
-                android:id="@+id/inputConfirmPassword"
+            <com.ctr.homestaybooking.ui.wedget.CustomSpinner
+                android:id="@+id/inputGender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/inputPassword"
-                android:layout_marginTop="@dimen/dimen_24dp"
-                app:edit_inputType="textPassword"
-                app:edit_maxLength="50"
-                app:error_text="@string/error_two_password_must_be_same"
-                app:error_textOnEmpty="@string/error001"
-                app:label_text="@string/enter_password_againt" />
-
-            <Button
-                android:id="@+id/tvSignUp"
-                style="@style/AppButton"
-                android:layout_width="200dp"
-                android:layout_height="@dimen/dimen_48dp"
-                android:layout_below="@id/inputEmail"
-                android:layout_centerHorizontal="true"
-                android:layout_marginStart="@dimen/dimen_20dp"
-                android:layout_marginTop="240dp"
-                android:layout_marginEnd="@dimen/dimen_20dp"
-                android:background="@drawable/bg_button_round_gradient_enable"
-                android:text="Đăng kí"
-                android:textColor="#ffffffff" />
-
-            <TextView
-                android:id="@+id/tvAlready"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tvSignUp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/dimen_30dp"
-                android:fontFamily="@font/lato_black"
-                android:text="@string/do_you_have_an_account"
-                android:textColor="#ff666666"
-                android:textSize="15sp" />
-
-            <TextView
-                android:id="@+id/tvActionHere"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tvAlready"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/dimen_12dp"
-                android:fontFamily="@font/lato_black"
-                android:text="@string/login"
-                android:textColor="@color/colorAccent"
-                android:textSize="16sp" />
+                android:layout_below="@+id/inputBirthday"
+                android:layout_marginTop="24dp"
+                app:title="@string/edit_profile_gender" />
         </RelativeLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

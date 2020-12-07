@@ -20,7 +20,8 @@
     <TextView
         android:id="@+id/tvContent"
         style="@style/inputGroupTextView"
-        android:drawableRight="@drawable/ic_selected"
+        android:drawableEnd="@drawable/ic_drop_down"
+        android:drawablePadding="20dp"
         android:gravity="top"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

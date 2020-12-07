@@ -8,7 +8,10 @@ import android.view.ViewGroup
 import com.ctr.homestaybooking.R
 import com.ctr.homestaybooking.base.BaseFragment
 import com.ctr.homestaybooking.data.model.BookingType
-import com.ctr.homestaybooking.extension.*
+import com.ctr.homestaybooking.extension.observeOnUiThread
+import com.ctr.homestaybooking.extension.onClickDelayAction
+import com.ctr.homestaybooking.extension.showDialog
+import com.ctr.homestaybooking.extension.showErrorDialog
 import com.ctr.homestaybooking.ui.wedget.SpinnerType
 import kotlinx.android.synthetic.main.fragment_place_setup_basic_info.*
 import kotlinx.android.synthetic.main.input_group_layout.view.*
@@ -284,10 +287,10 @@ class PlaceSetupBasicInfoFragment : BaseFragment() {
     private fun handleNextButton() {
         if (isAllValid()) {
             tvSave.isEnabled = true
-            tvSave.textColor(R.color.colorAccent)
+            tvSave.alpha = 1f
         } else {
             tvSave.isEnabled = false
-            tvSave.textColor(R.color.greyishBrown)
+            tvSave.alpha = 0.4f
         }
     }
 }

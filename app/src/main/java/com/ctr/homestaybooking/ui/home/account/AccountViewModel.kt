@@ -18,7 +18,7 @@ class AccountViewModel(
     override fun getUserResponse() = userResponse
 
     override fun getUserInfo(): Single<UserResponse> {
-        return userRepository.getUserFollowId(localRepository.getUserId())
+        return userRepository.getUserById(localRepository.getUserId())
             .addProgressLoading()
             .doOnSuccess {
                 userResponse = it

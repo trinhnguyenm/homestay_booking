@@ -25,11 +25,13 @@ class InputTimeLayout @JvmOverloads constructor(
     private var isRequired: Boolean = true
     private var hasDrawableRight: Boolean = false
     private var textcolor = 0
-    internal var isValid: Boolean = false
+    private var isValid: Boolean = false
 
     init {
         initView(attrs)
     }
+
+    internal fun isValid() = isValid
 
     internal fun setValue(text: String) {
         tvContent.text = text

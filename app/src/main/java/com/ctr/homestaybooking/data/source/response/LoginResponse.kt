@@ -1,7 +1,9 @@
 package com.ctr.homestaybooking.data.source.response
 
 import android.os.Parcelable
+import com.ctr.homestaybooking.data.model.Gender
 import com.ctr.homestaybooking.data.model.Role
+import com.ctr.homestaybooking.data.source.request.UserBody
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
@@ -32,10 +34,22 @@ data class UserDetail(
     @SerializedName("imageUrl") val imageUrl: String,
     @SerializedName("firstName") val firstName: String,
     @SerializedName("lastName") val lastName: String,
-    @SerializedName("gender") val gender: String,
+    @SerializedName("gender") val gender: Gender,
     @SerializedName("birthday") val birthday: String,
     @SerializedName("phoneNumber") val phoneNumber: String,
     @SerializedName("status") val status: String
 ) : Parcelable {
     fun getName() = "$firstName $lastName"
+
+    internal fun toRegisterBody() = UserBody(
+        email = email,
+        uuid = uuid,
+        deviceToken = deviceToken,
+        imageUrl = imageUrl,
+        firstName = firstName,
+        lastName = lastName,
+        gender = gender,
+        birthday = birthday,
+        phoneNumber = phoneNumber
+    )
 }

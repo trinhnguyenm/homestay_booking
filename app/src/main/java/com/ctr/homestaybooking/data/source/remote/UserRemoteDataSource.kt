@@ -16,7 +16,9 @@ class UserRemoteDataSource(private val apiService: ApiService = ApiClient.getIns
 
     override fun register(body: UserBody) = apiService.register(body)
 
-    override fun getUserFollowId(userId: Int) = apiService.getUserFollowId(userId)
+    override fun editProfile(body: UserBody) = apiService.editProfile(body)
+
+    override fun getUserById(userId: Int) = apiService.getUserFollowId(userId)
 
     override fun upToHost(userId: Int) = apiService.upToHost(userId)
 }

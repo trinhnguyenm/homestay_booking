@@ -71,6 +71,10 @@
             android:name=".ui.setupplace.PlaceSetupActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".ui.editprofile.EditProfileActivity"
+            android:screenOrientation="portrait" />
+
         <service
             android:name="jp.monedge.sonybank.service.MyFireBaseMessagingService"
             android:exported="false">

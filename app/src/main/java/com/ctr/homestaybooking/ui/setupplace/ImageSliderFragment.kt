@@ -48,7 +48,6 @@ class ImageSliderFragment : BaseFragment() {
                     positionOffset: Float,
                     positionOffsetPixels: Int
                 ) {
-
                 }
 
                 override fun onPageSelected(position: Int) {
