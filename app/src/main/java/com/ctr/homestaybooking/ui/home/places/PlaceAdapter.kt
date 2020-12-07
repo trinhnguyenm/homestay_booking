@@ -9,7 +9,9 @@ import com.ctr.homestaybooking.R
 import com.ctr.homestaybooking.data.model.BookingType
 import com.ctr.homestaybooking.data.source.response.Place
 import com.ctr.homestaybooking.extension.*
+import com.ctr.homestaybooking.util.format
 import kotlinx.android.synthetic.main.layout_item_place.view.*
+import java.util.*
 
 /**
  * Created by at-trinhnguyen2 on 2020/06/06
@@ -17,6 +19,7 @@ import kotlinx.android.synthetic.main.layout_item_place.view.*
 class PlaceAdapter(private val places: List<Place>) :
     RecyclerView.Adapter<PlaceAdapter.ItemHolder>() {
     internal var onItemClicked: ((item: Place) -> Unit)? = null
+    internal var onLikeClicked: ((item: Place) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -34,6 +37,11 @@ class PlaceAdapter(private val places: List<Place>) :
         init {
             itemView.onClickDelayAction {
                 onItemClicked?.invoke(places[adapterPosition])
+            }
+            itemView.btnLike.onClickDelayAction {
+                places[adapterPosition].likedTime = Calendar.getInstance().format()
+                places[adapterPosition].isLike = !places[adapterPosition].isLike
+                onLikeClicked?.invoke(places[adapterPosition])
             }
         }
 
@@ -64,6 +72,7 @@ class PlaceAdapter(private val places: List<Place>) :
                     tvRateAverage.text = item.rateAverage?.format(2)
                     tvRateCount.text = "(${item.rateCount})"
                 }
+                btnLike.isChecked = item.isLike
             }
         }
     }

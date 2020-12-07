@@ -532,7 +532,7 @@
     <string name="payment_methods_title">Phương thức thanh toán</string>
     <string name="paynow">Thanh toán ngay!</string>
     <string name="pending_invite">Chờ xử lý</string>
-    <string name="per_night">x %1$s đêm</string>
+    <string name="per_night">x 1 đêm</string>
     <string name="phone_number_contact_support">18006586</string>
     <string name="phone_number_required">*số điện thoại</string>
     <string name="phone_number_required_low">*số điện thoại</string>

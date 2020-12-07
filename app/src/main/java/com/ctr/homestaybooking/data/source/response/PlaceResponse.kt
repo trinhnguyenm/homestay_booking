@@ -32,7 +32,9 @@ data class Place(
     @SerializedName("images") val images: List<String>? = listOf(),
     @SerializedName("placeType") val placeType: PlaceType? = null,
     @SerializedName("rateCount") val rateCount: Int? = null,
-    @SerializedName("rateAverage") val rateAverage: Double? = null
+    @SerializedName("rateAverage") val rateAverage: Double? = null,
+    var isLike: Boolean = false,
+    var likedTime: String? = null
 ) : Parcelable {
     fun getRooms(): String {
         return "$guestCount khách $roomCount phòng ngủ $bedCount giường $bathroomCount phòng tắm "

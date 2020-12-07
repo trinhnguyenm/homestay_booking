@@ -20,9 +20,12 @@ class EditProfileActivity : BaseActivity() {
             EditProfileActivity()
                 .apply {
                     val intent = Intent(from.activity, EditProfileActivity::class.java)
-                    from.startActivity(intent)
+                    from.startActivityForResult(intent, REQUEST_CODE_EDIT_PROFILE)
                 }
         }
+
+        internal const val REQUEST_CODE_EDIT_PROFILE = 1335
+        internal const val KEY_IS_NEED_UPDATE = "key_is_need_update"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

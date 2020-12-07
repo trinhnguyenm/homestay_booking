@@ -4,8 +4,10 @@ import android.os.Parcelable
 import android.util.Log
 import com.ctr.homestaybooking.data.model.*
 import com.ctr.homestaybooking.data.source.request.PlaceBody
+import com.ctr.homestaybooking.util.format
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
+import java.util.*
 
 
 /**
@@ -134,6 +136,27 @@ data class PlaceDetail(
         userId = hostDetail?.id,
         wardId = wardDetail?.id,
         placeTypeId = placeType?.id
+    )
+
+    internal fun toPlace() = Place(
+        id,
+        name,
+        description,
+        bookingType,
+        street,
+        address,
+        guestCount,
+        roomCount,
+        bedCount,
+        bathroomCount,
+        size,
+        pricePerDay,
+        images,
+        placeType,
+        rateCount,
+        rateAverage,
+        true,
+        Calendar.getInstance().format()
     )
 }
 

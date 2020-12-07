@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.ctr.homestaybooking.R
 import com.ctr.homestaybooking.base.BaseFragment
 import com.ctr.homestaybooking.data.model.DateStatus
+import com.ctr.homestaybooking.data.source.FavoriteRepository
 import com.ctr.homestaybooking.data.source.PlaceRepository
 import com.ctr.homestaybooking.extension.onClickDelayAction
 import com.ctr.homestaybooking.util.*
@@ -40,7 +41,7 @@ class CalendarFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = PlaceDetailViewModel(PlaceRepository())
+        viewModel = PlaceDetailViewModel(PlaceRepository(), FavoriteRepository())
         initView()
         initListener()
     }

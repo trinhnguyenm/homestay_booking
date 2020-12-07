@@ -1,6 +1,8 @@
 package com.ctr.homestaybooking.ui.placedetail
 
 import com.ctr.homestaybooking.base.BaseViewModel
+import com.ctr.homestaybooking.data.model.Favorite
+import com.ctr.homestaybooking.data.source.FavoriteRepository
 import com.ctr.homestaybooking.data.source.PlaceRepository
 import com.ctr.homestaybooking.data.source.response.PlaceDetail
 import com.ctr.homestaybooking.data.source.response.PlaceDetailResponse
@@ -12,7 +14,8 @@ import io.reactivex.subjects.BehaviorSubject
  * Created by at-trinhnguyen2 on 2020/06/24
  */
 class PlaceDetailViewModel(
-    private val placeRepository: PlaceRepository
+    private val placeRepository: PlaceRepository,
+    private val favoriteRepository: FavoriteRepository
 ) : PlaceDetailVMContract, BaseViewModel() {
     private val promos = mutableListOf<Promo>()
 
@@ -47,6 +50,12 @@ class PlaceDetailViewModel(
                 }
             }
     }
+
+    override fun insert(items: List<Favorite>) = favoriteRepository.insert(items)
+
+    override fun getFavorites() = favoriteRepository.getFavorites()
+
+    override fun deleteAll(items: List<Favorite>) = favoriteRepository.deleteAll(items)
 
     override fun getProgressObservable(): BehaviorSubject<Boolean> =
         progressBarDialogObservable

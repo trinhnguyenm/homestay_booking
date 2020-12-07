@@ -2,21 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="13dp"
     android:layout_marginEnd="13dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/rlContent"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="6dp"
         app:cardElevation="6dp"
         app:cardUseCompatPadding="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/dimen_24dp">
 
@@ -78,26 +78,17 @@
                 app:layout_constraintBottom_toBottomOf="@+id/ivThumbnail"
                 app:layout_constraintStart_toStartOf="parent" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/imgFlash"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:visibility="gone"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_flash" />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/imgLike"
+            <ToggleButton
+                android:id="@+id/btnLike"
                 android:layout_width="@dimen/dimen_30dp"
                 android:layout_height="26dp"
                 android:layout_marginTop="17dp"
                 android:layout_marginEnd="17dp"
+                android:background="@drawable/selector_toggle_button_like"
+                android:textOff=""
+                android:textOn=""
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_unlike" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tvPlaceType"
@@ -207,6 +198,16 @@
                 app:layout_constraintStart_toStartOf="@+id/ivLoaction"
                 app:layout_constraintTop_toBottomOf="@+id/ivRoomInfo" />
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgFlash"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@id/tvPrice"
+                app:layout_constraintStart_toStartOf="@+id/tvName"
+                app:layout_constraintTop_toTopOf="@+id/tvPrice"
+                app:srcCompat="@drawable/ic_flash" />
+
             <TextView
                 android:id="@+id/tvPrice"
                 android:layout_width="wrap_content"
@@ -215,7 +216,7 @@
                 android:fontFamily="@font/lato_black"
                 android:textColor="#ff333333"
                 android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="@+id/tvName"
+                app:layout_constraintStart_toEndOf="@id/imgFlash"
                 app:layout_constraintTop_toBottomOf="@+id/bgInfo"
                 tools:text="400,000₫" />
 

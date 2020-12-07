@@ -1,8 +1,10 @@
 package com.ctr.homestaybooking.ui.home.account
 
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +22,8 @@ import com.ctr.homestaybooking.extension.showErrorDialog
 import com.ctr.homestaybooking.ui.App
 import com.ctr.homestaybooking.ui.auth.AuthActivity
 import com.ctr.homestaybooking.ui.editprofile.EditProfileActivity
+import com.ctr.homestaybooking.ui.editprofile.EditProfileActivity.Companion.KEY_IS_NEED_UPDATE
+import com.ctr.homestaybooking.ui.editprofile.EditProfileActivity.Companion.REQUEST_CODE_EDIT_PROFILE
 import com.ctr.homestaybooking.ui.splash.SplashActivity
 import kotlinx.android.synthetic.main.fragment_profile.*
 import sdk.chat.core.session.ChatSDK
@@ -52,7 +56,32 @@ class AccountFragment : BaseFragment() {
             UserRepository()
         )
         getUserInfo()
+        initSwipeRefresh()
         initListener()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        Log.d("--=", "onActivityResult: ${data}")
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_EDIT_PROFILE) {
+            data?.getBooleanExtra(KEY_IS_NEED_UPDATE, false)?.let {
+                if (it) {
+                    getUserInfo()
+                }
+            }
+        }
+    }
+
+    override fun getProgressObservable() = vm.getProgressObservable()
+
+    private fun initSwipeRefresh() {
+        swipeRefresh.setColorSchemeResources(R.color.colorAzureRadiance)
+        swipeRefresh.setOnRefreshListener {
+            Handler().postDelayed({
+                swipeRefresh?.isRefreshing = false
+            }, 300L)
+            getUserInfo()
+        }
     }
 
     private fun initListener() {

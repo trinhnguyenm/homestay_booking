@@ -7,10 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.ctr.homestaybooking.R
 import com.ctr.homestaybooking.base.BaseFragment
+import com.ctr.homestaybooking.data.model.Favorite
+import com.ctr.homestaybooking.data.source.FavoriteRepository
 import com.ctr.homestaybooking.data.source.PlaceRepository
 import com.ctr.homestaybooking.data.source.response.Place
 import com.ctr.homestaybooking.extension.observeOnUiThread
 import com.ctr.homestaybooking.extension.showErrorDialog
+import com.ctr.homestaybooking.extension.toJsonString
 import com.ctr.homestaybooking.ui.App
 import com.ctr.homestaybooking.ui.placedetail.PlaceDetailActivity
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -22,8 +25,7 @@ class HomeFragment : BaseFragment() {
     private lateinit var viewModel: HomeVMContract
 
     companion object {
-        fun getInstance() =
-            HomeFragment()
+        fun getInstance() = HomeFragment()
     }
 
     override fun onCreateView(
@@ -38,25 +40,49 @@ class HomeFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = HomeViewModel(
             App.instance.localRepository,
-            PlaceRepository()
+            PlaceRepository(),
+            FavoriteRepository()
         )
         getPlaceFromServer()
+        subscribeFavoritesInDatabase()
         initRecyclerView()
         initSwipeRefresh()
     }
 
-    private fun initRecyclerView() {
+    private fun subscribeFavoritesInDatabase() {
+        viewModel.let { vm ->
+            vm.getFavorites().observeOnUiThread()
+                .subscribe({ favorites ->
+                    vm.getPlaces().forEach { place ->
+                        place.isLike = favorites.map { it.id }.contains(place.id)
+                    }
+                    recyclerView?.adapter?.notifyDataSetChanged()
+                }, {})
+        }
+    }
 
+    private fun initRecyclerView() {
         recyclerView.let {
             it.setHasFixedSize(true)
             it.adapter = PlaceAdapter(viewModel.getPlaces()).also { adapter ->
                 adapter.onItemClicked = this::handlerItemClick
+                adapter.onLikeClicked = this::handlerLikeClick
             }
         }
     }
 
     private fun handlerItemClick(place: Place) {
-        place.id?.let { PlaceDetailActivity.start(this, it) }
+        place.id.let { PlaceDetailActivity.start(this, it) }
+    }
+
+    private fun handlerLikeClick(place: Place) {
+        if (place.isLike) {
+            viewModel.insert(listOf(Favorite(place.id, place.toJsonString())))
+                .observeOnUiThread().subscribe()
+        } else {
+            viewModel.deleteAll(listOf(Favorite(place.id, place.toJsonString())))
+                .observeOnUiThread().subscribe()
+        }
     }
 
     private fun initSwipeRefresh() {

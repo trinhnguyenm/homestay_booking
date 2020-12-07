@@ -50,6 +50,7 @@ data class UserDetail(
         lastName = lastName,
         gender = gender,
         birthday = birthday,
-        phoneNumber = phoneNumber
+        phoneNumber = phoneNumber,
+        password = "Abcd1234"
     )
 }

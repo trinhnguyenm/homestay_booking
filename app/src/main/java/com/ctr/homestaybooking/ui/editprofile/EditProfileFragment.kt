@@ -1,6 +1,8 @@
 package com.ctr.homestaybooking.ui.editprofile
 
+import android.app.Activity
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -16,6 +18,7 @@ import com.ctr.homestaybooking.data.model.Gender
 import com.ctr.homestaybooking.data.source.UserRepository
 import com.ctr.homestaybooking.extension.*
 import com.ctr.homestaybooking.ui.App
+import com.ctr.homestaybooking.ui.editprofile.EditProfileActivity.Companion.KEY_IS_NEED_UPDATE
 import com.ctr.homestaybooking.ui.wedget.CustomDatePickerDialog
 import com.ctr.homestaybooking.ui.wedget.SpinnerType
 import com.ctr.homestaybooking.util.DateUtil.FORMAT_DATE
@@ -25,8 +28,10 @@ import com.ctr.homestaybooking.util.format
 import com.ctr.homestaybooking.util.toCalendar
 import kotlinx.android.synthetic.main.fragment_edit_profile.*
 import kotlinx.android.synthetic.main.input_time_layout.view.*
+import sdk.chat.core.session.ChatSDK
 import java.io.File
 import java.util.*
+
 
 /**
  * Created by at-trinhnguyen2 on 2020/12/06
@@ -36,7 +41,6 @@ class EditProfileFragment : BaseChooseImageFragment() {
     private lateinit var vm: EditProfileVMContract
     private var estimationDateTime = Calendar.getInstance()
     private var datePickerDialogEstimationDate: CustomDatePickerDialog? = null
-
 
     companion object {
         fun newInstance() = EditProfileFragment()
@@ -54,6 +58,7 @@ class EditProfileFragment : BaseChooseImageFragment() {
         super.onViewCreated(view, savedInstanceState)
         vm = EditProfileViewModel(App.instance.localRepository, UserRepository())
         initDatePicker()
+        container.invisible()
         getUserInfo()
         initView()
         initListener()
@@ -140,7 +145,29 @@ class EditProfileFragment : BaseChooseImageFragment() {
         tvSave.onClickDelayAction {
             vm.getUserBody().apply { Log.d("--=", "+${this}") }
             vm.editProfile().observeOnUiThread().subscribe({
-
+                ChatSDK.currentUser().avatarURL = vm.getUserBody().imageUrl
+                ChatSDK.currentUser().name =
+                    vm.getUserBody().firstName + " " + vm.getUserBody().lastName
+                ChatSDK.currentUser().update()
+                ChatSDK.core().pushUser()
+                    .observeOnUiThread()
+                    .doOnSubscribe { vm.getProgressObservable().onNext(true) }
+                    .doFinally { vm.getProgressObservable().onNext(false) }
+                    .subscribe({
+                        activity?.showDialog(
+                            getString(R.string.success_toast),
+                            null,
+                            getString(R.string.ok),
+                            {
+                                activity?.setResult(
+                                    Activity.RESULT_OK,
+                                    Intent().putExtra(KEY_IS_NEED_UPDATE, true)
+                                )
+                                activity?.finish()
+                            })
+                    }, {
+                        activity?.showErrorDialog(it)
+                    })
             }, {
                 activity?.showErrorDialog(it)
             })
@@ -151,6 +178,7 @@ class EditProfileFragment : BaseChooseImageFragment() {
         vm.getUserInfo()
             .observeOnUiThread()
             .subscribe({
+                container.visible()
                 showOldData()
             }, {
                 activity?.showErrorDialog(it)

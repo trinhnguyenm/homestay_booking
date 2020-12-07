@@ -2,13 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/container"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical">
 
     <com.ctr.homestaybooking.ui.wedget.NonSwipeAbleViewPager
         android:id="@+id/viewPager"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_above="@+id/tabLayout"
         android:layout_alignParentTop="true"
@@ -17,14 +17,14 @@
 
     <View
         android:id="@+id/viewBar"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="4dp"
         android:layout_above="@+id/tabLayout"
         android:background="@drawable/bg_gradient_up_4dp" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_48dp"
         android:layout_alignParentBottom="true"
         android:gravity="center"

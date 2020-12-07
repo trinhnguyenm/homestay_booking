@@ -270,4 +270,7 @@ open class MyMainActivity : MainActivity() {
         }
     }
 
+    internal fun setTabSelection(position: Int) {
+        tabLayout.getTabAt(position)?.select()
+    }
 }

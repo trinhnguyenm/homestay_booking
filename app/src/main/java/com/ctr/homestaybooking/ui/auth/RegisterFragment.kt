@@ -152,9 +152,17 @@ class RegisterFragment : BaseChooseImageFragment() {
                     getProgressObservable().onNext(false)
                 }.observeOn(RX.main())
                 .subscribe({
-                    vm.getRegisterBody().apply {
-                        uuid = ChatSDK.auth().currentUserEntityID
-                    }
+                    ChatSDK.currentUser().name =
+                        vm.getRegisterBody().firstName + " " + vm.getRegisterBody().lastName
+                    ChatSDK.currentUser().update()
+                    ChatSDK.core().pushUser()
+                        .observeOnUiThread()
+                        .doOnSubscribe { vm.getProgressObservable().onNext(true) }
+                        .doFinally { vm.getProgressObservable().onNext(false) }
+                        .subscribe({
+                        }, {
+                            activity?.showErrorDialog(it)
+                        })
                     vm.let { viewModel ->
                         viewModel.register()
                             .observeOnUiThread()

@@ -28,7 +28,9 @@ class EditProfileViewModel(
     override fun getUserInfo() =
         userRepository.getUserById(localRepository.getUserId()).addProgressLoading().doOnSuccess {
             userDetail = it.userDetail
-            registerBody = it.userDetail.toRegisterBody()
+            registerBody = it.userDetail.toRegisterBody().apply {
+                deviceToken = localRepository.getDeviceToken()
+            }
         }
 
     override fun editProfile() = userRepository.editProfile(getUserBody())

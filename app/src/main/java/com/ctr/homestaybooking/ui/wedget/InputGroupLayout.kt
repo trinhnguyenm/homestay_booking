@@ -143,6 +143,7 @@ class InputGroupLayout @JvmOverloads constructor(
                     R.styleable.InputGroupLayout_edit_inputType, EditorInfo.TYPE_NULL
                 )
                 inputType = typeInput
+                isEnabled = styleAttrs.getBoolean(R.styleable.InputGroupLayout_edit_isEnabled, true)
                 setOnEditorActionListener(object : TextView.OnEditorActionListener {
                     override fun onEditorAction(
                         v: TextView?, actionId: Int, event: KeyEvent?

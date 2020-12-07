@@ -8,7 +8,9 @@ import com.bumptech.glide.Glide
 import com.ctr.homestaybooking.R
 import com.ctr.homestaybooking.base.BaseFragment
 import com.ctr.homestaybooking.data.model.BookingType
+import com.ctr.homestaybooking.data.model.Favorite
 import com.ctr.homestaybooking.data.model.ImageSlideData
+import com.ctr.homestaybooking.data.source.FavoriteRepository
 import com.ctr.homestaybooking.data.source.PlaceRepository
 import com.ctr.homestaybooking.extension.*
 import com.ctr.homestaybooking.util.DateUtil
@@ -26,6 +28,7 @@ import java.util.*
  */
 class PlaceDetailFragment : BaseFragment() {
     private lateinit var viewModel: PlaceDetailVMContract
+    private var favorites: List<Favorite>? = null
     private var startDate: Calendar? = null
     private var endDate: Calendar? = null
 
@@ -45,7 +48,8 @@ class PlaceDetailFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = PlaceDetailViewModel(PlaceRepository())
+        viewModel = PlaceDetailViewModel(PlaceRepository(), FavoriteRepository())
+        subscribeFavoritesInDatabase()
         initRecyclerView()
         initView()
         initListener()
@@ -62,6 +66,18 @@ class PlaceDetailFragment : BaseFragment() {
         }
     }
 
+    private fun subscribeFavoritesInDatabase() {
+        viewModel.let { vm ->
+            vm.getFavorites().observeOnUiThread()
+                .subscribe {
+                    favorites = it
+                    vm.getPlaceDetail()?.apply {
+                        btnLike.isChecked = it.map { item -> item.id }.contains(id)
+                    }
+                }
+        }
+    }
+
     override fun isNeedPaddingTop() = true
 
     private fun initView() {
@@ -71,6 +87,9 @@ class PlaceDetailFragment : BaseFragment() {
                 .doFinally { lnLoadingHeaderDetail.gone() }
                 .subscribe({ placeDetailResponse ->
                     placeDetailResponse.placeDetail.let { placeDetail ->
+                        favorites?.let {
+                            btnLike.isChecked = it.map { item -> item.id }.contains(placeDetail.id)
+                        }
                         (activity as? PlaceDetailActivity)?.placeDetailResponse =
                             placeDetailResponse
                         (activity as? PlaceDetailActivity)?.bookingSlots = placeDetail.bookingSlots
@@ -160,19 +179,19 @@ class PlaceDetailFragment : BaseFragment() {
                 (activity as? PlaceDetailActivity)?.openImageSliderFragment(ImageSlideData(it, 3))
             }
         }
-    }
 
-//    private fun initSwipeRefresh() {
-//        swipeRefresh.setColorSchemeResources(R.color.colorAzureRadiance)
-//        swipeRefresh.setOnRefreshListener {
-//            Handler().postDelayed({
-//                swipeRefresh?.isRefreshing = false
-//            }, 300L)
-//            getPromos(
-//                roomTypeStatus?.roomType?.id ?: -1, startDate ?: Calendar.getInstance()
-//            )
-//        }
-//    }
+        btnLike.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.getPlaceDetail()?.let {
+                if (isChecked) {
+                    viewModel.insert(listOf(Favorite(it.id, it.toPlace().toJsonString())))
+                        .observeOnUiThread().subscribe()
+                } else {
+                    viewModel.deleteAll(listOf(Favorite(it.id, it.toPlace().toJsonString())))
+                        .observeOnUiThread().subscribe()
+                }
+            }
+        }
+    }
 
     override fun getProgressObservable() = viewModel.getProgressObservable()
 }

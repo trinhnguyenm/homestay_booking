@@ -40,6 +40,7 @@
         <attr name="label_hasDrawableRight" />
         <attr name="label_text" />
         <attr name="edit_text" />
+        <attr name="edit_isEnabled" format="boolean" />
         <attr name="edit_hint" />
         <attr name="edit_maxLength" />
         <attr name="edit_height" />

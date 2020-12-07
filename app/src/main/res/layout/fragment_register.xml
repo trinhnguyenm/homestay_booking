@@ -100,6 +100,7 @@
                 app:edit_inputType="phone"
                 app:error_text="Phone number is not valid"
                 app:error_textOnEmpty="@string/error001"
+                app:is_elipsize_end="false"
                 app:label_text="@string/phone_number" />
 
             <com.ctr.homestaybooking.ui.wedget.InputGroupLayout
@@ -148,7 +149,7 @@
                 android:layout_marginTop="240dp"
                 android:layout_marginEnd="@dimen/dimen_20dp"
                 android:background="@drawable/bg_button_round_gradient_enable"
-                android:text="Đăng kí"
+                android:text="@string/sign_up"
                 android:textColor="#ffffffff" />
 
             <TextView
