@@ -60,53 +60,19 @@
         app:layout_constraintTop_toTopOf="@+id/ivBack"
         tools:text="Title" />
 
-    <androidx.core.widget.NestedScrollView
+    <com.ctr.homestaybooking.ui.wedget.CustomCalendarPickerView
+        android:id="@+id/calendarPicker"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="12dp"
-        android:background="@color/white"
+        android:background="#FFFFFF"
+        android:clipToPadding="false"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="16dp"
+        android:scrollbarStyle="outsideOverlay"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivBack">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white">
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:tint="@color/tulip_tree"
-                app:layout_constraintBottom_toBottomOf="@id/tvAddImage"
-                app:layout_constraintEnd_toStartOf="@+id/tvAddImage"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintTop_toTopOf="@id/tvAddImage"
-                app:srcCompat="@drawable/ic_add" />
-
-            <TextView
-                android:id="@+id/tvAddImage"
-                style="@style/TextStyleBodyLine1"
-                android:layout_width="wrap_content"
-                android:layout_height="56dp"
-                android:gravity="center"
-                android:text="@string/add_photos_title"
-                android:textColor="@color/tulip_tree"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewImages"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="8dp"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:layout_constraintTop_toBottomOf="@+id/tvAddImage"
-                app:spanCount="2"
-                tools:itemCount="4"
-                tools:listitem="@layout/adapter_photo_image_item" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
+        app:layout_constraintTop_toBottomOf="@id/ivBack"
+        app:tsquare_dayBackground="@drawable/calendar_bg_selector_setup"
+        app:tsquare_dividerColor="@color/transparent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

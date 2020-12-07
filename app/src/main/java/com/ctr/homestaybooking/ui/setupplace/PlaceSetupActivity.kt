@@ -76,4 +76,12 @@ class PlaceSetupActivity : BaseActivity() {
             }
         )
     }
+
+    internal fun openPlaceSetupCalendarFragment() {
+        addFragment(
+            getContainerId(),
+            PlaceSetupCalendarFragment.newInstance(),
+            addToBackStack = true
+        )
+    }
 }

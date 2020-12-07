@@ -82,31 +82,10 @@ class App : Application(), Application.ActivityLifecycleCallbacks {
         )
         UIModule.config().apply {
             publicRoomRoomsEnabled = false
-            setTheme(R.style.Theme_AppCompat_Light_NoActionBar_FullScreen)
+            setTheme(R.style.Theme_AppCompat_Light_NoActionBar_ChatSDKTheme)
         }
-        /*if (ChatSDK.auth().isAuthenticatedThisSession) {
-            // do nothing
-            Log.d("--=", "authenticated}")
-        } else if (ChatSDK.auth().isAuthenticated || ChatSDK.auth().isAuthenticating) {
-            ChatSDK.auth().authenticate()
-                .observeOn(RX.main())
-                .subscribe({},
-                    { Log.i("--=", "authenticate error $it") }
-                )
-        } else {
-            val details = AccountDetails.username("congtrinhnguyen56@gmail.com", "12121212")
-            ChatSDK.auth().authenticate(details)
-                .observeOn(RX.main())
-                .subscribe(
-                    {
-                        Log.i("--=", "authenticate ok ${ChatSDK.auth().isAuthenticated}")
-                    },
-                    { Log.i("--=", "authenticate error $it") }
-                )
-        }*/
-
-        // If you are overriding the ChatActivity, you will also need to define the main activity for your app
         ChatSDK.ui().mainActivity = MyMainActivity::class.java
+//        ChatSDK.ui().chatActivity = MyChatActivity::class.java
 //        ChatSDK.ui().setPrivateThreadsFragment(MyPrivateThreadsFragment.getInstance())
     }
 }

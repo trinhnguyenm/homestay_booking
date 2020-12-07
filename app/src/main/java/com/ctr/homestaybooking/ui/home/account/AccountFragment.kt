@@ -61,7 +61,6 @@ class AccountFragment : BaseFragment() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        Log.d("--=", "onActivityResult: ${data}")
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_EDIT_PROFILE) {
             data?.getBooleanExtra(KEY_IS_NEED_UPDATE, false)?.let {

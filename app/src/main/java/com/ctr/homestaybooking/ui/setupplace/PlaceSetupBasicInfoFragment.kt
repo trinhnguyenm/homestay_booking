@@ -27,7 +27,7 @@ class PlaceSetupBasicInfoFragment : BaseFragment() {
     private lateinit var vm: PlaceSetupVMContract
 
     companion object {
-        fun newInstance() = ImageSliderFragment().apply {
+        fun newInstance() = PlaceSetupBasicInfoFragment().apply {
         }
     }
 

@@ -65,6 +65,9 @@ class PlaceSetupOverviewFragment : BaseFragment() {
         liTakePhotos.onClickDelayAction {
             (activity as? PlaceSetupActivity)?.openPlaceSetupImageFragment()
         }
+        liCalendar.onClickDelayAction {
+            (activity as? PlaceSetupActivity)?.openPlaceSetupCalendarFragment()
+        }
     }
 
     private fun getPlaceDetail(id: Int) {

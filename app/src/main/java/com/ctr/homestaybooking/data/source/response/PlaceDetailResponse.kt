@@ -131,8 +131,8 @@ data class PlaceDetail(
         checkOutTime = checkOutTime,
         submitStatus = submitStatus ?: SubmitStatus.DRAFT,
         images = images?.toMutableList(),
-        amenities = amenities,
-        bookingSlots = bookingSlots,
+        amenities = amenities?.toMutableList(),
+        bookingSlots = bookingSlots?.toMutableList(),
         userId = hostDetail?.id,
         wardId = wardDetail?.id,
         placeTypeId = placeType?.id

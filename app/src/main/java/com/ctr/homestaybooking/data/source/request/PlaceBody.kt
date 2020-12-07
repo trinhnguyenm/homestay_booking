@@ -51,9 +51,9 @@ data class PlaceBody(
 
     @SerializedName("images") var images: MutableList<String>? = null,
 
-    @SerializedName("amenities") var amenities: List<Int>? = null,
+    @SerializedName("amenities") var amenities: MutableList<Int>? = null,
 
-    @SerializedName("bookingSlots") var bookingSlots: List<BookingSlot>? = null,
+    @SerializedName("bookingSlots") var bookingSlots: MutableList<BookingSlot>? = null,
 
     @SerializedName("userId") var userId: Int? = null,
 

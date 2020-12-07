@@ -1,6 +1,7 @@
 package com.ctr.homestaybooking.ui.home.favotite
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,6 +50,7 @@ class FavoriteFragment : BaseFragment() {
         viewModel.let { vm ->
             vm.getFavorites().observeOnUiThread()
                 .subscribe({ favorites ->
+                    Log.d("--=", "subscribeFavoritesInDatabase: ${favorites.size}")
                     vm.getPlaces().apply {
                         clear()
                         addAll(favorites.map { Gson().fromJson(it.place, Place::class.java) })
@@ -63,7 +65,7 @@ class FavoriteFragment : BaseFragment() {
                         recyclerView.visible()
                         llNoData.gone()
                     }
-                    recyclerView?.adapter?.notifyItemRangeChanged(0, vm.getPlaces().size)
+                    recyclerView?.adapter?.notifyDataSetChanged()
                 }, {})
         }
     }

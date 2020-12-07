@@ -211,6 +211,7 @@
                     android:layout_marginStart="@dimen/dimen_20dp"
                     android:layout_marginTop="@dimen/dimen_20dp"
                     android:layout_marginEnd="@dimen/dimen_20dp"
+                    android:visibility="gone"
                     app:label="Người lớn" />
 
                 <View
@@ -221,7 +222,7 @@
                     android:layout_marginEnd="@dimen/dimen_20dp"
                     android:layout_marginBottom="@dimen/dimen_10dp"
                     android:background="@color/color_divider"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
 
                 <com.ctr.homestaybooking.ui.wedget.NumberPicker
                     android:id="@+id/pickerChildrenNo"
@@ -229,14 +230,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dimen_20dp"
                     android:layout_marginEnd="@dimen/dimen_20dp"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     app:label="Trẻ em" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dimen_10dp"
                     android:layout_marginTop="@dimen/dimen_20dp"
-                    android:background="@color/color_divider_2" />
+                    android:background="@color/color_divider_2"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:id="@+id/lnExpandPrice"

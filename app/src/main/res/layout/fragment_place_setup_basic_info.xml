@@ -10,8 +10,8 @@
     <ImageButton
         android:id="@+id/ivBack"
         style="@style/CircleImageButtonStyle"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="12dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,15 +21,15 @@
     <TextView
         android:id="@+id/tvSave"
         style="@style/TextItemHeaderStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/headerBarHeight"
+        android:layout_height="@dimen/headerBarHeight"
         android:layout_marginEnd="@dimen/spacing_side_normal"
+        android:gravity="center"
         android:text="@string/save"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/ivBack"
         app:layout_constraintEnd_toStartOf="@+id/ivMore"
-        app:layout_constraintTop_toTopOf="@+id/ivBack"
-        app:layout_constraintVertical_bias="0.357" />
+        app:layout_constraintTop_toTopOf="@+id/ivBack" />
 
     <ImageView
         android:id="@+id/ivMore"
