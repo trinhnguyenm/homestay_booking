@@ -44,12 +44,12 @@ class RoomAdapter(
         fun onBind(item: RoomTypeResponse.RoomTypeStatus) {
             itemView.apply {
                 tvName.text = item.roomType.name
-                tvAddress.text = brand.address
-                tvRoomInfo.text =
+                tvPlaceAddress.text = brand.address
+                tvPlaceRoom.text =
                     item.roomType.getRoomTypeInfo()
                 Glide.with(itemView.context)
                     .load(item.roomType.thumbnail)
-                    .into(ivContent)
+                    .into(ivThumbnail)
                 tvPrice.text = item.roomType.price.toString().getPriceFormat()
                 tvAvailable.text = "Available: ${item.totalRoomAvailable}"
             }

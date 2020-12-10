@@ -40,6 +40,7 @@
         <attr name="label_hasDrawableRight" />
         <attr name="label_text" />
         <attr name="edit_text" />
+        <attr name="edit_isEnabled" format="boolean" />
         <attr name="edit_hint" />
         <attr name="edit_maxLength" />
         <attr name="edit_height" />
@@ -198,5 +199,16 @@
     </declare-styleable>
     <declare-styleable name="NumberPicker">
         <attr name="label" format="string" />
+    </declare-styleable>
+    <declare-styleable name="ExpandableTextView">
+        <attr name="trimLength" format="integer" />
+    </declare-styleable>
+    <declare-styleable name="ListingInfoView">
+        <attr name="titleText" format="string|reference" />
+        <attr name="isCompleted" format="boolean" />
+
+    </declare-styleable>
+    <declare-styleable name="CustomSpinner">
+        <attr name="title" format="string|reference" />
     </declare-styleable>
 </resources>

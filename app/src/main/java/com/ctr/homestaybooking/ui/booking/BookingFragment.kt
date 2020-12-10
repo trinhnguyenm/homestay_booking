@@ -5,29 +5,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.PagerSnapHelper
-import com.borax12.materialdaterangepicker.date.DatePickerDialog
 import com.bumptech.glide.Glide
 import com.ctr.homestaybooking.R
 import com.ctr.homestaybooking.base.BaseFragment
 import com.ctr.homestaybooking.bus.RxBus
 import com.ctr.homestaybooking.data.model.BookingStatus
+import com.ctr.homestaybooking.data.model.BookingType
 import com.ctr.homestaybooking.data.model.UpdateMyBooking
-import com.ctr.homestaybooking.data.source.HotelRepository
+import com.ctr.homestaybooking.data.source.PlaceRepository
 import com.ctr.homestaybooking.data.source.UserRepository
-import com.ctr.homestaybooking.data.source.response.HotelResponse
-import com.ctr.homestaybooking.data.source.response.PromoResponse
-import com.ctr.homestaybooking.data.source.response.RoomTypeResponse
+import com.ctr.homestaybooking.data.source.response.PlaceDetailResponse
+import com.ctr.homestaybooking.data.source.response.Promo
 import com.ctr.homestaybooking.extension.*
 import com.ctr.homestaybooking.ui.App
-import com.ctr.homestaybooking.ui.booking.BookingActivity.Companion.KEY_PROMO
-import com.ctr.homestaybooking.ui.home.rooms.RoomFragment
-import com.ctr.homestaybooking.ui.roomdetail.RoomDetailActivity
-import com.ctr.homestaybooking.util.DateUtil
-import com.ctr.homestaybooking.util.compareDay
-import com.ctr.homestaybooking.util.parseToCalendar
-import com.ctr.homestaybooking.util.parseToString
+import com.ctr.homestaybooking.ui.placedetail.PlaceDetailActivity
+import com.ctr.homestaybooking.util.*
 import kotlinx.android.synthetic.main.fragment_booking.*
-import kotlinx.android.synthetic.main.layout_room_detail_booking.*
+import kotlinx.android.synthetic.main.layout_place_detail_booking.*
 import java.util.*
 
 /**
@@ -35,15 +29,12 @@ import java.util.*
  */
 class BookingFragment : BaseFragment() {
     private lateinit var viewModel: BookingVMContract
-    private var brand: HotelResponse.Hotel.Brand? = null
-    private var roomTypeStatus: RoomTypeResponse.RoomTypeStatus? = null
+    private var placeDetailResponse: PlaceDetailResponse? = null
+    private var promo: Promo? = null
     private var startDate: Calendar? = null
     private var endDate: Calendar? = null
-    private var promo: PromoResponse.Promo? = null
     private var numberOfDays = 1
-    private var numberOfRooms = 1
-    private var prize = 0.0
-    private lateinit var datePicker: DatePickerDialog
+    private var price = 0.0
 
     companion object {
         fun newInstance() = BookingFragment()
@@ -61,16 +52,15 @@ class BookingFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = BookingViewModel(
             App.instance.localRepository,
-            HotelRepository(),
+            PlaceRepository(),
             UserRepository()
         )
         initView()
         initRecyclerView()
         initListener()
-        getUserInfo()
     }
 
-    override fun getProgressBarControlObservable() = viewModel.getProgressObservable()
+    override fun getProgressObservable() = viewModel.getProgressObservable()
 
     override fun isNeedPaddingTop() = true
 
@@ -80,10 +70,10 @@ class BookingFragment : BaseFragment() {
             setHasFixedSize(true)
             adapter = BookingStepAdapter(
                 listOf(
-                    StepBookingUI("Booking"),
-                    StepBookingUI("Payment"),
-                    StepBookingUI("Check in"),
-                    StepBookingUI("Review")
+                    StepBookingUI("Đặt chỗ"),
+                    StepBookingUI("Thanh toán"),
+                    StepBookingUI("Nhận phòng"),
+                    StepBookingUI("Đánh giá")
                 )
             ).apply { setSelectedPosition(0) }
         }
@@ -91,39 +81,49 @@ class BookingFragment : BaseFragment() {
 
     private fun initView() {
         (activity as? BookingActivity)?.intent?.extras?.apply {
-            brand = getParcelable(RoomFragment.KEY_BRAND) ?: HotelResponse.Hotel.Brand()
-            roomTypeStatus = getParcelable(RoomDetailActivity.KEY_ROOM_TYPE_STATUS)
-            startDate = getString(RoomDetailActivity.KEY_START_DATE)?.parseToCalendar()
-            endDate = getString(RoomDetailActivity.KEY_END_DATE)?.parseToCalendar()
-            promo = getParcelable(KEY_PROMO)
+            placeDetailResponse = getParcelable(PlaceDetailActivity.KEY_PLACE_DETAIL)
+            startDate = getString(PlaceDetailActivity.KEY_START_DATE)?.toCalendar()
+            endDate = getString(PlaceDetailActivity.KEY_END_DATE)?.toCalendar()
+            placeDetailResponse?.placeDetail?.let { placeDetail ->
+                startDate?.let { startDate ->
+                    promo =
+                        placeDetail.promos
+                            ?.filter {
+                                startDate.after(it.startDate.toCalendar())
+                                        && startDate.before(it.endDate.toCalendar())
+                            }
+                            ?.sortedBy { it.discountPercent }?.lastOrNull()
+                    viewModel.getBookingBody().startDate = startDate.format(FORMAT_DATE_API)
+                }
+                endDate?.let { viewModel.getBookingBody().endDate = it.format(FORMAT_DATE_API) }
+                (if (placeDetail.bookingType == BookingType.INSTANT_BOOKING) "Đặt ngay" else "Gửi yêu cầu").let {
+                    tvBookNow.text = it
+                    tvTitle.text = it
+                }
+                viewModel.getBookingBody().apply {
+                    id = 0
+                    status =
+                        if (placeDetail.bookingType == BookingType.INSTANT_BOOKING) BookingStatus.UNPAID else BookingStatus.PENDING
+                    userId = viewModel.getUserId()
+                    placeId = placeDetail.id
+                }
+            }
         }
-        tvBookNow.isEnabled = false
 
-        roomTypeStatus?.let {
+        placeDetailResponse?.placeDetail?.let {
             context?.let { context ->
-                Glide.with(context).load(it.roomType.thumbnail).into(ivRoomThumb)
+                Glide.with(context).load(it.images?.firstOrNull()).into(ivPlaceThumb)
             }
-            tvRoomTitle.text = it.roomType.name
-            tvRoomInfo.text = it.roomType.getRoomTypeInfo()
-            pickerRoomNo.setMax(it.totalRoomAvailable)
-            pickerGuestNo.setMax(it.roomType.capacity)
+            tvPlaceName.text = it.name
+            tvPlaceRoom.text = it.getRooms()
+            tvPlaceAddress.text = it.address
+            pickerAdultNo.setMax(it.guestCount ?: 1)
+            pickerChildrenNo.setMax(it.guestCount ?: 1)
 
-            brand?.let { brand ->
-                tvBrand.text = brand.name
-                tvRoomAddress.text = brand.address
-            }
+            numberOfDays = startDate?.datesUntil(endDate)?.size ?: 1
+            price = it.pricePerDay ?: 0.0
 
-            numberOfDays = startDate.compareDay(endDate)
-            prize = it.roomType.price.toDouble()
-
-            updateUI(startDate, endDate, numberOfDays, numberOfRooms, prize)
-
-            viewModel.getRoomsReservationBody().let { body ->
-                body.brandId = brand?.id
-                body.roomTypeId = roomTypeStatus?.roomType?.id
-                body.status = BookingStatus.PENDING.toString()
-                body.id = viewModel.getUserId()
-            }
+            updateUI(startDate, endDate, numberOfDays, price)
         }
     }
 
@@ -131,50 +131,44 @@ class BookingFragment : BaseFragment() {
         startDate: Calendar?,
         endDate: Calendar?,
         numberOfDays: Int,
-        numberOfRooms: Int,
         prize: Double
     ) {
-        tvStartDate.text = startDate?.parseToString(DateUtil.FORMAT_DATE_TIME_CHECK_IN_BOOKING)
-        tvEndDate.text = endDate?.parseToString(DateUtil.FORMAT_DATE_TIME_CHECK_IN_BOOKING)
-        tvCheckinTime.text = startDate?.parseToString(DateUtil.FORMAT_DATE_TIME_DAY_IN_WEEK)
-        tvCheckOutTime.text = endDate?.parseToString(DateUtil.FORMAT_DATE_TIME_DAY_IN_WEEK)
-        tvRangeDate.text = "${numberOfDays}D"
-
-        viewModel.getRoomsReservationBody().let { body ->
-            body.startDate = startDate?.parseToString(DateUtil.FORMAT_DATE_TIME_FROM_API_3)
-            body.endDate = endDate?.parseToString(DateUtil.FORMAT_DATE_TIME_FROM_API_3)
-        }
-
-        updateTotalFee(numberOfDays, numberOfRooms, prize, promo?.percentDiscount ?: 0)
+        tvStartDate.text = startDate?.format(DateUtil.FORMAT_DATE_TIME_CHECK_IN_BOOKING)
+        tvEndDate.text = endDate?.format(DateUtil.FORMAT_DATE_TIME_CHECK_IN_BOOKING)
+        tvCheckinTime.text = startDate?.format(DateUtil.FORMAT_DATE_TIME_DAY_IN_WEEK)
+        tvCheckOutTime.text = endDate?.format(DateUtil.FORMAT_DATE_TIME_DAY_IN_WEEK)
+        tvRangeDate.text = "${numberOfDays}Đ"
+        updateTotalFee(numberOfDays, prize, promo?.discountPercent ?: 0)
     }
 
     private fun updateTotalFee(
         numberOfDays: Int,
-        numberOfRooms: Int,
         prize: Double,
         promoPercent: Int
     ) {
         if (promoPercent == 0) llPromo.gone() else llPromo.visible()
-        tvTitlePerNoNight.text = "Price per $numberOfDays night"
+        tvTitlePerNoNight.text = "$numberOfDays đêm"
         val pricePerNoNight = prize * numberOfDays
-        tvPerNoNight.text = "${prize.toString().getPriceFormat()} x $numberOfDays"
+        tvPlacePrice.text = pricePerNoNight.toMoney()
+        tvPerNoNight.text = "${prize.toMoney()} x $numberOfDays"
 
-        tvTitlePerNoRoom.visibility = if (numberOfRooms == 1) View.GONE else View.VISIBLE
-        tvPerNoRoom.visibility = if (numberOfRooms == 1) View.GONE else View.VISIBLE
-        tvTitlePerNoRoom.text = "Price per $numberOfRooms room"
-        val pricePerNoRoom = pricePerNoNight * numberOfRooms
-        tvPerNoRoom.text = "${pricePerNoNight.toString().getPriceFormat()} x $numberOfRooms"
-        tvRoomPrice.text = pricePerNoRoom.toString().getPriceFormat()
+        tvDiscount.text = "${pricePerNoNight.toMoney()} x $promoPercent%"
+        val pricePromo = pricePerNoNight * promoPercent / 100.0
+        tvPromo.text = "-${pricePromo.toMoney()}"
 
-        tvDiscount.text = "${pricePerNoRoom.toString().getPriceFormat()} x $promoPercent%"
-        val pricePromo = pricePerNoRoom * promoPercent / 100.0
-        tvPromo.text = "-${pricePromo.toString().getPriceFormat()}"
+        val priceTax = (pricePerNoNight - pricePromo) * 15 / 100.0
+        tvTaxPercent.text = "${(pricePerNoNight - pricePromo).toMoney()} x 15%"
+        tvTax.text = priceTax.toMoney()
+        val total = (pricePerNoNight - pricePromo + priceTax)
+        tvTotalFee.text = total.toMoney()
 
-        val priceTax = (pricePerNoRoom - pricePromo) * 10 / 100.0
-        tvTaxPercent.text = "${(pricePerNoRoom - pricePromo).toString().getPriceFormat()} x 10%"
-        tvTax.text = priceTax.toString().getPriceFormat()
-
-        tvTotalFee.text = (pricePerNoRoom - pricePromo + priceTax).toString().getPriceFormat()
+        viewModel.getBookingBody().apply {
+            promoId = promo?.id
+            pricePerDay = price
+            priceForStay = pricePerNoNight
+            taxPaid = priceTax
+            totalPaid = total
+        }
     }
 
     private fun initListener() {
@@ -182,107 +176,31 @@ class BookingFragment : BaseFragment() {
             activity?.onBackPressed()
         }
 
-        inputFirstName.validateData = {
-            it.trim().isNotEmpty()
+        pickerAdultNo.onValueChange = {
+
         }
 
-        inputLastName.validateData = {
-            it.trim().isNotEmpty()
+        pickerChildrenNo.onValueChange = {
+
         }
 
-        inputPhone.validateData = {
-            it.trim().length == 10
-        }
-
-        inputEmail.validateData = {
-            it.trim().isNotEmpty() && it.isEmailValid()
-        }
-
-        inputFirstName.afterTextChange = {
-            viewModel.getRoomsReservationBody().firstName = it
-            updateNextButtonState()
-        }
-
-        inputLastName.afterTextChange = {
-            viewModel.getRoomsReservationBody().lastName = it
-            updateNextButtonState()
-        }
-
-        inputPhone.afterTextChange = {
-            //todo
-            updateNextButtonState()
-        }
-
-        inputEmail.afterTextChange = {
-            viewModel.getRoomsReservationBody().email = it
-            updateNextButtonState()
-        }
-
-        pickerGuestNo.onValueChange = {
-            //// TODO: 6/21/20
-        }
-
-        pickerRoomNo.onValueChange = {
-            numberOfRooms = it
-            updateTotalFee(numberOfDays, numberOfRooms, prize, promo?.percentDiscount ?: 0)
+        constrainDate.onClickDelayAction {
+            activity?.onBackPressed()
         }
 
         tvBookNow.onClickDelayAction {
-            if (promo == null) {
-                addNewRoomsReservation(numberOfRooms)
-            } else {
-                promo?.let {
-                    addNewRoomsReservation(numberOfRooms, listOf(it.promoCode))
-                }
-            }
+            addBooking()
         }
-
     }
 
-    private fun updateNextButtonState() {
-        tvBookNow.isEnabled = validateData()
-    }
-
-    private fun validateData(): Boolean {
-        return inputEmail.isValidateDataNotEmpty()
-                && inputFirstName.isValidateDataNotEmpty()
-                && inputLastName.isValidateDataNotEmpty()
-                && inputPhone.isValidateDataNotEmpty()
-                && numberOfRooms > 0
-    }
-
-    private fun addNewRoomsReservation(
-        numberOfRooms: Int,
-        listPromoCode: List<String>? = null
-    ) {
-        addDisposables(
-            viewModel.addNewRoomsReservation(numberOfRooms, listPromoCode)
-                .observeOnUiThread()
-                .subscribe({ response ->
-                    RxBus.publish(UpdateMyBooking(true))
-                    response.myBookings.firstOrNull()?.let {
-                        (activity as? BookingActivity)?.openPaymentFragment(it)
-                    }
-                }, {
-                    activity?.showErrorDialog(it)
-                })
-        )
-    }
-
-    private fun getUserInfo() {
-        addDisposables(
-            viewModel.getUserInfo()
-                .observeOnUiThread()
-                .subscribe({
-                    it.body.let { user ->
-                        inputFirstName.setText(user.firstName)
-                        inputLastName.setText(user.lastName)
-                        inputEmail.setText(user.email)
-                        inputPhone.setText(user.phone)
-                    }
-                }, {
-                    activity?.showErrorDialog(it)
-                })
-        )
+    private fun addBooking() {
+        viewModel.addBooking()
+            .observeOnUiThread()
+            .subscribe({ response ->
+                RxBus.publish(UpdateMyBooking(true))
+                (activity as? BookingActivity)?.openPaymentFragment(response.booking.id)
+            }, {
+                activity?.showErrorDialog(it)
+            }).addDisposable()
     }
 }

@@ -46,9 +46,9 @@
     </RelativeLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/swipeRefresh"
         android:layout_below="@+id/header">
 
         <androidx.core.widget.NestedScrollView
@@ -58,7 +58,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingBottom="100dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -132,7 +133,7 @@
                         app:layout_constraintTop_toTopOf="@id/imgBanner4" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <include layout="@layout/layout_header_room_detail" />
+                <include layout="@layout/layout_place_detail" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
@@ -165,10 +166,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_toStartOf="@+id/lnBooking">
+            android:layout_toStartOf="@+id/tvBooking">
 
             <TextView
-                android:id="@+id/tvRoomPrice"
+                android:id="@+id/tvPlacePrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/lato_black"
@@ -188,16 +189,16 @@
                 android:paddingBottom="@dimen/dimen_3dp"
                 android:text="@string/per_night"
                 android:textColor="#ff666666"
-                android:textSize="11sp"
-                app:layout_constraintBottom_toBottomOf="@+id/tvRoomPrice"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvPlacePrice"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tvRoomPrice" />
+                app:layout_constraintStart_toEndOf="@+id/tvPlacePrice" />
 
             <TextView
                 android:id="@+id/tvOldPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tvRoomPrice"
+                android:layout_below="@+id/tvPlacePrice"
                 android:layout_marginTop="@dimen/dimen_3dp"
                 android:background="@drawable/bg_text_dash"
                 android:fontFamily="@font/lato_regular"
@@ -205,7 +206,7 @@
                 android:textSize="13sp"
                 android:visibility="gone"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvRoomPrice" />
+                app:layout_constraintTop_toBottomOf="@+id/tvPlacePrice" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <RelativeLayout
@@ -228,7 +229,7 @@
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/lnBooking"
+            android:id="@+id/tvBooking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"

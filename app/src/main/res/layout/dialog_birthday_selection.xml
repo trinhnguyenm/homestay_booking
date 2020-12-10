@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:minHeight="@dimen/headerBarHeight"
+        android:paddingLeft="@dimen/dimen_16dp"
+        android:paddingRight="16dp"
+        android:textColor="@color/colorTundora"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <View
+        android:id="@+id/viewBreakLine1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/tvTitle"
+        android:background="@color/colorTundoraLine" />
+
+    <DatePicker
+        android:id="@+id/datePicker"
+        style="@style/DatePicker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/viewBreakLine1"
+        android:datePickerMode="spinner" />
+
+    <View
+        android:id="@+id/viewBreakLine2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/datePicker"
+        android:background="@color/colorTundoraLine" />
+
+    <TextView
+        android:id="@+id/tvCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/headerBarHeight"
+        android:layout_below="@id/viewBreakLine2"
+        android:layout_toLeftOf="@id/tvOk"
+        android:gravity="center"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="@string/cancel"
+        android:textColor="@color/colorAzureRadiance"
+        android:textSize="18dp" />
+
+    <TextView
+        android:id="@+id/tvOk"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/headerBarHeight"
+        android:layout_below="@id/viewBreakLine2"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="@string/ok"
+        android:textColor="@color/colorAzureRadiance"
+        android:textSize="18dp" />
+</RelativeLayout>

@@ -13,8 +13,8 @@ class NumberPicker @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
-    private var min = 1
-    private var max = 5
+    private var min = 0
+    private var max = Integer.MAX_VALUE
     private var value = min
     internal var onValueChange: ((value: Int) -> Unit)? = null
 
@@ -44,7 +44,7 @@ class NumberPicker @JvmOverloads constructor(
     }
 
     private fun initView(attrs: AttributeSet?) {
-        View.inflate(context, R.layout.layout_number_picker, this)
+        View.inflate(context, R.layout.listing_adjust_number_item, this)
 
         val styleAttrs = context.obtainStyledAttributes(attrs, R.styleable.NumberPicker)
         try {

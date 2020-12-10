@@ -75,7 +75,7 @@
         app:layout_constraintWidth_percent="0.13" />
 
     <View
-        android:id="@+id/viewSpace1"
+        android:id="@+id/space1"
         android:layout_width="1dp"
         android:layout_height="0dp"
         android:background="#fff0f0f0"
@@ -103,10 +103,10 @@
         android:textColor="#ff333333"
         android:textSize="10sp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/viewSpace1"
-        app:layout_constraintEnd_toEndOf="@+id/viewSpace1"
-        app:layout_constraintStart_toStartOf="@+id/viewSpace1"
-        app:layout_constraintTop_toTopOf="@+id/viewSpace1"
+        app:layout_constraintBottom_toBottomOf="@+id/space1"
+        app:layout_constraintEnd_toEndOf="@+id/space1"
+        app:layout_constraintStart_toStartOf="@+id/space1"
+        app:layout_constraintTop_toTopOf="@+id/space1"
         app:layout_constraintWidth_percent="0.13" />
 
     <LinearLayout
@@ -127,7 +127,7 @@
             android:layout_height="wrap_content"
             android:textAllCaps="true"
             android:textSize="10sp"
-            app:layout_constraintStart_toEndOf="@+id/viewSpace1"
+            app:layout_constraintStart_toEndOf="@+id/space1"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView

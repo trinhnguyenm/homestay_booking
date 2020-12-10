@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/imgBanner1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_dummy"
+        app:layout_constraintDimensionRatio="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/imgBanner2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/dimen_4dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_onboard2"
+        app:layout_constraintDimensionRatio="1.5"
+        app:layout_constraintEnd_toStartOf="@id/imgBanner3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgBanner1" />
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/imgBanner3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/dimen_4dp"
+        android:layout_marginEnd="@dimen/dimen_4dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_dummy"
+        app:layout_constraintDimensionRatio="1.5"
+        app:layout_constraintEnd_toStartOf="@id/imgBanner4"
+        app:layout_constraintStart_toEndOf="@id/imgBanner2"
+        app:layout_constraintTop_toTopOf="@id/imgBanner2" />
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/imgBanner4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_dummy"
+        app:layout_constraintDimensionRatio="1.5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imgBanner3"
+        app:layout_constraintTop_toTopOf="@id/imgBanner2" />
+
+    <TextView
+        android:id="@+id/tvMoreCountImage"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_alignStart="@+id/ivBanner"
+        android:layout_alignTop="@+id/ivBanner"
+        android:layout_alignEnd="@+id/ivBanner"
+        android:layout_alignBottom="@+id/ivBanner"
+        android:background="#6b000000"
+        android:fontFamily="@font/lato_bold"
+        android:gravity="center"
+        android:text="+12"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/imgBanner4"
+        app:layout_constraintEnd_toEndOf="@id/imgBanner4"
+        app:layout_constraintStart_toStartOf="@id/imgBanner4"
+        app:layout_constraintTop_toTopOf="@id/imgBanner4" />
+</androidx.constraintlayout.widget.ConstraintLayout>

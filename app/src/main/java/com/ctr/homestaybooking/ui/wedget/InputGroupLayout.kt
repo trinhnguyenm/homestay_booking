@@ -64,7 +64,7 @@ class InputGroupLayout @JvmOverloads constructor(
         breakLine?.isActivated = isValid()
         errorLabel?.isSelected = inputField?.hasFocus() ?: false
         errorLabel?.isActivated = isValid()
-        errorLabel?.visibility = if (isValid()) View.GONE else View.VISIBLE
+        errorLabel?.visibility = if (isValid()) View.INVISIBLE else View.VISIBLE
         if (isValid) {
             inputField.setTextColor(textcolor)
         } else {
@@ -143,6 +143,7 @@ class InputGroupLayout @JvmOverloads constructor(
                     R.styleable.InputGroupLayout_edit_inputType, EditorInfo.TYPE_NULL
                 )
                 inputType = typeInput
+                isEnabled = styleAttrs.getBoolean(R.styleable.InputGroupLayout_edit_isEnabled, true)
                 setOnEditorActionListener(object : TextView.OnEditorActionListener {
                     override fun onEditorAction(
                         v: TextView?, actionId: Int, event: KeyEvent?

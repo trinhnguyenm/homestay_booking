@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        style="@style/TextStyleHeader1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_side_normal"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:text="@string/listing_address_header" />
+
+    <TextView
+        android:id="@+id/tvDescription"
+        style="@style/TextStyleBodyLine2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvTitle"
+        android:layout_marginTop="10dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:text="@string/listing_address_title" />
+
+    <com.ctr.homestaybooking.ui.wedget.CustomSpinner
+        android:id="@+id/spinnerProvince"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvDescription"
+        android:layout_marginTop="24dp"
+        app:title="@string/province_header" />
+
+    <com.ctr.homestaybooking.ui.wedget.CustomSpinner
+        android:id="@+id/spinnerDistrict"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spinnerProvince"
+        android:layout_marginTop="24dp"
+        app:title="@string/district_header" />
+
+    <com.ctr.homestaybooking.ui.wedget.CustomSpinner
+        android:id="@+id/spinnerWard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spinnerDistrict"
+        android:layout_marginTop="24dp"
+        app:title="@string/district_header" />
+
+    <com.ctr.homestaybooking.ui.wedget.InputGroupLayout
+        android:id="@+id/inputStreet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spinnerWard"
+        android:layout_marginTop="24dp"
+        app:label_text="@string/stress_header" />
+
+    <com.ctr.homestaybooking.ui.wedget.InputGroupLayout
+        android:id="@+id/inputAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/inputStreet"
+        android:layout_marginTop="24dp"
+        app:edit_height="48dp"
+        app:edit_inputType="textMultiLine"
+        app:edit_maxLines="2"
+        app:is_elipsize_end="false"
+        app:label_text="@string/address_detail_header" />
+</RelativeLayout>

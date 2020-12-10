@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        style="@style/TextStyleHeader1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_side_normal"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:text="@string/introduction_info_title" />
+
+    <TextView
+        android:id="@+id/tvDescription"
+        style="@style/TextStyleBodyLine2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvTitle"
+        android:layout_marginTop="10dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:text="@string/introduction_title" />
+
+    <com.ctr.homestaybooking.ui.wedget.InputGroupLayout
+        android:id="@+id/inputName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvDescription"
+        android:layout_marginTop="24dp"
+        app:label_text="@string/name_listing_header" />
+
+    <com.ctr.homestaybooking.ui.wedget.CustomSpinner
+        android:id="@+id/spinnerPlaceType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/inputName"
+        android:layout_marginTop="24dp"
+        app:title="@string/acc_type_header" />
+
+    <com.ctr.homestaybooking.ui.wedget.CustomSpinner
+        android:id="@+id/spinnerBookingType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spinnerPlaceType"
+        android:layout_marginTop="24dp"
+        app:title="@string/booking_type_header" />
+
+    <com.ctr.homestaybooking.ui.wedget.InputGroupLayout
+        android:id="@+id/inputDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spinnerBookingType"
+        android:layout_marginTop="24dp"
+        app:detail_text="@string/introduction_title"
+        app:edit_height="80dp"
+        app:edit_inputType="textMultiLine"
+        app:is_elipsize_end="false"
+        app:label_text="@string/introduction_info_title" />
+</RelativeLayout>

@@ -1,14 +1,14 @@
 package com.ctr.homestaybooking.ui.home.rooms
 
 import com.ctr.homestaybooking.base.BaseViewModel
-import com.ctr.homestaybooking.data.source.HotelRepository
+import com.ctr.homestaybooking.data.source.PlaceRepository
 import com.ctr.homestaybooking.data.source.response.RoomResponse
 import com.ctr.homestaybooking.data.source.response.RoomTypeResponse
 import io.reactivex.Single
 import io.reactivex.subjects.BehaviorSubject
 
 class RoomViewModel(
-    private val hotelRepository: HotelRepository
+    private val hotelRepository: PlaceRepository
 ) : RoomVMContract, BaseViewModel() {
 
     private val rooms = mutableListOf<RoomResponse.Room>()
@@ -20,17 +20,6 @@ class RoomViewModel(
     override fun getRooms(): MutableList<RoomResponse.Room> = rooms
 
     override fun getRoomTypes(): MutableList<RoomTypeResponse.RoomTypeStatus> = roomTypes
-
-    override fun getAllRoomByBrand(brandId: Int): Single<RoomResponse> {
-        return hotelRepository.getAllRoomByBrand(brandId)
-            .addProgressLoading()
-            .doOnSuccess { response ->
-                getRooms().apply {
-                    clear()
-                    addAll(response.rooms)
-                }
-            }
-    }
 
     override fun filterRoomStatus(
         numOfGuest: Int,
@@ -61,5 +50,5 @@ class RoomViewModel(
     }
 
     override fun getProgressObservable(): BehaviorSubject<Boolean> =
-        progressBarDialogStateObservable
+        progressBarDialogObservable
 }

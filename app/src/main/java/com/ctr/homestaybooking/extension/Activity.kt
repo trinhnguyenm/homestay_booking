@@ -44,14 +44,14 @@ internal fun FragmentActivity.addFragment(
     isAddExisted: Boolean = false
 ) {
     if (isAddExisted || supportFragmentManager.findFragmentByTag(
-            tag ?: fragment.javaClass.simpleName
+            tag ?: fragment.javaClass.name
         ) == null
     ) {
         val transaction = supportFragmentManager.beginTransaction()
         transactionCallback?.invoke(transaction)
-        transaction.add(containerId, fragment, tag ?: fragment.javaClass.simpleName)
+        transaction.add(containerId, fragment, tag ?: fragment.javaClass.name)
         if (addToBackStack) {
-            transaction.addToBackStack(tag ?: fragment.javaClass.simpleName)
+            transaction.addToBackStack(tag ?: fragment.javaClass.name)
         }
         transaction.commit()
 
@@ -72,12 +72,12 @@ internal fun FragmentActivity.replaceFragment(
     addToBackStack: Boolean = false,
     tag: String? = null
 ) {
-    if (supportFragmentManager.findFragmentByTag(tag ?: fragment.javaClass.simpleName) == null) {
+    if (supportFragmentManager.findFragmentByTag(tag ?: fragment.javaClass.name) == null) {
         val transaction = supportFragmentManager.beginTransaction()
         transactionCallback?.invoke(transaction)
-        transaction.replace(containerId, fragment, tag ?: fragment.javaClass.simpleName)
+        transaction.replace(containerId, fragment, tag ?: fragment.javaClass.name)
         if (addToBackStack) {
-            transaction.addToBackStack(tag ?: fragment.javaClass.simpleName)
+            transaction.addToBackStack(tag ?: fragment.javaClass.name)
         }
         transaction.commit()
     }
@@ -100,7 +100,7 @@ internal fun FragmentActivity.showErrorDialog(
         .setPositiveButton(R.string.ok) { _, _ ->
             onPositiveButtonClicked?.invoke()
         }
-    alertBuilder.setTitle(HtmlCompat.fromHtml("<b>Error", 0))
+    alertBuilder.setTitle(HtmlCompat.fromHtml("<b>${getCodeError(throwable)}", 0))
     return alertBuilder.show().apply {
         setCancelable(false)
     }
@@ -109,12 +109,36 @@ internal fun FragmentActivity.showErrorDialog(
 internal fun Context.getMessageError(throwable: Throwable): String? {
     if (throwable is ApiErrorMessage) {
         throwable.let {
-            return it.debugMessage ?: when (throwable.httpStatusCode) {
+            return it.debugMessage ?: it.subErrors?.firstOrNull()?.message
+            ?: when (throwable.httpStatusCode) {
                 HttpsURLConnection.HTTP_BAD_REQUEST -> getString(R.string.dialog_bad_request_message)
                 HttpsURLConnection.HTTP_UNAUTHORIZED -> getString(R.string.dialog_unauthorized_message)
                 HttpsURLConnection.HTTP_FORBIDDEN -> getString(R.string.dialog_forbidden_message)
                 HttpsURLConnection.HTTP_NOT_FOUND -> getString(R.string.dialog_not_found_message)
                 HttpsURLConnection.HTTP_CLIENT_TIMEOUT -> getString(R.string.dialog_client_time_out_message)
+                HttpsURLConnection.HTTP_INTERNAL_ERROR -> getString(R.string.dialog_internal_error)
+                HttpsURLConnection.HTTP_UNAVAILABLE -> getString(R.string.dialog_unavailable_message)
+                ApiErrorMessage.NETWORK_ERROR_CODE -> getString(R.string.dialog_no_internet_message)
+                else -> getString(
+                    R.string.dialog_server_error_message,
+                    throwable.httpStatusCode.toString()
+                )
+            }
+        }
+    }
+    return throwable.message
+}
+
+internal fun Context.getCodeError(throwable: Throwable): String? {
+    if (throwable is ApiErrorMessage) {
+        throwable.let {
+            return when (throwable.httpStatusCode) {
+                HttpsURLConnection.HTTP_BAD_REQUEST -> getString(R.string.dialog_bad_request_message)
+                HttpsURLConnection.HTTP_UNAUTHORIZED -> getString(R.string.dialog_unauthorized_message)
+                HttpsURLConnection.HTTP_FORBIDDEN -> getString(R.string.dialog_forbidden_message)
+                HttpsURLConnection.HTTP_NOT_FOUND -> getString(R.string.dialog_not_found_message)
+                HttpsURLConnection.HTTP_CLIENT_TIMEOUT -> getString(R.string.dialog_client_time_out_message)
+                HttpsURLConnection.HTTP_INTERNAL_ERROR -> getString(R.string.dialog_internal_error)
                 HttpsURLConnection.HTTP_UNAVAILABLE -> getString(R.string.dialog_unavailable_message)
                 ApiErrorMessage.NETWORK_ERROR_CODE -> getString(R.string.dialog_no_internet_message)
                 else -> getString(

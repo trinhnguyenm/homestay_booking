@@ -24,7 +24,7 @@
         android:layout_marginBottom="100dp"
         android:fontFamily="@font/lato_regular"
         android:lines="5"
-        android:text="Welcome to Muong Thanh - The largest private hotel chain in Southeast Asia"
+        android:text="Welcome to Homestay Booking"
         android:textColor="@color/white"
         android:textSize="36sp"
         app:autoSizeMaxTextSize="32sp"
@@ -35,13 +35,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageView
-        android:layout_width="64dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/img_muong_thanh_logo" />
 </androidx.constraintlayout.widget.ConstraintLayout>

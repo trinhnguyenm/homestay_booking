@@ -20,12 +20,12 @@ internal fun Fragment.addFragment(
     addToBackStack: Boolean = false,
     tag: String? = null
 ) {
-    if (childFragmentManager.findFragmentByTag(tag ?: fragment.javaClass.simpleName) == null) {
+    if (childFragmentManager.findFragmentByTag(tag ?: fragment.javaClass.name) == null) {
         val transaction = childFragmentManager.beginTransaction()
         transactionCallback?.invoke(transaction)
-        transaction.add(containerId, fragment, tag ?: fragment.javaClass.simpleName)
+        transaction.add(containerId, fragment, tag ?: fragment.javaClass.name)
         if (addToBackStack) {
-            transaction.addToBackStack(tag ?: fragment.javaClass.simpleName)
+            transaction.addToBackStack(tag ?: fragment.javaClass.name)
         }
         transaction.commit()
     }
@@ -38,12 +38,12 @@ internal fun Fragment.replaceFragment(
     addToBackStack: Boolean = false,
     tag: String? = null
 ) {
-    if (childFragmentManager.findFragmentByTag(tag ?: fragment.javaClass.simpleName) == null) {
+    if (childFragmentManager.findFragmentByTag(tag ?: fragment.javaClass.name) == null) {
         val transaction = childFragmentManager.beginTransaction()
         transactionCallback?.invoke(transaction)
-        transaction.replace(containerId, fragment, tag ?: fragment.javaClass.simpleName)
+        transaction.replace(containerId, fragment, tag ?: fragment.javaClass.name)
         if (addToBackStack) {
-            transaction.addToBackStack(tag ?: fragment.javaClass.simpleName)
+            transaction.addToBackStack(tag ?: fragment.javaClass.name)
         }
         transaction.commit()
     }

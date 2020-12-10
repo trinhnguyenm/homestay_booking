@@ -17,7 +17,11 @@ import androidx.browser.customtabs.CustomTabsIntent
 import androidx.browser.customtabs.CustomTabsServiceConnection
 import com.ctr.homestaybooking.R
 import com.ctr.homestaybooking.ui.App
+import com.ctr.homestaybooking.ui.wedget.ProgressBarDialog
 import com.ctr.homestaybooking.util.SharedReferencesUtil
+import com.google.android.gms.tasks.Task
+import com.google.firebase.storage.FirebaseStorage
+import kotlinx.android.synthetic.main.dialog_progress_bar.*
 import java.text.NumberFormat
 import java.util.*
 
@@ -139,4 +143,44 @@ internal fun Context.getStatusBarHeight(): Int {
     val resourceId: Int =
         resources.getIdentifier("status_bar_height", "dimen", "android")
     return resources.getDimensionPixelSize(resourceId)
+}
+
+
+internal fun Context?.uploadImageFirebase(imagesPicked: List<Uri>, task: (Task<Uri>) -> Unit) {
+    val storageRef = FirebaseStorage.getInstance()
+        .getReference("files")
+    var count = 0
+    val progressBarDialog = this?.let { ProgressBarDialog(it) }
+    imagesPicked.forEachIndexed { index, uri ->
+        if (index == 0) {
+            progressBarDialog?.apply {
+                show()
+                tvPoorInternet?.visible()
+                tvPoorInternet?.text = "${count + 1}/${imagesPicked.size}"
+            }
+        }
+        val imageRef = storageRef.child(UUID.randomUUID().toString() + "_image")
+        val uploadTask = imageRef.putFile(uri)
+        uploadTask
+            .addOnProgressListener {
+                progressBarDialog?.progressBar?.progress =
+                    (it.bytesTransferred / it.totalByteCount).toInt()
+            }
+            .addOnCompleteListener {
+                count++
+                progressBarDialog?.tvPoorInternet?.text =
+                    "${count + 1}/${imagesPicked.size}"
+                if (count == imagesPicked.size) {
+                    progressBarDialog?.dismiss()
+                }
+            }
+            .continueWithTask { task ->
+                if (!task.isSuccessful) {
+                    task.exception?.let {
+                        throw it
+                    }
+                }
+                imageRef.downloadUrl
+            }.addOnCompleteListener(task)
+    }
 }

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        style="@style/TextStyleHeader1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_side_normal"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:text="@string/room_detail_header" />
+
+    <TextView
+        android:id="@+id/tvDescription"
+        style="@style/TextStyleBodyLine2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvTitle"
+        android:layout_marginTop="10dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:text="@string/room_detail_title" />
+
+    <com.ctr.homestaybooking.ui.wedget.InputGroupLayout
+        android:id="@+id/inputSize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvDescription"
+        android:layout_marginTop="24dp"
+        app:edit_inputType="number"
+        app:edit_maxLength="6"
+        app:is_elipsize_end="false"
+        app:label_text="@string/square_header" />
+
+    <com.ctr.homestaybooking.ui.wedget.NumberPicker
+        android:id="@+id/pickerGuestNo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/inputSize"
+        app:label="@string/standard_guests" />
+
+    <com.ctr.homestaybooking.ui.wedget.NumberPicker
+        android:id="@+id/pickerRoomNo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pickerGuestNo"
+        app:label="@string/bed_room_number" />
+
+    <com.ctr.homestaybooking.ui.wedget.NumberPicker
+        android:id="@+id/pickerBedRoomNo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pickerRoomNo"
+        app:label="@string/bed_number_title" />
+
+    <com.ctr.homestaybooking.ui.wedget.NumberPicker
+        android:id="@+id/pickerBathRoomNo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pickerBedRoomNo"
+        app:label="@string/bath_room_header" />
+</RelativeLayout>

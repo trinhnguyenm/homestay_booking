@@ -8,8 +8,9 @@ import com.ctr.homestaybooking.base.BaseFragment
 import com.ctr.homestaybooking.extension.getStatusBarHeight
 import com.ctr.homestaybooking.extension.replaceFragment
 import com.ctr.homestaybooking.ui.auth.AuthActivity
-import com.ctr.homestaybooking.ui.home.MainActivity
+import com.ctr.homestaybooking.ui.home.MyMainActivity
 import com.ctr.homestaybooking.ui.onboarding.OnBoardingActivity
+import com.ctr.homestaybooking.ui.sheme.SchemeActivity
 import com.ctr.homestaybooking.util.SharedReferencesUtil
 
 /**
@@ -49,7 +50,20 @@ class SplashActivity : BaseActivity() {
     }
 
     internal fun startHomeActivity() {
-        startActivity(Intent(this, MainActivity::class.java))
+        val linkType = intent?.getStringExtra(SchemeActivity.LINK_TYPE)
+        val schemeSpecificPart = intent?.getStringExtra(SchemeActivity.SCHEME_SPECIFIC_PART)
+        startActivity(
+            Intent(this, MyMainActivity::class.java)
+                .apply {
+                    flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    if (linkType != null) {
+                        putExtra(SchemeActivity.LINK_TYPE, linkType)
+                    }
+                    if (schemeSpecificPart != null) {
+                        putExtra(SchemeActivity.SCHEME_SPECIFIC_PART, schemeSpecificPart)
+                    }
+                }
+        )
         finishAffinity()
     }
 }

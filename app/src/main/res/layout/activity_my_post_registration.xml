@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/headerBarHeight">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                style="@style/style_title_action_bar"
+                android:layout_width="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="Sign Up" />
+
+            <ImageView
+                android:id="@+id/imgBack"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/headerBarHeight"
+                android:paddingStart="24dp"
+                android:paddingEnd="16dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_back_white"
+                android:tint="@color/colorAccent"
+                android:visibility="visible" />
+        </RelativeLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appbarLayout">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:fitsSystemWindows="true"
+            android:orientation="vertical"
+            android:paddingBottom="54dp">
+
+            <LinearLayout
+                android:id="@+id/llAvatar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingTop="0dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/avatarImageView"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="20dp"
+                    app:civ_border_color="?avatarBorderColor"
+                    app:civ_border_width="5dp"
+                    app:civ_circle_background_color="?avatarBackgroundColor" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:id="@+id/iconLinearLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <sdk.chat.ui.views.IconEditView
+                            android:id="@+id/nameEditView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <sdk.chat.ui.views.IconEditView
+                            android:id="@+id/locationEditView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <sdk.chat.ui.views.IconEditView
+                            android:id="@+id/phoneEditView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <sdk.chat.ui.views.IconEditView
+                            android:id="@+id/emailEditView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                            android:id="@+id/doneFab"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_margin="16dp"
+                            android:visibility="gone" />
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+            <com.ctr.homestaybooking.ui.wedget.InputGroupLayout
+                android:id="@+id/inputFirstName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/llAvatar"
+                android:layout_marginTop="@dimen/dimen_24dp"
+                app:error_textOnEmpty="@string/error001"
+                app:label_text="Tên" />
+
+            <com.ctr.homestaybooking.ui.wedget.InputGroupLayout
+                android:id="@+id/inputLastName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/inputFirstName"
+                android:layout_marginTop="@dimen/dimen_24dp"
+                app:error_textOnEmpty="@string/error001"
+                app:label_text="Họ" />
+
+            <com.ctr.homestaybooking.ui.wedget.InputGroupLayout
+                android:id="@+id/inputPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/inputLastName"
+                android:layout_marginTop="@dimen/dimen_24dp"
+                app:edit_inputType="phone"
+                app:error_text="Phone number is not valid"
+                app:error_textOnEmpty="@string/error001"
+                app:label_text="Số điện thoại" />
+
+            <com.ctr.homestaybooking.ui.wedget.InputGroupLayout
+                android:id="@+id/inputEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/inputPhone"
+                android:layout_marginTop="@dimen/dimen_24dp"
+                app:edit_maxLength="255"
+                app:error_text="Email is not valid"
+                app:error_textOnEmpty="@string/error001"
+                app:label_text="Email" />
+
+            <com.ctr.homestaybooking.ui.wedget.InputGroupLayout
+                android:id="@+id/inputPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/inputEmail"
+                android:layout_marginTop="@dimen/dimen_24dp"
+                app:edit_inputType="textPassword"
+                app:edit_maxLength="50"
+                app:error_text="Mật khẩu phải tối thiểu 8 kí tự, có ít nhất 1 chữ hoa, 1 chữ thường, 1 số"
+                app:error_textOnEmpty="@string/error001"
+                app:label_text="Mật khẩu" />
+
+            <com.ctr.homestaybooking.ui.wedget.InputGroupLayout
+                android:id="@+id/inputConfirmPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/inputPassword"
+                android:layout_marginTop="@dimen/dimen_24dp"
+                app:edit_inputType="textPassword"
+                app:edit_maxLength="50"
+                app:error_text="Mật khẩu không khớp"
+                app:error_textOnEmpty="@string/error001"
+                app:label_text="Nhập lại mật khẩu" />
+
+            <Button
+                android:id="@+id/tvSignUp"
+                style="@style/AppButton"
+                android:layout_width="200dp"
+                android:layout_height="@dimen/dimen_48dp"
+                android:layout_below="@id/inputEmail"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="@dimen/dimen_20dp"
+                android:layout_marginTop="240dp"
+                android:layout_marginEnd="@dimen/dimen_20dp"
+                android:background="@drawable/bg_button_round_gradient_enable"
+                android:text="Đăng kí"
+                android:textColor="#ffffffff" />
+
+            <TextView
+                android:id="@+id/tvAlready"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvSignUp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dimen_30dp"
+                android:fontFamily="@font/lato_black"
+                android:text="Bạn đã có tài khoản?"
+                android:textColor="#ff666666"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tvActionHere"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvAlready"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dimen_12dp"
+                android:fontFamily="@font/lato_black"
+                android:text="Đăng nhập"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+        </RelativeLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

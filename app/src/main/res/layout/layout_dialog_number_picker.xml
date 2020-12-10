@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <com.ctr.homestaybooking.ui.wedget.NumberPicker
-        android:id="@+id/pickerGuestNo"
+        android:id="@+id/pickerAdultNo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dimen_20dp"
@@ -24,7 +24,7 @@
         android:background="@color/color_divider" />
 
     <com.ctr.homestaybooking.ui.wedget.NumberPicker
-        android:id="@+id/pickerRoomNo"
+        android:id="@+id/pickerChildrenNo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dimen_20dp"

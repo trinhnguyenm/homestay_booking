@@ -11,4 +11,14 @@ interface AccountVMContract {
     fun getUserInfo(): Single<UserResponse>
 
     fun getProgressObservable(): BehaviorSubject<Boolean>
+
+    fun setHostSession()
+
+    fun setUserSession()
+
+    fun isUserSession(): Boolean
+
+    fun getUserResponse(): UserResponse?
+
+    fun upToHost(): Single<UserResponse>
 }

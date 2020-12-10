@@ -63,7 +63,7 @@
                     app:SpinKit_Color="@color/colorAccent" />
 
                 <com.makeramen.roundedimageview.RoundedImageView
-                    android:id="@+id/ivRoomThumb"
+                    android:id="@+id/ivPlaceThumb"
                     style="@style/match_parent"
                     android:scaleType="centerCrop"
                     app:riv_corner_radius="8dp" />
@@ -75,7 +75,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tvRoomType"
+                    android:id="@+id/tvPlaceType"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1.0"
@@ -88,7 +88,7 @@
                     android:textSize="11sp" />
 
                 <TextView
-                    android:id="@+id/tvBrand"
+                    android:id="@+id/tvPlaceName"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1.0"
@@ -100,7 +100,7 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/tvAddress"
+                    android:id="@+id/tvPlaceAddress"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1.0"

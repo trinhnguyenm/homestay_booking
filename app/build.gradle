@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 29
@@ -13,11 +15,11 @@ android {
         versionName "1.0"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled = true
     }
 
     buildTypes {
         debug {
-            applicationIdSuffix ".debug"
             debuggable true
 //            testCoverageEnabled true
         }
@@ -50,11 +52,11 @@ android {
     applicationVariants.all { variant ->
         switch (variant.getName()) {
             case "debug":
-                variant.buildConfigField "String", "BASE_API_URL", '"http://172.18.19.213:8080/api/"'
+                variant.buildConfigField "String", "BASE_API_URL", '"https://homestay-booking.herokuapp.com/api/"'
                 variant.buildConfigField "String", "BASE_IMAGE_URL", '"https:"'
                 variant.buildConfigField "String", "APP_NAME", '"Homestay booking"'
                 break
-            }
+        }
     }
 }
 
@@ -73,12 +75,19 @@ android.applicationVariants.all { variant ->
 
 dependencies {
     implementation project(':library')
+    implementation platform('com.google.firebase:firebase-bom:26.1.0')
     implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation "sdk.chat:firebase-app:5.0.9"
+    implementation "co.chatsdk:matisse:0.5.3-beta3b1"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'com.google.android.material:material:1.1.0'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.1.0'
     implementation 'androidx.navigation:navigation-ui-ktx:2.1.0'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-database:19.3.0'
+    implementation 'com.google.firebase:firebase-messaging:21.0.0'
+    implementation 'com.google.firebase:firebase-storage-ktx:19.2.0'
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:2.11.0'
     testImplementation "org.robolectric:robolectric:3.6.1"
@@ -103,17 +112,28 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.2.6'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
 
+    def room_version = "2.2.3"
+    // Room
+    implementation "androidx.room:room-runtime:${room_version}"
+    implementation "androidx.room:room-ktx:${room_version}"
+    implementation "androidx.room:room-rxjava2:${room_version}"
+    kapt "androidx.room:room-compiler:${room_version}"
+    testImplementation "androidx.room:room-testing:${room_version}"
+
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.8.0'
 
     // Date Picker
     implementation 'com.wdullaer:materialdatetimepicker:4.2.1'
 
+    // Crop Image
+    api 'com.theartofdev.edmodo:android-image-cropper:2.7.0'
+
     // View
     implementation 'me.grantland:autofittextview:0.2.1'
-    implementation 'de.hdodenhof:circleimageview:3.0.0'
     implementation 'com.loopeer.lib:shadow:0.0.4-beta3'
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
     implementation 'com.makeramen:roundedimageview:2.3.0'
     implementation 'me.relex:circleindicator:2.1.4'
+//    implementation 'com.squareup:android-times-square:1.7.10'
 }

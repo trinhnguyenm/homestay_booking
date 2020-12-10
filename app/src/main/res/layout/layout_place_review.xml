@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clReview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imgReviewRatingStar"
+        android:layout_width="@dimen/dimen_24dp"
+        android:layout_height="@dimen/dimen_24dp"
+        android:layout_marginStart="@dimen/dimen_24dp"
+        android:layout_marginTop="@dimen/dimen_24dp"
+        android:src="@drawable/btn_rating_star_on_normal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvReviewRateAverage"
+        style="@style/textBlackBoldWrap"
+        android:layout_marginStart="@dimen/dimen_4dp"
+        app:layout_constraintBottom_toBottomOf="@id/imgReviewRatingStar"
+        app:layout_constraintStart_toEndOf="@id/imgReviewRatingStar"
+        app:layout_constraintTop_toTopOf="@id/imgReviewRatingStar"
+        tools:text="4.52" />
+
+    <TextView
+        android:id="@+id/tvReviewRateCount"
+        style="@style/textBlackBoldWrap"
+        android:layout_marginStart="@dimen/dimen_4dp"
+        app:layout_constraintBottom_toBottomOf="@id/imgReviewRatingStar"
+        app:layout_constraintStart_toEndOf="@id/tvReviewRateAverage"
+        app:layout_constraintTop_toTopOf="@id/imgReviewRatingStar"
+        tools:text="(40 đánh giá)" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgReviewUser"
+        android:layout_width="@dimen/dimen_40"
+        android:layout_height="@dimen/dimen_40"
+        android:layout_marginStart="@dimen/dimen_24dp"
+        android:layout_marginTop="@dimen/dimen_16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgReviewRatingStar"
+        tools:background="@color/colorTextGray" />
+
+    <TextView
+        android:id="@+id/tvReviewUsername"
+        style="@style/textBlackBoldWrap"
+        android:layout_width="0dp"
+        android:layout_marginStart="@dimen/dimen_16dp"
+        android:layout_marginEnd="@dimen/dimen_24dp"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imgReviewUser"
+        app:layout_constraintTop_toTopOf="@id/imgReviewUser"
+        tools:text="Trinh Nguyen" />
+
+    <androidx.appcompat.widget.AppCompatRatingBar
+        android:id="@+id/ratingBar"
+        style="@style/RatingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="13.4dp"
+        android:layout_marginTop="2dp"
+        android:isIndicator="false"
+        android:numStars="5"
+        android:rating="3"
+        android:secondaryProgressTint="#00000000"
+        android:stepSize="0.1"
+        app:layout_constraintStart_toStartOf="@+id/tvReviewUsername"
+        app:layout_constraintTop_toBottomOf="@+id/tvReviewUsername" />
+
+    <TextView
+        android:id="@+id/tvReviewTime"
+        style="@style/textGrayWrap"
+        android:layout_width="0dp"
+        android:layout_marginStart="@dimen/dimen_16dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="@dimen/dimen_24dp"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imgReviewUser"
+        app:layout_constraintTop_toBottomOf="@id/ratingBar"
+        tools:text="tháng 7 năm 2020" />
+
+    <com.ctr.homestaybooking.ui.wedget.ExpandableTextView
+        android:id="@+id/tvReviewComment"
+        style="@style/textBlackRegular"
+        android:layout_width="match_parent"
+        android:layout_marginStart="@dimen/dimen_24dp"
+        android:layout_marginTop="@dimen/dimen_24dp"
+        android:layout_marginEnd="@dimen/dimen_24dp"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/imgReviewUser"
+        tools:text="Truly amazing view, even better than the photo for me. They so humble and helpful. Totoly goodtime in Da Nang" />
+
+
+    <TextView
+        android:id="@+id/tvLoadMore"
+        style="@style/textBlackBold"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_btn_default_radius"
+        android:gravity="center"
+        android:text="Xem thêm"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/tvReviewComment" />
+
+    <View
+        android:id="@+id/space4"
+        style="@style/space"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/tvLoadMore" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

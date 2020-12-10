@@ -1,13 +1,14 @@
 package com.ctr.homestaybooking.ui.booking
 
 import com.ctr.homestaybooking.base.BaseViewModel
-import com.ctr.homestaybooking.data.source.HotelRepository
+import com.ctr.homestaybooking.data.model.BookingStatus
 import com.ctr.homestaybooking.data.source.LocalRepository
+import com.ctr.homestaybooking.data.source.PlaceRepository
 import com.ctr.homestaybooking.data.source.UserRepository
-import com.ctr.homestaybooking.data.source.request.RoomsReservationBody
-import com.ctr.homestaybooking.data.source.response.ChangeReservationStatusResponse
-import com.ctr.homestaybooking.data.source.response.ChangeRoomReservationStatusResponse
-import com.ctr.homestaybooking.data.source.response.MyBookingResponse
+import com.ctr.homestaybooking.data.source.request.BookingBody
+import com.ctr.homestaybooking.data.source.response.Booking
+import com.ctr.homestaybooking.data.source.response.BookingResponse
+import com.ctr.homestaybooking.data.source.response.CaptureMoMoApiResponse
 import com.ctr.homestaybooking.data.source.response.UserResponse
 import io.reactivex.Single
 import io.reactivex.subjects.BehaviorSubject
@@ -18,54 +19,53 @@ import io.reactivex.subjects.BehaviorSubject
 
 class BookingViewModel(
     private var localRepository: LocalRepository,
-    private val hotelRepository: HotelRepository,
+    private val placeRepository: PlaceRepository,
     private val userRepository: UserRepository
 ) : BookingVMContract, BaseViewModel() {
 
-    private val roomsReservationBody = RoomsReservationBody()
+    private val bookingBody = BookingBody()
 
-    private val roomReservations = mutableListOf<MyBookingResponse.MyBooking>()
+    private var booking: Booking? = null
 
-    override fun getRoomsReservationBody() = roomsReservationBody
+    override fun getBookingBody() = bookingBody
 
-    override fun getRoomReservations(): MutableList<MyBookingResponse.MyBooking> =
-        roomReservations
+    override fun getBooking() = booking
 
-    override fun addNewRoomsReservation(
-        numberOfRooms: Int,
-        listPromoCode: List<String>?
-    ): Single<MyBookingResponse> {
-        return hotelRepository.addNewRoomsReservation(
-            numberOfRooms,
-            listPromoCode,
-            getRoomsReservationBody()
-        )
+    override fun addBooking(): Single<BookingResponse> {
+        return placeRepository.addBooking(getBookingBody())
             .addProgressLoading()
-            .doOnSuccess { response ->
-                getRoomReservations().apply {
-                    clear()
-                    addAll(response.myBookings)
-                }
+    }
+
+    override fun getBookingById(id: Int): Single<BookingResponse> {
+        return placeRepository.getBookingById(id)
+            .addProgressLoading()
+            .doOnSuccess {
+                booking = it.booking
             }
     }
 
     override fun getUserId() = localRepository.getUserId()
 
     override fun getUserInfo(): Single<UserResponse> {
-        return userRepository.getUserFollowId(localRepository.getUserId())
+        return userRepository.getUserById(localRepository.getUserId())
             .addProgressLoading()
     }
 
-    override fun changeReservationStatus(reservationId: Int): Single<ChangeReservationStatusResponse> {
-        return hotelRepository.changeReservationStatus(reservationId)
+    override fun changeBookingStatus(
+        bookingId: Int,
+        bookingStatus: BookingStatus
+    ): Single<BookingResponse> {
+        return placeRepository.changeBookingStatus(bookingId, bookingStatus)
             .addProgressLoading()
+            .doOnSuccess {
+                booking = it.booking
+            }
     }
 
-    override fun changeRoomReservationStatus(roomReservationId: Int): Single<ChangeRoomReservationStatusResponse> {
-        return hotelRepository.changeRoomReservationStatus(roomReservationId)
-            .addProgressLoading()
+    override fun requestPayment(bookingId: Int): Single<CaptureMoMoApiResponse> {
+        return placeRepository.requestPayment(bookingId).addProgressLoading()
     }
 
     override fun getProgressObservable(): BehaviorSubject<Boolean> =
-        progressBarDialogStateObservable
+        progressBarDialogObservable
 }

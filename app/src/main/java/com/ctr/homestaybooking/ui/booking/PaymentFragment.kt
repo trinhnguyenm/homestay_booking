@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,18 +12,13 @@ import androidx.recyclerview.widget.PagerSnapHelper
 import com.bumptech.glide.Glide
 import com.ctr.homestaybooking.R
 import com.ctr.homestaybooking.base.BaseFragment
-import com.ctr.homestaybooking.bus.RxBus
 import com.ctr.homestaybooking.data.model.BookingStatus
-import com.ctr.homestaybooking.data.model.UpdateMyBooking
-import com.ctr.homestaybooking.data.source.HotelRepository
+import com.ctr.homestaybooking.data.source.PlaceRepository
 import com.ctr.homestaybooking.data.source.UserRepository
-import com.ctr.homestaybooking.data.source.response.MyBookingResponse
+import com.ctr.homestaybooking.data.source.response.Booking
 import com.ctr.homestaybooking.extension.*
 import com.ctr.homestaybooking.ui.App
-import com.ctr.homestaybooking.util.DateUtil
-import com.ctr.homestaybooking.util.compareDay
-import com.ctr.homestaybooking.util.parseToCalendar
-import com.ctr.homestaybooking.util.parseToString
+import com.ctr.homestaybooking.util.*
 import kotlinx.android.synthetic.main.fragment_payment.*
 import kotlinx.android.synthetic.main.layout_payment.*
 import java.util.*
@@ -33,7 +29,7 @@ import java.util.*
  */
 @SuppressLint("SetTextI18n")
 class PaymentFragment : BaseFragment() {
-    private lateinit var viewModel: BookingViewModel
+    private lateinit var vm: BookingViewModel
     private lateinit var adapterBookingStep: BookingStepAdapter
     private var startDate: Calendar? = null
     private var endDate: Calendar? = null
@@ -43,21 +39,21 @@ class PaymentFragment : BaseFragment() {
     private var prize = 0.0
     private var totalFree = 0.0
     private var status: BookingStatus = BookingStatus.PENDING
-    private var reservationId = 0
-    private var roomReservationId = 0
+    private var bookingId = 0
     private var bookingSteps = mutableListOf(
-        StepBookingUI("Booking"),
-        StepBookingUI("Payment"),
-        StepBookingUI("Check in"),
-        StepBookingUI("Review")
+        StepBookingUI("Đặt chỗ"),
+        StepBookingUI("Thanh toán"),
+        StepBookingUI("Nhận phòng"),
+        StepBookingUI("Đánh giá")
     )
+    private var isNeedReload = false
 
     companion object {
         internal const val KEY_MY_BOOKING = "key_my_booking"
 
-        fun newInstance(myBooking: MyBookingResponse.MyBooking) = PaymentFragment().apply {
+        fun newInstance(bookingId: Int) = PaymentFragment().apply {
             arguments = Bundle().apply {
-                putParcelable(KEY_MY_BOOKING, myBooking)
+                putInt(KEY_MY_BOOKING, bookingId)
             }
         }
     }
@@ -72,12 +68,25 @@ class PaymentFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = BookingViewModel(
-            App.instance.localRepository, HotelRepository(), UserRepository()
+        vm = BookingViewModel(
+            App.instance.localRepository, PlaceRepository(), UserRepository()
         )
+        arguments?.getInt(KEY_MY_BOOKING)?.let {
+            getBookingById(it)
+        }
+        container.gone()
         initRecyclerView()
-        initView()
         initListener()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (isNeedReload) {
+            isNeedReload = false
+            arguments?.getParcelable<Booking>(KEY_MY_BOOKING)?.let {
+                getBookingById(it.id)
+            }
+        }
     }
 
     override fun isNeedPaddingTop() = true
@@ -94,81 +103,113 @@ class PaymentFragment : BaseFragment() {
         }
     }
 
+    private fun getBookingById(id: Int) {
+        vm.getBookingById(id)
+            .observeOnUiThread()
+            .subscribe({
+                container.visible()
+                initView()
+            }, {
+                activity?.showErrorDialog(it)
+            }).addDisposable()
+    }
+
     private fun initView() {
-        arguments?.getParcelable<MyBookingResponse.MyBooking>(KEY_MY_BOOKING)?.let {
-            when (it.status) {
-                BookingStatus.PENDING.name -> {
-                    when (it.reservation.status) {
-                        "UNPAID" -> {
-                            status = BookingStatus.UNPAID
-                            tvPayNow.text = "Pay Now"
-                            tvBookAlertTitle.text = "Still Awaiting Your Payment"
-                            tvBookAlert.text = "Please complete you payment."
-                        }
-                        "PAID" -> {
-                            status = BookingStatus.PAID
-                            tvPayNow.text = "Cancel Booking"
-                            tvBookAlertTitle.text = "Wait for you check in"
-                            tvBookAlert.text =
-                                "Please check in before 14:00 ${it.startDate?.parseToCalendar(
-                                    DateUtil.FORMAT_DATE_TIME_FROM_API_3
-                                )?.parseToString(DateUtil.FORMAT_DATE_TIME_CHECK_IN_BOOKING)}"
-                            adapterBookingStep.setSelectedPosition(2)
-                            rcvStepBooking.scrollToPosition(2)
-                        }
+        vm.getBooking()?.let {
+            bookingId = it.id
+            status = it.status
+            if (App.instance.localRepository.isUserSession()) {
+                tvTitle.text = it.place.name
+                when (it.status) {
+                    BookingStatus.PENDING -> {
+                        tvPayNow.text = "Thanh toán"
+                        tvPayNow.isEnabled = false
+                        tvBookAlertTitle.text = "Đang đợi chủ nhà chấp nhận yêu cầu."
+                        tvBookAlert.text = "Bạn có thể thanh toán sau khi chủ nhà chấp nhận."
                     }
-                }
-                BookingStatus.COMPLETED.name -> {
-                    status = BookingStatus.COMPLETED
-                    tvPayNow.text = "Book Again"
-                    tvBookAlertTitle.text = "You booking has been completed"
-                    tvBookAlert.text = "Please review this room."
-                    adapterBookingStep.setSelectedPosition(3)
-                    rcvStepBooking.scrollToPosition(3)
-                }
-                else -> {
-                    status = BookingStatus.CANCELLED
-                    tvPayNow.text = "Book Again"
-                    tvBookAlertTitle.text = "You booking has been canceled"
-                    tvBookAlert.text =
-                        "Sorry, the booking has been cancelled. Please book again or book another room."
-                    adapterBookingStep.setSelectedPosition(2)
-                    bookingSteps.apply {
-                        clear()
-                        addAll(
-                            listOf(
-                                StepBookingUI("Booking"),
-                                StepBookingUI("Payment"),
-                                StepBookingUI("Cancelled")
+                    BookingStatus.ACCEPTED -> {
+                        tvPayNow.text = "Thanh toán"
+                        tvBookAlertTitle.text = "Chủ nhà đã chấp nhận yêu cầu đặt chỗ của bạn."
+                        tvBookAlert.text = "Thanh toán ngay"
+                    }
+                    BookingStatus.UNPAID -> {
+                        tvPayNow.text = "Thanh toán"
+                        tvBookAlertTitle.text = "Đã tạo đơn đặt chỗ"
+                        tvBookAlert.text = "Thanh toán ngay"
+                    }
+                    BookingStatus.PAID -> {
+                        tvPayNow.text = "Hủy đặt chỗ"
+                        tvBookAlertTitle.text = "Đang đợi bạn check-in"
+                        tvBookAlert.text =
+                            "Vui lòng check-in trước 14:00 ngày ${
+                                it.startDate.toCalendar(FORMAT_DATE_API)
+                                    .format(DateUtil.FORMAT_DATE_TIME_CHECK_IN_BOOKING)
+                            }"
+                        adapterBookingStep.setSelectedPosition(2)
+                        rcvStepBooking.scrollToPosition(2)
+                        adapterBookingStep.notifyDataSetChanged()
+                    }
+                    BookingStatus.COMPLETED -> {
+                        tvPayNow.text = "Đặt lại"
+                        tvBookAlertTitle.text = "Đơn đặt chỗ đã hoàn thành"
+                        tvBookAlert.text = "Bạn có hài lòng? Vui lòng đánh giá chỗ ở này"
+                        adapterBookingStep.setSelectedPosition(3)
+                        adapterBookingStep.notifyDataSetChanged()
+                        rcvStepBooking.scrollToPosition(3)
+                    }
+                    else -> {
+                        tvPayNow.text = "Đặt lại"
+                        tvBookAlertTitle.text = "Đơn đặt chỗ của bạn đã bị hủy"
+                        tvBookAlert.text =
+                            "Xin lỗi, đơn đặt chỗ của bạn không thành công."
+                        adapterBookingStep.setSelectedPosition(2)
+                        bookingSteps.apply {
+                            clear()
+                            addAll(
+                                listOf(
+                                    StepBookingUI("Đặt chỗ"),
+                                    StepBookingUI("Thanh toán"),
+                                    StepBookingUI("Không thành công")
+                                )
                             )
-                        )
+                        }
+                        rcvStepBooking.adapter?.notifyDataSetChanged()
+                        rcvStepBooking.scrollToPosition(2)
                     }
-                    rcvStepBooking.adapter?.notifyDataSetChanged()
-                    rcvStepBooking.scrollToPosition(2)
+                }
+            } else {
+                rcvStepBooking.invisible()
+                tvTitle.text = it.user.getName()
+                when (it.status) {
+                    BookingStatus.PENDING -> {
+                        tvPayNow.text = "Chấp nhận yêu cầu"
+                        tvPayNow.isEnabled = true
+                        tvBookAlertTitle.text =
+                            "Đang chờ bạn chấp nhận yêu cầu đặt chỗ của người dùng."
+                        tvBookAlert.gone()
+                    }
+                    else -> {
+                        tvPayNow.gone()
+                        tvBookAlert.gone()
+                        tvBookAlertTitle.gone()
+                    }
                 }
             }
 
-            tvTitle.text = it.room?.brand?.name.toString()
-            tvBookingId.text = "Booking ID: ${it.id}"
-            tvCustomer.apply {
-                visible()
-                text = "${it.firstName} ${it.lastName} "
-            }
+            tvBookingId.text = "Mã đơn: ${it.id}"
             context?.let { context ->
-                Glide.with(context).load(it.room?.roomType?.thumbnail).into(ivRoomThumb)
+                Glide.with(context).load(it.place.images?.firstOrNull()).into(ivPlaceThumb)
             }
 
-            tvRoomTitle.text = it.room?.roomType?.name
-            tvRoomInfo.text = it.room?.roomType?.getRoomTypeInfo()
+            tvPlaceName.text = it.place.name
+            tvPlaceRoom.text = it.place.getRooms()
 
-            tvRoomAddress.text = it.room?.brand?.address
-            reservationId = it.reservation.id
-            roomReservationId = it.id
-            startDate = it.startDate?.parseToCalendar(DateUtil.FORMAT_DATE_TIME_FROM_API_3)
-            endDate = it.endDate?.parseToCalendar(DateUtil.FORMAT_DATE_TIME_FROM_API_3)
-            numberOfDays = startDate.compareDay(endDate)
-            prize = it.room?.roomType?.price?.toDouble() ?: 0.0
-            promoPercent = it.reservation.promos.firstOrNull()?.percentDiscount ?: 0
+            tvPlaceAddress.text = it.place.address
+            startDate = it.startDate.toCalendar(FORMAT_DATE_API)
+            endDate = it.endDate.toCalendar(FORMAT_DATE_API)
+            numberOfDays = startDate.datesUntil(endDate).size
+            prize = it.pricePerDay
+            promoPercent = it.promo?.discountPercent ?: 0
             updateUI(startDate, endDate, numberOfDays, numberOfRooms, prize)
         }
     }
@@ -180,11 +221,11 @@ class PaymentFragment : BaseFragment() {
         numberOfRooms: Int,
         prize: Double
     ) {
-        tvStartDate.text = startDate?.parseToString(DateUtil.FORMAT_DATE_TIME_CHECK_IN_BOOKING)
-        tvEndDate.text = endDate?.parseToString(DateUtil.FORMAT_DATE_TIME_CHECK_IN_BOOKING)
-        tvCheckinTime.text = startDate?.parseToString(DateUtil.FORMAT_DATE_TIME_DAY_IN_WEEK)
-        tvCheckOutTime.text = endDate?.parseToString(DateUtil.FORMAT_DATE_TIME_DAY_IN_WEEK)
-        tvRangeDate.text = "${numberOfDays}D"
+        tvStartDate.text = startDate?.format(DateUtil.FORMAT_DATE_TIME_CHECK_IN_BOOKING)
+        tvEndDate.text = endDate?.format(DateUtil.FORMAT_DATE_TIME_CHECK_IN_BOOKING)
+        tvCheckinTime.text = startDate?.format(DateUtil.FORMAT_DATE_TIME_DAY_IN_WEEK)
+        tvCheckOutTime.text = endDate?.format(DateUtil.FORMAT_DATE_TIME_DAY_IN_WEEK)
+        tvRangeDate.text = "${numberOfDays}Đ"
 
         updateTotalFee(numberOfDays, numberOfRooms, prize, promoPercent)
     }
@@ -196,27 +237,20 @@ class PaymentFragment : BaseFragment() {
         promoPercent: Int
     ) {
         if (promoPercent == 0) llPromo.gone() else llPromo.visible()
-        tvTitlePerNoNight.text = "Price per $numberOfDays night"
+        tvTitlePerNoNight.text = "$numberOfDays đêm"
         val pricePerNoNight = prize * numberOfDays
-        tvPerNoNight.text = "${prize.toString().getPriceFormat()} x $numberOfDays"
+        tvPlacePrice.text = pricePerNoNight.toMoney()
+        tvPerNoNight.text = "${prize.toMoney()} x $numberOfDays"
 
-        tvTitlePerNoRoom.visibility = if (numberOfRooms == 1) View.GONE else View.VISIBLE
-        tvPerNoRoom.visibility = if (numberOfRooms == 1) View.GONE else View.VISIBLE
-        tvTitlePerNoRoom.text = "Price per $numberOfRooms room"
-        val pricePerNoRoom = pricePerNoNight * numberOfRooms
-        tvPerNoRoom.text = "${pricePerNoNight.toString().getPriceFormat()} x $numberOfRooms"
-        tvRoomPrice.text = pricePerNoRoom.toString().getPriceFormat()
+        tvDiscount.text = "${pricePerNoNight.toMoney()} x $promoPercent%"
+        val pricePromo = pricePerNoNight * promoPercent / 100.0
+        tvPromo.text = "-${pricePromo.toMoney()}"
 
-        tvDiscount.text = "${pricePerNoRoom.toString().getPriceFormat()} x $promoPercent%"
-        val pricePromo = pricePerNoRoom * promoPercent / 100.0
-        tvPromo.text = "-${pricePromo.toString().getPriceFormat()}"
-
-        val priceTax = (pricePerNoRoom - pricePromo) * 10 / 100.0
-        tvTaxPercent.text = "${(pricePerNoRoom - pricePromo).toString().getPriceFormat()} x 10%"
-        tvTax.text = priceTax.toString().getPriceFormat()
-
-        totalFree = pricePerNoRoom - pricePromo + priceTax
-        tvTotalFee.text = totalFree.toString().getPriceFormat()
+        val priceTax = (pricePerNoNight - pricePromo) * 15 / 100.0
+        tvTaxPercent.text = "${(pricePerNoNight - pricePromo).toMoney()} x 15%"
+        tvTax.text = priceTax.toMoney()
+        val total = (pricePerNoNight - pricePromo + priceTax)
+        tvTotalFee.text = total.toMoney()
     }
 
     private fun initListener() {
@@ -225,31 +259,58 @@ class PaymentFragment : BaseFragment() {
         }
 
         tvPayNow.onClickDelayAction {
-            when (status) {
-                BookingStatus.UNPAID, BookingStatus.PENDING -> {
-                    activity?.showDialog(
-                        "Payment Method",
-                        "Do you want pay ${totalFree.toString().getPriceFormat()} now?",
-                        "Yes",
-                        {
-                            changeReservationStatus()
-                        }, "No"
-                    )
+            if (App.instance.localRepository.isUserSession()) {
+                when (status) {
+                    BookingStatus.UNPAID, BookingStatus.ACCEPTED -> {
+                        vm.let { vm ->
+                            vm.requestPayment(bookingId).observeOnUiThread().subscribe({ response ->
+                                response.body.let {
+                                    if (it.errorCode != 0) {
+                                        activity?.showDialog("Lỗi", it.message)
+                                    } else {
+                                        it.payUrl.apply { Log.d("--=", "+${this}") }
+                                            ?.let { url ->
+                                                isNeedReload = true
+                                                activity?.openBrowser(url)
+                                            }
+                                    }
+                                }
+                            }, {
+                                activity?.showErrorDialog(it)
+                            })
+                        }
+                    }
+                    BookingStatus.PAID -> {
+                        activity?.showDialog(
+                            "Cảnh báo!",
+                            "Bạn có muốn hủy không",
+                            "Có",
+                            {
+                                changeBookingStatus(BookingStatus.CANCELLED)
+                            }, "Không"
+                        )
+                    }
+                    else -> {
+
+                    }
                 }
-                BookingStatus.PAID -> {
-                    activity?.showDialog(
-                        "Warning!",
-                        "Do you want cancel booking?",
-                        "Yes",
-                        {
-                            changeRoomReservationStatus()
-                        }, "No"
-                    )
-                }
-                else -> {
+            } else {
+                when (status) {
+                    BookingStatus.PENDING -> {
+                        activity?.showDialog(
+                            "Cảnh báo!",
+                            "Bạn có muốn chấp nhận đặt chỗ này?",
+                            "Có",
+                            {
+                                changeBookingStatus(BookingStatus.ACCEPTED)
+                            }, "Không"
+                        )
+                    }
+                    else -> {
+
+                    }
                 }
             }
-
         }
 
         tvContactUs.onClickDelayAction {
@@ -259,37 +320,34 @@ class PaymentFragment : BaseFragment() {
         }
     }
 
-    private fun changeReservationStatus() {
-        addDisposables(
-            viewModel.changeReservationStatus(reservationId)
-                .observeOnUiThread()
-                .subscribe({
-                    if (it.body.status == BookingStatus.PAID.name) {
+    private fun changeBookingStatus(bookingStatus: BookingStatus) {
+        vm.changeBookingStatus(bookingId, bookingStatus)
+            .observeOnUiThread()
+            .subscribe({
+                initView()
+                /*when (it.booking.status) {
+                    BookingStatus.PAID -> {
                         status = BookingStatus.PAID
-                        tvPayNow.text = "Cancer Booking"
-                        tvBookAlertTitle.text = "Wait for you check in"
+                        tvPayNow.text = "Hủy đơn"
+                        tvBookAlertTitle.text = "Đang đợi bạn check-in"
                         tvBookAlert.text =
-                            "Please check in before 14:00 ${startDate?.parseToString(DateUtil.FORMAT_DATE_TIME_CHECK_IN_BOOKING)}"
+                            "Vui lòng check-in trước 14:00 ${startDate?.format(DateUtil.FORMAT_DATE_TIME_CHECK_IN_BOOKING)}"
                         adapterBookingStep.setSelectedPosition(2)
                         rcvStepBooking.scrollToPosition(2)
                         rcvStepBooking.adapter?.notifyDataSetChanged()
                         RxBus.publish(UpdateMyBooking(true))
                     }
-                }, {
-                    activity?.showErrorDialog(it)
-                })
-        )
-    }
-
-    private fun changeRoomReservationStatus() {
-        addDisposables(
-            viewModel.changeRoomReservationStatus(roomReservationId)
-                .observeOnUiThread()
-                .subscribe({
-                    if (it.body.status == BookingStatus.CANCELLED.name) {
+                    BookingStatus.ACCEPTED -> {
+                        status = BookingStatus.ACCEPTED
+                        tvBookAlertTitle.text = "Wait for user check in"
+                        tvBookAlert.text =
+                            "User will check in before 14:00 ${startDate?.format(DateUtil.FORMAT_DATE_TIME_CHECK_IN_BOOKING)}"
+                        RxBus.publish(UpdateMyBooking(true))
+                    }
+                    BookingStatus.CANCELLED -> {
                         status = BookingStatus.CANCELLED
-                        tvPayNow.text = "Book Again"
-                        tvBookAlertTitle.text = "You booking has been canceled"
+                        tvPayNow.text = "Đặt lại"
+                        tvBookAlertTitle.text = "Đơn đặt chỗ của bạn đã bị hủy"
                         tvBookAlert.text =
                             "Sorry, the booking has been cancelled. Please book again or book another room."
                         adapterBookingStep.setSelectedPosition(2)
@@ -297,9 +355,9 @@ class PaymentFragment : BaseFragment() {
                             clear()
                             addAll(
                                 listOf(
-                                    StepBookingUI("Booking"),
-                                    StepBookingUI("Payment"),
-                                    StepBookingUI("Cancelled")
+                                    StepBookingUI("Đặt chỗ"),
+                                    StepBookingUI("Thanh toán"),
+                                    StepBookingUI("Đã hủy")
                                 )
                             )
                         }
@@ -307,14 +365,14 @@ class PaymentFragment : BaseFragment() {
                         rcvStepBooking.scrollToPosition(2)
                         RxBus.publish(UpdateMyBooking(true))
                     }
-                }, {
-                    activity?.showErrorDialog(it)
-                })
-        )
+                }*/
+            }, {
+                activity?.showErrorDialog(it)
+            }).addDisposable()
     }
 
-    override fun getProgressBarControlObservable() =
-        viewModel.progressBarDialogStateObservable
+    override fun getProgressObservable() =
+        vm.progressBarDialogObservable
 }
 
 

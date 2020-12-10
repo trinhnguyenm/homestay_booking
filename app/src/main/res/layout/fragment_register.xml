@@ -24,7 +24,7 @@
                 android:layout_centerInParent="true"
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
-                android:text="Sign Up" />
+                android:text="@string/sign_up" />
 
             <ImageView
                 android:id="@+id/imgBack"
@@ -55,14 +55,32 @@
             android:orientation="vertical"
             android:paddingBottom="54dp">
 
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvAvatar"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dimen_16dp"
+                android:layout_marginBottom="@dimen/dimen_16dp"
+                android:elevation="16dp"
+                android:visibility="gone"
+                app:cardCornerRadius="70dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgAvatar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/default_avatar" />
+            </androidx.cardview.widget.CardView>
+
             <com.ctr.homestaybooking.ui.wedget.InputGroupLayout
                 android:id="@+id/inputFirstName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/cvAvatar"
                 android:layout_marginTop="@dimen/dimen_24dp"
-                app:edit_hint="Enter first name"
                 app:error_textOnEmpty="@string/error001"
-                app:label_text="First name" />
+                app:label_text="@string/first_name" />
 
             <com.ctr.homestaybooking.ui.wedget.InputGroupLayout
                 android:id="@+id/inputLastName"
@@ -70,9 +88,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/inputFirstName"
                 android:layout_marginTop="@dimen/dimen_24dp"
-                app:edit_hint="Enter last name"
                 app:error_textOnEmpty="@string/error001"
-                app:label_text="Last name" />
+                app:label_text="@string/last_name" />
 
             <com.ctr.homestaybooking.ui.wedget.InputGroupLayout
                 android:id="@+id/inputPhone"
@@ -80,11 +97,11 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/inputLastName"
                 android:layout_marginTop="@dimen/dimen_24dp"
-                app:edit_hint="Enter phone number"
                 app:edit_inputType="phone"
                 app:error_text="Phone number is not valid"
                 app:error_textOnEmpty="@string/error001"
-                app:label_text="Phone" />
+                app:is_elipsize_end="false"
+                app:label_text="@string/phone_number" />
 
             <com.ctr.homestaybooking.ui.wedget.InputGroupLayout
                 android:id="@+id/inputEmail"
@@ -92,7 +109,6 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/inputPhone"
                 android:layout_marginTop="@dimen/dimen_24dp"
-                app:edit_hint="Enter your email"
                 app:edit_maxLength="255"
                 app:error_text="Email is not valid"
                 app:error_textOnEmpty="@string/error001"
@@ -104,12 +120,11 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/inputEmail"
                 android:layout_marginTop="@dimen/dimen_24dp"
-                app:edit_hint="Enter your password"
                 app:edit_inputType="textPassword"
                 app:edit_maxLength="50"
-                app:error_text="Password must have minimum 8 characters, at least one uppercase letter, one lowercase letter and one number"
+                app:error_text="@string/error_password"
                 app:error_textOnEmpty="@string/error001"
-                app:label_text="Password" />
+                app:label_text="Mật khẩu" />
 
             <com.ctr.homestaybooking.ui.wedget.InputGroupLayout
                 android:id="@+id/inputConfirmPassword"
@@ -117,12 +132,11 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/inputPassword"
                 android:layout_marginTop="@dimen/dimen_24dp"
-                app:edit_hint="Confirm your password"
                 app:edit_inputType="textPassword"
                 app:edit_maxLength="50"
-                app:error_text="Password does not match !"
+                app:error_text="@string/error_two_password_must_be_same"
                 app:error_textOnEmpty="@string/error001"
-                app:label_text="Confirm Password" />
+                app:label_text="@string/enter_password_againt" />
 
             <Button
                 android:id="@+id/tvSignUp"
@@ -135,7 +149,7 @@
                 android:layout_marginTop="240dp"
                 android:layout_marginEnd="@dimen/dimen_20dp"
                 android:background="@drawable/bg_button_round_gradient_enable"
-                android:text="SIGN UP"
+                android:text="@string/sign_up"
                 android:textColor="#ffffffff" />
 
             <TextView
@@ -146,7 +160,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/dimen_30dp"
                 android:fontFamily="@font/lato_black"
-                android:text="Already have an account?"
+                android:text="@string/do_you_have_an_account"
                 android:textColor="#ff666666"
                 android:textSize="15sp" />
 
@@ -158,7 +172,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/dimen_12dp"
                 android:fontFamily="@font/lato_black"
-                android:text="LOGIN HERE"
+                android:text="@string/login"
                 android:textColor="@color/colorAccent"
                 android:textSize="16sp" />
         </RelativeLayout>

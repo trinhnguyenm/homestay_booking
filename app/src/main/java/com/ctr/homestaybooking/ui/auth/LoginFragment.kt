@@ -1,6 +1,7 @@
 package com.ctr.homestaybooking.ui.auth
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,14 +13,17 @@ import com.ctr.homestaybooking.extension.*
 import com.ctr.homestaybooking.ui.App
 import com.ctr.homestaybooking.ui.auth.AuthActivity.Companion.KEY_EMAIL
 import com.ctr.homestaybooking.ui.auth.AuthActivity.Companion.KEY_SHOW_BUTTON_BACK
-import com.ctr.homestaybooking.ui.home.MainActivity
+import com.ctr.homestaybooking.ui.home.MyMainActivity
 import kotlinx.android.synthetic.main.fragment_login.*
+import sdk.chat.core.session.ChatSDK
+import sdk.chat.core.types.AccountDetails
+import sdk.guru.common.RX
 
 /**
  * Created by at-trinhnguyen2 on 2020/06/16
  */
 class LoginFragment : BaseFragment() {
-    private var viewModel: LoginVMContract? = null
+    private lateinit var vm: LoginVMContract
     private var loginBody = LoginBody()
 
     companion object {
@@ -39,7 +43,7 @@ class LoginFragment : BaseFragment() {
         initView()
         initListener()
         context?.let {
-            viewModel = LoginViewModel(App.instance.localRepository, UserRepository())
+            vm = LoginViewModel(App.instance.localRepository, UserRepository())
         }
         inputEmail.setText(activity?.intent?.extras?.getString(KEY_EMAIL))
     }
@@ -68,28 +72,44 @@ class LoginFragment : BaseFragment() {
         }
 
         inputEmail.afterTextChange = {
-            loginBody.email = it
+            vm.getLoginBody().email = it
             updateButtonNext()
         }
 
         inputPassword.afterTextChange = {
-            loginBody.password = it
+            vm.getLoginBody().password = it
             updateButtonNext()
         }
 
         tvLogin.onClickDelayAction {
-            viewModel?.let { viewModel ->
-                viewModel.login(loginBody)
-                    .observeOnUiThread()
-                    .subscribe({
-                        viewModel.saveAutoLoginToken(it.body?.token)
-                        viewModel.saveUserId(it?.body?.userDTO?.id ?: -1)
-                        activity?.let { it1 -> MainActivity.start(it1) }
-                        activity?.finishAffinity()
-                    }, {
-                        activity?.showErrorDialog(it)
-                    })
-            }
+            vm.login(vm.getLoginBody())
+                .observeOnUiThread()
+                .subscribe({
+                    val details =
+                        AccountDetails.username(
+                            vm.getLoginBody().email,
+                            vm.getLoginBody().password
+                        )
+                    ChatSDK.auth().authenticate(details)
+                        .observeOn(RX.main())
+                        .doOnSubscribe {
+                            getProgressObservable().onNext(true)
+                        }
+                        .doFinally {
+                            getProgressObservable().onNext(false)
+                        }
+                        .subscribe(
+                            {
+                                vm.saveAutoLoginToken(it.authToken.token)
+                                vm.saveUserId(it.authToken.userDetail.id)
+                                activity?.let { it1 -> MyMainActivity.start(it1) }
+                                activity?.finishAffinity()
+                            },
+                            { activity?.showErrorDialog(it.apply { Log.d("--=", "+${this}") }) }
+                        )
+                }, {
+                    activity?.showErrorDialog(it)
+                })
         }
 
         tvActionHere.onClickDelayAction {
@@ -106,5 +126,5 @@ class LoginFragment : BaseFragment() {
                 && inputPassword.isValidateDataNotEmpty()
     }
 
-    override fun getProgressBarControlObservable() = viewModel?.getProgressObservable()
+    override fun getProgressObservable() = vm.getProgressObservable()
 }

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "467727504188",
+    "firebase_url": "https://ctr-homestaybooking.firebaseio.com",
+    "project_id": "ctr-homestaybooking",
+    "storage_bucket": "ctr-homestaybooking.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:467727504188:android:91727cd0c30b3db3c14439",
+        "android_client_info": {
+          "package_name": "com.ctr.homestaybooking"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "467727504188-gfcrhm383qhgtf6tah28gdh12usi4qae.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ctr.homestaybooking",
+            "certificate_hash": "1d62b299153f98905c63f6de85d0457aa190d8f9"
+          }
+        },
+        {
+          "client_id": "467727504188-gnpqik0g5vode6khoire4nunq3btb1kh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArUuf6er6dRHdtjykLC_Sq4uU3-22UxEo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "467727504188-gnpqik0g5vode6khoire4nunq3btb1kh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

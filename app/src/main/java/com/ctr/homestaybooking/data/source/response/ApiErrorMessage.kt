@@ -9,6 +9,7 @@ import com.google.gson.annotations.SerializedName
 data class ApiErrorMessage(
     @SerializedName("debugMessage") val debugMessage: String? = null,
     @SerializedName("message") val messageX: String? = null,
+    @SerializedName("error") val error: String? = null,
     @SerializedName("status") val status: String? = null,
     @SerializedName("subErrors") val subErrors: List<SubError>? = null,
     @SerializedName("timestamp") val timestamp: String? = null

@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:orientation="vertical"
-    android:paddingTop="@dimen/status_bar_size">
+    android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbarLayout"
@@ -42,7 +41,7 @@
                     android:layout_marginTop="26dp"
                     android:fontFamily="@font/lato_black"
                     android:maxLines="1"
-                    android:paddingBottom="@dimen/dimen_10dp"
+                    android:paddingBottom="10dp"
                     android:text="@string/hint_where_you_go"
                     android:textColor="#ff333333"
                     android:textSize="24sp" />
@@ -68,7 +67,7 @@
                 android:clipToPadding="false"
                 android:paddingBottom="65dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/layout_item_hotels" />
+                tools:listitem="@layout/layout_item_place" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     </LinearLayout>
