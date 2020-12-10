@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivBack"
+            android:layout_width="@dimen/dimen_48dp"
+            android:layout_height="@dimen/dimen_48dp"
+            android:padding="@dimen/dimen_10dp"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/ic_back_white"
+            app:tint="@color/colorAccent" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/dimen_48dp"
+            android:fontFamily="@font/lato_bold"
+            android:gravity="center"
+            android:text="@string/title_cancel_booking"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_6dp"
+        android:layout_below="@+id/header"
+        android:background="@drawable/bg_shadow_customer_confirm" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrMain"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_above="@+id/footer"
+        android:layout_below="@+id/header"
+        android:background="@color/white"
+        android:isScrollContainer="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_8dp"
+                android:background="@color/color_divider_2" />
+
+            <TextView
+                style="@style/default_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="@dimen/dimen_15dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/lato_bold"
+                android:text="@string/txt_content_cancel_booking"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tvCancelPolicy"
+                style="@style/default_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="@dimen/dimen_15dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/lato_regular"
+                android:text="@string/txt_content_cancel_booking_2"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_margin"
+                    android:layout_marginTop="@dimen/dimen_15dp"
+                    android:fontFamily="@font/lato_regular"
+                    android:text="@string/refund_amount"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tvRefundAmount"
+                    style="@style/default_margin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_15dp"
+                    android:fontFamily="@font/lato_bold"
+                    android:gravity="end"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/scrollEdtReasonCancel"
+                style="@style/default_margin"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="@dimen/dimen_10dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/bg_border_gray_unfocus"
+                android:padding="@dimen/dimen_3dp">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/edtReasonCancel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@color/white"
+                    android:gravity="top"
+                    android:minHeight="150dp"
+                    android:padding="@dimen/dimen_8dp" />
+            </androidx.core.widget.NestedScrollView>
+
+            <TextView
+                style="@style/default_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="@dimen/dimen_24dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="@dimen/dimen_25"
+                android:fontFamily="@font/lato_bold"
+                android:text="@string/refund_method"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dip"
+                android:background="@color/color_divider"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <FrameLayout
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:paddingTop="@dimen/dimen_10dp"
+        android:paddingBottom="@dimen/dimen_10dp">
+
+        <TextView
+            android:id="@+id/tvCancelBooking"
+            style="@style/default_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/bg_button_round_gradient_enable"
+            android:enabled="false"
+            android:fontFamily="@font/lato_bold"
+            android:gravity="center"
+            android:padding="@dimen/dimen_10dp"
+            android:text="@string/cancel_booking"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </FrameLayout>
+</RelativeLayout>

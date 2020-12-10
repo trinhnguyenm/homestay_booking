@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.ctr.homestaybooking.R
 import com.ctr.homestaybooking.base.BaseFragment
+import com.ctr.homestaybooking.data.model.PlaceStatus
+import com.ctr.homestaybooking.data.model.SubmitStatus
 import com.ctr.homestaybooking.extension.*
 import kotlinx.android.synthetic.main.fragment_place_setup_overview.*
 
@@ -65,8 +67,20 @@ class PlaceSetupOverviewFragment : BaseFragment() {
         liTakePhotos.onClickDelayAction {
             (activity as? PlaceSetupActivity)?.openPlaceSetupImageFragment()
         }
+        liRate.onClickDelayAction {
+            (activity as? PlaceSetupActivity)?.openPlaceSetupPrizeFragment()
+        }
         liCalendar.onClickDelayAction {
             (activity as? PlaceSetupActivity)?.openPlaceSetupCalendarFragment()
+        }
+        tvRequest.onClickDelayAction {
+            (activity as? PlaceSetupActivity)?.vm?.let { vm ->
+                vm.getPlaceBody().apply {
+                    submitStatus = SubmitStatus.ACCEPT
+                    status = PlaceStatus.LISTED
+                }
+                vm.editPlace()
+            }
         }
     }
 
@@ -83,6 +97,11 @@ class PlaceSetupOverviewFragment : BaseFragment() {
 
     private fun updateData() {
         (activity as? PlaceSetupActivity)?.vm?.getPlaceDetail()?.let {
+            if (it.submitStatus == SubmitStatus.ACCEPT) {
+                tvRequest.gone()
+            } else {
+                tvRequest.visible()
+            }
             when {
                 it.isSubmitCalendar() -> {
                     Log.d("--=", "isSubmitCalendar:")
@@ -98,7 +117,6 @@ class PlaceSetupOverviewFragment : BaseFragment() {
                     liTakePhotos.setCompleted(true)
                     liRate.setCompleted(true)
                     liCalendar.setVisibleUpdate(true)
-                    tvRequest.isEnabled = true
                 }
                 it.isSubmitImages() -> {
                     Log.d("--=", "isSubmitImages")

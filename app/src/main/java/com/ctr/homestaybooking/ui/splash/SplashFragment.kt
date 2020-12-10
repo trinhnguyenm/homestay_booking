@@ -43,6 +43,6 @@ class SplashFragment : BaseFragment() {
                     }
                 }
             }
-        }, 1000L)
+        }, 300L)
     }
 }

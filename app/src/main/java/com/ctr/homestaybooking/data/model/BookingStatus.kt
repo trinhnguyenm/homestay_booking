@@ -11,3 +11,14 @@ enum class BookingStatus {
     COMPLETED,
     CANCELLED
 }
+
+internal fun BookingStatus.getText(): String {
+    return when (this) {
+        BookingStatus.PENDING -> "Đã gửi yêu cầu"
+        BookingStatus.ACCEPTED -> "Chưa thanh toán"
+        BookingStatus.UNPAID -> "Chưa thanh toán"
+        BookingStatus.PAID -> "Chờ check-in"
+        BookingStatus.COMPLETED -> "Hoàn thành"
+        BookingStatus.CANCELLED -> "Không thành công"
+    }
+}

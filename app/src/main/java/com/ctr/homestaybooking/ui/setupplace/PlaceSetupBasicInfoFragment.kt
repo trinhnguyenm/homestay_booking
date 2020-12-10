@@ -182,6 +182,9 @@ class PlaceSetupBasicInfoFragment : BaseFragment() {
     }
 
     private fun updateAddress() {
+        vm.getPlaceBody().address = "${
+            spinnerDistrict.getSelectedItem()?.getText()
+        }, ${spinnerProvince.getSelectedItem()?.getText()}"
         if (inputStreet.getText().isNotBlank()) {
             inputAddress.setText(
                 "${inputStreet.getText()}, ${spinnerWard?.getSelectedItem()?.getText()}, ${

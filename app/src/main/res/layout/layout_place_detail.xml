@@ -81,9 +81,12 @@
     <TextView
         android:id="@+id/tvHostName"
         style="@style/textBlackBold"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_marginEnd="@dimen/dimen_76dp"
+        android:drawableEnd="@drawable/ic_tab_inbox_selected"
+        android:drawablePadding="24dp"
         android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvPlaceType"
         tools:text="chủ nhà A" />
 

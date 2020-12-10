@@ -84,6 +84,10 @@ class App : Application(), Application.ActivityLifecycleCallbacks {
             publicRoomRoomsEnabled = false
             setTheme(R.style.Theme_AppCompat_Light_NoActionBar_ChatSDKTheme)
         }
+        ChatSDK.config().logoDrawableResourceID = R.mipmap.ic_launcher
+        ChatSDK.builder()
+            .setPushNotificationColor(R.color.colorPrimary)
+            .setPushNotificationImageDefaultResourceId(R.mipmap.ic_launcher)
         ChatSDK.ui().mainActivity = MyMainActivity::class.java
 //        ChatSDK.ui().chatActivity = MyChatActivity::class.java
 //        ChatSDK.ui().setPrivateThreadsFragment(MyPrivateThreadsFragment.getInstance())

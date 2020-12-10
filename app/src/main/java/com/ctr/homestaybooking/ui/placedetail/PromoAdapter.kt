@@ -42,7 +42,7 @@ class PromoAdapter(private val promos: List<Promo>) :
                 val startDate = item.startDate.convert(DateUtil.FORMAT_DATE_DAY_MONTH)
                 val endDate = item.endDate.convert(DateUtil.FORMAT_DATE_DAY_MONTH)
                 tvContent.text =
-                    "Sale off ${item.discountPercent}% for booking with check-in date from $startDate to $endDate"
+                    "Giảm ngay ${item.discountPercent}% cho đơn đặt chỗ có ngày check-in từ $startDate đến $endDate"
             }
         }
     }

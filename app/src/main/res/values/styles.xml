@@ -403,4 +403,6 @@
     <style name="DatePicker" parent="@android:style/Widget.DatePicker">
         <item name="colorAccent">@color/colorAzureRadiance</item>
     </style>
+
+    <style name="default_margin">20dp</style>
 </resources>

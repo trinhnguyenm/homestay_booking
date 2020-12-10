@@ -17,8 +17,11 @@ object DateUtil {
 }
 
 internal const val FORMAT_DATE_API = "yyyy-MM-dd"
-internal const val FORMAT_TIME_API = "'T'HH:mm:ss.SSSz"
+internal const val FORMAT_TIME_API = "'T'HH:mm"
 internal const val FORMAT_DATE_TIME_API = "yyyy-MM-dd'T'HH:mm:ss.SSSz"
+internal const val FORMAT_DATE_TIME_API_GET = "yyyy-MM-dd'T'HH:mm:ssXXX"
+internal const val FORMAT_DATE_TIME_API_POST = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+
 
 internal fun String.convert(
     outputFormat: String,
@@ -38,6 +41,21 @@ internal fun String.toCalendar(format: String = FORMAT_DATE_TIME_API): Calendar 
     }
 }
 
+
+internal fun String.convertTimeToUTC(
+    format: String = FORMAT_DATE_TIME_API
+): String {
+    val formatter = SimpleDateFormat(format, Locale.getDefault())
+    try {
+        val calendar = Calendar.getInstance()
+        calendar.time = formatter.parse(this)
+        formatter.timeZone = TimeZone.getTimeZone("UTC")
+        return formatter.format(calendar.time)
+    } catch (e: ParseException) {
+        throw IllegalArgumentException("non-parsable date format. target: $this, format: $format")
+    }
+}
+
 internal fun String.toDate(format: String = FORMAT_DATE_API): Date {
     val formatter = SimpleDateFormat(format, Locale.getDefault())
     try {
@@ -49,6 +67,7 @@ internal fun String.toDate(format: String = FORMAT_DATE_API): Date {
 
 internal fun Calendar.format(format: String = FORMAT_DATE_TIME_API): String {
     val resultFormat = SimpleDateFormat(format, Locale.getDefault())
+    resultFormat.timeZone = TimeZone.getTimeZone("Asia/Ho_Chi_Minh")
     return resultFormat.format(time)
 }
 

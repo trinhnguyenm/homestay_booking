@@ -7,7 +7,6 @@ import com.ctr.homestaybooking.R
 import com.ctr.homestaybooking.base.BaseActivity
 import com.ctr.homestaybooking.ui.App
 import com.ctr.homestaybooking.ui.splash.SplashActivity
-import jp.monedge.sonybank.ui.scheme.SchemeVMContract
 
 /**
  * Created by at-trinhnguyen2 on 2020/11/19
@@ -51,9 +50,7 @@ class SchemeActivity : BaseActivity() {
             val schemeSpecificParts = uri.schemeSpecificPart.split("/")
             val linkTypes = resources.getStringArray(R.array.linkTypes)
             for (part in schemeSpecificParts) {
-                if (App.instance.currentActivity != null && App.instance.currentActivity !is SplashActivity
-                    && !viewModel?.getToken().isNullOrBlank()
-                ) {
+                if (viewModel?.getToken().isNullOrBlank()) {
                     finish()
                     return
                 } else {

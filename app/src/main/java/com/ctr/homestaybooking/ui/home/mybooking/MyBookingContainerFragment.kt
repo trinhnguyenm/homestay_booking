@@ -20,7 +20,7 @@ class MyBookingContainerFragment : HomeContainerBaseFragment() {
         MyBookingFragment.newInstance()
 
     internal fun openPaymentFragment(booking: Booking) {
-        addFragment(getContainerId(), PaymentFragment.newInstance(booking), {
+        addFragment(getContainerId(), PaymentFragment.newInstance(booking.id), {
             it.setCustomAnimations(
                 R.anim.anim_slide_right_in,
                 0,

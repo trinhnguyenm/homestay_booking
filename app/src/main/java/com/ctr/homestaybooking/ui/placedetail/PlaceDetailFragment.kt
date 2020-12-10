@@ -1,6 +1,7 @@
 package com.ctr.homestaybooking.ui.placedetail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +22,9 @@ import kotlinx.android.synthetic.main.layout_place_amenity.*
 import kotlinx.android.synthetic.main.layout_place_detail.*
 import kotlinx.android.synthetic.main.layout_place_review.*
 import kotlinx.android.synthetic.main.layout_place_thumbnail.*
-import java.util.*
+import sdk.chat.core.session.ChatSDK
+import sdk.guru.common.RX
+
 
 /**
  * Created by at-trinhnguyen2 on 2020/06/11
@@ -29,8 +32,6 @@ import java.util.*
 class PlaceDetailFragment : BaseFragment() {
     private lateinit var viewModel: PlaceDetailVMContract
     private var favorites: List<Favorite>? = null
-    private var startDate: Calendar? = null
-    private var endDate: Calendar? = null
 
     companion object {
         fun newInstance() = PlaceDetailFragment()
@@ -190,6 +191,24 @@ class PlaceDetailFragment : BaseFragment() {
                         .observeOnUiThread().subscribe()
                 }
             }
+        }
+
+        tvHostName.onClickDelayAction {
+            viewModel.getPlaceDetail()?.hostDetail?.uuid?.let { uuid ->
+                ChatSDK.core().getUserForEntityID(uuid).observeOn(RX.main()).subscribe({ host ->
+                    Log.d("--=", "host: ${host}")
+                    ChatSDK.thread().createThread(listOf(host)).observeOn(RX.main())
+                        .subscribe({ thread ->
+                            Log.d("--=", "thread: ${thread}")
+                            ChatSDK.ui().startChatActivityForID(context, thread.entityID)
+                        }, {
+                            activity?.showErrorDialog(it)
+                        })
+                }, {
+                    activity?.showErrorDialog(it)
+                })
+            }
+
         }
     }
 

@@ -137,20 +137,20 @@ class BookingFragment : BaseFragment() {
         tvEndDate.text = endDate?.format(DateUtil.FORMAT_DATE_TIME_CHECK_IN_BOOKING)
         tvCheckinTime.text = startDate?.format(DateUtil.FORMAT_DATE_TIME_DAY_IN_WEEK)
         tvCheckOutTime.text = endDate?.format(DateUtil.FORMAT_DATE_TIME_DAY_IN_WEEK)
-        tvRangeDate.text = "${numberOfDays}D"
+        tvRangeDate.text = "${numberOfDays}Đ"
         updateTotalFee(numberOfDays, prize, promo?.discountPercent ?: 0)
     }
 
     private fun updateTotalFee(
         numberOfDays: Int,
-        price: Double,
+        prize: Double,
         promoPercent: Int
     ) {
         if (promoPercent == 0) llPromo.gone() else llPromo.visible()
         tvTitlePerNoNight.text = "$numberOfDays đêm"
-        val pricePerNoNight = price * numberOfDays
+        val pricePerNoNight = prize * numberOfDays
         tvPlacePrice.text = pricePerNoNight.toMoney()
-        tvPerNoNight.text = "${price.toMoney()} x $numberOfDays"
+        tvPerNoNight.text = "${prize.toMoney()} x $numberOfDays"
 
         tvDiscount.text = "${pricePerNoNight.toMoney()} x $promoPercent%"
         val pricePromo = pricePerNoNight * promoPercent / 100.0
@@ -184,6 +184,10 @@ class BookingFragment : BaseFragment() {
 
         }
 
+        constrainDate.onClickDelayAction {
+            activity?.onBackPressed()
+        }
+
         tvBookNow.onClickDelayAction {
             addBooking()
         }
@@ -194,7 +198,7 @@ class BookingFragment : BaseFragment() {
             .observeOnUiThread()
             .subscribe({ response ->
                 RxBus.publish(UpdateMyBooking(true))
-                (activity as? BookingActivity)?.openPaymentFragment(response.booking)
+                (activity as? BookingActivity)?.openPaymentFragment(response.booking.id)
             }, {
                 activity?.showErrorDialog(it)
             }).addDisposable()

@@ -2,6 +2,7 @@ package com.ctr.homestaybooking.data.source.request
 
 import com.ctr.homestaybooking.data.model.BookingType
 import com.ctr.homestaybooking.data.model.CancelType
+import com.ctr.homestaybooking.data.model.PlaceStatus
 import com.ctr.homestaybooking.data.model.SubmitStatus
 import com.ctr.homestaybooking.data.source.response.BookingSlot
 import com.google.gson.annotations.SerializedName
@@ -48,6 +49,8 @@ data class PlaceBody(
     @SerializedName("checkOutTime") var checkOutTime: String? = null,
 
     @SerializedName("submitStatus") var submitStatus: SubmitStatus = SubmitStatus.DRAFT,
+
+    @SerializedName("status") var status: PlaceStatus = PlaceStatus.UNLISTED,
 
     @SerializedName("images") var images: MutableList<String>? = null,
 

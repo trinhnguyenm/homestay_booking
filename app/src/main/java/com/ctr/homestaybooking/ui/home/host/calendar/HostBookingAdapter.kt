@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ctr.homestaybooking.R
 import com.ctr.homestaybooking.data.model.BookingStatus
+import com.ctr.homestaybooking.data.model.getText
 import com.ctr.homestaybooking.data.source.response.Booking
 import com.ctr.homestaybooking.extension.onClickDelayAction
 import com.ctr.homestaybooking.extension.toMoney
@@ -47,7 +48,7 @@ class HostBookingAdapter(private val bookings: List<Booking>) :
             itemView.apply {
                 Glide.with(itemView.context).load(item.place.images?.firstOrNull())
                     .into(ivPlaceThumb)
-                tvBookingId.text = "Booking ID: ${item.id}"
+                tvBookingId.text = "Mã đơn: ${item.id}"
                 tvTotalPrize.text = item.totalPaid.toMoney()
                 tvPlaceType.text = item.user.getName()
                 tvPlaceName.text = item.place.name
@@ -55,7 +56,7 @@ class HostBookingAdapter(private val bookings: List<Booking>) :
                 tvCheckInDay.text =
                     item.startDate.toCalendar(FORMAT_DATE_API).format("dd.MM.yyyy") + " - " +
                             item.endDate.toCalendar(FORMAT_DATE_API).format("dd.MM.yyyy")
-                tvBookingStatus.text = item.status.name
+                tvBookingStatus.text = item.status.getText()
                 tvBookingStatus.setTextColor(
                     when (item.status) {
                         BookingStatus.PENDING -> {

@@ -17,6 +17,7 @@ import com.ctr.homestaybooking.data.source.response.Booking
 import com.ctr.homestaybooking.extension.*
 import com.ctr.homestaybooking.ui.App
 import com.ctr.homestaybooking.ui.booking.BookingActivity
+import com.ctr.homestaybooking.ui.sheme.SchemeActivity
 import kotlinx.android.synthetic.main.fragment_home.swipeRefresh
 import kotlinx.android.synthetic.main.fragment_my_booking.*
 import kotlinx.android.synthetic.main.layout_view_no_data.*
@@ -53,6 +54,16 @@ class MyBookingFragment : BaseFragment() {
         initListener()
         initRecyclerView()
         initSwipeRefresh()
+        val linkType = activity?.intent?.getStringExtra(SchemeActivity.LINK_TYPE)
+        val schemeSpecificPart =
+            activity?.intent?.getStringExtra(SchemeActivity.SCHEME_SPECIFIC_PART)
+        if (linkType == getString(R.string.paymentHost)) {
+            schemeSpecificPart?.split(getString(R.string.paymentHost) + "/")?.let { list ->
+                if (list.size >= 2 && list[1].toIntOrNull() != null) {
+                    activity?.let { BookingActivity.start(it, list[1].toInt()) }
+                }
+            }
+        }
     }
 
     private fun initListener() {
@@ -66,19 +77,19 @@ class MyBookingFragment : BaseFragment() {
                     val tv30Days = findViewById<TextView>(R.id.tv30Days)
                     tvAll.onClickDelayAction {
                         filterDays = 365
-                        this@MyBookingFragment.txtFilterCheckIn.text = "All"
+                        this@MyBookingFragment.txtFilterCheckIn.text = "Tất cả"
                         dismiss()
                     }
 
                     tv7Days.onClickDelayAction {
                         filterDays = 3
-                        this@MyBookingFragment.txtFilterCheckIn.text = "3 days ago"
+                        this@MyBookingFragment.txtFilterCheckIn.text = "3 ngày trước"
                         dismiss()
                     }
 
                     tv30Days.onClickDelayAction {
                         filterDays = 30
-                        this@MyBookingFragment.txtFilterCheckIn.text = "30 days ago"
+                        this@MyBookingFragment.txtFilterCheckIn.text = "1 tháng trước"
                         dismiss()
                     }
                     setOnDismissListener {
@@ -129,7 +140,7 @@ class MyBookingFragment : BaseFragment() {
     }
 
     private fun handlerItemClick(booking: Booking) {
-        activity?.let { BookingActivity.start(it, booking) }
+        activity?.let { BookingActivity.start(it, booking.id) }
     }
 
     private fun initSwipeRefresh() {

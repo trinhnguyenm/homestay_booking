@@ -62,6 +62,14 @@ class PlaceSetupActivity : BaseActivity() {
         )
     }
 
+    internal fun openPlaceSetupPrizeFragment() {
+        addFragment(
+            getContainerId(),
+            PlaceSetupPrizeFragment.newInstance(),
+            addToBackStack = true
+        )
+    }
+
     internal fun openImageSliderFragment(imageSlideData: ImageSlideData) {
         addFragment(
             getContainerId(),

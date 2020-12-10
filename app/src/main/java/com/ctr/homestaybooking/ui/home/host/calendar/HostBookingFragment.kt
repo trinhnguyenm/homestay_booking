@@ -3,7 +3,6 @@ package com.ctr.homestaybooking.ui.home.host.calendar
 import android.app.Dialog
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -65,23 +64,22 @@ class HostBookingFragment : BaseFragment() {
                     val tv30Days = findViewById<TextView>(R.id.tv30Days)
                     tvAll.onClickDelayAction {
                         filterDays = 365
-                        this@HostBookingFragment.txtFilterCheckIn.text = "All"
+                        this@HostBookingFragment.txtFilterCheckIn.text = "Tất cả"
                         dismiss()
                     }
 
                     tv7Days.onClickDelayAction {
                         filterDays = 3
-                        this@HostBookingFragment.txtFilterCheckIn.text = "3 days ago"
+                        this@HostBookingFragment.txtFilterCheckIn.text = "3 ngày trước"
                         dismiss()
                     }
 
                     tv30Days.onClickDelayAction {
                         filterDays = 30
-                        this@HostBookingFragment.txtFilterCheckIn.text = "30 days ago"
+                        this@HostBookingFragment.txtFilterCheckIn.text = "1 tháng trước"
                         dismiss()
                     }
                     setOnDismissListener {
-                        Log.d("--=", "initListener: setOnDismissListener")
 
                         viewModel.filterMyBooking(filterDays)
                         this@HostBookingFragment.rclBooking.adapter?.notifyDataSetChanged()
@@ -123,7 +121,7 @@ class HostBookingFragment : BaseFragment() {
     }
 
     private fun handlerItemClick(booking: Booking) {
-        activity?.let { BookingActivity.start(it, booking) }
+        activity?.let { BookingActivity.start(it, booking.id) }
     }
 
     private fun initSwipeRefresh() {

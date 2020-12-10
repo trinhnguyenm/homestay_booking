@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ctr.homestaybooking.R
 import com.ctr.homestaybooking.data.model.BookingStatus
+import com.ctr.homestaybooking.data.model.getText
 import com.ctr.homestaybooking.data.source.response.Booking
 import com.ctr.homestaybooking.extension.onClickDelayAction
 import com.ctr.homestaybooking.extension.toMoney
@@ -47,17 +48,27 @@ class MyBookingAdapter(private val bookings: List<Booking>) :
             itemView.apply {
                 Glide.with(itemView.context).load(item.place.images?.firstOrNull())
                     .into(ivPlaceThumb)
-                tvBookingId.text = "Booking ID: ${item.id}"
+                tvBookingId.text = "Mã đơn: ${item.id}"
                 tvTotalPrize.text = item.totalPaid.toMoney()
                 tvPlaceType.text = item.place.placeType?.name
                 tvPlaceName.text = item.place.name
                 tvPlaceAddress.text = item.place.address
                 tvCheckInDay.text =
-                    "Checkin: " + item.startDate.toCalendar(FORMAT_DATE_API).format("dd.MM.yyyy")
-                tvBookingStatus.text = item.status.name
+                    item.startDate.toCalendar(FORMAT_DATE_API).format("dd.MM.yyyy") + " - " +
+                            item.endDate.toCalendar(FORMAT_DATE_API).format("dd.MM.yyyy")
+                tvBookingStatus.text = item.status.getText()
                 tvBookingStatus.setTextColor(
                     when (item.status) {
                         BookingStatus.PENDING -> {
+                            resources.getColor(R.color.colorAccent)
+                        }
+                        BookingStatus.ACCEPTED -> {
+                            resources.getColor(R.color.colorAccent)
+                        }
+                        BookingStatus.UNPAID -> {
+                            resources.getColor(R.color.colorAccent)
+                        }
+                        BookingStatus.PAID -> {
                             resources.getColor(R.color.colorAccent)
                         }
                         BookingStatus.COMPLETED -> {

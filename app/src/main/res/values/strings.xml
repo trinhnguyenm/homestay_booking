@@ -166,7 +166,7 @@
     <string name="roomDayNumber">%dD</string>
     <string name="about_guests_params">Chỗ ở sẽ thu thêm phụ phí từ khách hàng thứ %1$s, tối đa %2$s khách. Phí thêm khách là %3$s/người</string>
     <string name="about_host">Chủ nhà</string>
-    <string name="accept_policy_bank_transfer">Bằng việc nhấn Thanh toán, tôi đồng ý với Chính sách bảo mật và Điều khoản sử dụng của Luxstay</string>
+    <string name="accept_policy_bank_transfer">Bằng việc nhấn Thanh toán, tôi đồng ý với Chính sách bảo mật và Điều khoản sử dụng của Homestay Booking</string>
     <string name="accommodation_facilities">Tiện nghi chỗ ở</string>
     <string name="account_birthday">Ngày sinh</string>
     <string name="account_birthday_required_low">*ngày sinh</string>
@@ -184,13 +184,13 @@
     <string name="account_phone">Số điện thoại</string>
     <string name="account_profile">Thông tin cá nhân</string>
     <string name="account_setting_rating">Đánh giá</string>
-    <string name="account_setting_rating_description">Luxstay 5 sao</string>
+    <string name="account_setting_rating_description">Homestay Booking 5 sao</string>
     <string name="account_setting_support">Hỗ trợ 24/7</string>
     <string name="account_setting_support_description">18006586</string>
     <string name="account_view_profile">Xem Thông Tin</string>
     <string name="accurate_params">Chính xác: %1$s</string>
     <string name="acommondation_param">%1$d chỗ ở</string>
-    <string name="activity_referral_share_format">Join me in Luxstay. My code: %s</string>
+    <string name="activity_referral_share_format">Join me in Homestay Booking. My code: %s</string>
     <string name="add_method_policy">Tất cả thông tin đều được mã hóa và bảo vệ nghiêm ngặt</string>
     <string name="add_new_card">Thêm thẻ mới</string>
     <string name="add_photo">Thêm ảnh</string>
@@ -320,7 +320,7 @@
     <string name="confirm_password">Nhập lại mật khẩu</string>
     <string name="connect_with_facebook">Đăng nhập với facebook</string>
     <string name="connect_with_google">Đăng nhập với google</string>
-    <string name="contact_us">Liên hệ Luxstay</string>
+    <string name="contact_us">Liên hệ Homestay Booking</string>
     <string name="contact_us_car_booking">Liên hệ với chúng tôi theo số <b>18006586</b> (miễn phí) để được hỗ trợ trực tiếp</string>
     <string name="contact_us_hint_add_method">Nếu bạn cần bất kỳ hỗ trợ nào, xin vui lòng ấn vào nút bên dưới để được tư vấn kĩ hơn.</string>
     <string name="content_bank_transfer">· Nội dung chuyển khoản: %1$s</string>
@@ -345,14 +345,14 @@
     <string name="cvv_cvc">*CVV/CVC</string>
     <string name="dd_mm_yy">dd/mm/yy</string>
     <string name="decription_invite_list">Nhận %1$s từ booking thành công của họ</string>
-    <string name="description_car_just_payment">Cảm ơn bạn đã đặt xe với Luxstay! Vui lòng thanh toán đơn đặt hàng để đặt chỗ.</string>
+    <string name="description_car_just_payment">Cảm ơn bạn đã đặt xe với Homestay Booking! Vui lòng thanh toán đơn đặt hàng để đặt chỗ.</string>
     <string name="description_car_step_2">Vui lòng cung cấp chính xác thông tin để việc đưa đón khách hàng diễn ra thuận lợi.</string>
     <string name="description_card_holder">Họ tên trên CMND/ Thẻ căn cước</string>
     <string name="description_card_number">Nhập dã số in trên thẻ</string>
     <string name="description_confirm_car_booking">Đơn đặt hàng của bạn đang chờ xác nhận, quá trình xác nhận sẽ diễn ra trong vòng vài phút kể từ khi bạn hoàn tất thanh toán.</string>
     <string name="description_international_card">Nhập thông tin hoặc lựa chọn thẻ đã lưu để tiến hành thanh toán quốc tế qua Stripe</string>
     <string name="description_invite_amount">Chờ xử lý: %1$s, Đã nhận: %2$s</string>
-    <string name="description_invite_me">Khi người được mời đăng ký tài khoản và trải nghiệm nền tảng của chúng tôi, tài khoản Luxstay của bạn sẽ có thêm %1$s dùng để đặt phòng</string>
+    <string name="description_invite_me">Khi người được mời đăng ký tài khoản và trải nghiệm nền tảng của chúng tôi, tài khoản Homestay Booking của bạn sẽ có thêm %1$s dùng để đặt phòng</string>
     <string name="description_invite_refer">Bạn được giảm %1$s cho lần đặt phòng đầu tiên</string>
     <string name="description_location_detail">Ở mỗi thành phố xa xôi, giữ lại cho mình một chốn dừng chân ấm áp</string>
     <string name="description_request_instant_car_booking">Để hoàn thành việc đặt xe, vui lòng thanh toán trong vòng 24 giờ sau khi gửi yêu cầu đặt phòng.</string>
@@ -440,7 +440,7 @@
     <string name="infants">Trẻ sơ sinh</string>
     <string name="instant_book">Đặt phòng nhanh</string>
     <string name="international_payment">Thanh toán bằng thẻ quốc tế visa, master</string>
-    <string name="introduction">Giới thiệu về Luxstay</string>
+    <string name="introduction">Giới thiệu về Homestay Booking</string>
     <string name="invite_amount">Mời bạn bè</string>
     <string name="invite_friend">Mời bạn bè</string>
     <string name="language">Ngôn ngữ</string>
@@ -453,10 +453,10 @@
     <string name="let_begin">Bắt đầu</string>
     <string name="login_by_your_account">Đăng nhập bằng địa chỉ email</string>
     <string name="login_item_text"><b>Đăng nhập</b> để nhận ưu đãi và tận hưởng quyền lợi của thành viên.</string>
-    <string name="luxstay_business_payment">Luxstay Business</string>
-    <string name="luxstay_credit">Ví Luxstay</string>
-    <string name="luxstay_for_business">Luxstay For Business</string>
-    <string name="maintain_content">Hệ thống đang được bảo trì. Vui lòng quay trở lại sau hoặc chuyển hướng sang web để tiếp tục trải nghiệm Luxstay.</string>
+    <string name="luxstay_business_payment">Homestay Booking Business</string>
+    <string name="luxstay_credit">Ví Homestay Booking</string>
+    <string name="luxstay_for_business">Homestay Booking For Business</string>
+    <string name="maintain_content">Hệ thống đang được bảo trì. Vui lòng quay trở lại sau hoặc chuyển hướng sang web để tiếp tục trải nghiệm Homestay Booking.</string>
     <string name="maintain_title">Bảo trì hệ thống</string>
     <string name="manager_card">Quản lý thẻ</string>
     <string name="maximun_stay">Số đêm tối đa</string>
@@ -465,7 +465,7 @@
     <string name="message_declined_request_2">Rất tiếc, chủ nhà đã từ chối yêu cầu đặt chỗ của bạn. Vui lòng chọn chỗ ở khác.</string>
     <string name="message_dialog_booking_car_success">"Yêu cầu đặt xe của bạn đã được tạo thành công, ấn 'Thanh toán' để thực hiện thanh toán, ấn 'Quay lại' để quay về trang chủ."</string>
     <string name="message_dialog_booking_car_success_wait_confirm">Yêu cầu đặt xe của bạn đã được tạo thành công.</string>
-    <string name="message_dialog_cancel_booking">"Khi lựa chọn 'Đồng ý', đơn đặt chỗ của bạn sẽ bị hủy. Việc hoàn tiền thực hiện theo Chính sách của Luxstay. Mọi thắc mắc xin vui lòng liên hệ 18006586 (miễn phí) để được hỗ trợ 24/7."</string>
+    <string name="message_dialog_cancel_booking">"Khi lựa chọn 'Đồng ý', đơn đặt chỗ của bạn sẽ bị hủy. Việc hoàn tiền thực hiện theo Chính sách của Homestay Booking. Mọi thắc mắc xin vui lòng liên hệ 18006586 (miễn phí) để được hỗ trợ 24/7."</string>
     <string name="message_dialog_delete_card">Bạn chắc chắn muốn xóa thẻ này?</string>
     <string name="message_inbox_require_login">Bạn cần đăng nhập để xem nội dung tin nhắn.</string>
     <string name="message_install_zalopay">Không tìm thấy ứng dụng Zalopay, bạn có muốn cài đặt không ?</string>
@@ -510,7 +510,7 @@
     <string name="no_room_data">Không tìm thấy phòng!</string>
     <string name="note_bank_transfer">CHÚ Ý! Quý khách vui lòng chuyển khoản chính xác đến 3 số cuối.</string>
     <string name="note_booking_success">"Hãy liên hệ với chủ nhà để chủ động trong chuyến đi của bạn cùng người thân!
-"<b>Luxstay chúc bạn có một trải nghiệm thú vị.</b>" "</string>
+"<b>Homestay Booking chúc bạn có một trải nghiệm thú vị.</b>" "</string>
     <string name="note_important">CHÚ Ý!</string>
     <string name="note_message">Ghi chú</string>
     <string name="note_message_hint">VD: Thuê xe phục vụ cho việc tập lái…</string>
@@ -566,7 +566,7 @@
     <string name="read_before_you_pay">Đọc trước khi bạn thanh toán</string>
     <string name="read_more">Xem thêm</string>
     <string name="redo_search">Tìm kiếm trong khu vực này</string>
-    <string name="ref_luxstay_credit">Chuyển tiền vào ví Luxstay</string>
+    <string name="ref_luxstay_credit">Chuyển tiền vào ví Homestay Booking</string>
     <string name="ref_luxstay_credit_content">Số tiền này sẽ sử dụng cho lần đặt phòng tiếp theo</string>
     <string name="referrer_invite">Người giới thiệu</string>
     <string name="refund_amount">Số tiền hoàn trả</string>
@@ -663,7 +663,7 @@
     <string name="tearm">Chính sách bảo mật</string>
     <string name="term_policy">Điều khoản hoạt động</string>
     <string name="terms_and_policies">Chính sách và Điều khoản</string>
-    <string name="text_assistance">Vui lòng chọn nút dưới đây nếu bạn cần hỗ trợ từ bộ phận Chăm sóc khách hàng của Luxstay</string>
+    <string name="text_assistance">Vui lòng chọn nút dưới đây nếu bạn cần hỗ trợ từ bộ phận Chăm sóc khách hàng của Homestay Booking</string>
     <string name="text_content_dialog_back_bank_transfer">Bạn có thể thay đổi phương trước thanh toán hoặc xem lại thông tin đặt chỗ.</string>
     <string name="thursday">T5</string>
     <string name="ticket">Vé tham quan</string>
@@ -675,7 +675,7 @@
     <string name="title_dialog_booking_car_success">Đặt xe thành công</string>
     <string name="title_dialog_cancel_booking">Bạn chắc chắn muốn hủy đơn đặt chỗ này?</string>
     <string name="title_error_default">Có lỗi xảy ra</string>
-    <string name="title_header_success">Bạn hãy liên hệ với chủ nhà trước khi check-in để đảm bảo rằng việc nhận phòng diễn ra thuận lợi. <b>Luxstay chúc bạn có một trải nghiệm thú vị.</b></string>
+    <string name="title_header_success">Bạn hãy liên hệ với chủ nhà trước khi check-in để đảm bảo rằng việc nhận phòng diễn ra thuận lợi. <b>Homestay Booking chúc bạn có một trải nghiệm thú vị.</b></string>
     <string name="title_location_detail">Trải nghiệm đáng nhớ</string>
     <string name="title_login">Đăng nhập</string>
     <string name="title_price_detail">Chi tiết giá</string>
@@ -692,7 +692,7 @@
     <string name="txt_accept">Đồng ý</string>
     <string name="txt_cancel">Hủy</string>
     <string name="txt_content_cancel_booking">Chính sách hủy phòng</string>
-    <string name="txt_content_cancel_booking_2">Loại chỗ ở này cho phép bạn hủy đặt phòng 5 ngày trước khi check-in và được hoàn lại toàn bộ số tiền đã trả. Luxstay không hoàn tại tiền nếu khách hàng hủy sau thời gian này.</string>
+    <string name="txt_content_cancel_booking_2">Loại chỗ ở này cho phép bạn hủy đặt phòng 5 ngày trước khi check-in và được hoàn lại toàn bộ số tiền đã trả. Homestay Booking không hoàn tại tiền nếu khách hàng hủy sau thời gian này.</string>
     <string name="txt_continue">Tiếp tục</string>
     <string name="txt_copied">Đã sao chép</string>
     <string name="txt_create">Tạo mới</string>
@@ -709,7 +709,7 @@
     <string name="unavailable">Không còn trống</string>
     <string name="update">Cập nhật</string>
     <string name="update_app_confirm">Cập nhật</string>
-    <string name="update_app_content">"Luxstay phiên bản mới đã sẵn sàng.
+    <string name="update_app_content">"Homestay Booking phiên bản mới đã sẵn sàng.
 Cập nhật phiên bản mới để trải nghiệm nhiều hơn với chúng tôi."</string>
     <string name="update_app_later">Để sau</string>
     <string name="update_app_title">Update phiên bản mới !</string>
@@ -747,10 +747,10 @@ Cập nhật phiên bản mới để trải nghiệm nhiều hơn với chúng 
     <string name="warning_wrong_format_phone">Số điện thoại không đúng định dạng</string>
     <string name="warning_wrong_format_pwd">Mật khẩu có độ dài ít nhất 8 ký tự</string>
     <string name="wednesday">T4</string>
-    <string name="welcome_luxstay_when_before_login">Chào mừng bạn đến với Luxstay!</string>
-    <string name="welcome_luxstay_when_signup">Tham gia Luxstay ngay bây giờ !!</string>
+    <string name="welcome_luxstay_when_before_login">Chào mừng bạn đến với Homestay Booking!</string>
+    <string name="welcome_luxstay_when_signup">Tham gia Homestay Booking ngay bây giờ !!</string>
     <string name="welcome_luxstay_when_was_login">"Xin chào %1$s!
-Chào mừng trở lại Luxstay !!"</string>
+Chào mừng trở lại Homestay Booking !!"</string>
     <string name="write_review">Viết đánh giá</string>
     <string name="year">NĂM</string>
     <string name="you_re_having_param_travel_credit">Bạn đang có %1$s Travel Credit</string>
@@ -774,8 +774,8 @@ Chào mừng trở lại Luxstay !!"</string>
     <string name="amenities_header">Tiện nghi</string>
     <string name="amenities_info">Tiện nghi</string>
     <string name="amenities_title">Rất nhiều khách hàng đã tìm kiếm chỗ nghỉ dựa trên các tiêu chí về tiện nghi.</string>
-    <string name="app_name_sandbox">Luxstay Host-sandbox</string>
-    <string name="app_name_staging">Luxstay Host-staging</string>
+    <string name="app_name_sandbox">Homestay Booking Host-sandbox</string>
+    <string name="app_name_staging">Homestay Booking Host-staging</string>
     <string name="area_empty_error">Chỗ nghỉ của bạn phải có diện tích lớn hơn hoặc bằng 1</string>
     <string name="basic_info">Thông tin cơ bản</string>
     <string name="basic_price">Giá cơ bản</string>
@@ -845,12 +845,12 @@ Chào mừng trở lại Luxstay !!"</string>
     <string name="contact_host_title">Liên lạc với chủ nhà</string>
     <string name="content_decline">Nội dung từ chối</string>
     <string name="content_empty_booking">Tất cả đơn đặt chỗ, sửa giá và thay đổi mở khoá lịch sẽ được hiển thị tại đây.</string>
-    <string name="content_empty_conversation">Khi bạn bắt đầu kinh doanh trên Luxstay, hãy đọc tin nhắn từ khách của bạn ở đây.</string>
+    <string name="content_empty_conversation">Khi bạn bắt đầu kinh doanh trên Homestay Booking, hãy đọc tin nhắn từ khách của bạn ở đây.</string>
     <string name="content_empty_notification">Thông báo đặt chỗ và tin nhắn mới sẽ được hiển thị tại đây.</string>
     <string name="content_empty_progress">Kết quả kinh doanh chỗ ở của bạn sẽ được hiển thị ở đây.</string>
     <string name="content_listing_empty">Thêm hoặc cập nhật chỗ ở đang được phát triển. Vui lòng sử dụng phiên bản web của chúng tôi để thêm hoặc cập nhật chỗ ở.</string>
     <string name="continue_text">Tiếp tục</string>
-    <string name="cooperation_agreement_intro">Trước khi đăng tải chỗ nghỉ này lên hệ thống của chúng tôi, bạn vui lòng đọc kỹ và đồng ý với bản Thỏa thuận hợp tác giữa Chủ nhà và Luxstay dưới đây:</string>
+    <string name="cooperation_agreement_intro">Trước khi đăng tải chỗ nghỉ này lên hệ thống của chúng tôi, bạn vui lòng đọc kỹ và đồng ý với bản Thỏa thuận hợp tác giữa Chủ nhà và Homestay Booking dưới đây:</string>
     <string name="cooperation_agreement_title">Xác nhận thoả thuận hợp tác</string>
     <string name="copy">Sao chép</string>
     <string name="copy_calendar_title">Bấm để sao chép đường dẫn</string>
@@ -880,7 +880,7 @@ Chào mừng trở lại Luxstay !!"</string>
     <string name="decline">Từ chối</string>
     <string name="delete_calendar">Xóa lịch</string>
     <string name="delete_picture_action">Xóa ảnh</string>
-    <string name="description_cancel_booking">Lưu ý: Chỗ ở của bạn có thể bị ngưng hiển thị trên website của Luxstay khi bạn thực hiện từ chối đặt phòng trong 02 lần liên tiếp. Vui lòng nhập lý do chính đáng khi bạn muốn từ chối đơn đặt phòng này</string>
+    <string name="description_cancel_booking">Lưu ý: Chỗ ở của bạn có thể bị ngưng hiển thị trên website của Homestay Booking khi bạn thực hiện từ chối đặt phòng trong 02 lần liên tiếp. Vui lòng nhập lý do chính đáng khi bạn muốn từ chối đơn đặt phòng này</string>
     <string name="dialog_confirm">Xác nhận</string>
     <string name="dialog_message_confirm_change_price">Giá chỉ được cập nhật với những ngày không bị khoá.</string>
     <string name="dialog_message_sync_account">Tài khoản đang được đồng bộ, vui lòng đăng nhập lại sau 5 phút.</string>
@@ -900,7 +900,7 @@ Chào mừng trở lại Luxstay !!"</string>
     <string name="dtb_booking_details">Chi tiết đặt chỗ</string>
     <string name="dtb_check_in">Nhận phòng</string>
     <string name="dtb_check_out">Trả phòng</string>
-    <string name="dtb_commission_rate">Phí chia sẻ cho Luxstay</string>
+    <string name="dtb_commission_rate">Phí chia sẻ cho Homestay Booking</string>
     <string name="dtb_discount_by_host">Chủ nhà giảm giá</string>
     <string name="dtb_guests">Số khách</string>
     <string name="dtb_guests_fee">Phí thêm khách</string>
@@ -1026,9 +1026,9 @@ Chào mừng trở lại Luxstay !!"</string>
     <string name="log_into_another_account">Đăng nhập với tài khoản khác</string>
     <string name="logout">Đăng xuất</string>
     <string name="long_term_price">Giá dài hạn</string>
-    <string name="luxstay_partner">Đối tác của Luxstay</string>
-    <string name="luxstay_partner_title">Để gia tăng tỷ lệ lấp phòng, cũng như lợi nhuận, bạn có thể đăng kí chỗ nghỉ tại các nền tảng đặt phòng được liên kết với Luxstay.</string>
-    <string name="luxstay_policy_title">Với mỗi lượt đặt chỗ thành công, Luxstay sẽ thu phí dịch vụ 3% trên doanh thu từ chỗ nghỉ và chuyển tiền đến bạn trong vòng 24h kể từ thời điểm khách nhận phòng (thành công).</string>
+    <string name="luxstay_partner">Đối tác của Homestay Booking</string>
+    <string name="luxstay_partner_title">Để gia tăng tỷ lệ lấp phòng, cũng như lợi nhuận, bạn có thể đăng kí chỗ nghỉ tại các nền tảng đặt phòng được liên kết với Homestay Booking.</string>
+    <string name="luxstay_policy_title">Với mỗi lượt đặt chỗ thành công, Homestay Booking sẽ thu phí dịch vụ 3% trên doanh thu từ chỗ nghỉ và chuyển tiền đến bạn trong vòng 24h kể từ thời điểm khách nhận phòng (thành công).</string>
     <string name="max_guest_error">Số khách tối đa phải lớn hơn hoặc bằng số khách tiêu chuẩn</string>
     <string name="max_guests">Số khách tối đa</string>
     <string name="max_nights_error">Số đêm tối đa phải lớn hơn hoặc bằng số đêm tối thiểu</string>

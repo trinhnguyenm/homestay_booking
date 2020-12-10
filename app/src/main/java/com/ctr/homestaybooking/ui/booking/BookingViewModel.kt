@@ -57,6 +57,9 @@ class BookingViewModel(
     ): Single<BookingResponse> {
         return placeRepository.changeBookingStatus(bookingId, bookingStatus)
             .addProgressLoading()
+            .doOnSuccess {
+                booking = it.booking
+            }
     }
 
     override fun requestPayment(bookingId: Int): Single<CaptureMoMoApiResponse> {

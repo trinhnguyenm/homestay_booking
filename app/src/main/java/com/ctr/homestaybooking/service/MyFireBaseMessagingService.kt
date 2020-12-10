@@ -8,12 +8,15 @@ import android.content.Intent
 import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Build
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.ctr.homestaybooking.R
+import com.ctr.homestaybooking.data.model.ExtraData
 import com.ctr.homestaybooking.util.SharedReferencesUtil
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import com.google.gson.Gson
 import java.util.*
 import kotlin.random.Random
 
@@ -37,25 +40,38 @@ class MyFireBaseMessagingService : FirebaseMessagingService() {
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
         remoteMessage.data.let { data ->
+            data["title"].apply { Log.d("--=", "title+${this}") }
+            data["body"].apply { Log.d("--=", "body+${this}") }
+            data["extra"].apply { Log.d("--=", "extra+${this}") }
             if (data["title"].isNullOrEmpty() || data["body"].isNullOrEmpty()) {
                 remoteMessage.notification?.let {
                     sendNotification(it.title, it.body)
                 }
             } else {
-                sendNotification(data["title"], data["body"])
+                sendNotification(data["title"], data["body"], data["extra"])
             }
         }
     }
 
-    private fun sendNotification(title: String?, body: String?) {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("homestay"))
+    private fun sendNotification(title: String?, body: String?, extra: String? = null) {
+        var bookingId: Int? = null
+        extra?.let {
+            bookingId = Gson().fromJson(it, ExtraData::class.java).bookingId
+        }
+        val url = if (bookingId != null) {
+            "homestay://payment/$bookingId"
+        } else {
+            "homestay://payment/"
+        }
+        Log.d("--=", "sendNotification: ${url}")
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         val pendingIntent =
             PendingIntent.getActivities(this, 0, arrayOf(intent), PendingIntent.FLAG_UPDATE_CURRENT)
         val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
         val notificationManager =
             getSystemService(Context.NOTIFICATION_SERVICE) as? NotificationManager
         val builder = NotificationCompat.Builder(this, NOTIFICATION_ID.toString())
-            .setSmallIcon(R.drawable.ic_tab_inbox)
+            .setSmallIcon(R.mipmap.ic_launcher)
             .setContentTitle(title)
             .setContentText(body)
             .setContentIntent(pendingIntent)
