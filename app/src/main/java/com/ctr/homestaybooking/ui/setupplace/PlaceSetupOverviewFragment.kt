@@ -52,6 +52,11 @@ class PlaceSetupOverviewFragment : BaseFragment() {
 
     override fun isNeedPaddingTop() = true
 
+    override fun onResume() {
+        super.onResume()
+        updateData()
+    }
+
     private fun initView() {
 
     }
@@ -78,8 +83,20 @@ class PlaceSetupOverviewFragment : BaseFragment() {
                 vm.getPlaceBody().apply {
                     submitStatus = SubmitStatus.ACCEPT
                     status = PlaceStatus.LISTED
+                    apply { Log.d("--=", "+${this}") }
                 }
-                vm.editPlace()
+                vm.editPlace().observeOnUiThread().subscribe({
+                    updateData()
+                    activity?.showDialog(
+                        getString(R.string.success_toast),
+                        null,
+                        getString(R.string.ok),
+                        {
+                            activity?.onBackPressed()
+                        })
+                }, {
+                    activity?.showErrorDialog(it)
+                })
             }
         }
     }
@@ -97,7 +114,7 @@ class PlaceSetupOverviewFragment : BaseFragment() {
 
     private fun updateData() {
         (activity as? PlaceSetupActivity)?.vm?.getPlaceDetail()?.let {
-            if (it.submitStatus == SubmitStatus.ACCEPT) {
+            if (it.submitStatus == SubmitStatus.ACCEPT && it.status == PlaceStatus.LISTED) {
                 tvRequest.gone()
             } else {
                 tvRequest.visible()

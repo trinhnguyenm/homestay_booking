@@ -188,6 +188,36 @@ class PaymentFragment : BaseFragment() {
                             "Đang chờ bạn chấp nhận yêu cầu đặt chỗ của người dùng."
                         tvBookAlert.gone()
                     }
+                    BookingStatus.ACCEPTED -> {
+                        tvPayNow.text = "Hủy đơn đặt chỗ"
+                        tvPayNow.isEnabled = true
+                        tvBookAlertTitle.text =
+                            "Đã chấp nhận yêu cầu đặt chỗ, chờ người dùng thanh toán"
+                        tvBookAlert.gone()
+                    }
+                    BookingStatus.UNPAID -> {
+                        tvPayNow.text = "Hủy đơn đặt chỗ"
+                        tvPayNow.isEnabled = true
+                        tvBookAlertTitle.text =
+                            "Chờ người dùng thanh toán"
+                        tvBookAlert.gone()
+                    }
+                    BookingStatus.PAID -> {
+                        val now = Calendar.getInstance()
+                        if (startDate != null && startDate!!.before(now)) {
+                            tvPayNow.text = "Hủy đơn đặt chỗ"
+                            tvPayNow.isEnabled = true
+                            tvBookAlertTitle.text =
+                                "Người dùng đã thanh toán"
+                            tvBookAlert.gone()
+                        } else {
+                            tvPayNow.text = "Hoàn thành đơn đặt chỗ"
+                            tvPayNow.isEnabled = true
+                            tvBookAlertTitle.text =
+                                "Người dùng đã thanh toán"
+                            tvBookAlert.gone()
+                        }
+                    }
                     else -> {
                         tvPayNow.gone()
                         tvBookAlert.gone()

@@ -65,7 +65,7 @@ class RegisterFragment : BaseChooseImageFragment() {
     override fun isNeedPaddingTop() = true
 
     private fun initView() {
-        tvTitle.text = "Sign up"
+        tvTitle.text = getString(R.string.sign_up)
         inputFirstName.visible()
         inputLastName.visible()
         inputPhone.visible()

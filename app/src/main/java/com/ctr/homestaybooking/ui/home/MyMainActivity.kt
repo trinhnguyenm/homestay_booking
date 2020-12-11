@@ -150,7 +150,7 @@ open class MyMainActivity : MainActivity() {
     private fun initTab() {
         val icons = mutableListOf(
             R.drawable.bg_icon_tab_home,
-            R.drawable.bg_icon_tab_save,
+            if (App.instance.localRepository.isUserSession()) R.drawable.bg_icon_tab_save else R.drawable.bg_icon_tab_progress,
             R.drawable.bg_icon_tab_my_booking,
             R.drawable.bg_icon_tab_inbox,
             R.drawable.bg_icon_tab_account

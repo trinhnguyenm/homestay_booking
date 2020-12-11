@@ -130,6 +130,7 @@ data class PlaceDetail(
         latestCheckInTime = latestCheckInTime,
         checkOutTime = checkOutTime,
         submitStatus = submitStatus ?: SubmitStatus.DRAFT,
+        status = status ?: PlaceStatus.UNLISTED,
         images = images?.toMutableList(),
         amenities = amenities?.toMutableList(),
         bookingSlots = bookingSlots?.toMutableList(),
