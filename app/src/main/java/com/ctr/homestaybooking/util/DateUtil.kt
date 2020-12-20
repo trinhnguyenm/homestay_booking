@@ -90,6 +90,14 @@ fun Iterable<Date>.isContainAll(dates: Iterable<Date>): Boolean {
     return true
 }
 
+
+fun Iterable<Date>.anyDates(dates: Iterable<Date>): Boolean {
+    dates.forEach {
+        if (isContain(it)) return true
+    }
+    return false
+}
+
 internal fun getDate(year: Int, month: Int, day: Int): Date {
     val calendar = Calendar.getInstance()
     calendar[Calendar.YEAR] = year

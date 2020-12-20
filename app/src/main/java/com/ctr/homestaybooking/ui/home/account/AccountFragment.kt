@@ -5,7 +5,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,7 +23,6 @@ import com.ctr.homestaybooking.ui.auth.AuthActivity
 import com.ctr.homestaybooking.ui.editprofile.EditProfileActivity
 import com.ctr.homestaybooking.ui.editprofile.EditProfileActivity.Companion.KEY_IS_NEED_UPDATE
 import com.ctr.homestaybooking.ui.editprofile.EditProfileActivity.Companion.REQUEST_CODE_EDIT_PROFILE
-import com.ctr.homestaybooking.ui.splash.SplashActivity
 import kotlinx.android.synthetic.main.fragment_profile.*
 import sdk.chat.core.session.ChatSDK
 import sdk.guru.common.RX
@@ -129,14 +127,11 @@ class AccountFragment : BaseFragment() {
         }
 
         llUserType.onClickDelayAction {
-            Log.d("--=", "isUserSession: ${vm.isUserSession()}")
             vm.getUserResponse()?.userDetail?.let { userDetail ->
                 if (!userDetail.roles.contains(Role.ROLE_HOST)) {
-                    Log.d("--=", "!contains: ROLE_HOST")
                     vm.upToHost().observeOnUiThread().subscribe({
                         vm.setHostSession()
-                        startActivity(Intent(activity, SplashActivity::class.java))
-                        activity?.finish()
+                        activity?.recreate()
                     }, {
                         activity?.showErrorDialog(it)
                     })
@@ -146,8 +141,7 @@ class AccountFragment : BaseFragment() {
                     } else {
                         vm.setUserSession()
                     }
-                    startActivity(Intent(activity, SplashActivity::class.java))
-                    activity?.finish()
+                    activity?.recreate()
                 }
             }
 

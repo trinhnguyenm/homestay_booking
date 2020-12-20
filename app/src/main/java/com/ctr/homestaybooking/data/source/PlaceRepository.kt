@@ -25,6 +25,12 @@ class PlaceRepository : PlaceDataSource {
     override fun editPlace(placeBody: PlaceBody) =
         placeRemoteDataSource.editPlace(placeBody)
 
+    override fun deletePlace(id: Int) =
+        placeRemoteDataSource.deletePlace(id)
+
+    override fun reversePlaceStatusByID(id: Int) =
+        placeRemoteDataSource.reversePlaceStatusByID(id)
+
     override fun getPlaceTypes() =
         placeRemoteDataSource.getPlaceTypes()
 
@@ -33,6 +39,9 @@ class PlaceRepository : PlaceDataSource {
 
     override fun getProvinceById(id: Int) =
         placeRemoteDataSource.getProvinceById(id)
+
+    override fun getCalendarByPlaceId(id: Int) =
+        placeRemoteDataSource.getCalendarByPlaceId(id)
 
     override fun addBooking(bookingBody: BookingBody) =
         placeRemoteDataSource.addBooking(bookingBody)

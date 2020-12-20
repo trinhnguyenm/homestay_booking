@@ -40,6 +40,12 @@ interface ApiService {
     @PUT("/api/places/")
     fun editPlace(@Body placeBody: PlaceBody): Single<PlaceDetailResponse>
 
+    @DELETE("/api/places/{id}")
+    fun deletePlace(@Path("id") id: Int): Single<PlaceDetailResponse>
+
+    @PATCH("/api/places/{id}/status")
+    fun reversePlaceStatusByID(@Path("id") id: Int): Single<PlaceDetailResponse>
+
     @GET("/api/places/host/{id}")
     fun getPlacesByHostId(@Path("id") id: Int): Single<HostPlaceResponse>
 
@@ -54,6 +60,9 @@ interface ApiService {
 
     @GET("/api/provinces/{id}")
     fun getProvinceById(@Path("id") id: Int): Single<ProvinceDetailResponse>
+
+    @GET("/api/places/{id}/calendar")
+    fun getCalendarByPlaceId(@Path("id") id: Int): Single<CalendarResponse>
 
     @GET("/api/rooms/status/?")
     fun getAllRoomStatus(

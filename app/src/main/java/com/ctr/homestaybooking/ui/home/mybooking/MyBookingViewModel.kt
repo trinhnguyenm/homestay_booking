@@ -34,6 +34,7 @@ class MyBookingViewModel(
 
     override fun getBookingHistory(): Single<BookingHistoryResponse> {
         return placeRepository.getBookingHistory(localRepository.getUserId())
+            .addProgressLoading()
             .doOnSuccess { response ->
                 rawBookings = response.bookings.sortedByDescending { it.id }
                 getBookings().apply {

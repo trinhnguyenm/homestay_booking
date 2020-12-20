@@ -10,11 +10,11 @@ import com.ctr.homestaybooking.base.BaseFragment
 /**
  * Created by at-trinhnguyen2 on 2020/06/02
  */
-class MyProgressFragment : BaseFragment() {
+class ProgressFragment : BaseFragment() {
 
     companion object {
-        fun newInstance() =
-            MyProgressFragment()
+        fun getNewInstance() =
+            ProgressFragment()
     }
 
     override fun onCreateView(
@@ -22,7 +22,6 @@ class MyProgressFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_my_progress, container, false)
+        return inflater.inflate(R.layout.fragment_progress, container, false)
     }
-
 }

@@ -156,14 +156,6 @@ class MyBookingFragment : BaseFragment() {
     internal fun getBookingHistory() {
         vm.getBookingHistory()
             .observeOnUiThread()
-            .doOnSubscribe {
-                if (isVisibleToUser) {
-                    vm.getProgressObservable().onNext(true)
-                }
-            }
-            .doFinally {
-                vm.getProgressObservable().onNext(false)
-            }
             .subscribe({
                 if (it.length == 0) {
                     llNoData.visible()

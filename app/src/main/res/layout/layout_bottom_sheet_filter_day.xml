@@ -15,7 +15,7 @@
         android:fontFamily="@font/lato_regular"
         android:gravity="center_vertical"
         android:paddingStart="@dimen/dimen_16dp"
-        android:text="All"
+        android:text="Tất cả"
         android:textColor="@android:color/black"
         android:textSize="16sp" />
 
@@ -31,7 +31,7 @@
         android:fontFamily="@font/lato_regular"
         android:gravity="center_vertical"
         android:paddingStart="@dimen/dimen_16dp"
-        android:text="3 days"
+        android:text="3 ngày trước"
         android:textColor="@android:color/black"
         android:textSize="16sp" />
 
@@ -47,7 +47,7 @@
         android:fontFamily="@font/lato_regular"
         android:gravity="center_vertical"
         android:paddingStart="@dimen/dimen_16dp"
-        android:text="30 days"
+        android:text="1 tháng trước"
         android:textColor="@android:color/black"
         android:textSize="16sp" />
 

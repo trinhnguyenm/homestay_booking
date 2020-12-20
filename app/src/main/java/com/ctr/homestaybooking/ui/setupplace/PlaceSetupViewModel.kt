@@ -45,11 +45,24 @@ class PlaceSetupViewModel(
             provinceDetail = it.provinceDetail
         }
 
+    override fun getExportCalendar() =
+        placeRepository.getCalendarByPlaceId(getPlaceDetail()?.id ?: 0).addProgressLoading()
+
     override fun editPlace() =
         placeRepository.editPlace(getPlaceBody()).addProgressLoading().doOnSuccess {
             placeDetail = it.placeDetail
             placeBody = it.placeDetail.toPlaceBody()
         }
+
+    override fun deletePlace() =
+        placeRepository.deletePlace(getPlaceDetail()?.id ?: 0).addProgressLoading()
+
+    override fun reversePlaceStatusByID() =
+        placeRepository.reversePlaceStatusByID(getPlaceDetail()?.id ?: 0).addProgressLoading()
+            .doOnSuccess {
+                placeDetail = it.placeDetail
+                placeBody = it.placeDetail.toPlaceBody()
+            }
 
     override fun getProgressObservable(): BehaviorSubject<Boolean> =
         progressBarDialogObservable

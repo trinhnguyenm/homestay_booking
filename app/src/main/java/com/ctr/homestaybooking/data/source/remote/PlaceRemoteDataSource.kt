@@ -22,11 +22,17 @@ class PlaceRemoteDataSource(private val apiService: ApiService = ApiClient.getIn
 
     override fun editPlace(placeBody: PlaceBody) = apiService.editPlace(placeBody)
 
+    override fun deletePlace(id: Int) = apiService.deletePlace(id)
+
+    override fun reversePlaceStatusByID(id: Int) = apiService.reversePlaceStatusByID(id)
+
     override fun getPlaceTypes() = apiService.getPlaceTypes()
 
     override fun getProvinces() = apiService.getProvinces()
 
     override fun getProvinceById(id: Int) = apiService.getProvinceById(id)
+
+    override fun getCalendarByPlaceId(id: Int) = apiService.getCalendarByPlaceId(id)
 
     override fun addBooking(bookingBody: BookingBody): Single<BookingResponse> =
         apiService.addBooking(bookingBody)

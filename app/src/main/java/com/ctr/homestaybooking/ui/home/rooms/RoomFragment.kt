@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.bumptech.glide.Glide
 import com.ctr.homestaybooking.R
 import com.ctr.homestaybooking.base.BaseFragment
 import com.ctr.homestaybooking.data.source.PlaceRepository
@@ -61,14 +60,6 @@ class RoomFragment : BaseFragment() {
         viewModel = RoomViewModel(
             PlaceRepository()
         )
-        brand = arguments?.getParcelable(KEY_BRAND)
-            ?: HotelResponse.Hotel.Brand()
-        brand.let {
-            context?.let { context -> Glide.with(context).load(it.imgLink).into(ivBrand) }
-            tvName.text = it.name
-            tvDescription.text =
-                if (it.desciption.isNullOrEmpty()) "Brand have no description" else it.desciption
-        }
         getAllRoomStatus(
             brand.id,
             startDate.format(),

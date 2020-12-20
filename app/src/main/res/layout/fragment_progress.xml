@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_20dp"
+        android:layout_marginTop="69dp"
+        android:layout_marginEnd="@dimen/dimen_20dp"
+        android:fontFamily="@font/lato_bold"
+        android:letterSpacing="0.01"
+        android:text="Thống kê"
+        android:textColor="#ff484848"
+        android:textSize="32sp" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tvTitle"
+        android:background="@color/white">
+
+        <LinearLayout
+            style="@style/default_padding"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvMonth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:fontFamily="@font/lato_regular"
+                android:letterSpacing="0.01"
+                android:textColor="#ff484848"
+                android:textSize="18sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tvTotalRevenue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="51dp"
+                android:fontFamily="@font/lato_bold"
+                android:letterSpacing="0.01"
+                android:text="Doanh thu tháng này"
+                android:textColor="#ff484848"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tvTitleTotalMonth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/lato_regular"
+                android:letterSpacing="0.01"
+                android:text="0đ"
+                android:textColor="@color/greyishBrown"
+                android:textSize="15sp" />
+
+            <View
+                style="@style/line"
+                android:layout_marginTop="15dp" />
+
+            <TextView
+                android:id="@+id/tvTotalBooking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="27dp"
+                android:fontFamily="@font/lato_bold"
+                android:letterSpacing="0.01"
+                android:text="Tổng số đơn hoàn thành"
+                android:textColor="#ff484848"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tvTitleTotalBooking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/lato_regular"
+                android:letterSpacing="0.01"
+                android:text="0"
+                android:textColor="@color/greyishBrown"
+                android:textSize="15sp" />
+
+            <View
+                style="@style/line"
+                android:layout_marginTop="15dp" />
+
+            <TextView
+                android:id="@+id/tvRatingCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="27dp"
+                android:fontFamily="@font/lato_bold"
+                android:letterSpacing="0.01"
+                android:text="Đánh giá"
+                android:textColor="#ff484848"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/lato_regular"
+                android:letterSpacing="0.01"
+                android:text="Chưa có đánh giá"
+                android:textColor="#ff484848"
+                android:textSize="15sp" />
+
+            <View
+                style="@style/line"
+                android:layout_marginTop="15dp" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <FrameLayout
+        android:id="@+id/viewLoading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tvTitle"
+        android:background="@color/white"
+        android:visibility="gone">
+
+        <com.github.ybq.android.spinkit.SpinKitView
+            style="@style/SpinKitView.ThreeBounce"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:SpinKit_Color="@color/colorAccent" />
+    </FrameLayout>
+</RelativeLayout>

@@ -44,7 +44,6 @@ class HomeFragment : BaseFragment() {
             FavoriteRepository()
         )
         getPlaceFromServer()
-        subscribeFavoritesInDatabase()
         initRecyclerView()
         initSwipeRefresh()
     }
@@ -99,6 +98,7 @@ class HomeFragment : BaseFragment() {
         viewModel.getPlacesFromServer()
             .observeOnUiThread()
             .subscribe({
+                subscribeFavoritesInDatabase()
                 recyclerView.adapter?.notifyDataSetChanged()
             }, {
                 handlerGetApiError(it)

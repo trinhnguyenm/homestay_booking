@@ -14,6 +14,7 @@ import com.ctr.homestaybooking.data.model.ImageSlideData
 import com.ctr.homestaybooking.data.source.FavoriteRepository
 import com.ctr.homestaybooking.data.source.PlaceRepository
 import com.ctr.homestaybooking.extension.*
+import com.ctr.homestaybooking.ui.App
 import com.ctr.homestaybooking.util.DateUtil
 import com.ctr.homestaybooking.util.convert
 import kotlinx.android.synthetic.main.fragment_place_detail.*
@@ -90,6 +91,10 @@ class PlaceDetailFragment : BaseFragment() {
                     placeDetailResponse.placeDetail.let { placeDetail ->
                         favorites?.let {
                             btnLike.isChecked = it.map { item -> item.id }.contains(placeDetail.id)
+                        }
+                        if (App.instance.localRepository.getUserId() == placeDetail.hostDetail?.id) {
+                            tvBooking.gone()
+                            tvHostName.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
                         }
                         (activity as? PlaceDetailActivity)?.placeDetailResponse =
                             placeDetailResponse

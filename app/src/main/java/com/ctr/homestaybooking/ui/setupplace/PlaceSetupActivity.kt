@@ -3,6 +3,7 @@ package com.ctr.homestaybooking.ui.setupplace
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import com.ctr.homestaybooking.R
 import com.ctr.homestaybooking.base.BaseActivity
 import com.ctr.homestaybooking.data.model.ImageSlideData
@@ -45,6 +46,12 @@ class PlaceSetupActivity : BaseActivity() {
     }
 
     override fun getContainerId(): Int = R.id.container
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        getCurrentFragment().apply { Log.d("--=", "+${this}") }
+        (getCurrentFragment() as? PlaceSetupOverviewFragment)?.updateData()
+    }
 
     internal fun openPlaceSetupBasicFragment() {
         addFragment(

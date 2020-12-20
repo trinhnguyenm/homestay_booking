@@ -1,7 +1,6 @@
 package com.ctr.homestaybooking.ui.placedetail
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,7 +22,7 @@ import java.util.*
  */
 class CalendarFragment : BaseFragment() {
     private lateinit var viewModel: PlaceDetailVMContract
-    private var availableDates = listOf<Date>()
+    private var unavailableDates = listOf<Date>()
 
     companion object {
         fun newInstance() = CalendarFragment()
@@ -54,22 +53,22 @@ class CalendarFragment : BaseFragment() {
         val nextYear = Calendar.getInstance()
         nextYear.add(Calendar.YEAR, 1)
         (activity as? PlaceDetailActivity)?.bookingSlots
-            ?.filter { it.status == DateStatus.AVAILABLE }
+            ?.filter { it.status != DateStatus.AVAILABLE }
             ?.map { it.date.toDate() }
             ?.filter { it.after(current.time) }
-            ?.let { availableDates = it }
+            ?.let { unavailableDates = it }
 
         calendarPicker.apply {
             setCustomDayView(DefaultDayViewAdapter())
             decorators = emptyList<CalendarCellDecorator>()
             init(current.time, nextYear.time).inMode(CalendarPickerView.SelectionMode.RANGE)
             setOnInvalidDateSelectedListener { }
-            highlightDates(availableDates)
-            setDateSelectableFilter { availableDates.isContain(it) }
+            highlightDates(unavailableDates)
+            setDateSelectableFilter { !unavailableDates.isContain(it) }
             setOnDateSelectedListener(object :
                 CalendarPickerView.OnDateSelectedListener {
                 override fun onDateSelected(date: Date) {
-                    if (!availableDates.isContainAll(selectedDates)) {
+                    if (selectedDates.anyDates(unavailableDates)) {
                         selectDate(date, true)
                     } else {
                         tvTitle.text = "${selectedDates.size} ngày"
@@ -91,11 +90,11 @@ class CalendarFragment : BaseFragment() {
         }
 
         tvSave.onClickDelayAction {
-            calendarPicker.selectedDates.let { dates ->
-                if (dates.isNotEmpty()) {
+            calendarPicker.selectedDates.let { it ->
+                if (it.isNotEmpty()) {
                     (activity as? PlaceDetailActivity)?.openBookingActivity(
-                        dates.first().format().apply { Log.d("--=", "+${this}") },
-                        dates.last().addDays(1).format().apply { Log.d("--=", "+${this}") }
+                        it.first().format(),
+                        it.last().addDays(1).format()
                     )
                 }
             }

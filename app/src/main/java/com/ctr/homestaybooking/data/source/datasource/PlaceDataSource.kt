@@ -33,4 +33,7 @@ interface PlaceDataSource {
     fun getProvinces(): Single<ProvinceResponse>
     fun getProvinceById(id: Int): Single<ProvinceDetailResponse>
     fun getPlaceTypes(): Single<PlaceTypeResponse>
+    fun getCalendarByPlaceId(id: Int): Single<CalendarResponse>
+    fun deletePlace(id: Int): Single<PlaceDetailResponse>
+    fun reversePlaceStatusByID(id: Int): Single<PlaceDetailResponse>
 }
