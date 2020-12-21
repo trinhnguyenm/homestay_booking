@@ -72,7 +72,7 @@ class PlaceSetupActivity : BaseActivity() {
     internal fun openPlaceSetupPrizeFragment() {
         addFragment(
             getContainerId(),
-            PlaceSetupPrizeFragment.newInstance(),
+            PlaceSetupPriceFragment.newInstance(),
             addToBackStack = true
         )
     }

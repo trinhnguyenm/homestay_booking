@@ -23,6 +23,7 @@ import com.ctr.homestaybooking.ui.auth.AuthActivity
 import com.ctr.homestaybooking.ui.editprofile.EditProfileActivity
 import com.ctr.homestaybooking.ui.editprofile.EditProfileActivity.Companion.KEY_IS_NEED_UPDATE
 import com.ctr.homestaybooking.ui.editprofile.EditProfileActivity.Companion.REQUEST_CODE_EDIT_PROFILE
+import com.ctr.homestaybooking.ui.splash.SplashActivity
 import kotlinx.android.synthetic.main.fragment_profile.*
 import sdk.chat.core.session.ChatSDK
 import sdk.guru.common.RX
@@ -131,7 +132,8 @@ class AccountFragment : BaseFragment() {
                 if (!userDetail.roles.contains(Role.ROLE_HOST)) {
                     vm.upToHost().observeOnUiThread().subscribe({
                         vm.setHostSession()
-                        activity?.recreate()
+                        startActivity(Intent(activity, SplashActivity::class.java))
+                        activity?.finishAffinity()
                     }, {
                         activity?.showErrorDialog(it)
                     })
@@ -141,10 +143,10 @@ class AccountFragment : BaseFragment() {
                     } else {
                         vm.setUserSession()
                     }
-                    activity?.recreate()
+                    startActivity(Intent(activity, SplashActivity::class.java))
+                    activity?.finishAffinity()
                 }
             }
-
         }
     }
 

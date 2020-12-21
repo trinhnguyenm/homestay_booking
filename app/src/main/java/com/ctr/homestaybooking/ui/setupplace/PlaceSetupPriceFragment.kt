@@ -16,19 +16,19 @@ import com.ctr.homestaybooking.ui.wedget.SpinnerType
 import com.ctr.homestaybooking.util.FORMAT_DATE_TIME_API_POST
 import com.ctr.homestaybooking.util.format
 import com.ctr.homestaybooking.util.toCalendar
-import kotlinx.android.synthetic.main.fragment_place_setup_prize.*
-import kotlinx.android.synthetic.main.layout_place_setup_prize.*
+import kotlinx.android.synthetic.main.fragment_place_setup_price.*
+import kotlinx.android.synthetic.main.layout_place_setup_price.*
 import java.util.*
 
 /**
  * Created by at-trinhnguyen2 on 2020/12/03
  */
 
-class PlaceSetupPrizeFragment : BaseFragment() {
+class PlaceSetupPriceFragment : BaseFragment() {
     private lateinit var vm: PlaceSetupVMContract
 
     companion object {
-        fun newInstance() = PlaceSetupPrizeFragment().apply {
+        fun newInstance() = PlaceSetupPriceFragment().apply {
         }
     }
 
@@ -37,7 +37,7 @@ class PlaceSetupPrizeFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_place_setup_prize, container, false)
+        return inflater.inflate(R.layout.fragment_place_setup_price, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -58,7 +58,7 @@ class PlaceSetupPrizeFragment : BaseFragment() {
     private fun initView() {
 
         inputPrize.validateData = {
-            it.isNotBlank() && it.length <= 20
+            it.isNotBlank() && it.length <= 20 && it.length >= 5
         }
 
         spinnerCancerType.initSpinner(SpinnerType.CANCER_TYPE)
@@ -96,13 +96,21 @@ class PlaceSetupPrizeFragment : BaseFragment() {
             handleNextButton()
         }
 
-
         spinnerCancerType.onItemSelectedListener = {
             vm.getPlaceBody().cancelType =
                 when (it?.getCode()) {
-                    CancelType.FLEXIBLE.name -> CancelType.FLEXIBLE
-                    CancelType.MODERATE.name -> CancelType.MODERATE
-                    else -> CancelType.FLEXIBLE
+                    CancelType.FLEXIBLE.name -> {
+                        tvCancelPolicyInfo.text = getString(R.string.cancel_policy_flexible)
+                        CancelType.FLEXIBLE
+                    }
+                    CancelType.MODERATE.name -> {
+                        tvCancelPolicyInfo.text = getString(R.string.cancel_policy_moderate)
+                        CancelType.MODERATE
+                    }
+                    else -> {
+                        tvCancelPolicyInfo.text = getString(R.string.cancel_policy_strict)
+                        CancelType.STRICT
+                    }
                 }
 
             handleNextButton()

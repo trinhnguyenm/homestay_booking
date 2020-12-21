@@ -53,7 +53,12 @@ data class PlaceDetail(
     @SerializedName("rateAverage") val rateAverage: Double
 ) : Parcelable {
     internal fun getRooms(): String {
-        return "$guestCount khách $roomCount phòng ngủ $bedCount giường $bathroomCount phòng tắm "
+        val result = StringBuilder()
+        if (guestCount != 0) result.append("$guestCount khách ")
+        if (roomCount != 0) result.append("$roomCount phòng ngủ ")
+        if (bedCount != 0) result.append("$bedCount giường ")
+        if (bathroomCount != 0) result.append("$bathroomCount phòng tắm ")
+        return result.toString()
     }
 
     internal fun isSubmitBasicInfo() =

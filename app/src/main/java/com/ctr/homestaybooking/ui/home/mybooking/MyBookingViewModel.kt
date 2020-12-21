@@ -1,6 +1,7 @@
 package com.ctr.homestaybooking.ui.home.mybooking
 
 import com.ctr.homestaybooking.base.BaseViewModel
+import com.ctr.homestaybooking.data.model.BookingStatus
 import com.ctr.homestaybooking.data.source.LocalRepository
 import com.ctr.homestaybooking.data.source.PlaceRepository
 import com.ctr.homestaybooking.data.source.response.Booking
@@ -23,11 +24,16 @@ class MyBookingViewModel(
     override fun getBookings(): MutableList<Booking> = bookings
 
 
-    override fun filterMyBooking(filterDays: Int) {
+    override fun filterMyBooking(filterDays: Int, bookingStatus: BookingStatus?) {
         getBookings().apply {
             clear()
             addAll(rawBookings.filter {
-                it.createDate.toCalendar().compareDay(Calendar.getInstance()) <= filterDays
+                if (bookingStatus == null) {
+                    it.createDate.toCalendar().compareDay(Calendar.getInstance()) <= filterDays
+                } else {
+                    it.createDate.toCalendar().compareDay(Calendar.getInstance()) <= filterDays
+                            && (it.status == bookingStatus || (it.status == BookingStatus.ACCEPTED && bookingStatus == BookingStatus.UNPAID))
+                }
             })
         }
     }

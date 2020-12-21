@@ -5,8 +5,8 @@ import android.os.Bundle
 import com.ctr.homestaybooking.R
 import com.ctr.homestaybooking.base.BaseActivity
 import com.ctr.homestaybooking.base.BaseFragment
+import com.ctr.homestaybooking.extension.addFragment
 import com.ctr.homestaybooking.extension.getStatusBarHeight
-import com.ctr.homestaybooking.extension.replaceFragment
 import com.ctr.homestaybooking.ui.auth.AuthActivity
 import com.ctr.homestaybooking.ui.home.MyMainActivity
 import com.ctr.homestaybooking.ui.onboarding.OnBoardingActivity
@@ -36,7 +36,14 @@ class SplashActivity : BaseActivity() {
     }
 
     private fun openSplashFragment() {
-        replaceFragment(getContainerId(), SplashFragment.newInstance())
+        addFragment(getContainerId(), SplashFragment.newInstance(), {
+            it.setCustomAnimations(
+                R.anim.anim_fade_in,
+                0,
+                0,
+                R.anim.anim_fade_out
+            )
+        })
     }
 
     internal fun startOnBoardingActivity() {

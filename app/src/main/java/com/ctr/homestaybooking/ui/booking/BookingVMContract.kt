@@ -2,10 +2,8 @@ package com.ctr.homestaybooking.ui.booking
 
 import com.ctr.homestaybooking.data.model.BookingStatus
 import com.ctr.homestaybooking.data.source.request.BookingBody
-import com.ctr.homestaybooking.data.source.response.Booking
-import com.ctr.homestaybooking.data.source.response.BookingResponse
-import com.ctr.homestaybooking.data.source.response.CaptureMoMoApiResponse
-import com.ctr.homestaybooking.data.source.response.UserResponse
+import com.ctr.homestaybooking.data.source.request.ReviewBody
+import com.ctr.homestaybooking.data.source.response.*
 import io.reactivex.Single
 import io.reactivex.subjects.BehaviorSubject
 
@@ -28,4 +26,6 @@ interface BookingVMContract {
     fun requestPayment(bookingId: Int): Single<CaptureMoMoApiResponse>
     fun getBookingById(id: Int): Single<BookingResponse>
     fun getBooking(): Booking?
+    fun getReviewBody(): ReviewBody
+    fun addReview(): Single<Review>
 }

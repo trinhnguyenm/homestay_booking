@@ -206,7 +206,7 @@ open class MyMainActivity : MainActivity() {
     private fun initSdk() {
         ChatSDK.ui().removeTab(0)
         ChatSDK.ui().removeTab(0)
-        if (vm.isUserSession()) {
+        if (App.instance.localRepository.isUserSession()) {
             ChatSDK.ui().apply {
                 setTab(
                     "Khám phá",
@@ -252,7 +252,7 @@ open class MyMainActivity : MainActivity() {
                     1
                 )
                 setTab(
-                    "Quản lý lịch",
+                    "Quản lý đơn đặt chỗ",
                     getDrawable(R.drawable.bg_icon_tab_home),
                     HostBookingContainerFragment.getNewInstance(),
                     2
@@ -274,4 +274,10 @@ open class MyMainActivity : MainActivity() {
     internal fun setTabSelection(position: Int) {
         tabLayout.getTabAt(position)?.select()
     }
+
+    internal fun getFragmentInsideViewPager(position: Int = viewPager.currentItem) =
+        viewPager.adapter?.instantiateItem(
+            viewPager,
+            position
+        ) as? com.ctr.homestaybooking.base.BaseFragment
 }

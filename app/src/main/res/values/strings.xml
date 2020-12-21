@@ -422,7 +422,7 @@
     <string name="hint_infant">Dưới 2 tuổi</string>
     <string name="hint_name_credit">NGUYEN VAN A</string>
     <string name="hint_pickup_location">Ghi rõ địa chỉ bao gồm: Số nhà, tên đường, thành phố…</string>
-    <string name="hint_search">Thử tìm kiếm “Ha Noi”</string>
+    <string name="hint_search">Thử tìm kiếm “Đà Nẵng”</string>
     <string name="hint_signin_favorite">Đăng nhập để quản lý bộ sưu tập của bạn</string>
     <string name="hint_where_you_go">Bạn muốn đi đâu?</string>
     <string name="host_is_not_found">Không tìm thấy thông tin chủ nhà.</string>
@@ -453,9 +453,9 @@
     <string name="let_begin">Bắt đầu</string>
     <string name="login_by_your_account">Đăng nhập bằng địa chỉ email</string>
     <string name="login_item_text"><b>Đăng nhập</b> để nhận ưu đãi và tận hưởng quyền lợi của thành viên.</string>
-    <string name="luxstay_business_payment">Homestay Booking Business</string>
-    <string name="luxstay_credit">Ví Homestay Booking</string>
-    <string name="luxstay_for_business">Homestay Booking For Business</string>
+    <string name="stay_business_payment">Homestay Booking Business</string>
+    <string name="stay_credit">Ví Homestay Booking</string>
+    <string name="stay_for_business">Homestay Booking For Business</string>
     <string name="maintain_content">Hệ thống đang được bảo trì. Vui lòng quay trở lại sau hoặc chuyển hướng sang web để tiếp tục trải nghiệm Homestay Booking.</string>
     <string name="maintain_title">Bảo trì hệ thống</string>
     <string name="manager_card">Quản lý thẻ</string>
@@ -566,8 +566,8 @@
     <string name="read_before_you_pay">Đọc trước khi bạn thanh toán</string>
     <string name="read_more">Xem thêm</string>
     <string name="redo_search">Tìm kiếm trong khu vực này</string>
-    <string name="ref_luxstay_credit">Chuyển tiền vào ví Homestay Booking</string>
-    <string name="ref_luxstay_credit_content">Số tiền này sẽ sử dụng cho lần đặt phòng tiếp theo</string>
+    <string name="ref_stay_credit">Chuyển tiền vào ví Homestay Booking</string>
+    <string name="ref_stay_credit_content">Số tiền này sẽ sử dụng cho lần đặt phòng tiếp theo</string>
     <string name="referrer_invite">Người giới thiệu</string>
     <string name="refund_amount">Số tiền hoàn trả</string>
     <string name="refund_method">Phương thức hoàn tiền</string>
@@ -692,7 +692,7 @@
     <string name="txt_accept">Đồng ý</string>
     <string name="txt_cancel">Hủy</string>
     <string name="txt_content_cancel_booking">Chính sách hủy phòng</string>
-    <string name="txt_content_cancel_booking_2">Loại chỗ ở này cho phép bạn hủy đặt phòng 5 ngày trước khi check-in và được hoàn lại toàn bộ số tiền đã trả. Homestay Booking không hoàn tại tiền nếu khách hàng hủy sau thời gian này.</string>
+    <string name="txt_content_cancel_booking_2">Loại chỗ ở này cho phép bạn hủy đặt phòng 5 ngày trước khi check-in và được hoàn lại toàn bộ số tiền đã trả.</string>
     <string name="txt_continue">Tiếp tục</string>
     <string name="txt_copied">Đã sao chép</string>
     <string name="txt_create">Tạo mới</string>
@@ -747,9 +747,9 @@ Cập nhật phiên bản mới để trải nghiệm nhiều hơn với chúng 
     <string name="warning_wrong_format_phone">Số điện thoại không đúng định dạng</string>
     <string name="warning_wrong_format_pwd">Mật khẩu có độ dài ít nhất 8 ký tự</string>
     <string name="wednesday">T4</string>
-    <string name="welcome_luxstay_when_before_login">Chào mừng bạn đến với Homestay Booking!</string>
-    <string name="welcome_luxstay_when_signup">Tham gia Homestay Booking ngay bây giờ !!</string>
-    <string name="welcome_luxstay_when_was_login">"Xin chào %1$s!
+    <string name="welcome_stay_when_before_login">Chào mừng bạn đến với Homestay Booking!</string>
+    <string name="welcome_stay_when_signup">Tham gia Homestay Booking ngay bây giờ !!</string>
+    <string name="welcome_stay_when_was_login">"Xin chào %1$s!
 Chào mừng trở lại Homestay Booking !!"</string>
     <string name="write_review">Viết đánh giá</string>
     <string name="year">NĂM</string>
@@ -1026,9 +1026,9 @@ Chào mừng trở lại Homestay Booking !!"</string>
     <string name="log_into_another_account">Đăng nhập với tài khoản khác</string>
     <string name="logout">Đăng xuất</string>
     <string name="long_term_price">Giá dài hạn</string>
-    <string name="luxstay_partner">Đối tác của Homestay Booking</string>
-    <string name="luxstay_partner_title">Để gia tăng tỷ lệ lấp phòng, cũng như lợi nhuận, bạn có thể đăng kí chỗ nghỉ tại các nền tảng đặt phòng được liên kết với Homestay Booking.</string>
-    <string name="luxstay_policy_title">Với mỗi lượt đặt chỗ thành công, Homestay Booking sẽ thu phí dịch vụ 3% trên doanh thu từ chỗ nghỉ và chuyển tiền đến bạn trong vòng 24h kể từ thời điểm khách nhận phòng (thành công).</string>
+    <string name="stay_partner">Đối tác của Homestay Booking</string>
+    <string name="stay_partner_title">Để gia tăng tỷ lệ lấp phòng, cũng như lợi nhuận, bạn có thể đăng kí chỗ nghỉ tại các nền tảng đặt phòng được liên kết với Homestay Booking.</string>
+    <string name="stay_policy_title">Với mỗi lượt đặt chỗ thành công, Homestay Booking sẽ thu phí dịch vụ 3% trên doanh thu từ chỗ nghỉ và chuyển tiền đến bạn trong vòng 24h kể từ thời điểm khách nhận phòng (thành công).</string>
     <string name="max_guest_error">Số khách tối đa phải lớn hơn hoặc bằng số khách tiêu chuẩn</string>
     <string name="max_guests">Số khách tối đa</string>
     <string name="max_nights_error">Số đêm tối đa phải lớn hơn hoặc bằng số đêm tối thiểu</string>
@@ -1142,7 +1142,7 @@ Chào mừng trở lại Homestay Booking !!"</string>
     <string name="specific_date_title_explain">Hệ thống đang mặc định áp dụng giá bạn đổi cho cả tuần, vui lòng bỏ chọn những ngày bạn muốn giữ giá cũ.</string>
     <string name="square_header">Diện tích chỗ nghỉ (m2)</string>
     <string name="square_title">Không gian chỗ nghỉ</string>
-    <string name="standard_guests">Số khách tiêu chuẩn</string>
+    <string name="standard_guests">Số lượng khách</string>
     <string name="stats">Thống kê</string>
     <string name="status_available">Mở</string>
     <string name="status_block">Khóa</string>
@@ -1221,4 +1221,7 @@ Chào mừng trở lại Homestay Booking !!"</string>
     <string name="error_two_password_must_be_same">Password not match</string>
     <string name="sign_up">Sign Up</string>
     <string name="do_you_have_an_account">Do you have an account?</string>
+    <string name="cancel_policy_flexible">Miễn phí hủy phòng cho khách trong vòng 48h sau khi đặt phòng thành công và trước 1 ngày so với thời gian check-in</string>
+    <string name="cancel_policy_moderate">Miễn phí hủy phòng cho khách trong vòng 48h sau khi đặt phòng thành công và trước 5 ngày so với thời gian check-in</string>
+    <string name="cancel_policy_strict">Khách hàng được hoàn lại 50% số tiền đã trả khi hủy phòng trong vòng 48h sau khi đặt phòng thành công và trước 14 ngày so với thời gian check-in. Trong trường hợp đó, chủ nhà nhận về 50% giá trị đặt phòng.</string>
 </resources>

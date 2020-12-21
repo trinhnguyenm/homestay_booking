@@ -57,19 +57,35 @@
                 app:cardElevation="6dp"
                 app:layout_scrollFlags="exitUntilCollapsed|scroll">
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     style="@style/match_width"
                     android:padding="10dp">
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/txtFilterCheckIn"
+                        android:id="@+id/tvFilterDay"
                         style="@style/wrap_content"
                         android:layout_width="0dp"
                         android:layout_weight="1.0"
                         android:fontFamily="@font/lato_bold"
-                        android:text="All"
+                        android:text="Tất cả"
                         android:textColor="#ff222222"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvFilterStatus"
+                        style="@style/wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_marginStart="4dp"
+                        android:layout_weight="1.0"
+                        android:fontFamily="@font/lato_bold"
+                        android:textColor="#ff222222"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/tvFilterDay"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         style="@style/wrap_content"
@@ -77,14 +93,20 @@
                         android:fontFamily="@font/lato_regular"
                         android:text="@string/filter"
                         android:textColor="#ff999999"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/imageButton"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/imageButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/ic_svg_calendar" />
-                </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
         </com.google.android.material.appbar.AppBarLayout>
 

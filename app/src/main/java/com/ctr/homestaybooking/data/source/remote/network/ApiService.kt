@@ -1,10 +1,10 @@
 package com.ctr.homestaybooking.data.source.remote.network
 
 import com.ctr.homestaybooking.data.model.BookingStatus
-import com.ctr.homestaybooking.data.source.request.BookingBody
-import com.ctr.homestaybooking.data.source.request.LoginBody
-import com.ctr.homestaybooking.data.source.request.PlaceBody
-import com.ctr.homestaybooking.data.source.request.UserBody
+import com.ctr.homestaybooking.data.model.BookingType
+import com.ctr.homestaybooking.data.model.CancelType
+import com.ctr.homestaybooking.data.model.PlaceStatus
+import com.ctr.homestaybooking.data.source.request.*
 import com.ctr.homestaybooking.data.source.response.*
 import io.reactivex.Single
 import retrofit2.http.*
@@ -36,6 +36,22 @@ interface ApiService {
      * */
     @GET("/api/places")
     fun getPlaces(): Single<PlaceResponse>
+
+    @GET("/api/places/search")
+    fun searchPlace(
+        @Query("address") address: String?,
+        @Query("bookingType") bookingType: BookingType? = null,
+        @Query("guestCount") guestCount: Int? = null,
+        @Query("roomCount") roomCount: Int? = null,
+        @Query("bedCount") bedCount: Int? = null,
+        @Query("bathroomCount") bathroomCount: Int? = null,
+        @Query("minPrice") minPrice: Double? = null,
+        @Query("maxPrice") maxPrice: Double? = null,
+        @Query("cancelType") cancelType: CancelType? = null,
+        @Query("status") status: PlaceStatus? = PlaceStatus.LISTED,
+        @Header("Page-Number") page: Int = 0,
+        @Header("Page-Size") size: Int = 20
+    ): Single<PlaceResponse>
 
     @PUT("/api/places/")
     fun editPlace(@Body placeBody: PlaceBody): Single<PlaceDetailResponse>
@@ -96,4 +112,7 @@ interface ApiService {
     fun requestPayment(
         @Path("id") bookingId: Int
     ): Single<CaptureMoMoApiResponse>
+
+    @POST("/api/reviews")
+    fun addReview(@Body reviewBody: ReviewBody): Single<Review>
 }

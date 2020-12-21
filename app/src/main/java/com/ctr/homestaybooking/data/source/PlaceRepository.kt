@@ -1,10 +1,12 @@
 package com.ctr.homestaybooking.data.source
 
 import com.ctr.homestaybooking.data.model.BookingStatus
+import com.ctr.homestaybooking.data.model.SearchBody
 import com.ctr.homestaybooking.data.source.datasource.PlaceDataSource
 import com.ctr.homestaybooking.data.source.remote.PlaceRemoteDataSource
 import com.ctr.homestaybooking.data.source.request.BookingBody
 import com.ctr.homestaybooking.data.source.request.PlaceBody
+import com.ctr.homestaybooking.data.source.request.ReviewBody
 
 /**
  * Created by at-trinhnguyen2 on 2020/06/19
@@ -15,6 +17,9 @@ class PlaceRepository : PlaceDataSource {
 
     override fun getPlaces() =
         placeRemoteDataSource.getPlaces()
+
+    override fun searchPlace(searchBody: SearchBody) =
+        placeRemoteDataSource.searchPlace(searchBody)
 
     override fun getPlacesByHostId(id: Int) =
         placeRemoteDataSource.getPlacesByHostId(id)
@@ -45,6 +50,9 @@ class PlaceRepository : PlaceDataSource {
 
     override fun addBooking(bookingBody: BookingBody) =
         placeRemoteDataSource.addBooking(bookingBody)
+
+    override fun addReview(reviewBody: ReviewBody) =
+        placeRemoteDataSource.addReview(reviewBody)
 
     override fun getBookingById(id: Int) =
         placeRemoteDataSource.getBookingById(id)

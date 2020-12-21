@@ -18,7 +18,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/dimen_24dp">
+            android:paddingBottom="12dp">
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/ivThumbnail"
@@ -108,7 +108,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/ivThumbnail"
                 tools:text="PLACE TYPE" />
 
-            <com.ctr.homestaybooking.ui.wedget.ExpandableTextView
+            <TextView
                 android:id="@+id/tvName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -212,7 +212,7 @@
                 android:id="@+id/tvPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_16dp"
+                android:layout_marginTop="12dp"
                 android:fontFamily="@font/lato_black"
                 android:textColor="#ff333333"
                 android:textSize="18sp"

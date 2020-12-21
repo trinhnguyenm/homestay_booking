@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rlToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:elevation="3dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivBack"
+            style="@style/Widget.AppCompat.ActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/ic_close" />
+
+        <TextView
+            style="@style/style_title_action_bar"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:text="@string/search_filter" />
+
+        <TextView
+            android:id="@+id/tvResetAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/lato_regular"
+            android:paddingStart="@dimen/dimen_20dp"
+            android:paddingEnd="@dimen/dimen_20dp"
+            android:text="@string/reset_filter"
+            android:textColor="#ff333333"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/llApply"
+        app:layout_constraintTop_toBottomOf="@+id/rlToolbar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.ctr.homestaybooking.ui.wedget.CustomSpinner
+                android:id="@+id/spinnerBookingType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                app:title="Loại đặt chỗ" />
+
+            <com.ctr.homestaybooking.ui.wedget.CustomSpinner
+                android:id="@+id/spinnerCancerType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/spinnerBookingType"
+                android:layout_marginTop="16dp"
+                app:title="Chính sách hủy phòng" />
+
+            <TextView
+                android:id="@+id/tvCancelPolicyInfo"
+                style="@style/textGray"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/spinnerCancerType"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="20dp"
+                android:text="@string/cancel_policy_flexible" />
+
+
+            <com.ctr.homestaybooking.ui.wedget.InputGroupLayout
+                android:id="@+id/inputMinPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvCancelPolicyInfo"
+                android:layout_marginTop="16dp"
+                app:edit_inputType="numberDecimal"
+                app:error_text="100000"
+                app:is_elipsize_end="false"
+                app:label_text="Giá thấp nhất" />
+
+            <com.ctr.homestaybooking.ui.wedget.InputGroupLayout
+                android:id="@+id/inputMaxPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/inputMinPrice"
+                android:layout_marginTop="16dp"
+                app:edit_inputType="numberDecimal"
+                app:error_text="5000000"
+                app:is_elipsize_end="false"
+                app:label_text="Giá cao nhất" />
+
+            <com.ctr.homestaybooking.ui.wedget.NumberPicker
+                android:id="@+id/pickerGuestNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/inputMaxPrice"
+                android:layout_marginTop="16dp"
+                app:label="@string/standard_guests" />
+
+            <com.ctr.homestaybooking.ui.wedget.NumberPicker
+                android:id="@+id/pickerRoomNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/pickerGuestNo"
+                app:label="@string/bed_room_number" />
+
+            <com.ctr.homestaybooking.ui.wedget.NumberPicker
+                android:id="@+id/pickerBedRoomNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/pickerRoomNo"
+                app:label="@string/bed_number_title" />
+
+            <com.ctr.homestaybooking.ui.wedget.NumberPicker
+                android:id="@+id/pickerBathRoomNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/pickerBedRoomNo"
+                app:label="@string/bath_room_header" />
+        </RelativeLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/llApply"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_6dp"
+            android:background="@drawable/bg_shadow_bottom_to_top" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:paddingTop="@dimen/dimen_10dp"
+            android:paddingBottom="@dimen/dimen_10dp">
+
+            <TextView
+                android:id="@+id/tvApply"
+                style="@style/default_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="36dp"
+                android:layout_marginEnd="36dp"
+                android:background="@drawable/bg_button_round_gradient_enable"
+                android:fontFamily="@font/lato_bold"
+                android:gravity="center"
+                android:padding="@dimen/dimen_10dp"
+                android:text="@string/apply"
+                android:textColor="@color/white" />
+        </FrameLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

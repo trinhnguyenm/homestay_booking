@@ -36,7 +36,12 @@ data class Place(
     var isLike: Boolean = false,
     var likedTime: String? = null
 ) : Parcelable {
-    fun getRooms(): String {
-        return "$guestCount khách $roomCount phòng ngủ $bedCount giường $bathroomCount phòng tắm "
+    internal fun getRooms(): String {
+        val result = StringBuilder()
+        if (guestCount != 0) result.append("$guestCount khách ")
+        if (roomCount != 0) result.append("$roomCount phòng ngủ ")
+        if (bedCount != 0) result.append("$bedCount giường ")
+        if (bathroomCount != 0) result.append("$bathroomCount phòng tắm ")
+        return result.toString()
     }
 }

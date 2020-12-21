@@ -26,8 +26,6 @@ class CalendarFragment : BaseFragment() {
 
     companion object {
         fun newInstance() = CalendarFragment()
-
-        internal const val KEY_BOOKING_SLOTS = "key_booking_slots"
     }
 
     override fun onCreateView(
@@ -71,7 +69,7 @@ class CalendarFragment : BaseFragment() {
                     if (selectedDates.anyDates(unavailableDates)) {
                         selectDate(date, true)
                     } else {
-                        tvTitle.text = "${selectedDates.size} ngày"
+                        tvTitle.text = "Đã chọn ${selectedDates.size} ngày"
                     }
                 }
 

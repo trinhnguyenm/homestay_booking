@@ -288,6 +288,14 @@ class InputGroupLayout @JvmOverloads constructor(
         }
     }
 
+    internal fun setTextNullable(text: String?) {
+        if (text == null) {
+            inputField.setText("")
+        } else {
+            inputField.setText(text)
+        }
+    }
+
     internal fun setLable(text: String) {
         tvLabel.text = text
     }

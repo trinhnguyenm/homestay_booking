@@ -1,11 +1,13 @@
 package com.ctr.homestaybooking.data.source.remote
 
 import com.ctr.homestaybooking.data.model.BookingStatus
+import com.ctr.homestaybooking.data.model.SearchBody
 import com.ctr.homestaybooking.data.source.datasource.PlaceDataSource
 import com.ctr.homestaybooking.data.source.remote.network.ApiClient
 import com.ctr.homestaybooking.data.source.remote.network.ApiService
 import com.ctr.homestaybooking.data.source.request.BookingBody
 import com.ctr.homestaybooking.data.source.request.PlaceBody
+import com.ctr.homestaybooking.data.source.request.ReviewBody
 import com.ctr.homestaybooking.data.source.response.BookingResponse
 import io.reactivex.Single
 
@@ -15,6 +17,19 @@ import io.reactivex.Single
 class PlaceRemoteDataSource(private val apiService: ApiService = ApiClient.getInstance(null).service) :
     PlaceDataSource {
     override fun getPlaces() = apiService.getPlaces()
+
+    override fun searchPlace(searchBody: SearchBody) = apiService.searchPlace(
+        searchBody.address,
+        searchBody.bookingType,
+        searchBody.guestCount,
+        searchBody.roomCount,
+        searchBody.bedCount,
+        searchBody.bathroomCount,
+        searchBody.minPrice,
+        searchBody.maxPrice,
+        searchBody.cancelType,
+        searchBody.status
+    )
 
     override fun getPlacesByHostId(id: Int) = apiService.getPlacesByHostId(id)
 
@@ -36,6 +51,9 @@ class PlaceRemoteDataSource(private val apiService: ApiService = ApiClient.getIn
 
     override fun addBooking(bookingBody: BookingBody): Single<BookingResponse> =
         apiService.addBooking(bookingBody)
+
+    override fun addReview(reviewBody: ReviewBody) =
+        apiService.addReview(reviewBody)
 
     override fun getBookingById(id: Int): Single<BookingResponse> =
         apiService.getBookingById(id)

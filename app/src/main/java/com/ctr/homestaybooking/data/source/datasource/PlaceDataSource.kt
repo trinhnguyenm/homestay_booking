@@ -1,8 +1,10 @@
 package com.ctr.homestaybooking.data.source.datasource
 
 import com.ctr.homestaybooking.data.model.BookingStatus
+import com.ctr.homestaybooking.data.model.SearchBody
 import com.ctr.homestaybooking.data.source.request.BookingBody
 import com.ctr.homestaybooking.data.source.request.PlaceBody
+import com.ctr.homestaybooking.data.source.request.ReviewBody
 import com.ctr.homestaybooking.data.source.response.*
 import io.reactivex.Single
 
@@ -36,4 +38,6 @@ interface PlaceDataSource {
     fun getCalendarByPlaceId(id: Int): Single<CalendarResponse>
     fun deletePlace(id: Int): Single<PlaceDetailResponse>
     fun reversePlaceStatusByID(id: Int): Single<PlaceDetailResponse>
+    fun searchPlace(searchBody: SearchBody): Single<PlaceResponse>
+    fun addReview(reviewBody: ReviewBody): Single<Review>
 }
