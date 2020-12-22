@@ -121,6 +121,7 @@ class PaymentFragment : BaseFragment() {
             status = it.status
             if (App.instance.localRepository.isUserSession()) {
                 tvTitle.text = it.place.name
+                tvUserDetail.gone()
                 when (it.status) {
                     BookingStatus.PENDING -> {
                         tvPayNow.text = "Thanh toán"
@@ -189,6 +190,12 @@ class PaymentFragment : BaseFragment() {
                 }
             } else {
                 rcvStepBooking.invisible()
+                vm.getBooking()?.user?.apply {
+                    tvUserDetail.visible()
+                    tvUserDetail.text = "Tên khách hàng: $firstName $lastName \n" +
+                            "Số điện thoại: $phoneNumber \n" +
+                            "Email: $email"
+                }
                 tvTitle.text = it.user.getName()
                 when (it.status) {
                     BookingStatus.PENDING -> {
@@ -352,6 +359,16 @@ class PaymentFragment : BaseFragment() {
                             "Có",
                             {
                                 changeBookingStatus(BookingStatus.ACCEPTED)
+                            }, "Không"
+                        )
+                    }
+                    BookingStatus.PAID -> {
+                        activity?.showDialog(
+                            "Cảnh báo!",
+                            "Bạn có muốn hoàn thành đặt chỗ này?",
+                            "Có",
+                            {
+                                changeBookingStatus(BookingStatus.COMPLETED)
                             }, "Không"
                         )
                     }
