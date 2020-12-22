@@ -85,7 +85,7 @@ class AddReviewFragment : BaseFragment() {
                     null,
                     getString(R.string.ok),
                     {
-                        activity?.finishAffinity()
+                        activity?.onBackPressed()
                     })
             }, { activity?.showErrorDialog(it) })
         }
