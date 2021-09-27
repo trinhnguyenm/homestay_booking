@@ -12,10 +12,12 @@ import com.ctr.homestaybooking.data.source.FavoriteRepository
 import com.ctr.homestaybooking.data.source.PlaceRepository
 import com.ctr.homestaybooking.data.source.response.Place
 import com.ctr.homestaybooking.extension.observeOnUiThread
+import com.ctr.homestaybooking.extension.onClickDelayAction
 import com.ctr.homestaybooking.extension.showErrorDialog
 import com.ctr.homestaybooking.extension.toJsonString
 import com.ctr.homestaybooking.ui.App
 import com.ctr.homestaybooking.ui.placedetail.PlaceDetailActivity
+import com.ctr.homestaybooking.ui.search.SearchActivity
 import kotlinx.android.synthetic.main.fragment_home.*
 
 /**
@@ -44,9 +46,15 @@ class HomeFragment : BaseFragment() {
             FavoriteRepository()
         )
         getPlaceFromServer()
-        subscribeFavoritesInDatabase()
         initRecyclerView()
         initSwipeRefresh()
+        initListener()
+    }
+
+    private fun initListener() {
+        layoutSearch.onClickDelayAction {
+            SearchActivity.start(this)
+        }
     }
 
     private fun subscribeFavoritesInDatabase() {
@@ -99,6 +107,7 @@ class HomeFragment : BaseFragment() {
         viewModel.getPlacesFromServer()
             .observeOnUiThread()
             .subscribe({
+                subscribeFavoritesInDatabase()
                 recyclerView.adapter?.notifyDataSetChanged()
             }, {
                 handlerGetApiError(it)

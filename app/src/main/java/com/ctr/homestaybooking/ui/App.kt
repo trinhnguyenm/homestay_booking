@@ -34,12 +34,12 @@ class App : Application(), Application.ActivityLifecycleCallbacks {
 
     override fun onCreate() {
         super.onCreate()
-        initChatSDK()
         localRepository = LocalRepository(applicationContext)
         instance = this
         registerActivityLifecycleCallbacks(this)
         // Add here to prevent crash app in case when Rx error make crash app
         RxJavaPlugins.setErrorHandler {}
+        initChatSDK()
     }
 
     override fun onActivityStopped(p0: Activity?) {
@@ -72,6 +72,7 @@ class App : Application(), Application.ActivityLifecycleCallbacks {
     override fun onActivitySaveInstanceState(p0: Activity?, p1: Bundle?) = Unit
 
     override fun onActivityCreated(p0: Activity?, p1: Bundle?) = Unit
+
 
     private fun initChatSDK() {
         ChatSDKFirebase.quickStart(

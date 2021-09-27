@@ -44,11 +44,22 @@
         android:layout_marginTop="24dp"
         app:title="Chính sách hủy phòng" />
 
+    <TextView
+        android:id="@+id/tvCancelPolicyInfo"
+        style="@style/textGray"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spinnerCancerType"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="20dp"
+        android:text="@string/cancel_policy_flexible" />
+
     <com.ctr.homestaybooking.ui.wedget.CustomSpinner
         android:id="@+id/spinnerCheckInEarly"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/spinnerCancerType"
+        android:layout_below="@+id/tvCancelPolicyInfo"
         android:layout_marginTop="24dp"
         app:title="Thời gian Check-in sớm nhất" />
 

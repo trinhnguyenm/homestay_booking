@@ -1,5 +1,6 @@
 package com.ctr.homestaybooking.ui.home.host.calendar
 
+import com.ctr.homestaybooking.data.model.BookingStatus
 import com.ctr.homestaybooking.data.source.response.Booking
 import com.ctr.homestaybooking.data.source.response.BookingHistoryResponse
 import io.reactivex.Single
@@ -12,5 +13,5 @@ interface HostBookingVMContract {
 
     fun getProgressObservable(): BehaviorSubject<Boolean>
 
-    fun filterMyBooking(filterDays: Int)
+    fun filterMyBooking(filterDays: Int, bookingStatus: BookingStatus?)
 }

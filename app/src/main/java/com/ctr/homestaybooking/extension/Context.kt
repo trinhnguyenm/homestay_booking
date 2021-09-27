@@ -184,3 +184,8 @@ internal fun Context?.uploadImageFirebase(imagesPicked: List<Uri>, task: (Task<U
             }.addOnCompleteListener(task)
     }
 }
+
+
+internal fun Context?.getDownloadUrl(fileName: String, task: (Task<Uri>) -> Unit) {
+    FirebaseStorage.getInstance().reference.child(fileName).downloadUrl.addOnCompleteListener(task)
+}

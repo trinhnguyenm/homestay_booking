@@ -131,26 +131,26 @@ class BookingFragment : BaseFragment() {
         startDate: Calendar?,
         endDate: Calendar?,
         numberOfDays: Int,
-        prize: Double
+        price: Double
     ) {
         tvStartDate.text = startDate?.format(DateUtil.FORMAT_DATE_TIME_CHECK_IN_BOOKING)
         tvEndDate.text = endDate?.format(DateUtil.FORMAT_DATE_TIME_CHECK_IN_BOOKING)
         tvCheckinTime.text = startDate?.format(DateUtil.FORMAT_DATE_TIME_DAY_IN_WEEK)
         tvCheckOutTime.text = endDate?.format(DateUtil.FORMAT_DATE_TIME_DAY_IN_WEEK)
         tvRangeDate.text = "${numberOfDays}Đ"
-        updateTotalFee(numberOfDays, prize, promo?.discountPercent ?: 0)
+        updateTotalFee(numberOfDays, price, promo?.discountPercent ?: 0)
     }
 
     private fun updateTotalFee(
         numberOfDays: Int,
-        prize: Double,
+        price: Double,
         promoPercent: Int
     ) {
         if (promoPercent == 0) llPromo.gone() else llPromo.visible()
         tvTitlePerNoNight.text = "$numberOfDays đêm"
-        val pricePerNoNight = prize * numberOfDays
+        val pricePerNoNight = price * numberOfDays
         tvPlacePrice.text = pricePerNoNight.toMoney()
-        tvPerNoNight.text = "${prize.toMoney()} x $numberOfDays"
+        tvPerNoNight.text = "${price.toMoney()} x $numberOfDays"
 
         tvDiscount.text = "${pricePerNoNight.toMoney()} x $promoPercent%"
         val pricePromo = pricePerNoNight * promoPercent / 100.0

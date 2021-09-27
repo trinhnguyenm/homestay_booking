@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ctr.homestaybooking.R
 import com.ctr.homestaybooking.data.source.response.PlaceDetail
+import com.ctr.homestaybooking.extension.gone
 import com.ctr.homestaybooking.extension.onClickDelayAction
+import com.ctr.homestaybooking.extension.visible
 import kotlinx.android.synthetic.main.adapter_listings_item.view.*
 
 /**
@@ -42,8 +44,15 @@ class HostPlaceAdapter(private val places: List<PlaceDetail>) :
                 Glide.with(itemView.context)
                     .load(item.images?.firstOrNull())
                     .into(ivCover)
-                tvProgress.text =
-                    "Bạn đã hoàn thành ${(item.getSubmitProgressPercent())}%"
+                if (item.getSubmitProgressPercent() == 100) {
+                    tvProgress.gone()
+                    textView6.text = "Quản lý chỗ ở của bạn"
+                } else {
+                    tvProgress.visible()
+                    textView6.text = "Hoàn thành chỗ nghỉ của bạn"
+                    tvProgress.text =
+                        "Bạn đã hoàn thành ${(item.getSubmitProgressPercent())}%"
+                }
                 progress_finish.progress = item.getSubmitProgressPercent() * progress_finish.max
             }
         }

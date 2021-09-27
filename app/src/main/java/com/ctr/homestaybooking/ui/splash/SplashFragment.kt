@@ -33,14 +33,10 @@ class SplashFragment : BaseFragment() {
 
         Handler().postDelayed({
             viewModel?.let {
-                if (it.isFirstLunch()) {
-                    (activity as? SplashActivity)?.startOnBoardingActivity()
+                if (it.getLoginToken().isNullOrEmpty()) {
+                    (activity as? SplashActivity)?.startAuthActivity(this)
                 } else {
-                    if (it.getLoginToken().isNullOrEmpty()) {
-                        (activity as? SplashActivity)?.startAuthActivity(this)
-                    } else {
-                        (activity as? SplashActivity)?.startHomeActivity()
-                    }
+                    (activity as? SplashActivity)?.startHomeActivity()
                 }
             }
         }, 300L)

@@ -12,7 +12,6 @@
         android:layout_height="@dimen/dimen_40"
         android:layout_marginStart="@dimen/dimen_24dp"
         android:layout_marginTop="@dimen/dimen_16dp"
-        android:background="@color/colorTextGray"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,6 +27,20 @@
         app:layout_constraintTop_toTopOf="@id/imgUser"
         tools:text="Trinh Nguyen" />
 
+    <androidx.appcompat.widget.AppCompatRatingBar
+        android:id="@+id/ratingBar"
+        style="@style/RatingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="13.4dp"
+        android:layout_marginTop="2dp"
+        android:isIndicator="false"
+        android:numStars="5"
+        android:rating="3"
+        android:secondaryProgressTint="#00000000"
+        android:stepSize="1"
+        app:layout_constraintStart_toStartOf="@+id/tvUsername"
+        app:layout_constraintTop_toBottomOf="@+id/tvUsername" />
+
     <TextView
         android:id="@+id/tvTime"
         style="@style/textGrayWrap"
@@ -37,7 +50,7 @@
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/imgUser"
-        app:layout_constraintTop_toBottomOf="@id/tvUsername"
+        app:layout_constraintTop_toBottomOf="@id/ratingBar"
         tools:text="tháng 7 năm 2020" />
 
     <com.ctr.homestaybooking.ui.wedget.ExpandableTextView

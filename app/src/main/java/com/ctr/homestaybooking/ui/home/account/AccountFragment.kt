@@ -5,7 +5,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -129,14 +128,12 @@ class AccountFragment : BaseFragment() {
         }
 
         llUserType.onClickDelayAction {
-            Log.d("--=", "isUserSession: ${vm.isUserSession()}")
             vm.getUserResponse()?.userDetail?.let { userDetail ->
                 if (!userDetail.roles.contains(Role.ROLE_HOST)) {
-                    Log.d("--=", "!contains: ROLE_HOST")
                     vm.upToHost().observeOnUiThread().subscribe({
                         vm.setHostSession()
                         startActivity(Intent(activity, SplashActivity::class.java))
-                        activity?.finish()
+                        activity?.finishAffinity()
                     }, {
                         activity?.showErrorDialog(it)
                     })
@@ -147,10 +144,9 @@ class AccountFragment : BaseFragment() {
                         vm.setUserSession()
                     }
                     startActivity(Intent(activity, SplashActivity::class.java))
-                    activity?.finish()
+                    activity?.finishAffinity()
                 }
             }
-
         }
     }
 

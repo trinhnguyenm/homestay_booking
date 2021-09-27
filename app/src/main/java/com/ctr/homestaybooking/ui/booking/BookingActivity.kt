@@ -70,4 +70,8 @@ class BookingActivity : BaseActivity() {
     internal fun openPaymentFragment(bookingId: Int) {
         addFragment(R.id.container, PaymentFragment.newInstance(bookingId))
     }
+
+    internal fun openReviewFragment(bookingId: Int) {
+        addFragment(R.id.container, AddReviewFragment.newInstance(bookingId), addToBackStack = true)
+    }
 }

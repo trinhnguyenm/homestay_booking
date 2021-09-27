@@ -18,6 +18,7 @@ import com.ctr.homestaybooking.data.source.UserRepository
 import com.ctr.homestaybooking.data.source.response.Booking
 import com.ctr.homestaybooking.extension.*
 import com.ctr.homestaybooking.ui.App
+import com.ctr.homestaybooking.ui.placedetail.PlaceDetailActivity
 import com.ctr.homestaybooking.util.*
 import kotlinx.android.synthetic.main.fragment_payment.*
 import kotlinx.android.synthetic.main.layout_payment.*
@@ -36,7 +37,7 @@ class PaymentFragment : BaseFragment() {
     private var promoPercent = 0
     private var numberOfRooms = 1
     private var numberOfDays = 1
-    private var prize = 0.0
+    private var price = 0.0
     private var totalFree = 0.0
     private var status: BookingStatus = BookingStatus.PENDING
     private var bookingId = 0
@@ -72,7 +73,7 @@ class PaymentFragment : BaseFragment() {
             App.instance.localRepository, PlaceRepository(), UserRepository()
         )
         arguments?.getInt(KEY_MY_BOOKING)?.let {
-            getBookingById(it)
+            getBookingById(it.apply { Log.d("--=", "+${this}") })
         }
         container.gone()
         initRecyclerView()
@@ -120,6 +121,7 @@ class PaymentFragment : BaseFragment() {
             status = it.status
             if (App.instance.localRepository.isUserSession()) {
                 tvTitle.text = it.place.name
+                tvUserDetail.gone()
                 when (it.status) {
                     BookingStatus.PENDING -> {
                         tvPayNow.text = "Thanh toán"
@@ -150,12 +152,21 @@ class PaymentFragment : BaseFragment() {
                         adapterBookingStep.notifyDataSetChanged()
                     }
                     BookingStatus.COMPLETED -> {
-                        tvPayNow.text = "Đặt lại"
-                        tvBookAlertTitle.text = "Đơn đặt chỗ đã hoàn thành"
-                        tvBookAlert.text = "Bạn có hài lòng? Vui lòng đánh giá chỗ ở này"
-                        adapterBookingStep.setSelectedPosition(3)
-                        adapterBookingStep.notifyDataSetChanged()
-                        rcvStepBooking.scrollToPosition(3)
+                        if (vm.getBooking()?.review != null) {
+                            tvPayNow.text = "Đặt lại"
+                            tvBookAlertTitle.text = "Đã đánh giá"
+                            tvBookAlert.gone()
+                            adapterBookingStep.setSelectedPosition(3)
+                            adapterBookingStep.notifyDataSetChanged()
+                            rcvStepBooking.scrollToPosition(3)
+                        } else {
+                            tvPayNow.text = "Đánh giá"
+                            tvBookAlertTitle.text = "Đơn đặt chỗ đã hoàn thành"
+                            tvBookAlert.text = "Bạn có hài lòng? Vui lòng đánh giá chỗ ở này"
+                            adapterBookingStep.setSelectedPosition(3)
+                            adapterBookingStep.notifyDataSetChanged()
+                            rcvStepBooking.scrollToPosition(3)
+                        }
                     }
                     else -> {
                         tvPayNow.text = "Đặt lại"
@@ -179,6 +190,12 @@ class PaymentFragment : BaseFragment() {
                 }
             } else {
                 rcvStepBooking.invisible()
+                vm.getBooking()?.user?.apply {
+                    tvUserDetail.visible()
+                    tvUserDetail.text = "Tên khách hàng: $firstName $lastName \n" +
+                            "Số điện thoại: $phoneNumber \n" +
+                            "Email: $email"
+                }
                 tvTitle.text = it.user.getName()
                 when (it.status) {
                     BookingStatus.PENDING -> {
@@ -187,6 +204,36 @@ class PaymentFragment : BaseFragment() {
                         tvBookAlertTitle.text =
                             "Đang chờ bạn chấp nhận yêu cầu đặt chỗ của người dùng."
                         tvBookAlert.gone()
+                    }
+                    BookingStatus.ACCEPTED -> {
+                        tvPayNow.text = "Hủy đơn đặt chỗ"
+                        tvPayNow.isEnabled = true
+                        tvBookAlertTitle.text =
+                            "Đã chấp nhận yêu cầu đặt chỗ, chờ người dùng thanh toán"
+                        tvBookAlert.gone()
+                    }
+                    BookingStatus.UNPAID -> {
+                        tvPayNow.text = "Hủy đơn đặt chỗ"
+                        tvPayNow.isEnabled = true
+                        tvBookAlertTitle.text =
+                            "Chờ người dùng thanh toán"
+                        tvBookAlert.gone()
+                    }
+                    BookingStatus.PAID -> {
+                        val now = Calendar.getInstance()
+                        if (startDate != null && startDate!!.before(now)) {
+                            tvPayNow.text = "Hủy đơn đặt chỗ"
+                            tvPayNow.isEnabled = true
+                            tvBookAlertTitle.text =
+                                "Người dùng đã thanh toán"
+                            tvBookAlert.gone()
+                        } else {
+                            tvPayNow.text = "Hoàn thành đơn đặt chỗ"
+                            tvPayNow.isEnabled = true
+                            tvBookAlertTitle.text =
+                                "Người dùng đã thanh toán"
+                            tvBookAlert.gone()
+                        }
                     }
                     else -> {
                         tvPayNow.gone()
@@ -208,9 +255,9 @@ class PaymentFragment : BaseFragment() {
             startDate = it.startDate.toCalendar(FORMAT_DATE_API)
             endDate = it.endDate.toCalendar(FORMAT_DATE_API)
             numberOfDays = startDate.datesUntil(endDate).size
-            prize = it.pricePerDay
+            price = it.pricePerDay
             promoPercent = it.promo?.discountPercent ?: 0
-            updateUI(startDate, endDate, numberOfDays, numberOfRooms, prize)
+            updateUI(startDate, endDate, numberOfDays, numberOfRooms, price)
         }
     }
 
@@ -219,7 +266,7 @@ class PaymentFragment : BaseFragment() {
         endDate: Calendar?,
         numberOfDays: Int,
         numberOfRooms: Int,
-        prize: Double
+        price: Double
     ) {
         tvStartDate.text = startDate?.format(DateUtil.FORMAT_DATE_TIME_CHECK_IN_BOOKING)
         tvEndDate.text = endDate?.format(DateUtil.FORMAT_DATE_TIME_CHECK_IN_BOOKING)
@@ -227,20 +274,20 @@ class PaymentFragment : BaseFragment() {
         tvCheckOutTime.text = endDate?.format(DateUtil.FORMAT_DATE_TIME_DAY_IN_WEEK)
         tvRangeDate.text = "${numberOfDays}Đ"
 
-        updateTotalFee(numberOfDays, numberOfRooms, prize, promoPercent)
+        updateTotalFee(numberOfDays, numberOfRooms, price, promoPercent)
     }
 
     private fun updateTotalFee(
         numberOfDays: Int,
         numberOfRooms: Int,
-        prize: Double,
+        price: Double,
         promoPercent: Int
     ) {
         if (promoPercent == 0) llPromo.gone() else llPromo.visible()
         tvTitlePerNoNight.text = "$numberOfDays đêm"
-        val pricePerNoNight = prize * numberOfDays
+        val pricePerNoNight = price * numberOfDays
         tvPlacePrice.text = pricePerNoNight.toMoney()
-        tvPerNoNight.text = "${prize.toMoney()} x $numberOfDays"
+        tvPerNoNight.text = "${price.toMoney()} x $numberOfDays"
 
         tvDiscount.text = "${pricePerNoNight.toMoney()} x $promoPercent%"
         val pricePromo = pricePerNoNight * promoPercent / 100.0
@@ -290,6 +337,15 @@ class PaymentFragment : BaseFragment() {
                             }, "Không"
                         )
                     }
+                    BookingStatus.COMPLETED -> {
+                        if (vm.getBooking()?.review != null) {
+                            vm.getBooking()?.place?.id?.let {
+                                PlaceDetailActivity.start(this, it)
+                            }
+                        } else {
+                            (activity as? BookingActivity)?.openReviewFragment(bookingId)
+                        }
+                    }
                     else -> {
 
                     }
@@ -303,6 +359,16 @@ class PaymentFragment : BaseFragment() {
                             "Có",
                             {
                                 changeBookingStatus(BookingStatus.ACCEPTED)
+                            }, "Không"
+                        )
+                    }
+                    BookingStatus.PAID -> {
+                        activity?.showDialog(
+                            "Cảnh báo!",
+                            "Bạn có muốn hoàn thành đặt chỗ này?",
+                            "Có",
+                            {
+                                changeBookingStatus(BookingStatus.COMPLETED)
                             }, "Không"
                         )
                     }
@@ -325,47 +391,6 @@ class PaymentFragment : BaseFragment() {
             .observeOnUiThread()
             .subscribe({
                 initView()
-                /*when (it.booking.status) {
-                    BookingStatus.PAID -> {
-                        status = BookingStatus.PAID
-                        tvPayNow.text = "Hủy đơn"
-                        tvBookAlertTitle.text = "Đang đợi bạn check-in"
-                        tvBookAlert.text =
-                            "Vui lòng check-in trước 14:00 ${startDate?.format(DateUtil.FORMAT_DATE_TIME_CHECK_IN_BOOKING)}"
-                        adapterBookingStep.setSelectedPosition(2)
-                        rcvStepBooking.scrollToPosition(2)
-                        rcvStepBooking.adapter?.notifyDataSetChanged()
-                        RxBus.publish(UpdateMyBooking(true))
-                    }
-                    BookingStatus.ACCEPTED -> {
-                        status = BookingStatus.ACCEPTED
-                        tvBookAlertTitle.text = "Wait for user check in"
-                        tvBookAlert.text =
-                            "User will check in before 14:00 ${startDate?.format(DateUtil.FORMAT_DATE_TIME_CHECK_IN_BOOKING)}"
-                        RxBus.publish(UpdateMyBooking(true))
-                    }
-                    BookingStatus.CANCELLED -> {
-                        status = BookingStatus.CANCELLED
-                        tvPayNow.text = "Đặt lại"
-                        tvBookAlertTitle.text = "Đơn đặt chỗ của bạn đã bị hủy"
-                        tvBookAlert.text =
-                            "Sorry, the booking has been cancelled. Please book again or book another room."
-                        adapterBookingStep.setSelectedPosition(2)
-                        bookingSteps.apply {
-                            clear()
-                            addAll(
-                                listOf(
-                                    StepBookingUI("Đặt chỗ"),
-                                    StepBookingUI("Thanh toán"),
-                                    StepBookingUI("Đã hủy")
-                                )
-                            )
-                        }
-                        rcvStepBooking.adapter?.notifyDataSetChanged()
-                        rcvStepBooking.scrollToPosition(2)
-                        RxBus.publish(UpdateMyBooking(true))
-                    }
-                }*/
             }, {
                 activity?.showErrorDialog(it)
             }).addDisposable()

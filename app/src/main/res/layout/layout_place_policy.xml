@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+
+        style="@style/textBlackBold"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/dimen_24dp"
+        android:text="Chính sách hủy phòng"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvCancelPolicy"
+        style="@style/textGray"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        tools:text="@string/cancel_policy_flexible" />
+
+    <View
+        android:id="@+id/space4"
+        style="@style/space"
+        android:layout_width="match_parent" />
+</LinearLayout>

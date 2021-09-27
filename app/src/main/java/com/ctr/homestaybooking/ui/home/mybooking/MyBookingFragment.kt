@@ -11,14 +11,15 @@ import android.widget.TextView
 import com.ctr.homestaybooking.R
 import com.ctr.homestaybooking.base.BaseFragment
 import com.ctr.homestaybooking.bus.RxBus
+import com.ctr.homestaybooking.data.model.BookingStatus
 import com.ctr.homestaybooking.data.model.UpdateMyBooking
+import com.ctr.homestaybooking.data.model.getText
 import com.ctr.homestaybooking.data.source.PlaceRepository
 import com.ctr.homestaybooking.data.source.response.Booking
 import com.ctr.homestaybooking.extension.*
 import com.ctr.homestaybooking.ui.App
 import com.ctr.homestaybooking.ui.booking.BookingActivity
 import com.ctr.homestaybooking.ui.sheme.SchemeActivity
-import kotlinx.android.synthetic.main.fragment_home.swipeRefresh
 import kotlinx.android.synthetic.main.fragment_my_booking.*
 import kotlinx.android.synthetic.main.layout_view_no_data.*
 
@@ -28,6 +29,7 @@ import kotlinx.android.synthetic.main.layout_view_no_data.*
 class MyBookingFragment : BaseFragment() {
     private lateinit var vm: MyBookingVMContract
     private var filterDays = 365
+    private var bookingStatus: BookingStatus? = null
     private var isVisibleToUser = false
 
     companion object {
@@ -75,27 +77,66 @@ class MyBookingFragment : BaseFragment() {
                     val tvAll = findViewById<TextView>(R.id.tvAll)
                     val tv7Days = findViewById<TextView>(R.id.tv7Days)
                     val tv30Days = findViewById<TextView>(R.id.tv30Days)
+                    val tv90Days = findViewById<TextView>(R.id.tv90Days)
+                    val tvPending = findViewById<TextView>(R.id.tvPending)
+                    val tvUnpaid = findViewById<TextView>(R.id.tvUnpaid)
+                    val tvPaid = findViewById<TextView>(R.id.tvPaid)
+                    val tvComplete = findViewById<TextView>(R.id.tvComplete)
+                    val tvCancer = findViewById<TextView>(R.id.tvCancer)
                     tvAll.onClickDelayAction {
                         filterDays = 365
-                        this@MyBookingFragment.txtFilterCheckIn.text = "Tất cả"
+                        bookingStatus = null
+                        this@MyBookingFragment.tvFilterDay.text = "Tất cả"
+                        this@MyBookingFragment.tvFilterStatus.text = ""
                         dismiss()
                     }
 
                     tv7Days.onClickDelayAction {
                         filterDays = 3
-                        this@MyBookingFragment.txtFilterCheckIn.text = "3 ngày trước"
+                        this@MyBookingFragment.tvFilterDay.text = "3 ngày trước"
                         dismiss()
                     }
 
                     tv30Days.onClickDelayAction {
                         filterDays = 30
-                        this@MyBookingFragment.txtFilterCheckIn.text = "1 tháng trước"
+                        this@MyBookingFragment.tvFilterDay.text = "1 tháng trước"
+                        dismiss()
+                    }
+                    tv90Days.onClickDelayAction {
+                        filterDays = 90
+                        this@MyBookingFragment.tvFilterDay.text = "3 tháng trước"
+                        dismiss()
+                    }
+                    tvPending.onClickDelayAction {
+                        bookingStatus = BookingStatus.PENDING
+                        this@MyBookingFragment.tvFilterStatus.text = BookingStatus.PENDING.getText()
+                        dismiss()
+                    }
+                    tvUnpaid.onClickDelayAction {
+                        bookingStatus = BookingStatus.UNPAID
+                        this@MyBookingFragment.tvFilterStatus.text = BookingStatus.UNPAID.getText()
+                        dismiss()
+                    }
+                    tvPaid.onClickDelayAction {
+                        bookingStatus = BookingStatus.PAID
+                        this@MyBookingFragment.tvFilterStatus.text = BookingStatus.PAID.getText()
+                        dismiss()
+                    }
+                    tvComplete.onClickDelayAction {
+                        bookingStatus = BookingStatus.COMPLETED
+                        this@MyBookingFragment.tvFilterStatus.text =
+                            BookingStatus.COMPLETED.getText()
+                        dismiss()
+                    }
+                    tvCancer.onClickDelayAction {
+                        bookingStatus = BookingStatus.CANCELLED
+                        this@MyBookingFragment.tvFilterStatus.text =
+                            BookingStatus.CANCELLED.getText()
                         dismiss()
                     }
                     setOnDismissListener {
                         Log.d("--=", "initListener: setOnDismissListener")
-
-                        vm.filterMyBooking(filterDays)
+                        vm.filterMyBooking(filterDays, bookingStatus)
                         this@MyBookingFragment.rclBooking.adapter?.notifyDataSetChanged()
                     }
                     show()
@@ -156,14 +197,6 @@ class MyBookingFragment : BaseFragment() {
     internal fun getBookingHistory() {
         vm.getBookingHistory()
             .observeOnUiThread()
-            .doOnSubscribe {
-                if (isVisibleToUser) {
-                    vm.getProgressObservable().onNext(true)
-                }
-            }
-            .doFinally {
-                vm.getProgressObservable().onNext(false)
-            }
             .subscribe({
                 if (it.length == 0) {
                     llNoData.visible()

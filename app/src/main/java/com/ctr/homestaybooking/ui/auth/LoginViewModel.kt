@@ -21,7 +21,7 @@ class LoginViewModel(
             deviceToken = localRepository.getDeviceToken()
         )
 
-    private var loginBody = LoginBody()
+    private var loginBody = LoginBody(deviceToken = localRepository.getDeviceToken())
 
     override fun getLoginBody() = loginBody
 

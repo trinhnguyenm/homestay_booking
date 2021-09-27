@@ -76,6 +76,14 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".ui.search.SearchActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.placedetail.ReviewListActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".ui.chat.MyChatActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />

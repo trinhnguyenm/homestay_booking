@@ -9,17 +9,20 @@ import com.bumptech.glide.Glide
 import com.ctr.homestaybooking.R
 import com.ctr.homestaybooking.base.BaseFragment
 import com.ctr.homestaybooking.data.model.BookingType
+import com.ctr.homestaybooking.data.model.CancelType
 import com.ctr.homestaybooking.data.model.Favorite
 import com.ctr.homestaybooking.data.model.ImageSlideData
 import com.ctr.homestaybooking.data.source.FavoriteRepository
 import com.ctr.homestaybooking.data.source.PlaceRepository
 import com.ctr.homestaybooking.extension.*
+import com.ctr.homestaybooking.ui.App
 import com.ctr.homestaybooking.util.DateUtil
 import com.ctr.homestaybooking.util.convert
 import kotlinx.android.synthetic.main.fragment_place_detail.*
 import kotlinx.android.synthetic.main.layout_item_review.*
 import kotlinx.android.synthetic.main.layout_place_amenity.*
 import kotlinx.android.synthetic.main.layout_place_detail.*
+import kotlinx.android.synthetic.main.layout_place_policy.*
 import kotlinx.android.synthetic.main.layout_place_review.*
 import kotlinx.android.synthetic.main.layout_place_thumbnail.*
 import sdk.chat.core.session.ChatSDK
@@ -91,6 +94,10 @@ class PlaceDetailFragment : BaseFragment() {
                         favorites?.let {
                             btnLike.isChecked = it.map { item -> item.id }.contains(placeDetail.id)
                         }
+                        if (App.instance.localRepository.getUserId() == placeDetail.hostDetail?.id) {
+                            tvBooking.gone()
+                            tvHostName.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+                        }
                         (activity as? PlaceDetailActivity)?.placeDetailResponse =
                             placeDetailResponse
                         (activity as? PlaceDetailActivity)?.bookingSlots = placeDetail.bookingSlots
@@ -111,6 +118,11 @@ class PlaceDetailFragment : BaseFragment() {
                                     .into(imgReviewUser)
                             }
                         }
+                        tvCancelPolicy.text = when (placeDetail.cancelType) {
+                            CancelType.FLEXIBLE -> "Linh hoạt: " + getString(R.string.cancel_policy_flexible)
+                            CancelType.MODERATE -> "Trung bình: " + getString(R.string.cancel_policy_moderate)
+                            else -> "Nghiêm ngặt: " + getString(R.string.cancel_policy_strict)
+                        }
 
                         tvName.text = placeDetail.name
                         tvPlaceAddress.text = placeDetail.address
@@ -120,7 +132,7 @@ class PlaceDetailFragment : BaseFragment() {
                         tvDescription.text = placeDetail.description
                         recyclerViewPromos.adapter?.notifyDataSetChanged()
                         recyclerViewAmenities.adapter?.notifyDataSetChanged()
-                        ratingBar.rating = placeDetail.rateAverage.toFloat()
+                        ratingBarOveral.rating = placeDetail.rateAverage.toFloat()
                         tvPlacePrice.text = placeDetail.pricePerDay.toMoney()
                         tvBooking.text =
                             if (placeDetail.bookingType == BookingType.INSTANT_BOOKING) "Đặt ngay" else "Gửi yêu cầu"
@@ -178,6 +190,12 @@ class PlaceDetailFragment : BaseFragment() {
         imgBanner4.onClickDelayAction {
             viewModel.getPlaceDetail()?.images?.let {
                 (activity as? PlaceDetailActivity)?.openImageSliderFragment(ImageSlideData(it, 3))
+            }
+        }
+
+        tvLoadMore.onClickDelayAction {
+            viewModel.getPlaceDetail()?.let {
+                ReviewListActivity.start(this, it)
             }
         }
 

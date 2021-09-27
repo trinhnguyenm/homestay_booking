@@ -61,6 +61,10 @@ abstract class BaseActivity : AppCompatActivity() {
             AppearAnim.SLIDE_FROM_RIGHT -> {
                 overridePendingTransition(R.anim.anim_slide_right_in, R.anim.anim_no_animation)
             }
+
+            AppearAnim.FADE_IN -> {
+                overridePendingTransition(R.anim.anim_fade_in, R.anim.anim_fade_out)
+            }
         }
         fullScreenActivity()
         progressDialog = ProgressBarDialog(this)
@@ -116,6 +120,10 @@ abstract class BaseActivity : AppCompatActivity() {
 
             AppearAnim.SLIDE_FROM_RIGHT -> {
                 overridePendingTransition(R.anim.anim_no_animation, R.anim.anim_slide_right_out)
+            }
+
+            AppearAnim.FADE_IN -> {
+                overridePendingTransition(R.anim.anim_fade_in, R.anim.anim_fade_out)
             }
         }
     }
@@ -174,7 +182,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     enum class AppearAnim(val type: Int) {
-        NO_ANIM(0), SLIDE_UP(1), SLIDE_FROM_RIGHT(2)
+        NO_ANIM(0), SLIDE_UP(1), SLIDE_FROM_RIGHT(2), FADE_IN(3)
     }
 
     private fun setTransparent(activity: Activity) {

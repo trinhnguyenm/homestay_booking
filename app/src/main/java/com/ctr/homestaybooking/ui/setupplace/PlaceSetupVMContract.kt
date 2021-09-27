@@ -23,4 +23,7 @@ interface PlaceSetupVMContract {
     fun getProvinces(): Single<ProvinceResponse>
     fun getProvinceById(id: Int): Single<ProvinceDetailResponse>
     fun getProvinceDetail(): ProvinceDetail?
+    fun getExportCalendar(): Single<CalendarResponse>
+    fun deletePlace(): Single<PlaceDetailResponse>
+    fun reversePlaceStatusByID(): Single<PlaceDetailResponse>
 }

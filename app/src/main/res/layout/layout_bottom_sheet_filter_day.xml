@@ -15,9 +15,26 @@
         android:fontFamily="@font/lato_regular"
         android:gravity="center_vertical"
         android:paddingStart="@dimen/dimen_16dp"
-        android:text="All"
+        android:text="Tất cả"
         android:textColor="@android:color/black"
         android:textSize="16sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dip"
+        android:background="@color/color_divider" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/lato_regular"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/dimen_16dp"
+        android:text="Thời gian"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
     <View
         android:layout_width="match_parent"
@@ -31,7 +48,7 @@
         android:fontFamily="@font/lato_regular"
         android:gravity="center_vertical"
         android:paddingStart="@dimen/dimen_16dp"
-        android:text="3 days"
+        android:text="3 ngày trước"
         android:textColor="@android:color/black"
         android:textSize="16sp" />
 
@@ -47,8 +64,122 @@
         android:fontFamily="@font/lato_regular"
         android:gravity="center_vertical"
         android:paddingStart="@dimen/dimen_16dp"
-        android:text="30 days"
+        android:text="1 tháng trước"
         android:textColor="@android:color/black"
         android:textSize="16sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dip"
+        android:background="@color/color_divider" />
+
+    <TextView
+        android:id="@+id/tv90Days"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:fontFamily="@font/lato_regular"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/dimen_16dp"
+        android:text="3 tháng trước"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dip"
+        android:background="@color/color_divider" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/lato_regular"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/dimen_16dp"
+        android:text="Trạng thái"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dip"
+        android:background="@color/color_divider" />
+
+    <TextView
+        android:id="@+id/tvPending"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:fontFamily="@font/lato_regular"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/dimen_16dp"
+        android:text="Chờ xác nhận"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dip"
+        android:background="@color/color_divider" />
+
+    <TextView
+        android:id="@+id/tvUnpaid"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:fontFamily="@font/lato_regular"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/dimen_16dp"
+        android:text="Chưa thanh toán"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dip"
+        android:background="@color/color_divider" />
+
+    <TextView
+        android:id="@+id/tvPaid"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:fontFamily="@font/lato_regular"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/dimen_16dp"
+        android:text="Chờ check-in"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dip"
+        android:background="@color/color_divider" />
+
+    <TextView
+        android:id="@+id/tvComplete"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:fontFamily="@font/lato_regular"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/dimen_16dp"
+        android:text="Đã hoàn thành"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dip"
+        android:background="@color/color_divider" />
+
+    <TextView
+        android:id="@+id/tvCancer"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:fontFamily="@font/lato_regular"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/dimen_16dp"
+        android:text="Đã hủy"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
+
 
 </LinearLayout>

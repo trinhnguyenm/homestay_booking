@@ -15,6 +15,7 @@ import com.ctr.homestaybooking.ui.home.account.AccountContainerFragment
 import com.ctr.homestaybooking.ui.home.favotite.FavoriteContainerFragment
 import com.ctr.homestaybooking.ui.home.host.calendar.HostBookingContainerFragment
 import com.ctr.homestaybooking.ui.home.host.place.HostPlaceContainerFragment
+import com.ctr.homestaybooking.ui.home.host.progress.ProgressFragment
 import com.ctr.homestaybooking.ui.home.mybooking.MyBookingContainerFragment
 import com.ctr.homestaybooking.ui.home.places.HomeContainerFragment
 import com.google.android.material.tabs.TabLayout
@@ -150,7 +151,7 @@ open class MyMainActivity : MainActivity() {
     private fun initTab() {
         val icons = mutableListOf(
             R.drawable.bg_icon_tab_home,
-            R.drawable.bg_icon_tab_save,
+            if (App.instance.localRepository.isUserSession()) R.drawable.bg_icon_tab_save else R.drawable.bg_icon_tab_progress,
             R.drawable.bg_icon_tab_my_booking,
             R.drawable.bg_icon_tab_inbox,
             R.drawable.bg_icon_tab_account
@@ -205,7 +206,7 @@ open class MyMainActivity : MainActivity() {
     private fun initSdk() {
         ChatSDK.ui().removeTab(0)
         ChatSDK.ui().removeTab(0)
-        if (vm.isUserSession()) {
+        if (App.instance.localRepository.isUserSession()) {
             ChatSDK.ui().apply {
                 setTab(
                     "Khám phá",
@@ -220,7 +221,7 @@ open class MyMainActivity : MainActivity() {
                     1
                 )
                 setTab(
-                    "Đặt phòng",
+                    "Đặt chỗ của tôi",
                     getDrawable(R.drawable.bg_icon_tab_my_booking),
                     MyBookingContainerFragment.getNewInstance(),
                     2
@@ -247,11 +248,11 @@ open class MyMainActivity : MainActivity() {
                 setTab(
                     "Thống kê",
                     getDrawable(R.drawable.bg_icon_tab_my_booking),
-                    FavoriteContainerFragment.getNewInstance(),
+                    ProgressFragment.getNewInstance(),
                     1
                 )
                 setTab(
-                    "Quản lý lịch",
+                    "Quản lý đơn đặt chỗ",
                     getDrawable(R.drawable.bg_icon_tab_home),
                     HostBookingContainerFragment.getNewInstance(),
                     2
@@ -273,4 +274,10 @@ open class MyMainActivity : MainActivity() {
     internal fun setTabSelection(position: Int) {
         tabLayout.getTabAt(position)?.select()
     }
+
+    internal fun getFragmentInsideViewPager(position: Int = viewPager.currentItem) =
+        viewPager.adapter?.instantiateItem(
+            viewPager,
+            position
+        ) as? com.ctr.homestaybooking.base.BaseFragment
 }
